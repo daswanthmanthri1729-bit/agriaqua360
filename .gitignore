@@ -53,3 +53,6 @@ GoogleService-Info.plist
 
 # Stitch design files are kept out of the repository (owner's request)
 design_reference/
+
+# ESP32 device secrets
+firmware/**/secrets.h
