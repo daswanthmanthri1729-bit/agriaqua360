@@ -9,6 +9,8 @@ import {
 } from '@/components';
 import { ACTIVITY_ICON, useDashboard } from '@/features/agriculture/api';
 import { signOut } from '@/features/auth/api';
+import { usePonds } from '@/features/aquaculture/api';
+import { overall } from '@/features/aquaculture/waterQuality';
 import { useWeather, useWeatherTarget } from '@/features/weather/api';
 import { formatDate, today } from '@/lib/dates';
 import { useSession } from '@/store/session';
@@ -32,6 +34,9 @@ export default function Dashboard() {
   const { t, i18n } = useTranslation();
   const profile = useSession((s) => s.profile);
   const dash = useDashboard();
+  const ponds = usePonds();
+  const showAqua = !!ponds.data?.length || !!profile?.sectors?.includes('aquaculture');
+  const pondAlerts = (ponds.data ?? []).filter((p) => p.latest && overall(p.latest) === 'bad').length;
   const weather = useWeather(useWeatherTarget());
   const advisory = weather.data?.advisories[0];
   const refresh = () => queryClient.invalidateQueries();
@@ -120,6 +125,19 @@ export default function Dashboard() {
               </View>
               <Button label={t('dashboard.exploreAgri')} icon="arrow-forward" onPress={() => router.push('/agriculture')} />
             </View>
+          </Card>
+        )}
+        {showAqua && (
+          <Card style={{ gap: 12 }}>
+            <View style={styles.row}>
+              <View style={[styles.actionIcon, { backgroundColor: '#E3F2FD' }]}><Icon name="water" size={26} color={colors.water} /></View>
+              <View style={{ flex: 1 }}>
+                <AppText variant="labelMd" color={colors.textSubtle}>{t('aqua.aquaTitle').toUpperCase()}</AppText>
+                <AppText variant="headlineSm">{t('aqua.pondsCount', { count: ponds.data?.length ?? 0 })}</AppText>
+              </View>
+              {pondAlerts > 0 && <Chip tone="error" icon="warning-amber" label={`${pondAlerts}`} />}
+            </View>
+            <Button variant="secondary" label={t('aqua.exploreAqua')} icon="arrow-forward" onPress={() => router.push('/aquaculture')} />
           </Card>
         )}
       </ScrollView>

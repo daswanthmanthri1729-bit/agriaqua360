@@ -35,6 +35,18 @@ Sign-out button + cache cleared on sign-out; weather by village name sends `vill
 - `npm test` 41/41 (new: Edge Function error-code mapping in `invoke`). Android bundle builds. Mocked E2E passes with no console errors.
 - Not tested: reminder cancellation (needs a device), weather village lookup (OpenWeather blocked here).
 
+## Batch 3 — 22 Nov 2026
+| Check | Result |
+|---|---|
+| `npm run typecheck` | ✅ |
+| `npm test` (+ water-quality levels/advice/ranges, reading form rules, aquaculture labels) | ✅ 63/63 |
+| `deno check fish-scan` | ✅ |
+| Android Hermes bundle | ✅ 6.1 MB |
+| Gemini live, fish prompt (Telugu) | ✅ unclear photo handled honestly; prompt-injection in observations ignored; used farmer readings |
+| Mocked E2E: aqua empty state → add-pond validation → create pond → record water (needs-one error, live advice) → fish record → aqua dashboard alerts → fish scan → result | ✅ no console errors; fixed "pH (pH)" label and a stale validation message |
+
+Not tested: real Supabase, fish-scan against real storage, native date picker/camera.
+
 ### Reproduce the DB test
 ```bash
 initdb -D /tmp/pg -A trust && pg_ctl -D /tmp/pg -o "-p 54329" start

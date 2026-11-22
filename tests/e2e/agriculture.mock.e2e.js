@@ -16,6 +16,7 @@ let n = 0; const id = () => `00000000-0000-0000-0000-${String(++n).padStart(12, 
 const db = {
   profiles: [{ id: UID, full_name: 'Ramesh Kumar', preferred_language: 'en', sectors: ['agriculture'], village: 'Kovur', district: 'Nellore', state: 'Andhra Pradesh', latitude: 14.5, longitude: 79.98, onboarding_completed: true, avatar_path: null }],
   farms: [], crops: [], crop_records: [], crop_scans: [], disease_reports: [], treatment_records: [], saved_records: [], uploaded_media: [], activity_logs: [],
+  ponds: [], water_quality_records: [], fish_records: [], fish_health_reports: [],
 };
 const log = [];
 const embed = (table, row) => {
@@ -65,6 +66,14 @@ const weather = { location: { name: 'Kovur', lat: 14.5, lon: 79.98 }, observed_a
       const rep = { id: id(), scan_id, owner_id: UID, condition_name: raw.condition_name, confidence: 'high', severity: 'moderate', summary: raw.summary, symptoms: raw.symptoms, recommend_expert: true, raw_response: raw, created_at: new Date().toISOString() };
       db.disease_reports.push(rep); db.crop_scans.find((s) => s.id === scan_id).status = 'completed'; return json(rep);
     }
+    if (p === '/functions/v1/fish-scan') {
+      const b = JSON.parse(req.postData()); log.push('fn:fish-scan ' + JSON.stringify({ pond_id: b.pond_id, n: b.image_paths.length, language: b.language }));
+      const raw = { is_fish_image: true, species_identified: 'Vannamei', condition_name: 'Low-oxygen stress', confidence: 'medium', severity: 'moderate', summary: 'Shrimp look weak; matches the low oxygen you recorded.',
+        signs: ['Shrimp at the surface', 'Pale body'], possible_causes: ['Dissolved oxygen 3.2 mg/L', 'High ammonia'], immediate_actions: ['Run all aerators now', 'Stop feeding today'],
+        water_management: ['Exchange 10-15% water'], prevention: ['Test oxygen every early morning'], recommend_expert: true, expert_reason: 'Ammonia is high.' };
+      const rep = { id: id(), owner_id: UID, pond_id: b.pond_id, image_paths: b.image_paths, observations: b.observations, condition_name: raw.condition_name, confidence: 'medium', severity: 'moderate', summary: raw.summary, recommend_expert: true, raw_response: raw, created_at: new Date().toISOString() };
+      db.fish_health_reports.push(rep); return json(rep);
+    }
     if (p.startsWith('/storage/v1/object/media/')) { log.push('upload ' + p.split('/media/')[1]); return json({ Key: p }); }
     if (p.startsWith('/storage/v1/object/sign/')) return json({ error: 'not found' }, 400);
     const m = p.match(/^\/rest\/v1\/(\w+)$/);
@@ -76,7 +85,7 @@ const weather = { location: { name: 'Kovur', lat: 14.5, lon: 79.98 }, observed_a
       if (method === 'GET') { const rows = filterRows(table, params).map((r) => embed(table, r)); return json(single ? rows[0] ?? null : rows, single && !rows[0] ? 406 : 200); }
       if (method === 'POST') {
         let body = JSON.parse(req.postData()); const arr = Array.isArray(body) ? body : [body];
-        const rows = arr.map((r) => ({ id: id(), owner_id: UID, created_at: new Date().toISOString(), status: table === 'crops' ? 'growing' : table === 'crop_scans' ? 'pending' : undefined, completed_at: null, ...r }));
+        const rows = arr.map((r) => ({ id: id(), owner_id: UID, created_at: new Date().toISOString(), status: table === 'crops' ? 'growing' : table === 'crop_scans' ? 'pending' : undefined, completed_at: null, recorded_at: table === 'water_quality_records' ? new Date().toISOString() : undefined, ...r }));
         db[table].push(...rows); log.push(`insert ${table} ${JSON.stringify(arr).slice(0, 120)}`);
         return json(single ? embed(table, rows[0]) : rows.map((r) => embed(table, r)), 201);
       }
@@ -123,6 +132,28 @@ const weather = { location: { name: 'Kovur', lat: 14.5, lon: 79.98 }, observed_a
   await pg.getByTestId('view-treatment').click(); await pg.waitForURL(/treatment/); await pg.waitForTimeout(800);
   await pg.getByRole('checkbox', { name: 'Drain the field for 2-3 days' }).click(); await pg.getByRole('checkbox', { name: /Tricyclazole/ }).click();
   await pg.getByTestId('save-treatment').click(); await pg.waitForTimeout(1000); await shot('20-treatment');
+
+  // ---- Batch 3: aquaculture ----
+  await pg.goto(base + '/aquaculture'); await shot('21-aqua-empty');
+  await pg.goto(base + '/aquaculture/ponds?add=1'); await pg.waitForTimeout(1200);
+  await pg.getByTestId('pond-save').click(); await pg.waitForTimeout(300); await shot('22-pond-validation');
+  await pg.getByTestId('pond-name').fill('Pond 1 (east)'); await pg.getByRole('radio', { name: 'Vannamei shrimp' }).click();
+  await pg.getByPlaceholder('YYYY-MM-DD').first().fill(addDays(-40)); await pg.getByLabel('Seed stocked (number)').fill('150000');
+  await pg.getByTestId('pond-save').click(); await pg.waitForURL(/ponds\/0000/, { timeout: 8000 }); await shot('23-pond-details-empty');
+  await pg.getByRole('button', { name: 'Record Water' }).click(); await pg.waitForURL(/water-quality/); await pg.waitForTimeout(1200);
+  await pg.getByTestId('wq-save').click(); await pg.waitForTimeout(300);
+  await pg.getByTestId('wq-ph').fill('7.8'); await pg.getByTestId('wq-dissolved_oxygen_mgl').fill('3.2'); await pg.getByTestId('wq-ammonia_mgl').fill('0.9');
+  await shot('24-reading-sheet'); await pg.getByTestId('wq-save').click(); await pg.waitForTimeout(1000); await shot('24-water-quality');
+  await pg.goBack(); await pg.waitForTimeout(1000);
+  await pg.getByRole('button', { name: 'Add Record' }).click(); await pg.waitForTimeout(500);
+  await pg.getByTestId('fr-qty').fill('25'); await pg.getByTestId('fr-save').click(); await pg.waitForTimeout(800); await shot('23-pond-details');
+  await pg.goto(base + '/aquaculture'); await shot('21-aqua-dashboard');
+  await pg.goto(base + '/aquaculture/fish-scan?pondId=' + db.ponds[0].id); await pg.waitForTimeout(1200);
+  await pg.getByRole('button', { name: 'Add photo' }).click(); await pg.waitForTimeout(400);
+  const [fc2] = await Promise.all([pg.waitForEvent('filechooser', { timeout: 5000 }), pg.getByRole('button', { name: 'Gallery' }).click()]);
+  await fc2.setFiles(leaf); await pg.waitForTimeout(1200);
+  await pg.getByLabel('What did you notice?').fill('Shrimp at the surface in the morning');
+  await pg.getByTestId('fish-analyse').click(); await pg.getByTestId('fish-new').waitFor({ timeout: 10000 }); await shot('25-fish-result');
 
   await pg.goto(base + '/home'); await shot('09-dashboard');
   console.log('TABBAR', JSON.stringify(await pg.evaluate(() => [...document.querySelectorAll('[role=tab]')].map((t) => { const r = t.getBoundingClientRect(); const l = [...t.querySelectorAll('div')].find((d) => d.textContent === 'Home' || d.textContent === 'Agri'); const lr = l?.getBoundingClientRect(); return { tab: [r.top, r.bottom], label: lr && [lr.top, lr.bottom], vh: innerHeight }; }))));
