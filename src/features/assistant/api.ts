@@ -3,7 +3,7 @@ import { fetch as streamingFetch } from 'expo/fetch';
 import { supabase } from '@/lib/supabase';
 import { env } from '@/lib/env';
 import { invoke, must, queryClient, userId } from '@/lib/query';
-import { PickedImage, uploadFile, uploadImage } from '@/services/media';
+import { PickedImage, uploadImage } from '@/services/media';
 import type { Language } from '@/locales';
 
 export type Conversation = { id: string; title: string | null; topic: string | null; language: Language; created_at: string; updated_at: string };
@@ -35,10 +35,16 @@ export async function ask(a: AskArgs) {
   }
 }
 
-/** Uploads a voice recording (m4a) and returns its transcript. The server deletes the clip afterwards. */
+/** Sends the voice recording (m4a) straight to the server and returns its transcript. Nothing is stored. */
 export async function transcribe(uri: string, language: Language) {
-  const path = await uploadFile('media', 'assistant', await userId(), uri, 'audio/mp4', 'm4a');
-  return invoke<{ text: string; language: string; unclear: boolean }>('transcribe', { audio_path: path, language });
+  const audio = await (await fetch(uri)).arrayBuffer();
+  const { data, error } = await supabase.functions.invoke('transcribe', { body: audio, headers: { 'Content-Type': 'audio/mp4', 'x-language': language } });
+  if (error) {
+    const ctx = (error as { context?: Response }).context;
+    const code = ctx && typeof ctx.json === 'function' ? (await ctx.json().catch(() => null))?.error : null;
+    throw new Error(code ? `errors.${code}` : 'errors.network');
+  }
+  return data as { text: string; language: string; unclear: boolean };
 }
 
 export const useDeleteConversation = () =>

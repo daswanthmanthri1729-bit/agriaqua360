@@ -77,7 +77,7 @@ const weather = { location: { name: 'Kovur', lat: 14.5, lon: 79.98 }, observed_a
       const rep = { id: id(), owner_id: UID, pond_id: b.pond_id, image_paths: b.image_paths, observations: b.observations, condition_name: raw.condition_name, confidence: 'medium', severity: 'moderate', summary: raw.summary, recommend_expert: true, raw_response: raw, created_at: new Date().toISOString() };
       db.fish_health_reports.push(rep); return json(rep);
     }
-    if (p === '/functions/v1/transcribe') { log.push('fn:transcribe ' + JSON.parse(req.postData()).language); return json({ text: 'My paddy leaves are turning yellow. What should I do?', language: 'en', unclear: false }); }
+    if (p === '/functions/v1/transcribe') { log.push(`fn:transcribe ${req.headers()['content-type']} lang=${req.headers()['x-language']} bytes=${req.postDataBuffer()?.length}`); return json({ text: 'My paddy leaves are turning yellow. What should I do?', language: 'en', unclear: false }); }
     if (p === '/functions/v1/ai-assistant') {
       const b = JSON.parse(req.postData()); log.push('fn:ai-assistant ' + JSON.stringify({ mode: b.input_mode, imgs: b.image_paths.length, conv: !!b.conversation_id, lang: b.language }));
       let cid = b.conversation_id;
