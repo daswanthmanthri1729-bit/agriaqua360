@@ -97,3 +97,14 @@ do $$ begin
   assert (select status from sensor_alerts limit 1) = 'acknowledged', 'B changed A alert';
 end $$;
 select 'LEVEL 2 TESTS PASSED' as result;
+set role authenticated;
+select set_config('request.jwt.claim.sub','11111111-1111-1111-1111-111111111111',false);
+do $$ declare c jsonb; begin
+  c := farm_context();
+  assert jsonb_array_length(c->'sensors') = 3, 'context sensors';
+  assert jsonb_array_length(c->'open_alerts') = 0, 'acknowledged alert is not open';
+  assert (c->'latest_soil_test'->>'ph')::numeric = 6.8, 'context soil test';
+  assert (c->>'milk_last_7_days_litres')::numeric = 8.5, 'context milk';
+end $$;
+reset role;
+select 'FARM CONTEXT V2 PASSED' as result;

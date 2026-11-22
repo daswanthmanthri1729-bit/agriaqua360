@@ -28,6 +28,15 @@ verify_jwt = true
 [functions.ingest]
 verify_jwt = false
 
+[functions.satellite]
+verify_jwt = true
+
+[functions.insights]
+verify_jwt = true
+
+[functions.cron]
+verify_jwt = false
+
 # ---- Auth email (proposed production values; applied only with owner approval) ----
 [auth.email]
 enable_confirmations = false   # owner's choice for the demo; can be turned on now that codes work

@@ -117,6 +117,27 @@ try {
     const [s2, , c] = await fn('market', { action: 'commodities', q: 'pad' });
     check('commodity search', s2 === 200 && c.commodities.some((x) => x.startsWith('Paddy')), c.commodities);
   }
+  if (want('insights')) {
+    const [, pond] = await rest('ponds', { method: 'POST', body: JSON.stringify({ name: 'Insight pond', species: 'rohu' }) });
+    const [, , d] = await fn('devices', { action: 'register', name: 'Sim node', kind: 'pond_node', simulated: true, pond_id: pond[0].id });
+    await fn('devices', { action: 'simulate', device_id: d.device.id, scenario: 'low_oxygen' });
+    const [s, t, ins] = await fn('insights', { kind: 'water', id: pond[0].id, language: 'te' });
+    check('water insight (te)', s === 200 && ['good', 'watch', 'act'].includes(ins.status) && ins.findings?.length > 0, `${s} ${t}ms ${ins.status} ${ins.summary?.slice(0, 140)} used=${ins.data_used}`);
+    const [s2, t2, ins2] = await fn('insights', { kind: 'water', id: pond[0].id, language: 'te' });
+    check('insight cached', s2 === 200 && ins2.cached === true, `${s2} ${t2}ms`);
+    const [s3] = await fn('insights', { kind: 'water', id: '00000000-0000-0000-0000-000000000000', language: 'en' });
+    check('insight other/missing pond', s3 === 404, s3);
+    const [, ctxr] = await rest('rpc/farm_context', { method: 'POST', body: '{}' });
+    check('assistant context sees sensors', ctxr.sensors?.length === 1 && ctxr.sensors[0].simulated === true && ctxr.open_alerts?.length >= 1, JSON.stringify(ctxr.sensors?.[0]).slice(0, 200));
+    const [as, at, a] = await fn('ai-assistant', { message: 'How is my pond water right now?', input_mode: 'text', language: 'en' });
+    check('assistant uses sensor data', as === 200 && /oxygen|DO/i.test(a.message?.content ?? ''), `${as} ${at}ms ${a.message?.content?.slice(0, 200)}`);
+  }
+  if (want('satellite')) {
+    const [s, , sat] = await fn('satellite', { action: 'refresh', farm_id: '00000000-0000-0000-0000-000000000000' });
+    check('satellite not configured yet', s === 200 && sat.configured === false, `${s} ${JSON.stringify(sat)}`);
+    const r = await fetch(`${U}/functions/v1/cron`, { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-cron-secret': 'nope' }, body: '{}' });
+    check('cron needs its secret', r.status === 401, r.status);
+  }
   for (const [name, run] of Object.entries(globalThis.extraChecks ?? {})) if (want(name)) await run(check);
 } catch (e) { failures++; console.error(e); }
 finally {
