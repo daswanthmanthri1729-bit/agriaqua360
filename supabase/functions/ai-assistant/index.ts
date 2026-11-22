@@ -63,7 +63,14 @@ Deno.serve(async (req) => {
       thinking: imageParts.length ? 'low' as const : 'minimal' as const,
     };
     marks.ready = Date.now() - t0;
-    const r = onText ? await streamJson<AssistantReply>({ ...req, streamField: 'reply' }, onText) : await generateJson<AssistantReply>(req);
+    let r: AssistantReply;
+    try {
+      r = onText ? await streamJson<AssistantReply>({ ...req, streamField: 'reply' }, onText) : await generateJson<AssistantReply>(req);
+    } catch (e) {
+      // A stream cut short mid-answer: get the complete answer without streaming (the client replaces the partial text).
+      if (!(e instanceof Error && e.message === 'ai_stream_incomplete')) throw e;
+      r = await generateJson<AssistantReply>(req);
+    }
     const { data: saved, error } = await sb.from('ai_messages').insert({ owner_id: uid, conversation_id: conversationId, role: 'assistant', content: r.reply }).select().single();
     if (error) throw error;
     await sb.from('ai_conversations').update({ topic: r.topic, ...(history.data?.length ? {} : { title: r.title.slice(0, 80) }) }).eq('id', conversationId);

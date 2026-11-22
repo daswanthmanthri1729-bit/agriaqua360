@@ -22,8 +22,9 @@ const coolingUntil = new Map<string, number>(); // model → time it may be trie
 
 export function modelOrder(models: string[], now = Date.now()) {
   const ready = models.filter((m) => (coolingUntil.get(m) ?? 0) <= now);
-  // Never end up with nothing: if every model is cooling down, still try the last (most available) one.
-  return ready.length ? ready : models.slice(-1);
+  if (ready.length) return ready;
+  // Everything is resting: try the one whose rest ends soonest (a per-minute limit, not a daily one).
+  return [models.reduce((a, b) => ((coolingUntil.get(b) ?? 0) < (coolingUntil.get(a) ?? 0) ? b : a))];
 }
 export const _resetCooldowns = () => coolingUntil.clear();
 
@@ -177,7 +178,11 @@ export async function streamJson<T>(opts: Opts & { streamField: string }, onText
       }
     }
     console.log(JSON.stringify({ ai: model, stream: true, firstMs, ms: Date.now() - t0, status: 200 }));
-    try { return JSON.parse(json) as T; } catch { throw new Error('ai_failed'); }
+    try { return JSON.parse(json) as T; } catch {
+      // Google sometimes ends a stream early under load; rest this model and let the caller fall back.
+      coolingUntil.set(model, Date.now() + COOLDOWN_MS);
+      throw new Error('ai_stream_incomplete');
+    }
   }
   throw new Error(last);
 }

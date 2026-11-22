@@ -23,9 +23,13 @@ Deno.test('overloaded model falls back, then is skipped while cooling down', asy
   assertEquals(calls, ['big', 'lite', 'lite']); // second request did not wait on "big"
 });
 
-Deno.test('if every model is cooling down, the last one is still tried', () => {
+Deno.test('if every model is resting, the one that recovers soonest is tried', async () => {
   _resetCooldowns();
   assertEquals(modelOrder(['big', 'lite'], 0), ['big', 'lite']);
+  // lite hits a 30 s per-minute limit, big a daily limit → with both resting, lite is tried, not big.
+  mockFetch({ lite: () => new Response('{"retryDelay":"30s"}', { status: 429 }), big: () => new Response('{"retryDelay":"63962s"}', { status: 429 }) });
+  await assertRejects(() => generateJson({ ...opts, models: ['lite', 'big'] }), Error, 'ai_busy');
+  assertEquals(modelOrder(['lite', 'big']), ['lite']);
 });
 
 Deno.test('rate limit (429) and malformed JSON move to the next model', async () => {
@@ -79,4 +83,13 @@ Deno.test('streamJson emits growing text and returns the parsed object; fails ov
   assertEquals(calls, ['big', 'lite']);
   assertEquals(seen, ['Hel', 'Hello farmer']);
   assertEquals(out, { reply: 'Hello farmer', topic: 'crop' });
+});
+
+Deno.test('a stream that ends mid-JSON reports ai_stream_incomplete and rests that model', async () => {
+  _resetCooldowns();
+  const { streamJson, modelOrder } = await import('./gemini.ts');
+  const sse = `data: ${JSON.stringify({ candidates: [{ content: { parts: [{ text: '{"reply":"Half an ans' }] } }] })}\n\n`;
+  mockFetch({ big: () => new Response(sse, { status: 200 }), lite: () => ok({}) });
+  await assertRejects(() => streamJson({ ...opts, streamField: 'reply' }, () => {}), Error, 'ai_stream_incomplete');
+  assertEquals(modelOrder(['big', 'lite']), ['lite']);
 });
