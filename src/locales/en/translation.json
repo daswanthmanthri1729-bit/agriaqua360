@@ -106,7 +106,7 @@
   },
   "forgot": {
     "title": "Reset your password",
-    "subtitle": "Enter your registered email or mobile number. We will send a 6-digit code.",
+    "subtitle": "Enter your registered email. We will send a 6-digit code to reset your password.",
     "sendCode": "Send Code"
   },
   "register": {
@@ -148,7 +148,8 @@
     "confirmPassword": "Confirm New Password",
     "updatePassword": "Update Password",
     "passwordUpdated": "Password updated. You are now signed in.",
-    "wrongTarget": "Wrong number or email? Go back"
+    "wrongTarget": "Wrong number or email? Go back",
+    "validFor": "The code is valid for 10 minutes. Check your spam folder if you cannot find it."
   },
   "profileSetup": {
     "step": "STEP 2 OF 2",
@@ -229,7 +230,8 @@
     "weather_not_configured": "Weather service is not set up yet.",
     "weather_key_invalid": "Weather service key is not active yet.",
     "weather_unavailable": "Weather service is unavailable. Try again later.",
-    "location_not_found": "Place not found. Check the spelling."
+    "location_not_found": "Place not found. Check the spelling.",
+    "samePassword": "The new password must be different from your old password."
   },
   "nav": {
     "home": "Home",

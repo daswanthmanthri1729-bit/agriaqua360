@@ -6,7 +6,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { AppText, Banner, BrandLockup, Button, Header, Icon, LanguagePills, Screen, Sheet, TextField } from '@/components';
-import { loginSchema, LoginInput } from '@/features/auth/schemas';
+import { forgotSchema, loginSchema, LoginInput } from '@/features/auth/schemas';
 import { recoveryChannel, signIn, startRecovery, toErrorKey } from '@/features/auth/api';
 import { useOtpFlow } from '@/features/auth/useOtpFlow';
 import { nextRoute } from '@/features/auth/routing';
@@ -91,13 +91,14 @@ function ForgotSheet({ visible, onClose }: { visible: boolean; onClose: () => vo
   const setFlow = useOtpFlow((s) => s.set);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const { control, handleSubmit, formState: { errors } } = useForm<{ identifier: string }>({
-    resolver: zodResolver(loginSchema.pick({ identifier: true })), defaultValues: { identifier: '' },
+  // Email only: SMS sign-in is not enabled in the Supabase project.
+  const { control, handleSubmit, formState: { errors } } = useForm<{ email: string }>({
+    resolver: zodResolver(forgotSchema), defaultValues: { email: '' },
   });
-  const send = handleSubmit(async ({ identifier }) => {
+  const send = handleSubmit(async ({ email }) => {
     setBusy(true); setError(null);
     try {
-      const channel = recoveryChannel(identifier);
+      const channel = recoveryChannel(email);
       await startRecovery(channel);
       setFlow({ mode: 'recovery', channel });
       onClose();
@@ -108,9 +109,9 @@ function ForgotSheet({ visible, onClose }: { visible: boolean; onClose: () => vo
     <Sheet visible={visible} onClose={onClose}>
       <AppText variant="headlineMd">{t('forgot.title')}</AppText>
       <AppText variant="bodyMd" color={colors.textMuted}>{t('forgot.subtitle')}</AppText>
-      <Controller control={control} name="identifier" render={({ field }) => (
-        <TextField label={t('login.identifier')} icon="alternate-email" autoCapitalize="none" keyboardType="email-address"
-          value={field.value} onChangeText={field.onChange} error={errors.identifier && t(errors.identifier.message!)} />
+      <Controller control={control} name="email" render={({ field }) => (
+        <TextField testID="forgot-email" label={t('register.email')} icon="alternate-email" autoCapitalize="none" keyboardType="email-address" autoComplete="email"
+          value={field.value} onChangeText={field.onChange} error={errors.email && t(errors.email.message!)} />
       )} />
       {error && <Banner tone="error" message={t(error)} />}
       <Button label={t('forgot.sendCode')} loading={busy} onPress={send} />

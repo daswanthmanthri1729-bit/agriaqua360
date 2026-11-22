@@ -32,6 +32,8 @@ export const registerSchema = z
   })
   .refine((v) => v.password === v.confirmPassword, { path: ['confirmPassword'], message: 'validation.passwordMatch' });
 
+export const forgotSchema = z.object({ email: EMAIL });
+
 export const otpSchema = z.object({ code: z.string().regex(/^\d{6}$/, 'validation.otp') });
 
 export const resetSchema = z
