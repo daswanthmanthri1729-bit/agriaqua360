@@ -1,7 +1,7 @@
 // POST { image_paths, pond_id?, observations?, language }  →  Gemini fish-health report saved to fish_health_reports.
 import { cors, fail, json } from '../_shared/http.ts';
 import { userClient } from '../_shared/supabase.ts';
-import { generateJson, toBase64 } from '../_shared/gemini.ts';
+import { generateJson, toBase64, VISION_MODELS } from '../_shared/gemini.ts';
 import { fishReportSchema, fishSystemPrompt, FishReport } from '../_shared/fish-prompt.ts';
 
 Deno.serve(async (req) => {
@@ -35,6 +35,8 @@ Deno.serve(async (req) => {
       system: fishSystemPrompt(language, pond, reading, observations),
       parts: [...images, { text: `Analyse these ${images.length} photo(s) and return the JSON report.` }],
       schema: fishReportSchema,
+      maxOutputTokens: 1500,
+      models: VISION_MODELS,
     });
     const { data: saved, error } = await sb.from('fish_health_reports').insert({
       owner_id: auth.user.id,

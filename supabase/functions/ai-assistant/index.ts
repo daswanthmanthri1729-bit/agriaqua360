@@ -2,7 +2,7 @@
 //  → stores the user message + AI reply in ai_conversations / ai_messages; returns { conversation_id, message }.
 import { cors, fail, json } from '../_shared/http.ts';
 import { userClient } from '../_shared/supabase.ts';
-import { generateJson, toBase64 } from '../_shared/gemini.ts';
+import { CHAT_MODELS, generateJson, toBase64, VISION_MODELS } from '../_shared/gemini.ts';
 import { assistantPrompt, assistantSchema, AssistantReply } from '../_shared/assistant.ts';
 
 const HISTORY = 12;
@@ -53,6 +53,8 @@ Deno.serve(async (req) => {
       parts: [...imageParts, { text: `${past ? `Conversation so far:\n${past}\n\n` : ''}Farmer: ${message || 'Please look at the photo(s) and tell me what you see and what I should do.'}` }],
       schema: assistantSchema,
       temperature: 0.4,
+      maxOutputTokens: 1536,
+      models: imageParts.length ? VISION_MODELS : CHAT_MODELS,
     });
     const { data: saved, error } = await sb.from('ai_messages').insert({ owner_id: uid, conversation_id: conversationId, role: 'assistant', content: r.reply }).select().single();
     if (error) throw error;

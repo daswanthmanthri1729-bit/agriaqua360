@@ -50,4 +50,4 @@ google-services.json
 GoogleService-Info.plist
 *.apk
 *.aab
-design_reference/zips/
+# design_reference/zips/ (original Stitch ZIP is kept in git; 17 MB)
