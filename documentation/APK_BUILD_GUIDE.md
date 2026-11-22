@@ -32,3 +32,18 @@ Not built yet. The cloud sandbox can't reach `dl.google.com` (Android SDK) and h
 The APK requests only: location (weather/farm GPS), camera, microphone (voice questions), notifications, internet, vibrate, and legacy storage (Android ≤ 12 gallery).
 Blocked on purpose in `app.json`: background location and SYSTEM_ALERT_WINDOW ("display over other apps", added by the Expo template and a common Play Protect trigger). expo-audio background playback is off (no foreground service).
 Sideloaded APKs from a new developer can still show a Play Protect warning; installing via Google Play (internal testing) removes it.
+
+## Windows desktop app (Electron)
+`desktop/` wraps the same Expo web build in Electron (same code, same Supabase project, all 40 screens, en/te/hi).
+
+Build on Windows (also produces an installer):
+```bash
+cd desktop
+npm install
+npm run web
+npx electron-builder --win nsis zip --x64
+```
+Built here on Linux: portable zip `desktop/dist/AgriAqua360-Windows-x64.zip` (unzip, run `AgriAqua 360.exe`). Icon and version info were added with `resedit-cli` because rcedit needs Wine.
+
+Desktop differences: phone-style reminders don't ring (they still appear in the in-app Notifications Centre); dates are typed (YYYY-MM-DD); photos come from files/webcam; GPS location usually unavailable (type the village). The window runs sandboxed with no Node access; only mic/camera/location/notifications are allowed and only for the app's own `app://` origin; external links open in the system browser.
+Unsigned app: Windows SmartScreen will warn ("More info" → "Run anyway") until it is code-signed.
