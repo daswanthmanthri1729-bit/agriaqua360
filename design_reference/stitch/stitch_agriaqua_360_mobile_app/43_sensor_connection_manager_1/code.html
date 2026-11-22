@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-surface": "#111e19", "tertiary-fixed-dim": "#ccbdff", "inverse-on-surface": "#e5f5eb", "on-primary-fixed-variant": "#005232", "on-primary-container": "#99e9b9", "outline-variant": "#bfc9c0", "tertiary-fixed": "#e7deff", "inverse-primary": "#88d7a8", "error-container": "#ffdad6", "surface-container-high": "#dcece2", "primary-container": "#176b45", "surface-bright": "#edfdf3", "surface-container-lowest": "#ffffff", "on-tertiary": "#ffffff", "primary-fixed": "#a4f4c3", "on-error": "#ffffff", "on-tertiary-fixed": "#1f005f", "primary-fixed-dim": "#88d7a8", "inverse-surface": "#26332d", "on-secondary-container": "#007145", "tertiary": "#4c28ad", "on-tertiary-fixed-variant": "#4d2aae", "on-error-container": "#93000a", "on-secondary-fixed-variant": "#005230", "secondary-fixed-dim": "#64dd9b", "on-surface-variant": "#3f4942", "on-background": "#111e19", "surface-container-highest": "#d6e6dd", "on-primary-fixed": "#002111", "surface-container": "#e2f2e8", "surface-container-low": "#e7f7ee", "primary": "#005131", "surface-variant": "#d6e6dd", "surface-dim": "#ceded4", "secondary-container": "#7ef7b3", "secondary-fixed": "#81fab6", "on-primary": "#ffffff", "error": "#ba1a1a", "tertiary-container": "#6445c6", "on-secondary": "#ffffff", "surface": "#edfdf3", "outline": "#6f7a71", "secondary": "#006d42", "on-secondary-fixed": "#002111", "surface-tint": "#186c45", "on-tertiary-container": "#dcd1ff", "background": "#edfdf3" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-xl": "2rem", "margin": "1rem", "space-sm": "0.5rem", "space-lg": "1.5rem", "gutter": "1rem", "space-md": "1rem", "space-xs": "0.25rem" }, "fontFamily": { "display-lg": ["Manrope"], "body-sm": ["Inter"], "label-sm": ["Inter"], "headline-lg": ["Manrope"], "label-md": ["Inter"], "body-lg": ["Inter"], "headline-sm": ["Manrope"], "label-lg": ["Inter"], "headline-md": ["Manrope"], "display-lg-mobile": ["Manrope"], "body-md": ["Inter"] }, "fontSize": { "display-lg": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "800" }], "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }], "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.03em", "fontWeight": "500" }], "headline-lg": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "700" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "500" }], "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }], "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "700" }], "display-lg-mobile": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.015em", "fontWeight": "800" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }] } } } };</script><style>@layer base { html, body { width: 100%; margin: 0; padding: 0; } body { overscroll-behavior: none; } .pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); } .pt-safe { padding-top: env(safe-area-inset-top, 0px); } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-background font-body-md text-on-surface antialiased min-h-screen flex flex-col"><header class="fixed top-0 w-full z-50 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(23,107,69,0.05)]"><div class="w-full h-6 pt-safe px-margin flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm select-none"><span class="font-label-md text-label-md font-semibold text-on-surface">9:41</span><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-[16px]">wifi</span><span class="material-symbols-outlined text-[16px]">signal_cellular_alt</span><span class="material-symbols-outlined text-[16px]">battery_full</span></div></div><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0 flex-1"><button aria-label="Go back" class="min-w-[44px] min-h-[44px] w-11 h-11 rounded-full flex items-center justify-center text-on-surface hover:bg-surface-container active:bg-surface-container-high transition-colors" onclick="history.back()" type="button"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><h1 class="font-headline-sm text-headline-sm text-on-surface truncate">Sensor Connection Manager</h1></div><div class="flex items-center gap-space-xs shrink-0"><div class="flex items-center bg-surface-container-low p-0.5 rounded-full"><button class="px-2 py-1 rounded-full bg-primary text-on-primary font-label-sm text-label-sm" type="button">EN</button><button class="px-2 py-1 rounded-full text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm" type="button">తె</button><button class="px-2 py-1 rounded-full text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm" type="button">हि</button></div><button aria-label="Sync status" class="min-w-[44px] min-h-[44px] w-11 h-11 rounded-full flex items-center justify-center text-primary hover:bg-surface-container transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">sync</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 bg-surface pb-10"><div class="flex flex-col w-full">
+<!-- Informational Disclaimer Banner: Open IoT Hub -->
+<div class="px-margin pt-space-sm pb-space-xs">
+<div class="bg-surface-container-high rounded-xl p-space-sm flex items-start gap-space-sm shadow-sm">
+<div class="w-8 h-8 rounded-full bg-primary-container/10 flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-primary text-[20px]">hub</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-1.5 flex-wrap">
+<span class="font-headline-sm text-[13px] leading-tight text-primary font-bold">AgriAqua 360 Open IoT Hub</span>
+<span class="font-label-sm text-[10px] uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-semibold">Universal Interop</span>
+</div>
+<p class="font-body-sm text-[12px] leading-normal text-on-surface-variant mt-1">
+          Universal compatibility with standard RS485, Modbus, MQTT, BLE, and REST sensors. AgriAqua 360 does not manufacture hardware.
+        </p>
+</div>
+</div>
+</div>
+<!-- Screen Sub-Header & Primary Header Action -->
+<div class="px-margin py-space-sm flex items-center justify-between gap-space-sm">
+<div class="min-w-0">
+<h2 class="font-headline-md text-headline-md text-on-surface tracking-tight">Sensor Manager</h2>
+<p class="font-label-md text-label-md text-on-surface-variant">Universal IoT &amp; Field Telemetry Hub</p>
+</div>
+<button class="h-11 px-space-md rounded-xl bg-primary text-on-primary font-label-lg text-label-lg flex items-center gap-space-xs shadow-md active:scale-95 transition-transform shrink-0" type="button">
+<span class="material-symbols-outlined text-[20px]">sensors</span>
+<span>+ Connect</span>
+</button>
+</div>
+<!-- Connection Protocol Quick Filters (Horizontal Carousel) -->
+<div class="w-full overflow-x-auto no-scrollbar py-space-xs pl-margin flex items-center gap-space-xs">
+<button class="protocol-chip active px-3.5 py-2 rounded-full bg-primary text-on-primary font-label-md text-label-md whitespace-nowrap flex items-center gap-1.5 shadow-sm" type="button">
+<span class="w-2 h-2 rounded-full bg-secondary-fixed"></span>
+<span>All Methods (6)</span>
+</button>
+<button class="protocol-chip px-3.5 py-2 rounded-full bg-surface-container text-on-surface-variant font-label-md text-label-md whitespace-nowrap flex items-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-[16px] text-primary">wifi</span>
+<span>Wi-Fi / WLAN (2)</span>
+</button>
+<button class="protocol-chip px-3.5 py-2 rounded-full bg-surface-container text-on-surface-variant font-label-md text-label-md whitespace-nowrap flex items-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-[16px] text-primary">bluetooth</span>
+<span>Bluetooth / BLE (2)</span>
+</button>
+<button class="protocol-chip px-3.5 py-2 rounded-full bg-surface-container text-on-surface-variant font-label-md text-label-md whitespace-nowrap flex items-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-[16px] text-tertiary">alt_route</span>
+<span>MQTT Gateway (1)</span>
+</button>
+<button class="protocol-chip px-3.5 py-2 rounded-full bg-surface-container text-on-surface-variant font-label-md text-label-md whitespace-nowrap flex items-center gap-1.5 mr-margin" type="button">
+<span class="material-symbols-outlined text-[16px] text-secondary">cloud_sync</span>
+<span>HTTP / REST API (1)</span>
+</button>
+</div>
+<!-- Device Parameter Categories Bar -->
+<div class="w-full overflow-x-auto no-scrollbar py-space-xs pl-margin flex items-center gap-space-xs">
+<button class="px-3 py-1 rounded-lg bg-surface-container-highest text-on-surface font-label-sm text-label-sm whitespace-nowrap font-medium" type="button">All Types</button>
+<button class="px-3 py-1 rounded-lg bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm whitespace-nowrap" type="button">Soil Moisture</button>
+<button class="px-3 py-1 rounded-lg bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm whitespace-nowrap" type="button">Soil Temp</button>
+<button class="px-3 py-1 rounded-lg bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm whitespace-nowrap" type="button">Water Temp</button>
+<button class="px-3 py-1 rounded-lg bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm whitespace-nowrap" type="button">pH Probes</button>
+<button class="px-3 py-1 rounded-lg bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm whitespace-nowrap" type="button">Dissolved Oxygen</button>
+<button class="px-3 py-1 rounded-lg bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm whitespace-nowrap" type="button">Water Level</button>
+<button class="px-3 py-1 rounded-lg bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm whitespace-nowrap mr-margin" type="button">Weather Stations</button>
+</div>
+<!-- Connected Devices Section -->
+<div class="px-margin pt-space-md flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Active Telemetry Units</h3>
+<span class="px-2 py-0.5 rounded-full bg-primary/10 text-primary font-label-sm text-label-sm font-semibold">3 Online</span>
+</div>
+<button class="font-label-md text-label-md text-primary flex items-center gap-1 active:opacity-70" type="button">
+<span>Refresh</span>
+<span class="material-symbols-outlined text-[16px]">autorenew</span>
+</button>
+</div>
+<!-- Live Card 1: Soil Moisture Probe -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm relative overflow-hidden flex flex-col gap-space-sm">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-[26px]">grass</span>
+</div>
+<div class="min-w-0">
+<h4 class="font-headline-sm text-headline-sm text-on-surface truncate">Root-Zone Probe #04</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant truncate">Alluvial Loam Sector • Zone B</p>
+</div>
+</div>
+<button aria-label="Device menu" class="w-9 h-9 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors shrink-0" type="button">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+<!-- Specs & Protocol Pills -->
+<div class="flex flex-wrap gap-1.5 items-center">
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-label-sm text-[11px] font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-primary">wifi</span> Wi-Fi (802.11 b/g/n)
+        </span>
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-label-sm text-[11px]">RS-485 Modbus via ESP32</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-low text-on-surface-variant font-label-sm text-[11px] italic">Dragino Tech (Third-Party)</span>
+</div>
+<!-- Telemetry Live Metric Box -->
+<div class="bg-surface-container-low rounded-lg p-space-sm flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-secondary animate-ping"></span>
+            Active • Transmitting
+          </span>
+<span class="font-label-sm text-[11px] text-on-surface-variant">2 mins ago</span>
+</div>
+<div class="flex items-baseline justify-between gap-space-sm pt-0.5">
+<div class="flex items-baseline gap-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Moisture:</span>
+<span class="font-headline-md text-headline-md text-primary font-bold">28.2%</span>
+<span class="font-label-sm text-[11px] text-on-surface-variant">VWC</span>
+</div>
+<div class="flex items-baseline gap-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Temp:</span>
+<span class="font-headline-md text-headline-md text-on-surface font-semibold">26.4°C</span>
+</div>
+</div>
+</div>
+<!-- Diagnostic Status Bar -->
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-[11px] pt-1">
+<div class="flex items-center gap-2">
+<span class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-[14px]">battery_charging_full</span> 3.6V Solar / 94%
+          </span>
+<span>•</span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">signal_cellular_alt</span> -64 dBm (Strong)
+          </span>
+</div>
+</div>
+<!-- Action Row -->
+<div class="flex items-center gap-space-sm pt-1">
+<button class="flex-1 h-10 rounded-lg bg-surface-container hover:bg-surface-container-high text-primary font-label-md text-label-md font-semibold flex items-center justify-center gap-1 transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+<span>Configure &amp; Calibrate</span>
+</button>
+<button class="h-10 px-space-md rounded-lg bg-surface-container text-on-surface-variant font-label-md text-label-md font-medium flex items-center justify-center gap-1" type="button">
+<span class="material-symbols-outlined text-[18px]">show_chart</span>
+<span>History</span>
+</button>
+</div>
+</div>
+<!-- Live Card 2: Optical Dissolved Oxygen Probe -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm relative overflow-hidden flex flex-col gap-space-sm">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-secondary text-[26px]">water_drop</span>
+</div>
+<div class="min-w-0">
+<h4 class="font-headline-sm text-headline-sm text-on-surface truncate">AquaSense Optical DO #01</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant truncate">Assigned to: Blue Waters Pond #01</p>
+</div>
+</div>
+<button aria-label="Device menu" class="w-9 h-9 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors shrink-0" type="button">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+<!-- Specs & Protocol Pills -->
+<div class="flex flex-wrap gap-1.5 items-center">
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-label-sm text-[11px] font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-tertiary">alt_route</span> MQTT: emqx.local:1883
+        </span>
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-label-sm text-[11px]">Optical Luminescence</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-low text-on-surface-variant font-label-sm text-[11px] italic">Campbell Sci / Eureka (Third-Party)</span>
+</div>
+<!-- Telemetry Live Metric Box -->
+<div class="bg-surface-container-low rounded-lg p-space-sm flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-secondary-container"></span>
+            Active • Real-time
+          </span>
+<span class="font-label-sm text-[11px] text-on-surface-variant">45 secs ago</span>
+</div>
+<div class="flex items-baseline justify-between gap-space-sm pt-0.5">
+<div class="flex items-baseline gap-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant">DO:</span>
+<span class="font-headline-md text-headline-md text-secondary font-bold">6.84</span>
+<span class="font-label-sm text-[11px] text-on-surface-variant">mg/L (Optimal)</span>
+</div>
+<div class="flex items-baseline gap-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Water:</span>
+<span class="font-headline-md text-headline-md text-on-surface font-semibold">28.1°C</span>
+</div>
+</div>
+</div>
+<!-- Action Row -->
+<div class="flex items-center gap-space-sm pt-1">
+<button class="flex-1 h-10 rounded-lg bg-surface-container hover:bg-surface-container-high text-primary font-label-md text-label-md font-semibold flex items-center justify-center gap-1 transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+<span>Configure &amp; Calibrate</span>
+</button>
+<button class="h-10 px-space-md rounded-lg bg-surface-container text-on-surface-variant font-label-md text-label-md font-medium flex items-center justify-center gap-1" type="button">
+<span class="material-symbols-outlined text-[18px]">show_chart</span>
+<span>History</span>
+</button>
+</div>
+</div>
+<!-- Live Card 3: Micro-Agro Weather Station -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm relative overflow-hidden flex flex-col gap-space-sm">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-tertiary text-[26px]">routine</span>
+</div>
+<div class="min-w-0">
+<h4 class="font-headline-sm text-headline-sm text-on-surface truncate">Micro-Agro Weather Station V2</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant truncate">North Field Microclimate Mast</p>
+</div>
+</div>
+<button aria-label="Device menu" class="w-9 h-9 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors shrink-0" type="button">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+<!-- Specs & Protocol Pills -->
+<div class="flex flex-wrap gap-1.5 items-center">
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-label-sm text-[11px] font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-tertiary">cloud_sync</span> HTTP / REST Webhook
+        </span>
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-label-sm text-[11px]">Wind, Rain Bucket &amp; Solar</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-low text-on-surface-variant font-label-sm text-[11px] italic">Davis Vantage Pro2 (Third-Party)</span>
+</div>
+<!-- Telemetry Live Metric Box -->
+<div class="bg-surface-container-low rounded-lg p-space-sm flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+            Active • Synced
+          </span>
+<span class="font-label-sm text-[11px] text-on-surface-variant">12 mins ago</span>
+</div>
+<div class="grid grid-cols-3 gap-2 pt-0.5">
+<div>
+<span class="font-label-sm text-[11px] text-on-surface-variant block">Wind</span>
+<span class="font-label-lg text-label-lg font-bold text-on-surface">14 km/h SE</span>
+</div>
+<div>
+<span class="font-label-sm text-[11px] text-on-surface-variant block">Rain Rate</span>
+<span class="font-label-lg text-label-lg font-bold text-on-surface">0.0 mm/h</span>
+</div>
+<div>
+<span class="font-label-sm text-[11px] text-on-surface-variant block">Light</span>
+<span class="font-label-lg text-label-lg font-bold text-on-surface">62k Lux</span>
+</div>
+</div>
+</div>
+<!-- Action Row -->
+<div class="flex items-center gap-space-sm pt-1">
+<button class="flex-1 h-10 rounded-lg bg-surface-container hover:bg-surface-container-high text-primary font-label-md text-label-md font-semibold flex items-center justify-center gap-1 transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+<span>Configure &amp; Calibrate</span>
+</button>
+<button class="h-10 px-space-md rounded-lg bg-surface-container text-on-surface-variant font-label-md text-label-md font-medium flex items-center justify-center gap-1" type="button">
+<span class="material-symbols-outlined text-[18px]">show_chart</span>
+<span>History</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Available Devices In Range Section -->
+<div class="px-margin pt-space-xl flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-tertiary-container animate-pulse"></span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Discovered In Range</h3>
+</div>
+<span class="font-label-sm text-label-sm text-tertiary font-semibold">2 Devices Found</span>
+</div>
+<!-- Discovered Device 1 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-10 h-10 rounded-xl bg-tertiary-container/10 flex items-center justify-center text-tertiary shrink-0">
+<span class="material-symbols-outlined text-[22px]">bluetooth_searching</span>
+</div>
+<div class="min-w-0">
+<h4 class="font-label-lg text-label-lg font-bold text-on-surface truncate">SoilWatch 10 Soil EC/pH Transmitter</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant truncate">Pinoccio / Piconet (Third-Party Hardware)</p>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-[10px] font-bold shrink-0">BLE 5.2</span>
+</div>
+<div class="flex items-center justify-between pt-1">
+<span class="font-label-sm text-[12px] text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-primary">network_wifi_3_bar</span> RSSI: -58 dBm (Strong Signal)
+        </span>
+<button class="h-9 px-space-md rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold flex items-center gap-1 active:scale-95 transition-transform" type="button">
+<span>Pair &amp; Setup</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Discovered Device 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-10 h-10 rounded-xl bg-surface-container flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined text-[22px]">wifi_tethering</span>
+</div>
+<div class="min-w-0">
+<h4 class="font-label-lg text-label-lg font-bold text-on-surface truncate">Ultrasonic Pond Water-Level #02</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant truncate">Seeed Studio SenseCAP (Third-Party Hardware)</p>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-[10px] font-bold shrink-0">AP Mode</span>
+</div>
+<div class="flex items-center justify-between pt-1">
+<span class="font-label-sm text-[12px] text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-outline">language</span> Default IP: 192.168.4.1
+        </span>
+<button class="h-9 px-space-md rounded-lg bg-surface-container hover:bg-surface-container-high text-primary font-label-md text-label-md font-bold flex items-center gap-1 active:scale-95 transition-transform" type="button">
+<span>Connect</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Connection Diagnostic & Event Feed -->
+<div class="px-margin pt-space-xl pb-space-lg flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Diagnostic Feed</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Live Protocol Stack</span>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-3">
+<div class="flex items-start gap-space-sm">
+<div class="w-6 h-6 rounded-full bg-surface-container flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[14px] text-secondary">check_circle</span>
+</div>
+<div class="flex-1 min-w-0">
+<p class="font-body-sm text-[12px] text-on-surface leading-tight">Node #AQ-01 re-connected automatically via MQTT fallback</p>
+<span class="font-label-sm text-[10px] text-on-surface-variant">Today at 10:14 AM • Broker Handshake OK</span>
+</div>
+</div>
+<div class="flex items-start gap-space-sm">
+<div class="w-6 h-6 rounded-full bg-surface-container flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[14px] text-primary">router</span>
+</div>
+<div class="flex-1 min-w-0">
+<p class="font-body-sm text-[12px] text-on-surface leading-tight">Probe #04 Wi-Fi lease renewed with local router</p>
+<span class="font-label-sm text-[10px] text-on-surface-variant">Today at 09:30 AM • IP: 192.168.1.144</span>
+</div>
+</div>
+<div class="flex items-start gap-space-sm">
+<div class="w-6 h-6 rounded-full bg-surface-container flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[14px] text-tertiary">bluetooth_connected</span>
+</div>
+<div class="flex-1 min-w-0">
+<p class="font-body-sm text-[12px] text-on-surface leading-tight">BLE pairing successful with Handheld pH Meter</p>
+<span class="font-label-sm text-[10px] text-on-surface-variant">Yesterday at 04:15 PM • Secure GATT Exchange</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Floating Sticky Action Bar for Android Ergonomics -->
+<div class="sticky bottom-4 px-margin z-20 w-full flex items-center gap-space-sm">
+<button class="flex-1 h-13 py-3 rounded-full bg-primary text-on-primary font-label-lg text-label-lg font-bold flex items-center justify-center gap-2 shadow-lg active:scale-95 transition-transform" type="button">
+<span class="material-symbols-outlined text-[22px]">add_circle</span>
+<span>Add New Sensor</span>
+</button>
+<button class="h-13 px-4 py-3 rounded-full bg-surface-container-highest text-primary font-label-lg text-label-lg font-semibold flex items-center justify-center gap-1.5 shadow-md active:scale-95 transition-transform shrink-0" type="button">
+<span class="material-symbols-outlined text-[20px] text-secondary">radar</span>
+<span>Scan Nearby</span>
+</button>
+</div>
+</div>
+<script>
+  // Interactive micro-interaction for protocol filter toggling
+  document.querySelectorAll('.protocol-chip').forEach(button => {
+    button.addEventListener('click', () => {
+      document.querySelectorAll('.protocol-chip').forEach(el => {
+        el.classList.remove('bg-primary', 'text-on-primary', 'shadow-sm');
+        el.classList.add('bg-surface-container', 'text-on-surface-variant');
+      });
+      button.classList.remove('bg-surface-container', 'text-on-surface-variant');
+      button.classList.add('bg-primary', 'text-on-primary', 'shadow-sm');
+    });
+  });
+</script></main><div class="fixed bottom-0 inset-x-0 pointer-events-none pb-safe z-50 flex items-center justify-center h-6"><div class="w-32 h-1 bg-on-surface/20 rounded-full mb-1"></div></div></body></html>

@@ -1,0 +1,94 @@
+{
+  "brand": { "tagline": "Intelligent Farming", "slogan": "One Intelligence. Three Farming Worlds. Better Yields.", "footer": "Growing Smarter. Farming Better." },
+  "common": {
+    "back": "Go back", "continue": "Continue", "skip": "Skip for now", "dismiss": "Dismiss", "retry": "Try again",
+    "showPassword": "Show password", "hidePassword": "Hide password", "optional": "Optional", "loading": "Loading…",
+    "save": "Save", "cancel": "Cancel", "done": "Done", "or": "OR", "send": "Send"
+  },
+  "sectors": {
+    "agriculture": "Agriculture", "aquaculture": "Aquaculture", "livestock": "Livestock",
+    "agricultureDesc": "Paddy, sugarcane, cotton & horticulture", "aquacultureDesc": "Shrimp, vannamei, tilapia & biofloc",
+    "livestockDesc": "Cows, buffaloes, sheep, goats & pigs"
+  },
+  "splash": { "chipSoil": "Crops", "chipAqua": "Aqua", "chipAI": "AI Advice", "loading": "Preparing your farm…" },
+  "welcome": {
+    "badge": "All-in-One Platform", "heroCaption": "Crop, pond & animal care with AI advice",
+    "title": "Welcome to Smarter Farming", "subtitle": "One simple app for your crops, fish ponds and animals.",
+    "agriTag": "Paddy & Crops", "agriSub": "Grow smarter • Crop & disease AI",
+    "aquaTag": "Ponds & Fish", "aquaSub": "Manage better • Water quality records",
+    "liveTag": "Animal Health", "liveSub": "Care better • Vaccination reminders",
+    "getStarted": "Get Started", "haveAccount": "I Already Have an Account",
+    "footnote": "Works in English • తెలుగు • हिन्दी"
+  },
+  "language": {
+    "title": "Choose Your Language", "subtitle": "Select the language you are most comfortable with. You can listen to each option.",
+    "continueIn": "Continue in English", "tagline": "Simple farming help in English",
+    "listen": "Listen", "sample": "Welcome to the AgriAqua 360 farm assistant.",
+    "changeLater": "You can change your language anytime in Settings", "voiceUnavailable": "Voice is not available for this language on your phone."
+  },
+  "permissions": {
+    "title": "Allow Access", "subtitle": "These help the app work fully. You can change them later in phone settings.",
+    "camera": "Camera", "cameraDesc": "Take photos of crops, fish and animals for AI checks",
+    "photos": "Photos", "photosDesc": "Choose existing photos from your gallery",
+    "microphone": "Microphone", "microphoneDesc": "Ask questions using your voice",
+    "location": "Location", "locationDesc": "Show local weather and save farm locations",
+    "notifications": "Notifications", "notificationsDesc": "Weather alerts, vaccination and irrigation reminders",
+    "allow": "Allow", "allowed": "Allowed", "denied": "Denied", "openSettings": "Open settings",
+    "allowAll": "Allow All", "deniedHint": "Some permissions were denied. Related features will ask again when you use them."
+  },
+  "login": {
+    "title": "Welcome Back", "subtitle": "Continue managing your farm, ponds and animals.",
+    "bannerTitle": "Registered mobile or email", "bannerText": "Use the mobile number or email you registered with.",
+    "identifier": "Mobile Number or Email", "identifierPlaceholder": "98765 43210", "password": "Password",
+    "passwordHint": "Minimum 8 characters", "encrypted": "Encrypted", "forgot": "Forgot Password?", "submit": "Log In",
+    "newHere": "New to AgriAqua 360?", "createAccount": "Create Account"
+  },
+  "forgot": {
+    "title": "Reset your password", "subtitle": "Enter your registered email or mobile number. We will send a 6-digit code.",
+    "sendCode": "Send Code"
+  },
+  "register": {
+    "step": "STEP 1 OF 2", "stepLabel": "Account", "title": "Create Your Account",
+    "subtitle": "Start your smart farming journey with AgriAqua 360.", "language": "Preferred Language",
+    "fullName": "Full Name", "fullNamePlaceholder": "e.g. Ramesh Kumar", "mobile": "Mobile Number",
+    "email": "Email Address", "emailPlaceholder": "name@farm.com", "emailHint": "We send your verification code here. Without email, an SMS code is used.",
+    "password": "Create Password", "passwordPlaceholder": "At least 8 characters", "confirmPassword": "Confirm Password",
+    "confirmPlaceholder": "Re-type password", "sectorsTitle": "Select Your Farming Sectors", "multiSelect": "Multi-Select",
+    "sectorsSubtitle": "Choose everything you grow or raise:", "aiNote": "AgriAqua 360 AI tailors advice to the sectors you choose.",
+    "terms": "I agree to the Terms of Service and Privacy Policy.", "submit": "Create Account",
+    "haveAccount": "Already have an account?", "login": "Login"
+  },
+  "otp": {
+    "title": "Verify Your Account", "subtitleEmail": "Enter the 6-digit code sent to {{target}}",
+    "subtitlePhone": "Enter the 6-digit code sent by SMS to {{target}}", "code": "Verification code",
+    "verify": "Verify", "resend": "Resend code", "resendIn": "Resend code in {{seconds}}s", "resent": "A new code has been sent.",
+    "recoveryTitle": "Set a New Password", "newPassword": "New Password", "confirmPassword": "Confirm New Password",
+    "updatePassword": "Update Password", "passwordUpdated": "Password updated. You are now signed in.", "wrongTarget": "Wrong number or email? Go back"
+  },
+  "profileSetup": {
+    "step": "STEP 2 OF 2", "stepLabel": "Farm Profile", "title": "Set Up Your Farm Profile",
+    "subtitle": "This helps us give advice for your area.", "photo": "Profile photo", "addPhoto": "Add Photo",
+    "changePhoto": "Change", "removePhoto": "Remove", "takePhoto": "Take Photo", "chooseGallery": "Choose from Gallery",
+    "useLocation": "Use My Current Location", "locating": "Finding your location…", "locationFound": "Location saved",
+    "locationDenied": "Location permission denied. Please type your village details.", "locationFailed": "Could not get location. Please type your details.",
+    "village": "Village / Town", "district": "District", "state": "State", "landAcres": "Total land (acres)",
+    "experience": "Farming experience (years)", "sectors": "Your sectors", "submit": "Save & Continue",
+    "photoPermission": "Permission is needed to use the camera or gallery.", "uploadFailed": "Photo upload failed. Your profile was saved without it."
+  },
+  "home": { "welcome": "Hello, {{name}}", "comingSoon": "Your dashboard is being prepared.", "signOut": "Sign out" },
+  "validation": {
+    "required": "This field is required", "email": "Enter a valid email address", "mobile": "Enter a valid 10-digit mobile number",
+    "identifier": "Enter a valid mobile number or email", "passwordMin": "Password must be at least 8 characters",
+    "passwordMax": "Password is too long", "passwordMatch": "Passwords do not match", "nameMin": "Enter your full name",
+    "nameMax": "Name is too long", "sectors": "Select at least one sector", "terms": "Please accept the terms to continue",
+    "otp": "Enter the 6-digit code", "number": "Enter a valid number"
+  },
+  "errors": {
+    "generic": "Something went wrong. Please try again.", "network": "No internet connection. Check your network and try again.",
+    "invalidCredentials": "Incorrect mobile/email or password.", "otpInvalid": "The code is wrong or has expired. Request a new code.",
+    "userExists": "An account already exists. Please log in instead.", "rateLimited": "Too many attempts. Please wait a minute and try again.",
+    "notConfirmed": "Your account is not verified yet. Please verify with the code we sent.",
+    "smsUnavailable": "SMS codes are not available right now. Please register with an email address.",
+    "notConfigured": "The app server is not configured yet. Please contact support.", "sessionExpired": "Your session expired. Please log in again."
+  }
+}

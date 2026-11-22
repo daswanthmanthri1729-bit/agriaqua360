@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: 'class', theme: { extend: { colors: { 'surface-tint': '#186c45', 'on-tertiary-container': '#dcd1ff', 'surface': '#edfdf3', 'surface-bright': '#edfdf3', 'on-error-container': '#93000a', 'on-tertiary': '#ffffff', 'secondary-container': '#7ef7b3', 'inverse-surface': '#26332d', 'inverse-primary': '#88d7a8', 'on-primary': '#ffffff', 'tertiary-container': '#6445c6', 'on-primary-fixed': '#002111', 'on-secondary': '#ffffff', 'surface-container-highest': '#d6e6dd', 'surface-container-lowest': '#ffffff', 'primary-container': '#176b45', 'primary-fixed-dim': '#88d7a8', 'on-tertiary-fixed-variant': '#4d2aae', 'on-primary-fixed-variant': '#005232', 'outline-variant': '#bfc9c0', 'on-secondary-fixed-variant': '#005230', 'on-secondary-container': '#007145', 'error-container': '#ffdad6', 'secondary-fixed-dim': '#64dd9b', 'on-background': '#111e19', 'surface-dim': '#ceded4', 'tertiary': '#4c28ad', 'on-surface-variant': '#3f4942', 'surface-variant': '#d6e6dd', 'secondary-fixed': '#81fab6', 'inverse-on-surface': '#e5f5eb', 'on-secondary-fixed': '#002111', 'primary': '#005131', 'surface-container-low': '#e7f7ee', 'tertiary-fixed-dim': '#ccbdff', 'on-error': '#ffffff', 'outline': '#6f7a71', 'on-tertiary-fixed': '#1f005f', 'primary-fixed': '#a4f4c3', 'on-surface': '#111e19', 'error': '#ba1a1a', 'secondary': '#006d42', 'surface-container-high': '#dcece2', 'background': '#edfdf3', 'surface-container': '#e2f2e8', 'tertiary-fixed': '#e7deff', 'on-primary-container': '#99e9b9' }, borderRadius: { 'DEFAULT': '0.25rem', 'lg': '0.5rem', 'xl': '0.75rem', 'full': '9999px' }, spacing: { 'space-lg': '1.5rem', 'space-sm': '0.5rem', 'gutter': '1rem', 'space-xs': '0.25rem', 'margin': '1rem', 'space-xl': '2rem', 'space-md': '1rem' }, fontFamily: { 'body-lg': ['Inter'], 'label-md': ['Inter'], 'body-sm': ['Inter'], 'label-sm': ['Inter'], 'headline-md': ['Manrope'], 'display-lg-mobile': ['Manrope'], 'headline-sm': ['Manrope'], 'body-md': ['Inter'], 'label-lg': ['Inter'], 'headline-lg': ['Manrope'], 'display-lg': ['Manrope'] }, fontSize: { 'body-lg': ['16px', { lineHeight: '24px', fontWeight: '500' }], 'label-md': ['12px', { lineHeight: '16px', letterSpacing: '0.02em', fontWeight: '600' }], 'body-sm': ['13px', { lineHeight: '18px', fontWeight: '400' }], 'label-sm': ['11px', { lineHeight: '14px', letterSpacing: '0.03em', fontWeight: '500' }], 'headline-md': ['22px', { lineHeight: '28px', fontWeight: '700' }], 'display-lg-mobile': ['30px', { lineHeight: '38px', letterSpacing: '-0.015em', fontWeight: '800' }], 'headline-sm': ['18px', { lineHeight: '24px', fontWeight: '600' }], 'body-md': ['14px', { lineHeight: '20px', fontWeight: '400' }], 'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.01em', fontWeight: '600' }], 'headline-lg': ['26px', { lineHeight: '34px', letterSpacing: '-0.01em', fontWeight: '700' }], 'display-lg': ['36px', { lineHeight: '44px', letterSpacing: '-0.02em', fontWeight: '800' }] } } } };</script><style>@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#edfdf3;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(23,107,69,0.06)]"><div class="pt-safe"><div class="flex justify-between items-center px-gutter pt-space-xs text-on-surface-variant font-label-sm text-label-sm select-none"><span>09:41</span><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-[16px]">signal_cellular_alt</span><span class="material-symbols-outlined text-[16px]">wifi</span><span class="material-symbols-outlined text-[18px]">battery_full</span></div></div></div><div class="h-16 px-gutter flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-xs min-w-0"><button aria-label="Go Back" class="w-11 h-11 -ml-2 flex items-center justify-center rounded-full text-on-surface hover:text-primary transition-colors flex-shrink-0" onclick="history.back()"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><h1 class="font-headline-sm text-headline-sm text-on-surface truncate">Species Details</h1></div><div class="flex items-center gap-space-xs flex-shrink-0"><button aria-label="Bookmark Species" class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined text-[22px]">bookmark_border</span></button><button aria-label="Share" class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined text-[22px]">share</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center ml-space-xs flex-shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex flex-col relative w-full pt-16 bg-surface flex-1"><div class="flex flex-col w-full pb-safe">
+<!-- Multilingual Pill Bar -->
+<div class="px-gutter pt-space-xs pb-space-sm flex items-center justify-between">
+<div class="flex items-center gap-1.5 bg-surface-container px-2 py-1 rounded-full">
+<span class="material-symbols-outlined text-[16px] text-primary">translate</span>
+<button class="px-2 py-0.5 rounded-full bg-primary text-on-primary font-label-sm text-label-sm shadow-sm">English</button>
+<button class="px-2 py-0.5 rounded-full text-on-surface-variant font-label-sm text-label-sm hover:text-primary transition-colors">తెలుగు</button>
+<button class="px-2 py-0.5 rounded-full text-on-surface-variant font-label-sm text-label-sm hover:text-primary transition-colors">हिन्दी</button>
+</div>
+<div class="flex items-center gap-1 text-primary font-label-sm text-label-sm bg-secondary-container/50 px-2.5 py-1 rounded-full">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+<span>CAA Verified Standard</span>
+</div>
+</div>
+<!-- Hero Visual Frame with Media & Badges -->
+<div class="px-gutter pb-space-sm">
+<div class="relative w-full rounded-2xl overflow-hidden shadow-md bg-surface-container-lowest">
+<div class="bg-cover bg-center w-full h-56 relative flex flex-col justify-between p-3.5" data-alt="A pristine high-tech biofloc aquaculture pond under diffused dawn sunlight showing crystal clear oxygenated brackish water with healthy translucent Litopenaeus vannamei Pacific white shrimp swimming gracefully, aerators churning turquoise water in background, lush foliage and precision sensory probes visible at the dyke edge, high cinematic photography, natural deep forest greens and aqua reflections." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDvVVnE5zCGxdMb4XS-JbuRzQRQHrb6ieapIIe-Y1NKvYJ7_S5oIN_JileOGV2rfgOjWNftIkPeVpOa9ziA2hSClW5ZYIL8tmQtrAC7avRo8mfv4vNu6OIZkbB-a0X1_XzbJb5WjA3xyY7sKSICypZBGezxwqkJViE9gkVa8pxYw0oCF5n2qrfBywvP_mSwmzYMoC-V7sTz248OnlErNZdcjjbbue7NIz0HYvuK77I')">
+<!-- Live Status Badges Overlay -->
+<div class="flex flex-wrap items-center gap-1.5 z-10">
+<span class="inline-flex items-center gap-1 bg-surface-container-lowest/90 backdrop-blur-md px-2.5 py-1 rounded-full text-primary font-label-sm text-label-sm shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+            SPF Certified Broodstock
+          </span>
+<span class="inline-flex items-center gap-1 bg-primary/90 backdrop-blur-md px-2.5 py-1 rounded-full text-on-primary font-label-sm text-label-sm shadow-sm">
+<span class="material-symbols-outlined text-[12px]">grade</span>
+            Export Grade A+
+          </span>
+</div>
+<!-- Environmental pill pinned to bottom edge of hero visual -->
+<div class="z-10 flex items-center justify-between">
+<span class="inline-flex items-center gap-1.5 bg-surface-container-lowest/95 backdrop-blur-md px-3 py-1 rounded-full text-secondary font-label-sm text-label-sm shadow-sm">
+<span class="material-symbols-outlined text-[15px] text-secondary">water</span>
+            Optimal: Brackish 10–20 ppt
+          </span>
+<span class="inline-flex items-center gap-1 bg-tertiary-container/90 backdrop-blur-md px-2.5 py-1 rounded-full text-on-tertiary font-label-sm text-label-sm shadow-sm">
+<span class="material-symbols-outlined text-[13px]">auto_graph</span>
+            AI Telemetry Calibrated
+          </span>
+</div>
+<!-- Scrim -->
+<div class="absolute inset-0 bg-gradient-to-t from-on-background/70 via-transparent to-transparent pointer-events-none"></div>
+</div>
+<!-- Hero Header Meta Description Card -->
+<div class="p-4 bg-surface-container-lowest">
+<div class="flex items-start justify-between gap-2">
+<div>
+<span class="font-label-sm text-label-sm text-primary uppercase tracking-wider font-semibold">Aquaculture Profile • Penaeidae</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Pacific White Shrimp</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant italic mt-0.5">Litopenaeus vannamei</p>
+</div>
+<div class="bg-surface-container-low px-3 py-1.5 rounded-xl text-right">
+<span class="block font-label-sm text-label-sm text-on-surface-variant">Avg. Mandi</span>
+<span class="block font-headline-sm text-headline-sm text-primary font-bold">₹380–420</span>
+</div>
+</div>
+<div class="mt-3 pt-3 border-t border-surface-container-high flex flex-wrap gap-y-1.5 gap-x-4 text-on-surface-variant font-label-sm text-label-sm">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-primary">public</span>
+            Native: Eastern Pacific Coast
+          </span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-secondary">psychology</span>
+            Domesticated Global Standard
+          </span>
+</div>
+</div>
+</div>
+</div>
+<!-- Species Overview Card -->
+<div class="px-gutter pb-space-sm">
+<div class="bg-surface-container-lowest rounded-2xl p-4 shadow-sm">
+<div class="flex items-center gap-2 mb-2">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">science</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Technical Overview</h3>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+        Highly domesticated penaeid shrimp species renowned for rapid growth rates, tolerance to wide salinity gradients (2–35 ppt), and exceptional high-density suitability under intensive aeration regimes. Ideal for multi-phase culture operations across coastal and inland brackish aquifers.
+      </p>
+<!-- Key attributes mosaic mini-row -->
+<div class="grid grid-cols-3 gap-2 mt-3 pt-3 border-t border-surface-container-high text-center">
+<div class="bg-surface-container-low p-2 rounded-xl">
+<span class="block font-label-sm text-label-sm text-on-surface-variant">DOC Cycle</span>
+<span class="block font-headline-sm text-headline-sm text-primary mt-0.5">100 Days</span>
+</div>
+<div class="bg-surface-container-low p-2 rounded-xl">
+<span class="block font-label-sm text-label-sm text-on-surface-variant">Benchmark FCR</span>
+<span class="block font-headline-sm text-headline-sm text-secondary mt-0.5">1.25–1.40</span>
+</div>
+<div class="bg-surface-container-low p-2 rounded-xl">
+<span class="block font-label-sm text-label-sm text-on-surface-variant">Target Count</span>
+<span class="block font-headline-sm text-headline-sm text-tertiary mt-0.5">30–40/kg</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Calibrated Parameter Grid: Environmental & Hydrological Tolerances -->
+<div class="px-gutter pb-space-sm">
+<div class="flex items-center justify-between mb-2.5">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Calibrated Parameter Grid</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Critical hydrological survival &amp; growth envelopes</p>
+</div>
+<span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-primary bg-surface-container px-2 py-0.5 rounded-full">
+<span class="material-symbols-outlined text-[13px]">sensors</span> Real-time
+      </span>
+</div>
+<div class="space-y-2.5">
+<!-- 1. Salinity Range -->
+<div class="bg-surface-container-lowest rounded-2xl p-3.5 shadow-sm">
+<div class="flex items-center justify-between mb-1.5">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] text-secondary">waves</span>
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">Salinity Tolerance</span>
+</div>
+<span class="font-label-sm text-label-sm bg-secondary-container/40 text-on-secondary-container px-2 py-0.5 rounded-full font-medium">Optimal: 10–25 ppt</span>
+</div>
+<div class="flex items-baseline justify-between mt-1">
+<span class="font-headline-md text-headline-md text-primary">10 – 25 <span class="font-label-md text-label-md text-on-surface-variant">ppt</span></span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Extreme: 2 – 38 ppt</span>
+</div>
+<!-- Progress Range Indicator SVG -->
+<div class="w-full mt-2">
+<div class="w-full bg-surface-container rounded-full h-2 overflow-hidden flex">
+<div class="bg-secondary-fixed-dim/40 h-full w-[15%]"></div>
+<div class="bg-primary h-full w-[65%] rounded-full"></div>
+<div class="bg-secondary-fixed-dim/40 h-full w-[20%]"></div>
+</div>
+<div class="flex justify-between font-label-sm text-label-sm text-on-surface-variant mt-1">
+<span>2 ppt (Low)</span>
+<span class="text-primary font-semibold">Optimal Window</span>
+<span>38 ppt (High)</span>
+</div>
+</div>
+</div>
+<!-- 2. Dissolved Oxygen (DO) -->
+<div class="bg-surface-container-lowest rounded-2xl p-3.5 shadow-sm">
+<div class="flex items-center justify-between mb-1.5">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] text-primary">air</span>
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">Dissolved Oxygen (DO)</span>
+</div>
+<span class="font-label-sm text-label-sm bg-error-container/50 text-on-error-container px-2 py-0.5 rounded-full font-medium">Alert: &lt; 3.5 mg/L</span>
+</div>
+<div class="flex items-baseline justify-between mt-1">
+<span class="font-headline-md text-headline-md text-primary">≥ 5.0 <span class="font-label-md text-label-md text-on-surface-variant">mg/L</span></span>
+<span class="font-body-sm text-body-sm text-error font-medium">Emergency aeration below 3.5</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1.5 bg-surface-container-low p-2 rounded-lg">
+          Maintain continuous aerator rotation during 23:00 to 05:00 window when biological respiration peaks.
+        </p>
+</div>
+<!-- 3. Two Column Mini Grid: pH & Temperature -->
+<div class="grid grid-cols-2 gap-2.5">
+<!-- Water pH -->
+<div class="bg-surface-container-lowest rounded-2xl p-3.5 shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-1.5 text-secondary">
+<span class="material-symbols-outlined text-[18px]">opacity</span>
+<span class="font-label-md text-label-md font-semibold">Water pH Envelope</span>
+</div>
+<div class="font-headline-md text-headline-md text-on-surface mt-1.5">7.5 – 8.3</div>
+</div>
+<div class="mt-2 pt-2 border-t border-surface-container-high text-on-surface-variant font-label-sm text-label-sm">
+            Diurnal delta limit: <span class="text-primary font-bold">&lt; 0.5 pH</span>
+</div>
+</div>
+<!-- Thermal Window -->
+<div class="bg-surface-container-lowest rounded-2xl p-3.5 shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-1.5 text-tertiary">
+<span class="material-symbols-outlined text-[18px]">device_thermostat</span>
+<span class="font-label-md text-label-md font-semibold">Thermal Window</span>
+</div>
+<div class="font-headline-md text-headline-md text-on-surface mt-1.5">28°C – 32°C</div>
+</div>
+<div class="mt-2 pt-2 border-t border-surface-container-high text-on-surface-variant font-label-sm text-label-sm">
+            Growth stalls &lt; 24°C; stress &gt; 34°C
+          </div>
+</div>
+</div>
+<!-- 4. Water Toxicity Metrics: TAN, Nitrite & Alkalinity -->
+<div class="bg-surface-container-lowest rounded-2xl p-3.5 shadow-sm">
+<div class="font-label-lg text-label-lg text-on-surface font-semibold mb-2 flex items-center justify-between">
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-primary">biotech</span>
+            Metabolite &amp; Buffering Limits
+          </span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Daily Lab Testing</span>
+</div>
+<div class="grid grid-cols-3 gap-2">
+<div class="bg-surface-container-low p-2 rounded-xl">
+<span class="block font-label-sm text-label-sm text-on-surface-variant">TAN</span>
+<span class="block font-label-lg text-label-lg font-bold text-on-surface mt-0.5">&lt; 0.1 <span class="text-[10px] font-normal">mg/L</span></span>
+<span class="block font-label-sm text-[10px] text-error">NH₃ &lt; 0.02</span>
+</div>
+<div class="bg-surface-container-low p-2 rounded-xl">
+<span class="block font-label-sm text-label-sm text-on-surface-variant">Nitrite (NO₂⁻)</span>
+<span class="block font-label-lg text-label-lg font-bold text-on-surface mt-0.5">&lt; 0.05 <span class="text-[10px] font-normal">mg/L</span></span>
+<span class="block font-label-sm text-[10px] text-on-surface-variant">Cl⁻ buffer</span>
+</div>
+<div class="bg-surface-container-low p-2 rounded-xl">
+<span class="block font-label-sm text-label-sm text-on-surface-variant">Alkalinity</span>
+<span class="block font-label-lg text-label-lg font-bold text-primary mt-0.5">120–160</span>
+<span class="block font-label-sm text-[10px] text-on-surface-variant">as CaCO₃ (Molting)</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Visual Pond Ecosystem Showcase Banner -->
+<div class="px-gutter pb-space-sm">
+<div class="relative rounded-2xl overflow-hidden shadow-sm">
+<div class="bg-cover bg-center w-full h-36 flex flex-col justify-end p-3 relative" data-alt="Intensive shrimp farming pond layout showing long-arm paddle wheel aerators churning foamy water in circles, HDPE lined pond dykes with feed trays floating on rope lines, automated solar-powered feeder mounted on boardwalk, Andhra Pradesh coastal farm layout under pristine daytime lighting." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD1w1xE_lPaGyNyTzQXMempyeaLrWd6JthE9_h3Zl2ZQ4gclMg9L69eVVIdj84lwOM0CFbDFPACUoodyQ4XGoPb_GVIF4xSf02HHaCtqWLvOUah-tsbmYvbIWQBBbdEs3jkI_s52nULD2C3JliYgBKuilgqsDglBLstcBAIJQfzKV_GVJ6E3hleni3SuqzHp4q35PIBsj7MdssdnVeSUUt95zuGGjumEmlC3xJ7468')">
+<div class="absolute inset-0 bg-gradient-to-t from-on-background/80 via-on-background/30 to-transparent"></div>
+<div class="relative z-10 text-on-primary">
+<span class="font-label-sm text-label-sm uppercase tracking-wide text-secondary-fixed">Infrastructure Spec</span>
+<h4 class="font-headline-sm text-headline-sm">Optimized Aeration Architecture</h4>
+</div>
+</div>
+</div>
+</div>
+<!-- Farming & Pond Architecture Requirements -->
+<div class="px-gutter pb-space-sm">
+<div class="bg-surface-container-lowest rounded-2xl p-4 shadow-sm">
+<div class="flex items-center gap-2 mb-3">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">water_lux</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Pond Architecture &amp; Density</h3>
+</div>
+<div class="space-y-3">
+<!-- Pond density variants -->
+<div class="border-b border-surface-container-high pb-3">
+<span class="font-label-md text-label-md text-on-surface font-semibold block mb-1.5">Approved Stocking Density Regimes:</span>
+<div class="grid grid-cols-2 gap-2">
+<div class="bg-surface-container-low p-2.5 rounded-xl">
+<span class="font-label-sm text-label-sm text-primary font-semibold block">HDPE Lined Ponds</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">60–100 <span class="font-label-sm text-label-sm font-normal">PL/m²</span></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant block mt-0.5">High Density Intensive</span>
+</div>
+<div class="bg-surface-container-low p-2.5 rounded-xl">
+<span class="font-label-sm text-label-sm text-secondary font-semibold block">Earthen Ponds</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">30–50 <span class="font-label-sm text-label-sm font-normal">PL/m²</span></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant block mt-0.5">Standard Semi-Intensive</span>
+</div>
+</div>
+</div>
+<!-- Aeration Protocol -->
+<div class="flex items-start gap-3 bg-surface-container-low p-3 rounded-xl">
+<span class="material-symbols-outlined text-[24px] text-primary mt-0.5">wind_power</span>
+<div>
+<span class="font-label-md text-label-md text-on-surface font-semibold block">Aeration Standard: 1 HP / 300–400 kg</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+              Minimum 4 dual-wheel paddlewheels per hectare in nursery phase, scaling to continuous 16 hrs/day paddlewheel operation past DOC 60.
+            </p>
+</div>
+</div>
+<!-- Soil Preparation SOP -->
+<div class="bg-surface-container-low p-3 rounded-xl">
+<div class="flex items-center gap-1.5 text-on-surface font-label-md text-label-md font-semibold mb-1">
+<span class="material-symbols-outlined text-[16px] text-primary">landslide</span>
+            Pre-Stocking Pond Preparation Checklist
+          </div>
+<ul class="font-body-sm text-body-sm text-on-surface-variant space-y-1 pl-1">
+<li class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+              Cracked dry out to 10cm soil depth to mineralize organic sludge
+            </li>
+<li class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+              Dolomite / Agricultural limestone at 250 kg/hectare
+            </li>
+<li class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+              Pond water disinfection with chlorine at 20–30 ppm before seed stocking
+            </li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<!-- Feeding Protocol & Nutrition Matrix -->
+<div class="px-gutter pb-space-sm">
+<div class="bg-surface-container-lowest rounded-2xl p-4 shadow-sm">
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">restaurant</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Feeding &amp; Nutrition Matrix</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Calibrated Crude Protein (CP)</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm bg-primary/10 text-primary px-2.5 py-1 rounded-full font-semibold">4 Doses / Day</span>
+</div>
+<!-- Feeding Schedule Timeline Badges -->
+<div class="grid grid-cols-4 gap-1.5 mb-3 text-center">
+<div class="bg-surface-container-low p-1.5 rounded-xl">
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Dose 1</span>
+<span class="font-label-md text-label-md text-primary font-bold">06:00 AM</span>
+<span class="text-[10px] text-on-surface-variant">25% Ration</span>
+</div>
+<div class="bg-surface-container-low p-1.5 rounded-xl">
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Dose 2</span>
+<span class="font-label-md text-label-md text-primary font-bold">11:00 AM</span>
+<span class="text-[10px] text-on-surface-variant">20% Ration</span>
+</div>
+<div class="bg-surface-container-low p-1.5 rounded-xl">
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Dose 3</span>
+<span class="font-label-md text-label-md text-primary font-bold">04:00 PM</span>
+<span class="text-[10px] text-on-surface-variant">25% Ration</span>
+</div>
+<div class="bg-surface-container-low p-1.5 rounded-xl">
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Dose 4</span>
+<span class="font-label-md text-label-md text-primary font-bold">09:30 PM</span>
+<span class="text-[10px] text-on-surface-variant">30% Ration</span>
+</div>
+</div>
+<!-- Nutritional Specifications -->
+<div class="space-y-2 text-on-surface-variant font-body-sm text-body-sm">
+<div class="flex items-center justify-between p-2 rounded-xl bg-surface-container-low">
+<span>Nursery / Early Grow-out (DOC 1–35)</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold">34% – 38% CP Pellets</span>
+</div>
+<div class="flex items-center justify-between p-2 rounded-xl bg-surface-container-low">
+<span>Late Grow-out / Finishing (DOC 36–100)</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold">32% – 35% CP Pellets</span>
+</div>
+</div>
+<!-- Check-Tray Management Callout -->
+<div class="mt-3 p-3 rounded-xl bg-secondary-container/20 flex items-start gap-2.5">
+<span class="material-symbols-outlined text-[20px] text-secondary mt-0.5">timer</span>
+<div>
+<span class="font-label-md text-label-md text-on-secondary-container font-semibold block">Check-Tray Consumption Protocol</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+            Monitor 4 submerged check-trays per pond. If feed is completely cleared within <span class="font-semibold text-on-surface">1.5 – 2.0 hours</span>, increment feeding rate by 5%. If uneaten, reduce next ration by 15% to avoid bottom sediment deterioration.
+          </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Growth Timeline & DOC Benchmarks (100 Days Cycle) -->
+<div class="px-gutter pb-space-sm">
+<div class="bg-surface-container-lowest rounded-2xl p-4 shadow-sm">
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">trending_up</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">100-Day DOC Growth Roadmap</h3>
+</div>
+<span class="font-label-sm text-label-sm text-tertiary bg-tertiary-container/10 px-2 py-0.5 rounded-full font-semibold">AI Benchmark</span>
+</div>
+<div class="relative pl-6 space-y-4 before:content-[''] before:absolute before:left-2.5 before:top-2 before:bottom-2 before:w-0.5 before:bg-surface-container-high">
+<!-- Stage 1 -->
+<div class="relative">
+<div class="absolute -left-6 top-1 w-3 h-3 rounded-full bg-primary ring-4 ring-surface-container-lowest"></div>
+<div class="flex items-baseline justify-between">
+<span class="font-label-md text-label-md text-primary font-bold">Stage 1: Nursery &amp; Acclimatization</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">DOC 1–20</span>
+</div>
+<div class="flex items-center gap-2 mt-0.5">
+<span class="font-label-lg text-label-lg font-bold text-on-surface">PL-10 → 1.5g</span>
+<span class="text-xs text-on-surface-variant">• Target survival &gt; 85%</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+            Strict temperature and salinity transition acclimation; maintain probiotic water bloom.
+          </p>
+</div>
+<!-- Stage 2 -->
+<div class="relative">
+<div class="absolute -left-6 top-1 w-3 h-3 rounded-full bg-primary ring-4 ring-surface-container-lowest"></div>
+<div class="flex items-baseline justify-between">
+<span class="font-label-md text-label-md text-primary font-bold">Stage 2: Rapid Vegetative Growth</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">DOC 21–55</span>
+</div>
+<div class="flex items-center gap-2 mt-0.5">
+<span class="font-label-lg text-label-lg font-bold text-on-surface">1.5g → 10.0g</span>
+<span class="text-xs text-secondary font-semibold">• ADG 0.25g / day</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+            Molting frequency peaks every 5–7 days; verify mineral buffering (calcium &amp; magnesium).
+          </p>
+</div>
+<!-- Stage 3 -->
+<div class="relative">
+<div class="absolute -left-6 top-1 w-3 h-3 rounded-full bg-primary ring-4 ring-surface-container-lowest"></div>
+<div class="flex items-baseline justify-between">
+<span class="font-label-md text-label-md text-primary font-bold">Stage 3: Intensive Biomass Phase</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">DOC 56–80</span>
+</div>
+<div class="flex items-center gap-2 mt-0.5">
+<span class="font-label-lg text-label-lg font-bold text-on-surface">10.0g → 18.0g</span>
+<span class="text-xs text-on-surface-variant">• 16 hrs Aeration</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+            High organic load; deploy central sludge drainage and routine gut health sampling.
+          </p>
+</div>
+<!-- Stage 4 -->
+<div class="relative">
+<div class="absolute -left-6 top-1 w-3 h-3 rounded-full bg-secondary ring-4 ring-surface-container-lowest"></div>
+<div class="flex items-baseline justify-between">
+<span class="font-label-md text-label-md text-secondary font-bold">Stage 4: Harvest Finishing</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">DOC 81–100</span>
+</div>
+<div class="flex items-center gap-2 mt-0.5">
+<span class="font-label-lg text-label-lg font-bold text-on-surface">18.0g → 24.0g</span>
+<span class="text-xs text-primary font-semibold">• Firm Shell Premium</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+            Daily check for hard exoskeleton consistency; withhold chemical supplements 72h prior.
+          </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Common Pathogens & Bio-security Protocols -->
+<div class="px-gutter pb-space-sm">
+<div class="bg-surface-container-lowest rounded-2xl p-4 shadow-sm">
+<div class="flex items-center gap-2 mb-3">
+<div class="w-8 h-8 rounded-lg bg-error-container/30 flex items-center justify-center text-error">
+<span class="material-symbols-outlined text-[20px]">shield</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Pathology &amp; Biosecurity</h3>
+<span class="font-label-sm text-label-sm text-error font-medium">Critical Prevention Measures</span>
+</div>
+</div>
+<!-- Priority Diseases Chips -->
+<div class="mb-3">
+<span class="font-label-sm text-label-sm text-on-surface-variant block mb-1.5 font-medium">Priority Monitored Pathogens:</span>
+<div class="flex flex-wrap gap-1.5">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-error-container/30 text-on-error-container font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+            WSSV (White Spot)
+          </span>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-error-container/30 text-on-error-container font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+            AHPND / EMS
+          </span>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">
+            EHP (Microsporidian)
+          </span>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">
+            RMS (Running Mortality)
+          </span>
+</div>
+</div>
+<!-- Vigilance Protocol Items -->
+<div class="space-y-2 pt-2 border-t border-surface-container-high">
+<div class="flex items-start gap-2.5">
+<span class="material-symbols-outlined text-[18px] text-primary mt-0.5">verified_user</span>
+<span class="font-body-sm text-body-sm text-on-surface">Procure solely CAA-approved SPF Post-Larvae (PL-12 to PL-15) with pre-stocking batch PCR certification.</span>
+</div>
+<div class="flex items-start gap-2.5">
+<span class="material-symbols-outlined text-[18px] text-primary mt-0.5">fence</span>
+<span class="font-body-sm text-body-sm text-on-surface">Install 60cm nylon crab-fencing around bund dykes and overhead polypropylene bird netting.</span>
+</div>
+<div class="flex items-start gap-2.5">
+<span class="material-symbols-outlined text-[18px] text-primary mt-0.5">sanitizer</span>
+<span class="font-body-sm text-body-sm text-on-surface">Dedicated footbaths (potassium permanganate) and sanitation dip stations at pond entrance points.</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Harvest & Andhra Mandi Commercial Benchmark -->
+<div class="px-gutter pb-space-lg">
+<div class="bg-surface-container-lowest rounded-2xl p-4 shadow-sm">
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">currency_rupee</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Commercial Mandi Benchmarks</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Bhimavaram &amp; Nellore Coastal Hubs</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm bg-secondary-container/50 text-on-secondary-container px-2.5 py-1 rounded-full font-medium">Live Trend</span>
+</div>
+<!-- Price Matrix Breakdown -->
+<div class="grid grid-cols-2 gap-2 mb-3">
+<div class="bg-surface-container-low p-3 rounded-xl border border-surface-container-high/40">
+<span class="font-label-sm text-label-sm text-on-surface-variant">30 Count (Export Prime)</span>
+<span class="font-headline-sm text-headline-sm text-primary font-bold block mt-0.5">₹410 – ₹430 <span class="font-label-sm text-label-sm font-normal">/ kg</span></span>
+</div>
+<div class="bg-surface-container-low p-3 rounded-xl border border-surface-container-high/40">
+<span class="font-label-sm text-label-sm text-on-surface-variant">40 Count (Standard)</span>
+<span class="font-headline-sm text-headline-sm text-primary font-bold block mt-0.5">₹360 – ₹385 <span class="font-label-sm text-label-sm font-normal">/ kg</span></span>
+</div>
+</div>
+<!-- Chilled Harvest Advisory -->
+<div class="flex items-start gap-2.5 bg-surface-container p-3 rounded-xl">
+<span class="material-symbols-outlined text-[20px] text-tertiary mt-0.5">ac_unit</span>
+<div>
+<span class="font-label-md text-label-md text-on-surface font-semibold block">Post-Midnight Chilled Harvest SOP</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+            Conduct harvest exclusively between 01:00 AM and 05:00 AM. Slurry ice kill instantly (1:1 shrimp to crushed ice ratio) to prevent hepatopancreas autolysis and preserve export firmness.
+          </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Sticky Bottom Ergonomic Action Sheet -->
+<div class="sticky bottom-0 w-full bg-surface-container-lowest/95 backdrop-blur-xl p-4 shadow-[0_-4px_16px_rgba(23,107,69,0.08)] z-40 flex flex-col gap-2.5">
+<button class="w-full h-[52px] bg-primary-container text-on-primary font-label-lg text-label-lg rounded-xl flex items-center justify-center gap-2 active:scale-[0.98] transition-all shadow-md" id="btn-add-pond" onclick="handleAddPond(this)">
+<span class="material-symbols-outlined text-[20px]">add_circle</span>
+<span>+ Add Species to My Pond</span>
+</button>
+<button class="w-full h-[46px] bg-surface-container-low text-primary font-label-md text-label-md rounded-xl flex items-center justify-center gap-2 active:bg-surface-container transition-colors" id="btn-download-sop" onclick="handleDownloadSop(this)">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span>Download Culture SOP (PDF • 4.2 MB)</span>
+</button>
+</div>
+</div>
+<script>
+  function handleAddPond(button) {
+    const originalContent = button.innerHTML;
+    button.disabled = true;
+    button.innerHTML = '<span class="material-symbols-outlined animate-spin text-[20px]">progress_activity</span><span>Configuring Pond Module...</span>';
+    
+    setTimeout(() => {
+      button.classList.remove('bg-primary-container');
+      button.classList.add('bg-secondary');
+      button.innerHTML = '<span class="material-symbols-outlined text-[20px]">task_alt</span><span>Added to Pond #2 (East Dyke)</span>';
+      
+      setTimeout(() => {
+        button.innerHTML = originalContent;
+        button.disabled = false;
+        button.classList.add('bg-primary-container');
+        button.classList.remove('bg-secondary');
+      }, 2500);
+    }, 700);
+  }
+
+  function handleDownloadSop(button) {
+    const originalText = button.innerHTML;
+    button.innerHTML = '<span class="material-symbols-outlined text-[18px]">cloud_sync</span><span>Generating Telugu/English SOP...</span>';
+    setTimeout(() => {
+      button.innerHTML = '<span class="material-symbols-outlined text-[18px] text-primary">check</span><span>SOP Saved to AgriAqua Docs</span>';
+      setTimeout(() => {
+        button.innerHTML = originalText;
+      }, 2000);
+    }, 900);
+  }
+</script></main></body></html>

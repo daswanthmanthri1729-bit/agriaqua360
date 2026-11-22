@@ -1,0 +1,368 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport">
+<meta content="mobile_stack" name="shell-type">
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&amp;family=Noto+Sans+Telugu:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+    @layer base {
+      html, body { width: 100vw; margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+      .pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); }
+      .pt-safe { padding-top: env(safe-area-inset-top, 0px); }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { display: none; }
+    body { min-height: max(884px, 100dvh); }
+  </style>
+<script src="https://cdn.tailwindcss.com"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-background": "#111e19",
+            "primary-fixed-dim": "#88d7a8",
+            "primary-container": "#176b45",
+            "primary": "#005131",
+            "on-surface-variant": "#3f4942",
+            "on-error-container": "#93000a",
+            "surface-container-highest": "#d6e6dd",
+            "inverse-primary": "#88d7a8",
+            "surface-container-low": "#e7f7ee",
+            "error-container": "#ffdad6",
+            "tertiary": "#4c28ad",
+            "tertiary-container": "#6445c6",
+            "primary-fixed": "#a4f4c3",
+            "on-secondary": "#ffffff",
+            "on-tertiary-container": "#dcd1ff",
+            "secondary-fixed": "#81fab6",
+            "on-tertiary-fixed-variant": "#4d2aae",
+            "error": "#ba1a1a",
+            "tertiary-fixed": "#e7deff",
+            "on-secondary-container": "#007145",
+            "background": "#edfdf3",
+            "surface": "#edfdf3",
+            "on-tertiary-fixed": "#1f005f",
+            "surface-variant": "#d6e6dd",
+            "on-error": "#ffffff",
+            "on-primary-container": "#99e9b9",
+            "secondary": "#006d42",
+            "outline": "#6f7a71",
+            "tertiary-fixed-dim": "#ccbdff",
+            "on-primary-fixed-variant": "#005232",
+            "surface-dim": "#ceded4",
+            "secondary-container": "#7ef7b3",
+            "on-surface": "#111e19",
+            "surface-container-high": "#dcece2",
+            "surface-tint": "#186c45",
+            "inverse-surface": "#26332d",
+            "on-tertiary": "#ffffff",
+            "on-secondary-fixed-variant": "#005230",
+            "outline-variant": "#bfc9c0",
+            "inverse-on-surface": "#e5f5eb",
+            "secondary-fixed-dim": "#64dd9b",
+            "on-primary": "#ffffff",
+            "surface-container": "#e2f2e8",
+            "surface-container-lowest": "#ffffff",
+            "on-secondary-fixed": "#002111",
+            "surface-bright": "#edfdf3",
+            "on-primary-fixed": "#002111"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-sm": "0.5rem",
+            "space-lg": "1.5rem",
+            "space-xs": "0.25rem",
+            "margin": "1rem",
+            "space-md": "1rem",
+            "space-xl": "2rem",
+            "gutter": "1rem"
+          },
+          "fontFamily": {
+            "body-md": ["Inter"],
+            "headline-lg": ["Manrope"],
+            "body-sm": ["Inter"],
+            "headline-md": ["Manrope"],
+            "display-lg-mobile": ["Manrope"],
+            "label-lg": ["Inter"],
+            "headline-sm": ["Manrope"],
+            "display-lg": ["Manrope"],
+            "label-md": ["Inter"],
+            "body-lg": ["Inter"],
+            "label-sm": ["Inter"]
+          },
+          "fontSize": {
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "headline-lg": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+            "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "700" }],
+            "display-lg-mobile": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.015em", "fontWeight": "800" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "display-lg": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "500" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.03em", "fontWeight": "500" }]
+          }
+        }
+      }
+    };
+  </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body-md text-on-surface antialiased flex flex-col min-h-screen">
+<header class="fixed top-0 w-full z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(23,107,69,0.05)] pt-safe">
+<!-- Android System Status Bar Emulation -->
+<div class="flex items-center justify-between px-margin h-6 text-on-surface-variant font-label-sm select-none">
+<span class="font-label-md font-semibold tracking-tight text-on-surface">09:41</span>
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px]">signal_cellular_4_bar</span>
+<span class="material-symbols-outlined text-[16px]">wifi</span>
+<span class="material-symbols-outlined text-[16px]">battery_charging_full</span>
+</div>
+</div>
+<!-- Main Navigation Bar with Dynamic Page Title and Back Controls -->
+<div class="h-14 px-margin flex items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs min-w-0 flex-1">
+<button aria-label="Navigate Back" class="w-11 h-11 -ml-space-xs flex items-center justify-center rounded-full text-on-surface hover:bg-surface-container active:scale-95 transition-all" onclick="history.back()" type="button">
+<span class="material-symbols-outlined text-[24px]">arrow_back</span>
+</button>
+<div class="flex flex-col min-w-0">
+<h1 class="font-headline-sm text-headline-sm text-on-surface truncate">28   Pond Details</h1>
+<!-- Telemetry Sync Pill -->
+<div class="flex items-center gap-1 text-[11px] font-label-sm text-primary tracking-tight">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+<span class="font-medium">Telemetry Synced</span>
+<span class="text-on-surface-variant opacity-60">• Live</span>
+</div>
+</div>
+</div>
+<!-- Action Controls -->
+<div class="flex items-center shrink-0"><button aria-label="Change Language" class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm font-semibold border border-outline-variant/30 active:scale-95 transition-all mr-1" onclick="document.getElementById('language-bottom-sheet').classList.remove('hidden')" type="button"><span class="material-symbols-outlined text-[16px] text-primary">language</span><span id="active-lang-label">English</span><span class="material-symbols-outlined text-[16px]">arrow_drop_down</span></button>
+<button aria-label="Search telemetry &amp; records" class="w-10 h-10 flex items-center justify-center rounded-full text-on-surface-variant hover:text-primary hover:bg-surface-container active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[22px]">search</span>
+</button>
+<button aria-label="More options" class="w-10 h-10 flex items-center justify-center rounded-full text-on-surface-variant hover:text-primary hover:bg-surface-container active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[22px]">more_vert</span>
+</button>
+</div>
+</div>
+</header>
+<main class="flex flex-col relative w-full pt-20 pb-safe bg-surface min-h-screen"><div class="flex flex-col w-full pb-24">
+<!-- Language Quick Switcher Floating Bar -->
+<div class="px-margin pt-space-xs pb-space-sm flex items-center justify-between">
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-primary" style="font-variation-settings: 'FILL' 1;">water_drop</span>
+<span class="font-label-sm text-on-surface-variant font-medium">Coastal Aqua Hub • Eluru</span>
+</div>
+<!-- Trilingual Segmented Pill -->
+<div class="inline-flex p-0.5 rounded-full bg-surface-container shadow-inner"><button class="lang-btn px-2.5 py-0.5 rounded-full text-label-sm font-label-sm bg-primary text-on-primary transition-all" data-lang="en" onclick="selectLanguage('en')" type="button">EN</button><button class="lang-btn px-2.5 py-0.5 rounded-full text-label-sm font-label-sm text-on-surface-variant hover:text-primary transition-all" data-lang="te" onclick="selectLanguage('te')" type="button">తెలుగు</button><button class="lang-btn px-2.5 py-0.5 rounded-full text-label-sm font-label-sm text-on-surface-variant hover:text-primary transition-all" data-lang="hi" onclick="selectLanguage('hi')" type="button">हिंदी</button></div>
+</div>
+<!-- Hero Visual Container with Atmospheric Aqua Gradients -->
+<div class="px-margin mb-space-md">
+<div class="relative w-full h-64 rounded-xl overflow-hidden shadow-md">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="Photorealistic commercial aquaculture shrimp pond in Eluru India with active spinning paddlewheel aerators whipping white foam across sunlit brackish water under soft dawn light. lush tropical foliage and green embankments in the background, precision aerial angle, high clarity, organic green and coastal aqua blue tones." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAp6bTn9OkBilR9w3nhjUHFEwOkeZSNJI5rZDFZuX-WIBeVjjsatQbkxBhm-j9xw6bZyce6gAVr-CLib2Fz4lh6RF1o93Mf5wXUbylzrIpwZv6k20QslEsqo3CDd7rZj36p7bqrVWy6F8BJqzwQtsybbNkLoRh0JfK3pMENW4yyNZcazcucEUd5zPuPPup4DwNCKN6WUAdWS57lLmL5rQhA6IusotqmQS-B4vYQA0U')"></div>
+<!-- Soft ambient gradient overlays -->
+<div class="absolute inset-0 bg-gradient-to-t from-on-background/90 via-on-background/30 to-transparent"></div>
+<!-- Top floating status pills -->
+<div class="absolute top-3 left-3 right-3 flex items-center justify-between gap-2"><div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-lowest/90 backdrop-blur-md shadow-sm"><span class="w-2 h-2 rounded-full bg-primary animate-ping"></span><span class="w-2 h-2 rounded-full bg-primary -ml-3"></span><span class="font-label-sm text-primary font-semibold tracking-tight" data-lang-en="Active Culture • Day 73/100" data-lang-te="కల్చర్ పురోగతిలో ఉంది • రోజు 73/100" data-lang-hi="सक्रिय संवर्धन • दिन 73/100">Active Culture • Day 73/100</span></div><div class="px-3 py-1 rounded-full bg-surface-container-lowest/90 backdrop-blur-md shadow-sm"><span class="font-label-sm text-on-surface font-semibold tracking-tight" data-lang-en="Brackish (12 ppt)" data-lang-te="ఉప్పునీరు (12 ppt)" data-lang-hi="खारा पानी (12 ppt)">Brackish (12 ppt)</span></div></div>
+<!-- Bottom overlay content -->
+<div class="absolute bottom-3 left-3 right-3 flex flex-col gap-1 text-on-primary"><div class="flex items-center justify-between"><div class="flex flex-col"><h2 class="font-headline-md text-headline-md font-bold tracking-tight text-surface-container-lowest"><span data-lang-en="Blue Waters Pond #01" data-lang-te="బ్లూ వాటర్స్ చెరువు #01" data-lang-hi="ब्लू वाटर्स तालाब #01">Blue Waters Pond #01</span></h2><span class="text-[12px] font-label-sm text-primary-fixed font-medium"><span data-lang-en="Vannamei Shrimp Grow-out" data-lang-te="వనామి రొయ్యల సాగు చెరువు" data-lang-hi="वन्नामेई झींगा पालन तालाब">Vannamei Shrimp Grow-out</span></span></div><span class="flex items-center justify-center w-8 h-8 rounded-full bg-surface-container-lowest/20 backdrop-blur-sm text-surface-container-lowest"><span class="material-symbols-outlined text-[18px]">verified</span></span></div><p class="font-body-sm text-body-sm text-surface-container-high opacity-90"><span data-lang-en="Sector B • Coastal Aqua Hub, Eluru" data-lang-te="సెక్టార్ బి • కోస్టల్ ఆక్వా హబ్, ఏలూరు" data-lang-hi="सेक्टर बी • कोस्टल एक्वा हब, एलुरु">Sector B • Coastal Aqua Hub, Eluru</span></p><div class="flex items-center gap-1.5 mt-0.5 text-surface-container-highest"><span class="material-symbols-outlined text-[14px]">sensors</span><span class="font-label-sm text-label-sm font-medium"><span data-lang-en="IoT Node #AQ-01 Synced • 8m ago" data-lang-te="IoT నోడ్ #AQ-01 సమకాలీకరించబడింది • 8నిమి క్రితం" data-lang-hi="IoT नोड #AQ-01 सिंक • 8 मिनट पहले">IoT Node #AQ-01 Synced • 8m ago</span></span></div></div>
+</div>
+</div>
+<!-- Top Overview Card: 4 Dimension Stats -->
+<div class="px-margin mb-space-md">
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm">
+<div class="grid grid-cols-2 gap-3"><div class="p-2.5 rounded-lg bg-surface-container-low flex flex-col"><span class="font-label-sm text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-primary">aspect_ratio</span><span data-lang-en="Water Area" data-lang-te="నీటి వైశాల్యం" data-lang-hi="जल क्षेत्र">Water Area</span></span><span class="font-headline-sm text-headline-sm text-on-surface mt-1">1.2 Ha</span><span class="font-label-sm text-on-surface-variant text-[11px]" data-lang-en="2.96 Acres" data-lang-te="2.96 ఎకరాలు" data-lang-hi="2.96 एकड़">2.96 Acres</span></div><div class="p-2.5 rounded-lg bg-surface-container-low flex flex-col"><span class="font-label-sm text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-primary">straighten</span><span data-lang-en="Water Depth" data-lang-te="నీటి లోతు" data-lang-hi="पानी की गहराई">Water Depth</span></span><span class="font-headline-sm text-headline-sm text-on-surface mt-1">1.6 m</span><span class="font-label-sm text-on-surface-variant text-[11px]" data-lang-en="Calibrated Stand" data-lang-te="ప్రామాణిక స్థాయి" data-lang-hi="मानकीकृत स्तर">Calibrated Stand</span></div><div class="p-2.5 rounded-lg bg-surface-container-low flex flex-col"><span class="font-label-sm text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-primary">water</span><span data-lang-en="Est. Volume" data-lang-te="అంచనా నీటి పరిమాణం" data-lang-hi="अनुमानित आयतन">Est. Volume</span></span><span class="font-headline-sm text-headline-sm text-on-surface mt-1">19,200 m³</span><span class="font-label-sm text-on-surface-variant text-[11px]" data-lang-en="Active Retention" data-lang-te="నిల్వ పరిమాణం" data-lang-hi="सक्रिय संचयन">Active Retention</span></div><div class="p-2.5 rounded-lg bg-surface-container-low flex flex-col"><span class="font-label-sm text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-primary">health_and_safety</span><span data-lang-en="Status" data-lang-te="స్థితి" data-lang-hi="स्थिति">Status</span></span><span class="font-headline-sm text-headline-sm text-primary mt-1" data-lang-en="Optimal" data-lang-te="అనుకూలం" data-lang-hi="अनुकूल">Optimal</span><span class="font-label-sm text-on-surface-variant text-[11px]" data-lang-en="Normal Cultivation" data-lang-te="సాధారణ పెంపకం" data-lang-hi="सामान्य पालन">Normal Cultivation</span></div></div>
+</div>
+</div>
+<!-- Species & Stocking Summary -->
+<div class="px-margin mb-space-md">
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm relative overflow-hidden">
+<!-- Ambient corner water mark -->
+<div class="flex items-center justify-between pb-space-sm">
+<div class="flex items-center gap-2">
+<span class="w-9 h-9 rounded-full bg-secondary-container/50 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">set_meal</span>
+</span>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Pacific White Shrimp</h3>
+<span class="font-body-sm text-body-sm text-on-surface-variant italic">Litopenaeus vannamei</span>
+</div>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm font-semibold">
+          73 DOC
+        </span>
+</div>
+<!-- Detailed Stock Metrics -->
+<div class="mt-2 space-y-2.5"><div class="flex items-center justify-between text-body-sm"><span class="text-on-surface-variant" data-lang-en="Stocked Date &amp; Batch" data-lang-te="స్టాకింగ్ తేదీ &amp; బ్యాచ్" data-lang-hi="स्टॉकिंग तिथि और बैच">Stocked Date &amp; Batch</span><span class="font-label-lg text-on-surface font-semibold">12 Aug 2024 (PL-15)</span></div><div class="flex items-center justify-between text-body-sm"><span class="text-on-surface-variant" data-lang-en="Initial Stock Count" data-lang-te="ప్రారంభ సీడ్ సంఖ్య" data-lang-hi="प्रारंभिक बीज संख्या">Initial Stock Count</span><span class="font-label-lg text-on-surface">250,000 PL</span></div><div class="flex items-center justify-between text-body-sm"><span class="text-on-surface-variant" data-lang-en="Current Estimated Population" data-lang-te="ప్రస్తుత అంచనా జనాభా" data-lang-hi="वर्तमान अनुमानित आबादी">Current Estimated Population</span><div class="text-right"><span class="font-label-lg text-on-surface font-bold">~210,000</span><span class="font-label-sm text-primary block text-[11px]" data-lang-en="84% Survival benchmark" data-lang-te="84% బ్రతుకుదల రేటు" data-lang-hi="84% उत्तरजीविता दर">84% Survival benchmark</span></div></div><div class="pt-2"><div class="flex justify-between items-center mb-1.5 font-label-sm"><span class="text-on-surface-variant"><span data-lang-en="Current MBW (ABW): " data-lang-te="సగటు బరువు (ABW): " data-lang-hi="औसत शारीरिक भार (ABW): ">Current MBW (ABW): </span><strong class="text-on-surface font-semibold">16.5g</strong></span><span class="text-primary font-semibold" data-lang-en="Target: 22.0g (75%)" data-lang-te="లక్ష్యం: 22.0 గ్రా (75%)" data-lang-hi="लक्ष्य: 22.0 ग्राम (75%)">Target: 22.0g (75%)</span></div><div class="w-full h-2.5 rounded-full bg-surface-container overflow-hidden"><div class="h-full rounded-full bg-primary" style="width: 75%;"></div></div></div><div class="p-3 rounded-lg bg-surface-container flex items-center justify-between mt-3"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[20px]">scale</span><div><p class="font-label-sm text-on-surface-variant" data-lang-en="Total Estimated Biomass" data-lang-te="మొత్తం బయోమాస్ అంచనా" data-lang-hi="कुल अनुमानित बायोमास">Total Estimated Biomass</p><p class="font-headline-sm text-headline-sm font-bold text-on-surface">3,465 kg</p></div></div><span class="px-2 py-1 rounded-md bg-surface-container-lowest text-primary font-label-sm font-semibold shadow-sm" data-lang-en="+182 kg / wk" data-lang-te="+182 కేజీ / వారం" data-lang-hi="+182 किग्रा / सप्ताह">+182 kg / wk</span></div></div>
+</div>
+</div>
+<!-- Water Quality Summary (Live Telemetry & Safe Bands) -->
+<div class="px-margin mb-space-md">
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-1.5">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Water Quality Telemetry</h3>
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+</div>
+<span class="font-label-sm text-primary font-semibold">Verified Safe</span>
+</div>
+<div class="flex items-center gap-1 text-[11px] font-label-sm text-on-surface-variant mb-3 bg-surface-container px-2.5 py-1 rounded-md">
+<span class="material-symbols-outlined text-[14px] text-primary">precision_manufacturing</span>
+<span>Continuous Optical Probe #DO-02 &amp; Weekly Wet Lab Kit</span>
+</div>
+<!-- 6 Key Parameter Cards -->
+<div class="grid grid-cols-2 gap-2.5"><button class="h-14 rounded-xl bg-surface-container-lowest active:scale-95 transition-all shadow-sm flex items-center px-3.5 gap-3 text-left" type="button"><span class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-primary"><span class="material-symbols-outlined text-[20px]">water_ec</span></span><span class="font-label-lg text-on-surface font-semibold" data-lang-en="+ Log Water Reading" data-lang-te="+ నీటి రీడింగ్ నమోదు" data-lang-hi="+ जल रीडिंग दर्ज करें">+ Log Water Reading</span></button><button class="h-14 rounded-xl bg-surface-container-lowest active:scale-95 transition-all shadow-sm flex items-center px-3.5 gap-3 text-left" type="button"><span class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-primary"><span class="material-symbols-outlined text-[20px]">psychology</span></span><span class="font-label-lg text-on-surface font-semibold" data-lang-en="AI Feeding Advisor" data-lang-te="AI మేత సలహాదారు" data-lang-hi="AI चारा सलाहकार">AI Feeding Advisor</span></button><button class="h-14 rounded-xl bg-surface-container-lowest active:scale-95 transition-all shadow-sm flex items-center px-3.5 gap-3 text-left" type="button"><span class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-primary"><span class="material-symbols-outlined text-[20px]">cyclone</span></span><span class="font-label-lg text-on-surface font-semibold" data-lang-en="Run Aerator Boost" data-lang-te="ఎరేటర్ బూస్ట్ ఆన్ చేయి" data-lang-hi="एरेटर बूस्ट चलाएं">Run Aerator Boost</span></button><button class="h-14 rounded-xl bg-surface-container-lowest active:scale-95 transition-all shadow-sm flex items-center px-3.5 gap-3 text-left" type="button"><span class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-primary"><span class="material-symbols-outlined text-[20px]">science</span></span><span class="font-label-lg text-on-surface font-semibold" data-lang-en="Sample Lab Test" data-lang-te="ల్యాబ్ శాంప్లింగ్" data-lang-hi="नमूना लैब जांच">Sample Lab Test</span></button></div>
+</div>
+<!-- Aeration & Feeding Status Split Cards -->
+<div class="px-margin mb-space-md space-y-3">
+<!-- Aeration Status Card -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm">
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-2">
+<span class="w-8 h-8 rounded-lg bg-surface-container-low flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px] animate-spin" style="animation-duration: 4s;">mode_fan</span>
+</span>
+<div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface">Paddlewheel Aerators</h4>
+<span class="font-label-sm text-primary font-semibold">4 Units Running Continuous</span>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm font-medium">Auto-Eco</span>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-container-low text-body-sm flex items-center justify-between">
+<span class="text-on-surface-variant">Next Scheduled Stoppage:</span>
+<span class="font-label-lg font-semibold text-on-surface">10:00 AM (Sunlight Peak)</span>
+</div>
+</div>
+<!-- Feeding Status Card -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm">
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-2">
+<span class="w-8 h-8 rounded-lg bg-surface-container-low flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">restaurant</span>
+</span>
+<div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface">Feeding Routine</h4>
+<span class="font-label-sm text-on-surface-variant">38% CP Micro-Pellets</span>
+</div>
+</div>
+<span class="px-2.5 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-label-sm font-semibold">94% Tray Clear</span>
+</div>
+<div class="grid grid-cols-2 gap-2 mt-2 font-label-sm">
+<div class="p-2 rounded-lg bg-surface-container-low">
+<span class="text-on-surface-variant block text-[11px]">Last Fed (07:30 AM)</span>
+<span class="font-label-lg font-bold text-on-surface">28 kg applied</span>
+</div>
+<div class="p-2 rounded-lg bg-surface-container-low">
+<span class="text-on-surface-variant block text-[11px]">Next Ration (Round #2)</span>
+<span class="font-label-lg font-bold text-primary">11:30 AM (30 kg)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Quick Field Actions (Ergonomic Touch Grid) -->
+<div class="px-margin mb-space-md">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-2.5">Field Quick Controls</h3>
+<div class="grid grid-cols-2 gap-2.5"><button class="h-14 rounded-xl bg-surface-container-lowest active:scale-95 transition-all shadow-sm flex items-center px-3.5 gap-3 text-left" type="button"><span class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-primary"><span class="material-symbols-outlined text-[20px]">water_ec</span></span><span class="font-label-lg text-on-surface font-semibold" data-lang-en="+ Log Water Reading" data-lang-te="+ నీటి రీడింగ్ నమోదు" data-lang-hi="+ जल रीडिंग दर्ज करें">+ Log Water Reading</span></button><button class="h-14 rounded-xl bg-surface-container-lowest active:scale-95 transition-all shadow-sm flex items-center px-3.5 gap-3 text-left" type="button"><span class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-primary"><span class="material-symbols-outlined text-[20px]">psychology</span></span><span class="font-label-lg text-on-surface font-semibold" data-lang-en="AI Feeding Advisor" data-lang-te="AI మేత సలహాదారు" data-lang-hi="AI चारा सलाहकार">AI Feeding Advisor</span></button><button class="h-14 rounded-xl bg-surface-container-lowest active:scale-95 transition-all shadow-sm flex items-center px-3.5 gap-3 text-left" type="button"><span class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-primary"><span class="material-symbols-outlined text-[20px]">cyclone</span></span><span class="font-label-lg text-on-surface font-semibold" data-lang-en="Run Aerator Boost" data-lang-te="ఎరేటర్ బూస్ట్ ఆన్ చేయి" data-lang-hi="एरेटर बूस्ट चलाएं">Run Aerator Boost</span></button><button class="h-14 rounded-xl bg-surface-container-lowest active:scale-95 transition-all shadow-sm flex items-center px-3.5 gap-3 text-left" type="button"><span class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-primary"><span class="material-symbols-outlined text-[20px]">science</span></span><span class="font-label-lg text-on-surface font-semibold" data-lang-en="Sample Lab Test" data-lang-te="ల్యాబ్ శాంప్లింగ్" data-lang-hi="नमूना लैब जांच">Sample Lab Test</span></button></div>
+</div>
+<!-- Recent Activities Timeline -->
+<div class="px-margin mb-space-md"><div class="p-3.5 rounded-xl bg-primary-fixed/30 border border-primary/20 flex items-start gap-3 shadow-sm"><span class="material-symbols-outlined text-primary text-[24px] shrink-0 mt-0.5">shield_with_heart</span><div><h4 class="font-label-lg font-bold text-primary flex items-center gap-1.5"><span data-lang-en="AI Bio-Security Advisory" data-lang-te="AI బయో-సెక్యూరిటీ హెచ్చరిక &amp; సలహా" data-lang-hi="AI जैव-सुरक्षा परामर्श">AI Bio-Security Advisory</span><span class="px-1.5 py-0.2 rounded text-[10px] bg-primary text-on-primary font-semibold">Active</span></h4><p class="font-body-sm text-on-surface-variant mt-1"><span data-lang-en="Optimal dissolved oxygen (5.8 - 6.9 mg/L) maintained. Weather forecast indicates afternoon cloud cover: keep aerators standby at 13:00 to avert drop." data-lang-te="సరిపడా కరిగిన ఆక్సిజన్ (5.8 - 6.9 mg/L) నమోదైంది. మధ్యాహ్నం మేఘావృత వాతావరణం ఉండే అవకాశం ఉంది: ఆక్సిజన్ తగ్గకుండా ఉండటానికి మధ్యాహ్నం 1:00 గంటలకు ఎరేటర్లు స్టాండ్‌బైలో ఉంచండి." data-lang-hi="अनुकूल घुलित ऑक्सीजन (5.8 - 6.9 mg/L) दर्ज की गई है। दोपहर में बादल छाए रहने का अनुमान है: ऑक्सीजन की कमी से बचने के लिए दोपहर 1:00 बजे एरेटर तैयार रखें।">Optimal dissolved oxygen (5.8 - 6.9 mg/L) maintained. Weather forecast indicates afternoon cloud cover: keep aerators standby at 13:00 to avert drop.</span></p></div></div></div><div class="px-margin mb-space-lg">
+<div class="flex items-center justify-between mb-3">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Recent Logs &amp; Interventions</h3>
+<button class="font-label-sm text-primary font-semibold" type="button">View History</button>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm space-y-4">
+<!-- Item 1 -->
+<div class="flex gap-3">
+<div class="flex flex-col items-center">
+<div class="w-7 h-7 rounded-full bg-secondary-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[14px]">restaurant</span>
+</div>
+<div class="w-0.5 h-full bg-surface-container-highest my-1"></div>
+</div>
+<div class="flex-1 pb-1">
+<div class="flex items-center justify-between">
+<span class="font-label-lg text-on-surface font-semibold">Morning Feed #1 Logged</span>
+<span class="font-label-sm text-on-surface-variant">07:30 AM</span>
+</div>
+<p class="font-body-sm text-on-surface-variant mt-0.5">28 kg distributed evenly. 4 check-trays positioned for 2-hour inspection.</p>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="flex gap-3">
+<div class="flex flex-col items-center">
+<div class="w-7 h-7 rounded-full bg-secondary-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[14px]">tune</span>
+</div>
+<div class="w-0.5 h-full bg-surface-container-highest my-1"></div>
+</div>
+<div class="flex-1 pb-1">
+<div class="flex items-center justify-between">
+<span class="font-label-lg text-on-surface font-semibold">Probe Auto-Calibration</span>
+<span class="font-label-sm text-on-surface-variant">06:15 AM</span>
+</div>
+<p class="font-body-sm text-on-surface-variant mt-0.5">DO optical sensor recalibrated to 6.9 mg/L against atmospheric reference.</p>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="flex gap-3">
+<div class="flex flex-col items-center">
+<div class="w-7 h-7 rounded-full bg-secondary-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[14px]">pest_control</span>
+</div>
+<div class="w-0.5 h-full bg-surface-container-highest my-1"></div>
+</div>
+<div class="flex-1 pb-1">
+<div class="flex items-center justify-between">
+<span class="font-label-lg text-on-surface font-semibold">Cast Net Weekly Sampling</span>
+<span class="font-label-sm text-on-surface-variant">Yesterday</span>
+</div>
+<p class="font-body-sm text-on-surface-variant mt-0.5">MBW 15.4g reached. Clean gut 98%, zero signs of Vibrio or soft shelling.</p>
+</div>
+</div>
+<!-- Item 4 -->
+<div class="flex gap-3">
+<div class="flex flex-col items-center">
+<div class="w-7 h-7 rounded-full bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[14px]">vaccines</span>
+</div>
+</div>
+<div class="flex-1">
+<div class="flex items-center justify-between">
+<span class="font-label-lg text-on-surface font-semibold">Probiotic Dosing Applied</span>
+<span class="font-label-sm text-on-surface-variant">22 Oct</span>
+</div>
+<p class="font-body-sm text-on-surface-variant mt-0.5">Rhodobacter &amp; Bacillus consortium dosed at 2 L/Ha for sludge digestion.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Floating Call-to-Action Bar -->
+<div class="fixed bottom-0 left-0 right-0 p-margin bg-surface/90 backdrop-blur-xl shadow-lg z-40">
+<button class="w-full h-13 py-3.5 px-4 rounded-xl bg-primary text-on-primary font-label-lg font-bold flex items-center justify-center gap-2 active:scale-98 hover:bg-primary-container transition-all shadow-md" type="button"><span class="material-symbols-outlined text-[20px]">picture_as_pdf</span><span data-lang-en="Generate Pond Health Audit (PDF)" data-lang-te="చెరువు ఆరోగ్య ఆడిట్ నివేదిక పొందండి (PDF)" data-lang-hi="तालाब स्वास्थ्य ऑडिट तैयार करें (PDF)">Generate Pond Health Audit (PDF)</span></button>
+</div>
+</div></main>
+
+
+<div id="language-bottom-sheet" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex flex-col justify-end transition-opacity"><div class="bg-surface-container-lowest rounded-t-2xl p-space-md w-full max-w-lg mx-auto shadow-2xl"><div class="w-12 h-1.5 bg-surface-container-highest rounded-full mx-auto mb-3"></div><div class="flex items-center justify-between pb-3 border-b border-surface-container"><div class="flex flex-col"><h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Choose Your Language</h3><p class="font-label-sm text-on-surface-variant">భాషను ఎంచుకోండి / भाषा चुनें</p></div><button type="button" class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container" onclick="document.getElementById('language-bottom-sheet').classList.add('hidden')"><span class="material-symbols-outlined text-[20px]">close</span></button></div><div class="py-2 space-y-1.5"><label class="flex items-center justify-between p-3 rounded-xl hover:bg-surface-container-low cursor-pointer border border-transparent hover:border-surface-container"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-primary text-[22px]">translate</span><div class="flex flex-col"><span class="font-label-lg font-bold text-on-surface">English (Default)</span><span class="font-label-sm text-on-surface-variant">Primary interface language</span></div></div><input type="radio" name="app_lang" value="en" checked="" class="accent-primary w-5 h-5" onchange="selectLanguage('en')"></label><label class="flex items-center justify-between p-3 rounded-xl hover:bg-surface-container-low cursor-pointer border border-transparent hover:border-surface-container"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-primary text-[22px]">water_drop</span><div class="flex flex-col"><span class="font-label-lg font-bold text-on-surface font-['Noto_Sans_Telugu']">తెలుగు (Telugu)</span><span class="font-label-sm text-on-surface-variant">ఆంధ్రప్రదేశ్ &amp; తెలంగాణ తీర ప్రాంత రైతులకు</span></div></div><input type="radio" name="app_lang" value="te" class="accent-primary w-5 h-5" onchange="selectLanguage('te')"></label><label class="flex items-center justify-between p-3 rounded-xl hover:bg-surface-container-low cursor-pointer border border-transparent hover:border-surface-container"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-primary text-[22px]">agriculture</span><div class="flex flex-col"><span class="font-label-lg font-bold text-on-surface font-['Noto_Sans_Devanagari']">हिन्दी (Hindi)</span><span class="font-label-sm text-on-surface-variant">राष्ट्रीय एक्वाकल्चर मानक</span></div></div><input type="radio" name="app_lang" value="hi" class="accent-primary w-5 h-5" onchange="selectLanguage('hi')"></label></div><button type="button" class="w-full py-3 mt-2 rounded-xl bg-primary text-on-primary font-label-lg font-bold text-center active:scale-98 transition-all" onclick="document.getElementById('language-bottom-sheet').classList.add('hidden')">Confirm / నిర్ధారించండి / पुष्टि करें</button></div></div><script>function selectLanguage(lang) { var translatable = document.querySelectorAll('[data-lang-' + lang + ']'); translatable.forEach(function(el) { var val = el.getAttribute('data-lang-' + lang); if(val) { el.innerHTML = val; } }); var label = document.getElementById('active-lang-label'); if(label) { if(lang === 'te') label.innerText = 'తెలుగు'; else if(lang === 'hi') label.innerText = 'हिन्दी'; else label.innerText = 'English'; } document.querySelectorAll('.lang-btn').forEach(function(btn) { if(btn.getAttribute('data-lang') === lang) { btn.className = 'lang-btn px-2.5 py-0.5 rounded-full text-label-sm font-label-sm bg-primary text-on-primary transition-all'; } else { btn.className = 'lang-btn px-2.5 py-0.5 rounded-full text-label-sm font-label-sm text-on-surface-variant hover:text-primary transition-all'; } }); var radios = document.querySelectorAll('input[name="app_lang"]'); radios.forEach(function(r) { r.checked = (r.value === lang); }); var sheet = document.getElementById('language-bottom-sheet'); if(sheet && !sheet.classList.contains('hidden')) { setTimeout(function(){ sheet.classList.add('hidden'); }, 200); } }</script></body></html>

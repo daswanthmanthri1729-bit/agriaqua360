@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-background": "#111e19", "primary-fixed-dim": "#88d7a8", "primary-container": "#176b45", "primary": "#005131", "on-surface-variant": "#3f4942", "on-error-container": "#93000a", "surface-container-highest": "#d6e6dd", "inverse-primary": "#88d7a8", "surface-container-low": "#e7f7ee", "error-container": "#ffdad6", "tertiary": "#4c28ad", "tertiary-container": "#6445c6", "primary-fixed": "#a4f4c3", "on-secondary": "#ffffff", "on-tertiary-container": "#dcd1ff", "secondary-fixed": "#81fab6", "on-tertiary-fixed-variant": "#4d2aae", "error": "#ba1a1a", "tertiary-fixed": "#e7deff", "on-secondary-container": "#007145", "background": "#edfdf3", "surface": "#edfdf3", "on-tertiary-fixed": "#1f005f", "surface-variant": "#d6e6dd", "on-error": "#ffffff", "on-primary-container": "#99e9b9", "secondary": "#006d42", "outline": "#6f7a71", "tertiary-fixed-dim": "#ccbdff", "on-primary-fixed-variant": "#005232", "surface-dim": "#ceded4", "secondary-container": "#7ef7b3", "on-surface": "#111e19", "surface-container-high": "#dcece2", "surface-tint": "#186c45", "inverse-surface": "#26332d", "on-tertiary": "#ffffff", "on-secondary-fixed-variant": "#005230", "outline-variant": "#bfc9c0", "inverse-on-surface": "#e5f5eb", "secondary-fixed-dim": "#64dd9b", "on-primary": "#ffffff", "surface-container": "#e2f2e8", "surface-container-lowest": "#ffffff", "on-secondary-fixed": "#002111", "surface-bright": "#edfdf3", "on-primary-fixed": "#002111" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-sm": "0.5rem", "space-lg": "1.5rem", "space-xs": "0.25rem", "margin": "1rem", "space-md": "1rem", "space-xl": "2rem", "gutter": "1rem" }, "fontFamily": { "body-md": ["Inter"], "headline-lg": ["Manrope"], "body-sm": ["Inter"], "headline-md": ["Manrope"], "display-lg-mobile": ["Manrope"], "label-lg": ["Inter"], "headline-sm": ["Manrope"], "display-lg": ["Manrope"], "label-md": ["Inter"], "body-lg": ["Inter"], "label-sm": ["Inter"] }, "fontSize": { "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "headline-lg": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "700" }], "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }], "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "700" }], "display-lg-mobile": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.015em", "fontWeight": "800" }], "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }], "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "display-lg": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "800" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "500" }], "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.03em", "fontWeight": "500" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-on-surface antialiased flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(23,107,69,0.04)] pt-safe"><div class="flex items-center justify-between px-space-md h-6 text-on-surface-variant font-label-sm text-label-sm select-none"><span class="font-label-md text-label-md font-semibold tracking-tight text-on-surface">09:41</span><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-[16px]">signal_cellular_4_bar</span><span class="material-symbols-outlined text-[16px]">wifi</span><span class="material-symbols-outlined text-[16px]">battery_charging_full</span></div></div><div class="h-14 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0 flex-1"><button aria-label="Navigate Back" class="w-11 h-11 -ml-space-xs flex items-center justify-center rounded-full text-on-surface hover:bg-surface-container transition-colors active:scale-95" onclick="history.back()" type="button"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><h1 class="font-headline-sm text-headline-sm text-on-surface truncate">Crop Recommendations</h1></div><div class="flex items-center gap-space-xs shrink-0"><button aria-label="Bookmark item" class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors active:scale-95" type="button"><span class="material-symbols-outlined text-[22px]">bookmark_border</span></button><button aria-label="Share insights" class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors active:scale-95" type="button"><span class="material-symbols-outlined text-[22px]">share</span></button><div class="w-8 h-8 ml-space-xs rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex flex-col relative w-full pt-20 pb-safe bg-surface min-h-screen"><div class="flex flex-col w-full pb-24">
+<!-- Top Language Selector & Quick Telemetry Pill -->
+<div class="px-margin pt-space-xs pb-space-sm flex items-center justify-between">
+<div class="flex items-center gap-1.5 bg-surface-container-high px-space-sm py-1 rounded-full shadow-sm">
+<span class="w-2 h-2 rounded-full bg-secondary-container animate-pulse"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Telemetry Synced: 14m ago</span>
+</div>
+<div class="flex items-center bg-surface-container rounded-full p-0.5 shadow-sm">
+<button class="px-2.5 py-1 rounded-full bg-primary-container text-on-primary font-label-sm text-label-sm transition-transform active:scale-95" type="button">EN</button>
+<button class="px-2.5 py-1 rounded-full text-on-surface-variant font-label-sm text-label-sm hover:text-primary transition-colors" type="button">తెలుగు</button>
+<button class="px-2.5 py-1 rounded-full text-on-surface-variant font-label-sm text-label-sm hover:text-primary transition-colors" type="button">हिन्दी</button>
+</div>
+</div>
+<!-- Section 1: Header Context Card -->
+<div class="px-margin mb-space-md">
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm relative overflow-hidden">
+<!-- Ambient AI Glow Accent -->
+<div class="absolute -right-8 -top-8 w-28 h-28 rounded-full bg-tertiary-fixed opacity-60 blur-xl pointer-events-none"></div>
+<!-- Farm & Plot Details -->
+<div class="flex items-start justify-between gap-space-sm mb-space-sm relative">
+<div class="min-w-0">
+<div class="flex items-center gap-1.5 text-secondary font-label-md text-label-md uppercase tracking-wider mb-0.5">
+<span class="material-symbols-outlined text-[15px]" style="font-variation-settings: 'FILL' 1;">landscape</span>
+<span>Evaluated Plot</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface truncate">Green Valley Farm • Plot A-2</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">4.2 Acres • Lowland Canal Delta</p>
+</div>
+<div class="bg-secondary-container/30 text-on-secondary-container px-2.5 py-1 rounded-full flex items-center gap-1 shrink-0">
+<span class="material-symbols-outlined text-[16px] text-primary">eco</span>
+<span class="font-label-sm text-label-sm font-semibold">Active Cycle</span>
+</div>
+</div>
+<!-- Environmental Parameters Grid -->
+<div class="bg-surface-container-low rounded-lg p-space-sm mb-space-sm flex items-center justify-between gap-2">
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Soil Matrix</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate">Alluvial Clay Loam</span>
+</div>
+<div class="w-px h-7 bg-surface-container-highest"></div>
+<div class="flex flex-col items-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Acidity</span>
+<span class="font-label-md text-label-md text-primary font-bold">pH 6.8</span>
+</div>
+<div class="w-px h-7 bg-surface-container-highest"></div>
+<div class="flex flex-col items-end min-w-0">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Window</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate">Rabi 2024-25</span>
+</div>
+</div>
+<!-- AI Telemetry Stamp -->
+<div class="flex items-center justify-between gap-space-xs text-tertiary-container bg-tertiary-fixed/30 rounded-lg px-2.5 py-1.5 mb-space-sm">
+<div class="flex items-center gap-1.5 min-w-0">
+<span class="material-symbols-outlined text-[17px] text-tertiary shrink-0" style="font-variation-settings: 'FILL' 1;">neurology</span>
+<span class="font-label-sm text-label-sm font-medium text-tertiary truncate">AgriAqua Predictive Agronomy v3.2</span>
+</div>
+<span class="font-label-sm text-label-sm font-bold text-tertiary bg-surface-container-lowest px-2 py-0.5 rounded-full shrink-0 shadow-sm">94.8% Conf.</span>
+</div>
+<!-- Limitation Notice Banner -->
+<div class="flex items-start gap-2 bg-surface-container-highest/60 rounded-lg p-2.5">
+<span class="material-symbols-outlined text-outline text-[16px] shrink-0 mt-0.5">info</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-tight">
+          Suitability index is calibrated against validated laboratory chemistry and regional meteorological forecasts. Final harvest depends on agronomic management.
+        </p>
+</div>
+</div>
+</div>
+<!-- Section 2: Highly Suitable Category -->
+<div class="px-margin mb-space-lg">
+<div class="flex items-center justify-between mb-space-sm">
+<div class="flex items-center gap-2">
+<div class="w-2.5 h-2.5 rounded-full bg-secondary"></div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Highly Suitable Matches</h3>
+</div>
+<span class="bg-surface-container-high text-primary font-label-sm text-label-sm px-2.5 py-0.5 rounded-full font-semibold">2 Available</span>
+</div>
+<!-- Match Card 1: Black Gram -->
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm mb-space-md transition-all">
+<!-- Media Header & Badges -->
+<div class="relative h-44 w-full bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Sunlit close-up macro of organic black gram crop urad dal pods hanging heavily in lush green alluvial farm field Andhra Pradesh warm morning daylight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUgYFhgwawgUGCUzspFypqgKKBl2PkW6JtRvk5aXxiYTiYA-OUFscF0CUiDlnW3dKfeT9-bv20OiZtOgJDv4nLGhOXtDWKP8X9pn41s3qiUNpawabsC37Hi2x-OzqdvbIlgA0z-U-djG2M7APdl-vxAdggO3TpFcdlAENn4C9NTiF6eFRX7SkDH9fQVR4rheoDYkW-jIfTI2bPWFBFXp4trolxzujUS1W4HnM34Vw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent"></div>
+<!-- Top Badges Overlay -->
+<div class="absolute top-space-sm left-space-sm right-space-sm flex items-center justify-between">
+<span class="bg-surface-container-lowest/95 backdrop-blur text-primary font-label-sm text-label-sm font-semibold px-2.5 py-1 rounded-full shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-primary" style="font-variation-settings: 'FILL' 1;">eco</span>
+            Optimal Crop Rotation • Soil Restorer
+          </span>
+<div class="w-8 h-8 rounded-full bg-surface-container-lowest/90 backdrop-blur flex items-center justify-center text-primary shadow-sm">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+</div>
+</div>
+<!-- Title & Score Overlay -->
+<div class="absolute bottom-space-sm left-space-sm right-space-sm flex items-end justify-between">
+<div>
+<h4 class="font-headline-md text-headline-md text-white drop-shadow-sm leading-tight">Black Gram (Urad Dal)</h4>
+<p class="font-body-sm text-body-sm text-secondary-container font-medium">Cultivar: PU-31 (Vigna mungo)</p>
+</div>
+<div class="flex flex-col items-end">
+<div class="bg-primary text-on-primary px-3 py-1 rounded-xl text-center shadow-md">
+<span class="font-headline-md text-headline-md font-extrabold leading-none">96%</span>
+<span class="font-label-sm text-label-sm block opacity-90 uppercase tracking-tighter">Suitability</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card Body -->
+<div class="p-space-md">
+<!-- Key Metrics Strip -->
+<div class="grid grid-cols-3 gap-2 bg-surface-container-low rounded-lg p-space-sm mb-space-sm text-center">
+<div class="flex flex-col items-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">schedule</span> Cycle
+            </span>
+<span class="font-label-md text-label-md font-semibold text-on-surface mt-0.5">75–80 Days</span>
+</div>
+<div class="flex flex-col items-center border-l border-surface-container-highest">
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">water_drop</span> Water
+            </span>
+<span class="font-label-md text-label-md font-semibold text-secondary mt-0.5">180mm (Low)</span>
+</div>
+<div class="flex flex-col items-center border-l border-surface-container-highest">
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">tune</span> Soil Fit
+            </span>
+<span class="font-label-md text-label-md font-bold text-primary mt-0.5">98% Perfect</span>
+</div>
+</div>
+<!-- AI Agronomist Rationale -->
+<div class="bg-tertiary-fixed/20 rounded-lg p-space-sm mb-space-sm">
+<div class="flex items-center gap-1.5 text-tertiary font-label-sm text-label-sm font-semibold mb-1">
+<span class="material-symbols-outlined text-[15px]">psychology</span>
+<span>AI Agronomic Synthesis</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface leading-relaxed">
+            Following paddy harvest, residual soil moisture and 0.58% organic carbon provide an ideal pulse seedbed. Fixes atmospheric nitrogen for the succeeding summer cycle.
+          </p>
+</div>
+<!-- Potential Challenges / Risk Callout -->
+<div class="bg-surface-container-high/60 rounded-lg p-space-sm mb-space-md flex items-start gap-2">
+<span class="material-symbols-outlined text-[17px] text-on-surface-variant shrink-0 mt-0.5">warning_amber</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-snug">
+<strong class="font-semibold text-on-surface">Vigilance:</strong> Mild powdery mildew susceptibility if late-December fog exceeds 5 consecutive mornings.
+          </p>
+</div>
+<!-- Action Row -->
+<div class="flex items-center gap-space-sm">
+<button class="flex-1 min-h-[48px] bg-primary text-on-primary rounded-lg font-label-lg text-label-lg flex items-center justify-center gap-1.5 shadow-sm active:scale-[0.98] transition-all" type="button">
+<span>Cultivation Plan</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+<label class="h-[48px] px-3.5 bg-surface-container rounded-lg flex items-center gap-2 cursor-pointer select-none active:bg-surface-container-high transition-colors">
+<input checked="" class="w-4 h-4 rounded text-primary accent-primary" type="checkbox"/>
+<span class="font-label-md text-label-md text-on-surface font-medium">Compare</span>
+</label>
+</div>
+</div>
+</div>
+<!-- Match Card 2: Maize / Hybrid Corn -->
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm mb-space-sm transition-all">
+<div class="relative h-44 w-full bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Vibrant healthy golden hybrid corn field with ripe cobs ready for harvest under clear sunlight rural farm field agricultural landscape" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6j2SMLn1wj3hTE4Y5yz0mFz9pQyDTMsaFPUXo1HNf4lIqvrQsORyfs2uPcJRxvSOQEzH62UCvo4dczyxMVXYrQbmuiWo1UtGDVV-Fde_sJdDdX0dalVCW_wKwsmaTixVDKXRQOM0qcGnCvhI4Wm4-6yBfrPdqacGXCiKCUxKhXfbEd7Eo1Di-mWf53vi9FkUHbPR1NfrM9oRHJKUSxTG-a0a98u80Q8S4HOrry1s"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent"></div>
+<div class="absolute top-space-sm left-space-sm right-space-sm flex items-center justify-between">
+<span class="bg-surface-container-lowest/95 backdrop-blur text-primary font-label-sm text-label-sm font-semibold px-2.5 py-1 rounded-full shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-secondary" style="font-variation-settings: 'FILL' 1;">trending_up</span>
+            High Market Margin • Delta Feed Standard
+          </span>
+<div class="w-8 h-8 rounded-full bg-surface-container-lowest/90 backdrop-blur flex items-center justify-center text-primary shadow-sm">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+</div>
+</div>
+<div class="absolute bottom-space-sm left-space-sm right-space-sm flex items-end justify-between">
+<div>
+<h4 class="font-headline-md text-headline-md text-white drop-shadow-sm leading-tight">Hybrid Maize (Corn)</h4>
+<p class="font-body-sm text-body-sm text-secondary-container font-medium">Cultivar: DHM 117 (High Yield)</p>
+</div>
+<div class="flex flex-col items-end">
+<div class="bg-primary-container text-on-primary-container px-3 py-1 rounded-xl text-center shadow-md">
+<span class="font-headline-md text-headline-md font-extrabold leading-none">92%</span>
+<span class="font-label-sm text-label-sm block opacity-90 uppercase tracking-tighter">Suitability</span>
+</div>
+</div>
+</div>
+</div>
+<div class="p-space-md">
+<div class="grid grid-cols-3 gap-2 bg-surface-container-low rounded-lg p-space-sm mb-space-sm text-center">
+<div class="flex flex-col items-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">schedule</span> Cycle
+            </span>
+<span class="font-label-md text-label-md font-semibold text-on-surface mt-0.5">105–110 Days</span>
+</div>
+<div class="flex flex-col items-center border-l border-surface-container-highest">
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">water_drop</span> Water
+            </span>
+<span class="font-label-md text-label-md font-semibold text-on-surface mt-0.5">450mm (Med)</span>
+</div>
+<div class="flex flex-col items-center border-l border-surface-container-highest">
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">tune</span> Soil Fit
+            </span>
+<span class="font-label-md text-label-md font-bold text-primary mt-0.5">94% High</span>
+</div>
+</div>
+<div class="bg-tertiary-fixed/20 rounded-lg p-space-sm mb-space-sm">
+<div class="flex items-center gap-1.5 text-tertiary font-label-sm text-label-sm font-semibold mb-1">
+<span class="material-symbols-outlined text-[15px]">psychology</span>
+<span>AI Agronomic Synthesis</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface leading-relaxed">
+            Matches high available potassium (315 kg/ha). Delivers rapid biomass accumulation backed by heavy Andhra coastal poultry feed buying clusters.
+          </p>
+</div>
+<div class="bg-surface-container-high/60 rounded-lg p-space-sm mb-space-md flex items-start gap-2">
+<span class="material-symbols-outlined text-[17px] text-on-surface-variant shrink-0 mt-0.5">pest_control</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-snug">
+<strong class="font-semibold text-on-surface">Vigilance:</strong> Requires timely Fall Armyworm (FAW) monitoring at 20 days post-germination.
+          </p>
+</div>
+<div class="flex items-center gap-space-sm">
+<button class="flex-1 min-h-[48px] bg-primary text-on-primary rounded-lg font-label-lg text-label-lg flex items-center justify-center gap-1.5 shadow-sm active:scale-[0.98] transition-all" type="button">
+<span>Cultivation Plan</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+<label class="h-[48px] px-3.5 bg-surface-container rounded-lg flex items-center gap-2 cursor-pointer select-none active:bg-surface-container-high transition-colors">
+<input checked="" class="w-4 h-4 rounded text-primary accent-primary" type="checkbox"/>
+<span class="font-label-md text-label-md text-on-surface font-medium">Compare</span>
+</label>
+</div>
+</div>
+</div>
+</div>
+<!-- Section 3: Moderately Suitable -->
+<div class="px-margin mb-space-lg">
+<div class="flex items-center justify-between mb-space-sm">
+<div class="flex items-center gap-2">
+<div class="w-2.5 h-2.5 rounded-full bg-secondary-fixed-dim"></div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Moderately Suitable</h3>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Manageable Adjustments</span>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm">
+<div class="flex items-start justify-between gap-space-sm mb-space-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-14 h-14 rounded-lg overflow-hidden shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Clean macro shot of fresh unshelled groundnut pods harvested from sandy loam soil natural light agricultural setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_xs0CMcgvqetWy3lQG1CHXA0MPnduEBpV0yxoDw3suE7ZVHQfK_JZXKwScS3J7_NySohandSBrQYJw3wDlFJ_B5wuUhHNG39BMRjhlWsNosb7LtLzUrrMNGTkeU5qvol5rF8zSHs_SHHS6f8Lij_fmiRh1hNGdP0_c5oNvaiz7eOVAgaW8mJRLPeR6SAWlXWL1wnRhIS4WdxouQmoN2hYGr-3bgUNBGQHr-gZ8zg"/>
+</div>
+<div class="min-w-0">
+<span class="inline-block bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm px-2 py-0.5 rounded-full font-medium mb-1">
+              Drought Resilient
+            </span>
+<h4 class="font-headline-sm text-headline-sm text-on-surface truncate">Groundnut / Peanut</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Kadiri Lepakshi (K6)</p>
+</div>
+</div>
+<div class="text-right shrink-0">
+<span class="font-headline-md text-headline-md text-secondary font-bold">78%</span>
+<span class="block font-label-sm text-label-sm text-on-surface-variant">Suitability</span>
+</div>
+</div>
+<!-- Quick Metrics Strip -->
+<div class="flex items-center justify-between text-body-sm font-body-sm bg-surface-container-low rounded-lg p-2.5 mb-space-sm">
+<span><strong class="font-semibold text-on-surface">Duration:</strong> 110 Days</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span><strong class="font-semibold text-on-surface">Water:</strong> Low-Med</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span><strong class="font-semibold text-on-surface">Soil:</strong> 75% Fit</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed mb-space-sm">
+<strong class="font-semibold text-on-surface">AI Assessment:</strong> Heavy clay loam in Plot A-2 requires light inter-cultivation for peg penetration. Excellent high-density oil recovery rate if managed well.
+      </p>
+<div class="flex items-center justify-between pt-1">
+<button class="font-label-md text-label-md font-semibold text-primary flex items-center gap-1 hover:underline min-h-[44px]" type="button">
+<span>Explore Agronomic Adjustments</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</button>
+<label class="flex items-center gap-1.5 cursor-pointer min-h-[44px] px-2 select-none">
+<input class="w-4 h-4 rounded text-primary accent-primary" type="checkbox"/>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Compare</span>
+</label>
+</div>
+</div>
+</div>
+<!-- Section 4: Less Suitable / High Risk -->
+<div class="px-margin mb-space-lg">
+<div class="flex items-center justify-between mb-space-sm">
+<div class="flex items-center gap-2">
+<div class="w-2.5 h-2.5 rounded-full bg-error"></div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">High Risk / Discouraged</h3>
+</div>
+<span class="font-label-sm text-label-sm text-error font-medium">Avoidance Advisory</span>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm border-l-4 border-error">
+<div class="flex items-start justify-between gap-space-sm mb-2">
+<div class="min-w-0">
+<div class="flex items-center gap-1.5 text-error font-label-sm text-label-sm font-semibold mb-0.5">
+<span class="material-symbols-outlined text-[16px]">dangerous</span>
+<span>Root Asphyxiation Risk</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface truncate">Cotton (Bt Hybrid RCH 659)</h4>
+</div>
+<div class="bg-error-container text-on-error-container px-2.5 py-1 rounded-lg text-center shrink-0">
+<span class="font-headline-sm text-headline-sm font-bold block leading-none">52%</span>
+<span class="font-label-sm text-label-sm font-semibold uppercase tracking-tight">Caution</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+        Excessive residual moisture in lowland Plot A-2 creates severe waterlogging during November delta showers, increasing seedling mortality and wilt rates by 42%.
+      </p>
+</div>
+</div>
+<!-- Section 5: "Why We Recommended These Crops" Deep-Dive Card -->
+<div class="px-margin mb-space-xl">
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm">
+<div class="flex items-center gap-2 mb-space-sm">
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed">
+<span class="material-symbols-outlined text-[18px]">analytics</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Why These Crops Were Selected</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Multi-parametric agro-economic evaluation</p>
+</div>
+</div>
+<!-- 4-Parameter Deep Dive Radar/Breakdown Matrix -->
+<div class="space-y-space-sm pt-space-xs">
+<!-- Metric 1: Soil Compatibility -->
+<div class="bg-surface-container-low rounded-lg p-space-sm">
+<div class="flex items-center justify-between mb-1.5">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">grass</span>
+<span class="font-label-md text-label-md font-semibold text-on-surface">Soil Compatibility</span>
+</div>
+<span class="font-label-sm text-label-sm font-bold text-primary bg-primary-fixed/40 px-2 py-0.5 rounded-full">Excellent (98%)</span>
+</div>
+<div class="w-full bg-surface-container-highest rounded-full h-2 overflow-hidden mb-1.5">
+<div class="bg-primary h-2 rounded-full" style="width: 98%"></div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">pH 6.8 &amp; balanced N-P-K reserves provide zero-correction soil environment for leguminous taproots.</p>
+</div>
+<!-- Metric 2: Canal Water Allowance -->
+<div class="bg-surface-container-low rounded-lg p-space-sm">
+<div class="flex items-center justify-between mb-1.5">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[18px]">water</span>
+<span class="font-label-md text-label-md font-semibold text-on-surface">Canal Water Allocation</span>
+</div>
+<span class="font-label-sm text-label-sm font-bold text-secondary bg-secondary-container/40 px-2 py-0.5 rounded-full">Optimal Fit (92%)</span>
+</div>
+<div class="w-full bg-surface-container-highest rounded-full h-2 overflow-hidden mb-1.5">
+<div class="bg-secondary h-2 rounded-full" style="width: 92%"></div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Matches the scheduled 3-rotation irrigation cycle without draining groundwater pumps.</p>
+</div>
+<!-- Metric 3: Pest Cycle Disruption -->
+<div class="bg-surface-container-low rounded-lg p-space-sm">
+<div class="flex items-center justify-between mb-1.5">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary text-[18px]">shield</span>
+<span class="font-label-md text-label-md font-semibold text-on-surface">Pest Cycle Disruption</span>
+</div>
+<span class="font-label-sm text-label-sm font-bold text-tertiary bg-tertiary-fixed/50 px-2 py-0.5 rounded-full">100% Interruption</span>
+</div>
+<div class="w-full bg-surface-container-highest rounded-full h-2 overflow-hidden mb-1.5">
+<div class="bg-tertiary-container h-2 rounded-full" style="width: 100%"></div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Completely halts Yellow Stem Borer reproduction cycles prevalent in previous Kharif paddy.</p>
+</div>
+<!-- Metric 4: Economic ROI -->
+<div class="bg-surface-container-low rounded-lg p-space-sm">
+<div class="flex items-center justify-between mb-1.5">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">currency_rupee</span>
+<span class="font-label-md text-label-md font-semibold text-on-surface">Projected Financial ROI</span>
+</div>
+<span class="font-label-sm text-label-sm font-bold text-primary bg-primary-fixed/40 px-2 py-0.5 rounded-full">+28% Net Lift</span>
+</div>
+<div class="w-full bg-surface-container-highest rounded-full h-2 overflow-hidden mb-1.5">
+<div class="bg-primary h-2 rounded-full" style="width: 85%"></div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Yields ₹38,400 higher net profit per acre compared to standard local pulse monoculture baseline.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Section 6: Sticky Bottom Action Controls -->
+<div class="fixed bottom-0 left-0 right-0 z-40 bg-surface/90 backdrop-blur-md px-margin py-space-sm border-t border-surface-container-highest">
+<div class="max-w-md mx-auto flex items-center gap-space-sm">
+<button class="flex-1 min-h-[52px] px-space-sm rounded-xl bg-surface-container-highest text-primary font-label-lg text-label-lg font-semibold flex items-center justify-center gap-1.5 hover:bg-surface-container-high transition-transform active:scale-95 shadow-sm" type="button">
+<span class="material-symbols-outlined text-[20px]">difference</span>
+<span>Compare (2)</span>
+</button>
+<button class="flex-[1.5] min-h-[52px] px-space-md rounded-xl bg-primary text-on-primary font-label-lg text-label-lg font-semibold flex items-center justify-center gap-2 shadow-md hover:bg-on-secondary-container transition-transform active:scale-95" type="button">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">add_task</span>
+<span>Adopt &amp; Plan</span>
+</button>
+</div>
+</div>
+</div></main></body></html>

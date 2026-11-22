@@ -1,0 +1,657 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport">
+<meta content="mobile_stack" name="shell-type">
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+    @layer base {
+      html, body { width: 100vw; margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+      .pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); }
+      .pt-safe { padding-top: env(safe-area-inset-top, 0px); }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { display: none; }
+    body { min-height: max(884px, 100dvh); }
+  </style>
+<script src="https://cdn.tailwindcss.com"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-background": "#111e19",
+            "primary-fixed-dim": "#88d7a8",
+            "primary-container": "#176b45",
+            "primary": "#005131",
+            "on-surface-variant": "#3f4942",
+            "on-error-container": "#93000a",
+            "surface-container-highest": "#d6e6dd",
+            "inverse-primary": "#88d7a8",
+            "surface-container-low": "#e7f7ee",
+            "error-container": "#ffdad6",
+            "tertiary": "#4c28ad",
+            "tertiary-container": "#6445c6",
+            "primary-fixed": "#a4f4c3",
+            "on-secondary": "#ffffff",
+            "on-tertiary-container": "#dcd1ff",
+            "secondary-fixed": "#81fab6",
+            "on-tertiary-fixed-variant": "#4d2aae",
+            "error": "#ba1a1a",
+            "tertiary-fixed": "#e7deff",
+            "on-secondary-container": "#007145",
+            "background": "#edfdf3",
+            "surface": "#edfdf3",
+            "on-tertiary-fixed": "#1f005f",
+            "surface-variant": "#d6e6dd",
+            "on-error": "#ffffff",
+            "on-primary-container": "#99e9b9",
+            "secondary": "#006d42",
+            "outline": "#6f7a71",
+            "tertiary-fixed-dim": "#ccbdff",
+            "on-primary-fixed-variant": "#005232",
+            "surface-dim": "#ceded4",
+            "secondary-container": "#7ef7b3",
+            "on-surface": "#111e19",
+            "surface-container-high": "#dcece2",
+            "surface-tint": "#186c45",
+            "inverse-surface": "#26332d",
+            "on-tertiary": "#ffffff",
+            "on-secondary-fixed-variant": "#005230",
+            "outline-variant": "#bfc9c0",
+            "inverse-on-surface": "#e5f5eb",
+            "secondary-fixed-dim": "#64dd9b",
+            "on-primary": "#ffffff",
+            "surface-container": "#e2f2e8",
+            "surface-container-lowest": "#ffffff",
+            "on-secondary-fixed": "#002111",
+            "surface-bright": "#edfdf3",
+            "on-primary-fixed": "#002111"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-sm": "0.5rem",
+            "space-lg": "1.5rem",
+            "space-xs": "0.25rem",
+            "margin": "1rem",
+            "space-md": "1rem",
+            "space-xl": "2rem",
+            "gutter": "1rem"
+          },
+          "fontFamily": {
+            "body-md": ["Inter"],
+            "headline-lg": ["Manrope"],
+            "body-sm": ["Inter"],
+            "headline-md": ["Manrope"],
+            "display-lg-mobile": ["Manrope"],
+            "label-lg": ["Inter"],
+            "headline-sm": ["Manrope"],
+            "display-lg": ["Manrope"],
+            "label-md": ["Inter"],
+            "body-lg": ["Inter"],
+            "label-sm": ["Inter"]
+          },
+          "fontSize": {
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "headline-lg": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+            "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "700" }],
+            "display-lg-mobile": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.015em", "fontWeight": "800" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "display-lg": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "500" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.03em", "fontWeight": "500" }]
+          }
+        }
+      }
+    };
+  </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-[#f6fcf8] font-body-md text-[#0e2f1f] antialiased flex flex-col min-h-screen">
+<header class="fixed top-0 w-full z-50 bg-white/95 backdrop-blur-xl border-b border-[#e2efe7] shadow-xs pt-safe">
+<!-- Android System Status Bar Emulation -->
+<div class="flex items-center justify-between px-margin h-6 text-on-surface-variant font-label-sm select-none">
+<span class="font-label-md font-semibold tracking-tight text-on-surface">09:41</span>
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px]">signal_cellular_4_bar</span>
+<span class="material-symbols-outlined text-[16px]">wifi</span>
+<span class="material-symbols-outlined text-[16px]">battery_charging_full</span>
+</div>
+</div>
+<!-- Main Navigation Bar with Telemetry Pill & Standard Action Array -->
+<div class="h-14 px-margin flex items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs min-w-0 flex-1">
+<button aria-label="Navigate Back" class="w-11 h-11 -ml-space-xs flex items-center justify-center rounded-full text-on-surface hover:bg-surface-container active:scale-95 transition-all" onclick="history.back()" type="button">
+<span class="material-symbols-outlined text-[24px]">arrow_back</span>
+</button>
+<div class="flex flex-col min-w-0">
+<h1 class="font-headline-sm text-headline-sm text-on-surface truncate">23   Irrigation History</h1>
+<!-- Telemetry Sync Pill matching Screens 09-20 -->
+<div class="flex items-center gap-1 text-[11px] font-label-sm text-primary tracking-tight">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+<span class="font-medium">Telemetry Synced</span>
+<span class="text-on-surface-variant opacity-60">• 2m ago</span>
+</div>
+</div>
+</div>
+<!-- Action Controls: Search, Bookmark, More Menu -->
+<div class="flex items-center shrink-0">
+<button aria-label="Search telemetry &amp; records" class="w-10 h-10 flex items-center justify-center rounded-full text-on-surface-variant hover:text-primary hover:bg-surface-container active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[22px]">search</span>
+</button>
+<button aria-label="Bookmark item" class="w-10 h-10 flex items-center justify-center rounded-full text-on-surface-variant hover:text-primary hover:bg-surface-container active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[22px]">bookmark_border</span>
+</button>
+<button aria-label="More options" class="w-10 h-10 flex items-center justify-center rounded-full text-on-surface-variant hover:text-primary hover:bg-surface-container active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[22px]">more_vert</span>
+</button>
+</div>
+</div>
+</header>
+<main class="flex flex-col relative w-full pt-20 pb-safe bg-[#f6fcf8] min-h-screen"><div class="flex flex-col w-full pb-28">
+<!-- Plot Meta Strip & Language Indicator -->
+<section class="px-margin pt-space-xs pb-space-sm flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary"></span>
+<p class="font-label-md text-label-md text-on-surface font-semibold tracking-tight">
+        Plot A-2 • 4.2 Acres • Paddy BPT 5204
+      </p>
+</div>
+<!-- Script Switcher Pill -->
+<div class="flex items-center bg-white border border-[#e2efe7] rounded-full p-0.5 shadow-xs">
+<button class="px-2 py-0.5 rounded-full text-label-sm font-label-sm bg-primary text-on-primary shadow-xs" type="button">EN</button>
+<button class="px-2 py-0.5 rounded-full text-label-sm font-label-sm text-on-surface-variant hover:text-on-surface transition-colors" type="button">తెలుగు</button>
+<button class="px-2 py-0.5 rounded-full text-label-sm font-label-sm text-on-surface-variant hover:text-on-surface transition-colors" type="button">हिन्दी</button>
+</div>
+</section>
+<!-- Plot Context & KPI Summary Grid -->
+<section class="px-margin mb-space-md"><div class="grid grid-cols-2 gap-2.5">
+<!-- KPI 1: Total Events -->
+<div class="bg-white rounded-xl p-3.5 shadow-sm border border-[#e2efe7] flex flex-col justify-between transition-transform active:scale-[0.98]">
+<div class="flex items-center justify-between mb-1.5">
+<span class="text-[11px] font-label-sm text-[#3b5e4c] font-semibold tracking-wide uppercase">Total Events</span>
+<span class="w-7 h-7 rounded-lg bg-[#eaf7ef] flex items-center justify-center text-[#006d42]">
+<span class="material-symbols-outlined text-[17px]">water_drop</span>
+</span>
+</div>
+<div>
+<span class="font-headline-md text-headline-md text-[#0e2f1f] font-extrabold tracking-tight">18 Cycles</span>
+<p class="text-[11px] font-label-sm text-[#4b6957] font-medium mt-0.5">Kharif-Rabi '24</p>
+</div>
+</div>
+<!-- KPI 2: Last Run -->
+<div class="bg-white rounded-xl p-3.5 shadow-sm border border-[#e2efe7] flex flex-col justify-between transition-transform active:scale-[0.98]">
+<div class="flex items-center justify-between mb-1.5">
+<span class="text-[11px] font-label-sm text-[#3b5e4c] font-semibold tracking-wide uppercase">Last Run</span>
+<span class="w-7 h-7 rounded-lg bg-[#e1f9eb] flex items-center justify-center text-[#006d42]">
+<span class="material-symbols-outlined text-[17px]">find_replace</span>
+</span>
+</div>
+<div>
+<span class="font-headline-md text-headline-md text-[#0e2f1f] font-extrabold tracking-tight">23 Oct</span>
+<div class="flex items-center gap-1 text-[11px] font-label-sm text-[#006d42] font-semibold mt-0.5">
+<span class="material-symbols-outlined text-[13px]">check_circle</span>
+<span>Yesterday</span>
+</div>
+</div>
+</div>
+<!-- KPI 3: Total Water Used -->
+<div class="bg-white rounded-xl p-3.5 shadow-sm border border-[#e2efe7] flex flex-col justify-between transition-transform active:scale-[0.98]">
+<div class="flex items-center justify-between mb-1.5">
+<span class="text-[11px] font-label-sm text-[#3b5e4c] font-semibold tracking-wide uppercase">Total Volume</span>
+<span class="w-7 h-7 rounded-lg bg-[#eaf7ef] flex items-center justify-center text-[#006d42]">
+<span class="material-symbols-outlined text-[17px]">opacity</span>
+</span>
+</div>
+<div>
+<span class="font-headline-md text-headline-md text-[#0e2f1f] font-extrabold tracking-tight">1,420 m³</span>
+<p class="text-[11px] font-label-sm text-[#4b6957] font-medium mt-0.5">≈ 42 mm Equiv.</p>
+</div>
+</div>
+<!-- KPI 4: Avg Efficiency -->
+<div class="bg-white rounded-xl p-3.5 shadow-sm border border-[#e2efe7] flex flex-col justify-between transition-transform active:scale-[0.98]">
+<div class="flex items-center justify-between mb-1.5">
+<span class="text-[11px] font-label-sm text-[#3b5e4c] font-semibold tracking-wide uppercase">AWD Efficiency</span>
+<span class="w-7 h-7 rounded-lg bg-[#a4f4c3] flex items-center justify-center text-[#005131]">
+<span class="material-symbols-outlined text-[17px]">energy_savings_leaf</span>
+</span>
+</div>
+<div>
+<span class="font-headline-md text-headline-md text-[#006d42] font-extrabold tracking-tight">91%</span>
+<p class="text-[11px] font-label-sm text-[#007145] font-semibold mt-0.5">Compliant</p>
+</div>
+</div>
+</div></section>
+<!-- Filter Toolbar & View Toggle -->
+<section class="px-margin mb-space-md">
+<!-- View Mode Switcher -->
+<div class="flex items-center justify-between bg-[#edf6f0] border border-[#d6e9dc] rounded-xl p-1 mb-3">
+<button class="flex-1 py-1.5 flex items-center justify-center gap-1.5 rounded-lg text-label-md font-label-md font-semibold bg-surface-container-lowest text-primary shadow-xs transition-all" id="btn-view-timeline" type="button">
+<span class="material-symbols-outlined text-[18px]">format_list_bulleted</span>
+<span>Timeline View</span>
+</button>
+<button class="flex-1 py-1.5 flex items-center justify-center gap-1.5 rounded-lg text-label-md font-label-md font-medium text-on-surface-variant hover:text-on-surface transition-all" id="btn-view-analytics" type="button">
+<span class="material-symbols-outlined text-[18px]">bar_chart</span>
+<span>Analytics Chart</span>
+</button>
+</div>
+<!-- Horizontal Scrolling Time Chips -->
+<div class="flex items-center gap-2 overflow-x-auto no-scrollbar -mx-margin px-margin py-0.5">
+<button class="filter-chip shrink-0 px-3.5 py-1.5 rounded-full text-label-sm font-label-sm font-semibold bg-primary text-on-primary shadow-sm flex items-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-[14px]">done</span>
+<span>Last 7 Days</span>
+</button>
+<button class="filter-chip shrink-0 px-3.5 py-1.5 rounded-full text-label-sm font-label-sm font-medium bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container active:scale-95 transition-all" type="button">
+        Last 30 Days
+      </button>
+<button class="filter-chip shrink-0 px-3.5 py-1.5 rounded-full text-label-sm font-label-sm font-medium bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container active:scale-95 transition-all" type="button">
+        Last 3 Months
+      </button>
+<button class="filter-chip shrink-0 px-3.5 py-1.5 rounded-full text-label-sm font-label-sm font-medium bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container active:scale-95 transition-all flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[15px]">date_range</span>
+<span>Custom Range</span>
+</button>
+</div>
+</section>
+<!-- Irrigation Analytics & Volume Trends (Visual Chart Card) -->
+<section class="px-margin mb-space-md" id="analytics-section"><div class="bg-white rounded-xl p-4 shadow-sm border border-[#e2efe7]">
+<div class="flex items-center justify-between mb-3">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-[#0e2f1f] font-bold">Weekly Water Volume</h2>
+<p class="font-body-sm text-body-sm text-[#3b5e4c]">Optimal AWD threshold monitored</p>
+</div>
+<div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#e8f7ee] border border-[#c1ebd0] text-[#006d42] text-label-sm font-label-sm font-bold">
+<span class="w-2 h-2 rounded-full bg-[#006d42]"></span>
+<span>550 m³ Net</span>
+</div>
+</div>
+<!-- Weekly Bar Chart with AWD Indicators -->
+<div class="relative pt-4 pb-2 mb-4 bg-[#f4faf6] border border-[#e5f1ea] rounded-xl px-2">
+<!-- Target Line: Optimum ETc Requirement (approx 120m³) -->
+<div class="absolute left-2 right-2 top-14 border-t-2 border-dashed border-[#b6d6c3] flex items-center justify-end z-0">
+<span class="text-[10px] font-label-sm font-bold text-[#2d5840] px-2 py-0.5 rounded bg-white border border-[#d2ead9] -mt-2.5 shadow-xs">
+            Optimum ETc (120 m³)
+          </span>
+</div>
+<!-- Bars Layout -->
+<div class="grid grid-cols-7 gap-1.5 items-end h-32 relative z-10 pt-4">
+<!-- Mon: 180 m³ -->
+<div class="flex flex-col items-center gap-1.5 h-full justify-end group">
+<span class="text-[10px] font-label-sm font-bold text-[#005131] opacity-0 group-hover:opacity-100 transition-opacity">180</span>
+<div class="w-full max-w-[24px] bg-[#005131] rounded-t-md h-[75%] transition-all hover:bg-[#006d42]"></div>
+<span class="text-label-sm font-label-sm text-[#0e2f1f] font-bold">Mon</span>
+</div>
+<!-- Tue: 0 m³ AWD Dry -->
+<div class="flex flex-col items-center gap-1.5 h-full justify-end">
+<span class="w-5 h-5 rounded-full bg-white border border-[#d2ead9] flex items-center justify-center text-[#4b6957] text-[10px] font-bold mb-1" title="AWD Dry State">
+              -
+            </span>
+<div class="w-full max-w-[24px] bg-[#d3e5da] rounded-t-sm h-1"></div>
+<span class="text-label-sm font-label-sm text-[#4b6957] font-medium">Tue</span>
+</div>
+<!-- Wed: 210 m³ -->
+<div class="flex flex-col items-center gap-1.5 h-full justify-end group">
+<span class="text-[10px] font-label-sm font-bold text-[#005131]">210</span>
+<div class="w-full max-w-[24px] bg-[#005131] rounded-t-md h-[90%] transition-all hover:bg-[#006d42]"></div>
+<span class="text-label-sm font-label-sm text-[#0e2f1f] font-bold">Wed</span>
+</div>
+<!-- Thu: 0 m³ AWD Dry -->
+<div class="flex flex-col items-center gap-1.5 h-full justify-end">
+<span class="w-5 h-5 rounded-full bg-white border border-[#d2ead9] flex items-center justify-center text-[#4b6957] text-[10px] font-bold mb-1">
+              -
+            </span>
+<div class="w-full max-w-[24px] bg-[#d3e5da] rounded-t-sm h-1"></div>
+<span class="text-label-sm font-label-sm text-[#4b6957] font-medium">Thu</span>
+</div>
+<!-- Fri: Scheduled Rain -->
+<div class="flex flex-col items-center gap-1.5 h-full justify-end">
+<div class="w-6 h-6 rounded-full bg-[#dcf4e5] border border-[#b2e5c6] flex items-center justify-center text-[#006d42] mb-1 animate-pulse" title="Rainfall Event">
+<span class="material-symbols-outlined text-[14px]">thunderstorm</span>
+</div>
+<div class="w-full max-w-[24px] bg-[#64dd9b] rounded-t-md h-[40%]"></div>
+<span class="text-label-sm font-label-sm text-[#006d42] font-bold">Fri</span>
+</div>
+<!-- Sat: 0 m³ -->
+<div class="flex flex-col items-center gap-1.5 h-full justify-end">
+<span class="w-5 h-5 rounded-full bg-white border border-[#d2ead9] flex items-center justify-center text-[#4b6957] text-[10px] font-bold mb-1">
+              -
+            </span>
+<div class="w-full max-w-[24px] bg-[#d3e5da] rounded-t-sm h-1"></div>
+<span class="text-label-sm font-label-sm text-[#4b6957] font-medium">Sat</span>
+</div>
+<!-- Sun: 160 m³ -->
+<div class="flex flex-col items-center gap-1.5 h-full justify-end group">
+<span class="text-[10px] font-label-sm font-bold text-[#005131] opacity-0 group-hover:opacity-100 transition-opacity">160</span>
+<div class="w-full max-w-[24px] bg-[#006d42] rounded-t-md h-[68%] transition-all hover:bg-[#005131]"></div>
+<span class="text-label-sm font-label-sm text-[#0e2f1f] font-bold">Sun</span>
+</div>
+</div>
+</div>
+<!-- Source Distribution Breakdown -->
+<div class="pt-2">
+<div class="flex items-center justify-between mb-2">
+<span class="font-label-md text-label-md text-[#0e2f1f] font-bold">Water Source Distribution</span>
+<span class="font-label-sm text-label-sm text-[#4b6957] font-medium">Season kharif</span>
+</div>
+<!-- Segmented Progress Bar -->
+<div class="w-full h-3 rounded-full overflow-hidden flex bg-[#e5f1ea] mb-3 shadow-inner">
+<div class="bg-[#005131] h-full transition-all duration-500" style="width: 68%" title="Canal Gravity 68%"></div>
+<div class="bg-[#64dd9b] h-full transition-all duration-500" style="width: 24%" title="Borewell Drip 24%"></div>
+<div class="bg-[#a4f4c3] h-full transition-all duration-500" style="width: 8%" title="Rain Harvesting 8%"></div>
+</div>
+<!-- Legend Pills -->
+<div class="grid grid-cols-3 gap-2">
+<div class="flex flex-col bg-[#f4faf6] border border-[#e5f1ea] rounded-lg p-2">
+<div class="flex items-center gap-1.5 mb-1">
+<span class="w-2.5 h-2.5 rounded-full bg-[#005131] shrink-0"></span>
+<span class="text-[11px] font-label-sm text-[#4b6957] font-medium truncate">Canal Sluice</span>
+</div>
+<span class="font-headline-sm text-headline-sm text-[#0e2f1f] font-extrabold">68%</span>
+</div>
+<div class="flex flex-col bg-[#f4faf6] border border-[#e5f1ea] rounded-lg p-2">
+<div class="flex items-center gap-1.5 mb-1">
+<span class="w-2.5 h-2.5 rounded-full bg-[#64dd9b] shrink-0"></span>
+<span class="text-[11px] font-label-sm text-[#4b6957] font-medium truncate">Micro-Drip</span>
+</div>
+<span class="font-headline-sm text-headline-sm text-[#0e2f1f] font-extrabold">24%</span>
+</div>
+<div class="flex flex-col bg-[#f4faf6] border border-[#e5f1ea] rounded-lg p-2">
+<div class="flex items-center gap-1.5 mb-1">
+<span class="w-2.5 h-2.5 rounded-full bg-[#a4f4c3] shrink-0"></span>
+<span class="text-[11px] font-label-sm text-[#4b6957] font-medium truncate">Harvesting</span>
+</div>
+<span class="font-headline-sm text-headline-sm text-[#0e2f1f] font-extrabold">8%</span>
+</div>
+</div>
+</div>
+</div></section>
+<!-- Chronological Irrigation Activity Timeline -->
+<section class="px-margin flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Irrigation Sessions</h3>
+<span class="text-label-sm font-label-sm text-on-surface-variant font-medium">Showing 4 logs</span>
+</div>
+<!-- Record 1: Yesterday -->
+<article class="bg-white rounded-xl p-4 shadow-sm border border-[#e2efe7] flex flex-col gap-3 transition-transform active:scale-[0.99]"><div class="flex items-start justify-between">
+<div class="flex items-center gap-2.5">
+<div class="w-10 h-10 rounded-xl bg-[#eaf7ef] border border-[#cbe9d6] flex items-center justify-center text-[#006d42] shrink-0">
+<span class="material-symbols-outlined text-[22px]">waterfall_chart</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<h4 class="font-label-lg text-label-lg font-bold text-[#0e2f1f]">Canal Gravity Sluice</h4>
+<span class="px-2.5 py-0.5 rounded-full text-[10px] font-label-sm font-bold bg-[#e1f9eb] border border-[#aef2c7] text-[#007145]">Latest</span>
+</div>
+<p class="text-label-sm font-label-sm text-[#4b6957]">Yesterday, 23 Oct 2024 • 04:30 PM</p>
+</div>
+</div>
+<button aria-label="Session actions" class="w-8 h-8 -mr-1 flex items-center justify-center rounded-full text-[#4b6957] hover:bg-[#eaf7ef] transition-colors">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+<!-- Core Telemetry Metric Band -->
+<div class="grid grid-cols-2 gap-2 bg-[#f4faf6] border border-[#e2efe7] rounded-lg p-2.5">
+<div>
+<span class="text-[11px] font-label-sm text-[#4b6957] font-medium block">Volume &amp; Run Time</span>
+<span class="font-label-md text-label-md font-bold text-[#0e2f1f]">210 m³ • 3h 30m</span>
+</div>
+<div>
+<span class="text-[11px] font-label-sm text-[#4b6957] font-medium block">Soil Moisture Delta</span>
+<span class="font-label-md text-label-md font-bold text-[#006d42] flex items-center gap-1">
+            22% → 28% VWC
+            <span class="material-symbols-outlined text-[14px]">trending_up</span>
+</span>
+</div>
+</div>
+<!-- Notes and Metadata -->
+<p class="font-body-sm text-body-sm text-[#2d5840] leading-relaxed">
+        Zone 4 canal gates opened during afternoon release. Water level achieved target 3cm flood depth for panicle initiation stage.
+      </p>
+<!-- Provenance and Actions -->
+<div class="pt-2 flex flex-col gap-2.5 border-t border-[#e2efe7]">
+<div class="flex items-center justify-between text-label-sm font-label-sm text-[#4b6957]">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[15px] text-[#006d42]">verified</span>
+<span class="font-medium text-[#2d5840]">IoT Probe #04 Verified</span>
+</div>
+<span class="truncate font-medium">By Daswanth Rao (Self)</span>
+</div>
+<div class="flex items-center justify-between pt-1">
+<button class="inline-flex items-center gap-1 text-label-md font-label-md font-bold text-[#006d42] hover:text-[#005131] active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[17px]">receipt_long</span>
+<span>View Water Meter Slip</span>
+</button>
+<span class="text-[11px] font-label-sm px-2.5 py-0.5 rounded-full bg-[#dcf4e5] border border-[#b2e5c6] text-[#005232] font-semibold">AWD Restored</span>
+</div>
+</div></article>
+<!-- Record 2: 19 Oct Fertigation Drip -->
+<article class="bg-white rounded-xl p-4 shadow-sm border border-[#e2efe7] flex flex-col gap-3 transition-transform active:scale-[0.99]"><div class="flex items-start justify-between">
+<div class="flex items-center gap-2.5">
+<div class="w-10 h-10 rounded-xl bg-[#f0ebff] border border-[#ddd0ff] flex items-center justify-center text-[#4c28ad] shrink-0">
+<span class="material-symbols-outlined text-[22px]">science</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<h4 class="font-label-lg text-label-lg font-bold text-[#0e2f1f]">Borewell Fertigation</h4>
+<span class="px-2.5 py-0.5 rounded-full text-[10px] font-label-sm font-bold bg-[#f0ebff] border border-[#dcd1ff] text-[#4d2aae]">Smart Cycle</span>
+</div>
+<p class="text-label-sm font-label-sm text-[#4b6957]">19 Oct 2024 • 06:15 AM</p>
+</div>
+</div>
+<button aria-label="Session actions" class="w-8 h-8 -mr-1 flex items-center justify-center rounded-full text-[#4b6957] hover:bg-[#eaf7ef] transition-colors">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+<div class="grid grid-cols-2 gap-2 bg-[#f4faf6] border border-[#e2efe7] rounded-lg p-2.5">
+<div>
+<span class="text-[11px] font-label-sm text-[#4b6957] font-medium block">Volume &amp; Duration</span>
+<span class="font-label-md text-label-md font-bold text-[#0e2f1f]">85 m³ • 1h 45m</span>
+</div>
+<div>
+<span class="text-[11px] font-label-sm text-[#4b6957] font-medium block">Moisture Gain</span>
+<span class="font-label-md text-label-md font-bold text-[#006d42]">20% → 26% VWC</span>
+</div>
+</div>
+<!-- Nutrient Pill -->
+<div class="flex items-center gap-2 bg-[#f8f5ff] border border-[#e8dffd] rounded-lg p-2 text-label-sm font-label-sm text-[#241352]">
+<span class="material-symbols-outlined text-[16px] text-[#4c28ad] shrink-0">bubble_chart</span>
+<span class="font-semibold truncate">Additive: Soluble Potash (K) 15 kg split dose</span>
+</div>
+<div class="pt-2 flex items-center justify-between text-label-sm font-label-sm text-[#4b6957] border-t border-[#e2efe7]">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[15px] text-[#4c28ad]">smart_toy</span>
+<span class="font-medium text-[#2d5840]">Automated Drip Controller</span>
+</div>
+<span class="font-medium">Operator: Timer Preset</span>
+</div></article>
+<!-- Record 3: 15 Oct Manual Canal Entry -->
+<article class="bg-white rounded-xl p-4 shadow-sm border border-[#e2efe7] flex flex-col gap-3 transition-transform active:scale-[0.99]"><div class="flex items-start justify-between">
+<div class="flex items-center gap-2.5">
+<div class="w-10 h-10 rounded-xl bg-[#eaf7ef] border border-[#cbe9d6] flex items-center justify-center text-[#006d42] shrink-0">
+<span class="material-symbols-outlined text-[22px]">flood</span>
+</div>
+<div class="flex flex-col">
+<h4 class="font-label-lg text-label-lg font-bold text-[#0e2f1f]">Canal Gravity Sluice</h4>
+<p class="text-label-sm font-label-sm text-[#4b6957]">15 Oct 2024 • 05:00 PM</p>
+</div>
+</div>
+<button aria-label="Session actions" class="w-8 h-8 -mr-1 flex items-center justify-center rounded-full text-[#4b6957] hover:bg-[#eaf7ef] transition-colors">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+<div class="grid grid-cols-2 gap-2 bg-[#f4faf6] border border-[#e2efe7] rounded-lg p-2.5">
+<div>
+<span class="text-[11px] font-label-sm text-[#4b6957] font-medium block">Discharge &amp; Duration</span>
+<span class="font-label-md text-label-md font-bold text-[#0e2f1f]">240 m³ • 4h 00m</span>
+</div>
+<div>
+<span class="text-[11px] font-label-sm text-[#4b6957] font-medium block">Moisture Delta</span>
+<span class="font-label-md text-label-md font-bold text-[#006d42]">19% → 29% VWC</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-[#2d5840] leading-relaxed">
+        Post-tillering puddling top-up before scheduled mechanical weeding. Sluice intake cleared of debris.
+      </p>
+<div class="pt-2 flex items-center justify-between text-label-sm font-label-sm text-[#4b6957] border-t border-[#e2efe7]">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[15px] text-[#006d42]">edit_note</span>
+<span class="font-medium text-[#2d5840]">Manual Farmer Entry</span>
+</div>
+<span class="font-medium">Operator: Daswanth Rao</span>
+</div></article>
+<!-- Record 4: 10 Oct Rain Inflow -->
+<article class="bg-white rounded-xl p-4 shadow-sm border border-[#e2efe7] flex flex-col gap-3 transition-transform active:scale-[0.99]"><div class="flex items-start justify-between">
+<div class="flex items-center gap-2.5">
+<div class="w-10 h-10 rounded-xl bg-[#e1f9eb] border border-[#bbf2ce] flex items-center justify-center text-[#006d42] shrink-0">
+<span class="material-symbols-outlined text-[22px]">rainy</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<h4 class="font-label-lg text-label-lg font-bold text-[#0e2f1f]">Natural Rainfall Inflow</h4>
+<span class="px-2.5 py-0.5 rounded-full text-[10px] font-label-sm font-bold bg-[#e1f9eb] border border-[#aef2c7] text-[#007145]">Free Replenish</span>
+</div>
+<p class="text-label-sm font-label-sm text-[#4b6957]">10 Oct 2024 • 07:00 AM</p>
+</div>
+</div>
+<button aria-label="Session actions" class="w-8 h-8 -mr-1 flex items-center justify-center rounded-full text-[#4b6957] hover:bg-[#eaf7ef] transition-colors">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+<div class="grid grid-cols-2 gap-2 bg-[#f4faf6] border border-[#e2efe7] rounded-lg p-2.5">
+<div>
+<span class="text-[11px] font-label-sm text-[#4b6957] font-medium block">Equivalent Volume</span>
+<span class="font-label-md text-label-md font-bold text-[#0e2f1f]">~180 m³ (22 mm)</span>
+</div>
+<div>
+<span class="text-[11px] font-label-sm text-[#4b6957] font-medium block">Source Stream</span>
+<span class="font-label-md text-label-md font-bold text-[#006d42]">IMD Station Grid</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-[#2d5840] leading-relaxed">
+        Canal gates remained secured to capture and retain surface runoff. AWD drying timer reset accordingly.
+      </p>
+<div class="pt-2 flex items-center justify-between text-label-sm font-label-sm text-[#4b6957] border-t border-[#e2efe7]">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[15px] text-[#006d42]">cloud_sync</span>
+<span class="font-medium text-[#2d5840]">IMD Weather Station Telemetry</span>
+</div>
+<span class="font-medium">Sync: Auto</span>
+</div></article>
+<!-- Empty State Container (Hidden by default, shown via custom filter toggle) -->
+<div class="hidden bg-surface-container-lowest rounded-xl p-8 text-center flex-col items-center justify-center shadow-sm" id="empty-state-card">
+<div class="w-14 h-14 rounded-full bg-surface-container flex items-center justify-center text-primary mb-3">
+<span class="material-symbols-outlined text-[30px]">water_damage</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface mb-1">No Irrigation Cycles Logged</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-xs mb-4">
+        There are no recorded water application cycles in this selected date window.
+      </p>
+<button class="px-4 py-2 rounded-full bg-surface-container text-primary font-label-md text-label-md font-semibold hover:bg-surface-container-high transition-colors" id="btn-reset-filters" type="button">
+        Reset to 7 Days
+      </button>
+</div>
+</section>
+<!-- Sticky Bottom Actions Bar -->
+<div class="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md px-margin py-3 border-t border-[#e2efe7] shadow-lg flex items-center gap-3">
+<!-- Secondary Action: Export PDF -->
+<button class="h-[52px] px-4 rounded-xl border border-secondary text-secondary bg-surface-container-lowest hover:bg-surface-container flex items-center justify-center gap-1.5 text-label-md font-label-md font-semibold active:scale-[0.98] transition-all shrink-0" type="button">
+<span class="material-symbols-outlined text-[20px]">picture_as_pdf</span>
+<span>Water Audit</span>
+</button>
+<!-- Primary Action: + Add Record -->
+<button class="h-[52px] flex-1 rounded-xl bg-primary text-on-primary hover:bg-primary-container flex items-center justify-center gap-2 text-label-lg font-label-lg font-bold shadow-md active:scale-[0.98] transition-all" type="button">
+<span class="material-symbols-outlined text-[22px]">add_circle</span>
+<span>Add Record</span>
+</button>
+</div>
+</div>
+<script>
+  // Simple client-side micro-interactions for tab switching and chip selection
+  (function() {
+    const btnTimeline = document.getElementById('btn-view-timeline');
+    const btnAnalytics = document.getElementById('btn-view-analytics');
+    const analyticsSection = document.getElementById('analytics-section');
+    const filterChips = document.querySelectorAll('.filter-chip');
+    const emptyState = document.getElementById('empty-state-card');
+    const resetBtn = document.getElementById('btn-reset-filters');
+
+    // Toggle view presentation
+    btnTimeline.addEventListener('click', () => {
+      btnTimeline.classList.add('bg-surface-container-lowest', 'text-primary', 'font-semibold', 'shadow-xs');
+      btnTimeline.classList.remove('font-medium', 'text-on-surface-variant');
+
+      btnAnalytics.classList.remove('bg-surface-container-lowest', 'text-primary', 'font-semibold', 'shadow-xs');
+      btnAnalytics.classList.add('font-medium', 'text-on-surface-variant');
+
+      analyticsSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+
+    btnAnalytics.addEventListener('click', () => {
+      btnAnalytics.classList.add('bg-surface-container-lowest', 'text-primary', 'font-semibold', 'shadow-xs');
+      btnAnalytics.classList.remove('font-medium', 'text-on-surface-variant');
+
+      btnTimeline.classList.remove('bg-surface-container-lowest', 'text-primary', 'font-semibold', 'shadow-xs');
+      btnTimeline.classList.add('font-medium', 'text-on-surface-variant');
+
+      analyticsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    // Chip click state handling
+    filterChips.forEach(chip => {
+      chip.addEventListener('click', function() {
+        filterChips.forEach(c => {
+          c.classList.remove('bg-primary', 'text-on-primary', 'font-semibold', 'shadow-sm');
+          c.classList.add('bg-surface-container-lowest', 'text-on-surface-variant', 'font-medium');
+          const check = c.querySelector('.material-symbols-outlined');
+          if (check && check.textContent === 'done') check.remove();
+        });
+
+        this.classList.add('bg-primary', 'text-on-primary', 'font-semibold', 'shadow-sm');
+        this.classList.remove('bg-surface-container-lowest', 'text-on-surface-variant', 'font-medium');
+
+        if (!this.querySelector('.material-symbols-outlined')) {
+          const icon = document.createElement('span');
+          icon.className = 'material-symbols-outlined text-[14px]';
+          icon.textContent = 'done';
+          this.prepend(icon);
+        }
+
+        // Demo toggling of empty state on 'Custom Range'
+        if (this.textContent.includes('Custom')) {
+          emptyState.classList.remove('hidden');
+          emptyState.classList.add('flex');
+        } else {
+          emptyState.classList.add('hidden');
+          emptyState.classList.remove('flex');
+        }
+      });
+    });
+
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        filterChips[0].click();
+      });
+    }
+  })();
+</script></main>
+
+
+</body></html>
