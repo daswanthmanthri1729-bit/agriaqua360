@@ -34,6 +34,17 @@
 | 28 | Animal Details | `/livestock/animals/[id]` | — | 🟡 |
 | 29 | Add New Animal | `/livestock/animals/new` | — | 🟡 |
 | 30 | Health & Vaccination Records | `/livestock/records` | — | 🟡 |
-| 31–40 | AI / voice / records / settings | | 40, ask_anything, voice_search, visual_search, ai_follow_up, 41, 47 | ⏳ |
+| 31 | AI Farming Assistant | `/assistant` (tab) | ask_anything, ai_follow_up_conversation, 40_ai_hub | 🟡 |
+| 32 | Voice Question Interface | `/assistant/voice` | voice_search_agriaqua_360 | 🟡 |
+| 33 | Ask AI Using Images | `/assistant/image` | visual_search_agriaqua_360 | 🟡 |
+| 34 | AI Chat History | `/assistant/history` | — | 🟡 |
+| 35 | Notifications Centre | `/notifications` | 47_smart_reminders | 🟡 |
+| 36 | Alert Details | `/notifications/[id]` | — | 🟡 |
+| 37 | Saved Farming Records | `/records/saved` | 41_offline_mode_saved_records | 🟡 |
+| 38 | Farming Reports | `/reports` | — | 🟡 |
+| 39 | Profile and Settings | `/profile` (tab) | 52_backup_restore_data_privacy | 🟡 |
+| 40 | Help and Support | `/help` | 51_expert_consultation_support | 🟡 |
+
+**Total: 40 primary screens** (one route file each, tagged `// NN ·` at the top). Sheets and inline forms are not counted.
 
 Stitch extras not in the 40 (sensors, GPS mapping, market prices, expenses, backup) are out of Level 1 scope.

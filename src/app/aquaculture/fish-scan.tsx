@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { AppText, Banner, Button, Card, Chip, ChoiceChips, Header, Icon, PhotoPicker, Screen, SectionHeader, StorageImage, TextField } from '@/components';
 import { analyseFish, uploadFishPhotos, useFishReports, usePonds } from '@/features/aquaculture/api';
 import { toErrorKey } from '@/features/auth/api';
+import { useSaveFishReport } from '@/features/notifications/saved';
 import { useLanguage } from '@/hooks/useLanguage';
 import { formatDate, isoDate } from '@/lib/dates';
 import type { PickedImage } from '@/services/media';
@@ -27,6 +28,7 @@ export default function FishScanner() {
   const [stage, setStage] = useState<'idle' | 'uploading' | 'analysing'>('idle');
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<FishHealthReport | null>(null);
+  const saveReport = useSaveFishReport();
   const shown = result ?? history.data?.find((r) => r.id === params.reportId) ?? null;
 
   const run = async () => {
@@ -52,7 +54,13 @@ export default function FishScanner() {
       </Card>
     );
     return (
-      <Screen footer={<Button testID="fish-new" iconLeft="set-meal" label={t('fishScan.newScan')} onPress={reset} />}>
+      <Screen footer={
+        <View style={{ flexDirection: 'row', gap: 8 }}>
+          <Button style={{ flex: 1 }} variant="tonal" iconLeft={saveReport.isSuccess ? 'bookmark' : 'bookmark-border'} label={saveReport.isSuccess ? t('result.saved') : t('result.save')}
+            disabled={saveReport.isSuccess} loading={saveReport.isPending} onPress={() => saveReport.mutate({ id: shown.id, title: shown.condition_name ?? '' })} />
+          <Button testID="fish-new" style={{ flex: 1 }} iconLeft="set-meal" label={t('fishScan.newScan')} onPress={reset} />
+        </View>
+      }>
         <Header title={t('result.title')} />
         <ScrollView horizontal style={{ flexGrow: 0 }} contentContainerStyle={{ gap: 8 }}>
           {shown.image_paths.map((p) => <StorageImage key={p} path={p} style={{ width: 160, height: 130, borderRadius: radius.lg }} />)}

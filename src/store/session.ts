@@ -3,6 +3,7 @@ import { create } from 'zustand';
 import { supabase } from '@/lib/supabase';
 import { isSupabaseConfigured } from '@/lib/env';
 import { queryClient } from '@/lib/query';
+import { registerPushToken } from '@/services/notifications';
 import type { Profile } from '@/types/database';
 
 type State = {
@@ -32,7 +33,7 @@ export const useSession = create<State>()((set, get) => ({
       // Next farmer on a shared phone must not see the previous farmer's cached data.
       if (!session) { set({ profile: null }); queryClient.clear(); }
       // Defer DB calls out of the auth callback (supabase-js deadlock guidance).
-      else setTimeout(() => get().refreshProfile(), 0);
+      else setTimeout(() => { get().refreshProfile(); registerPushToken(session.user.id); }, 0);
     });
     return () => data.subscription.unsubscribe();
   },

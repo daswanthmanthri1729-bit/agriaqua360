@@ -1,5 +1,5 @@
 // 09 · Main Dashboard — Stitch: 06_home_dashboard_screen
-import { Alert, Pressable, RefreshControl, ScrollView, StyleSheet, View } from 'react-native';
+import { Pressable, RefreshControl, ScrollView, StyleSheet, View } from 'react-native';
 import { router } from 'expo-router';
 import { Image } from 'expo-image';
 import { useTranslation } from 'react-i18next';
@@ -8,7 +8,7 @@ import {
   AppText, Banner, Button, Card, Chip, EmptyState, ErrorState, Icon, IconName, LanguagePills, SectionHeader, Skeleton, StorageImage, WeatherCard,
 } from '@/components';
 import { ACTIVITY_ICON, useDashboard } from '@/features/agriculture/api';
-import { signOut } from '@/features/auth/api';
+import { useNotifications } from '@/features/notifications/api';
 import { usePonds } from '@/features/aquaculture/api';
 import { overall } from '@/features/aquaculture/waterQuality';
 import { useAnimals, useVaccinations } from '@/features/livestock/api';
@@ -38,6 +38,7 @@ export default function Dashboard() {
   const profile = useSession((s) => s.profile);
   const dash = useDashboard();
   const ponds = usePonds();
+  const unread = (useNotifications().data ?? []).filter((n) => !n.read_at).length;
   const showAqua = !!ponds.data?.length || !!profile?.sectors?.includes('aquaculture');
   const animals = useAnimals();
   const vaccs = useVaccinations();
@@ -58,12 +59,10 @@ export default function Dashboard() {
             <AppText variant="labelMd" color={colors.textSubtle}>{t(greetingKey()).toUpperCase()}</AppText>
             <AppText variant="headlineMd" numberOfLines={1}>{profile?.full_name ?? t('dashboard.farmer')}</AppText>
           </View>
-          <Pressable accessibilityRole="button" accessibilityLabel={t('home.signOut')} hitSlop={8} style={styles.iconBtn}
-            onPress={() => Alert.alert(t('home.signOut'), undefined, [
-              { text: t('common.cancel'), style: 'cancel' },
-              { text: t('home.signOut'), style: 'destructive', onPress: async () => { await signOut(); router.replace('/auth/login'); } },
-            ])}>
-            <Icon name="logout" color={colors.textMuted} />
+          <Pressable testID="bell" accessibilityRole="button" accessibilityLabel={`${t('notifications.title')}${unread ? `, ${unread} ${t('notifications.new')}` : ''}`} hitSlop={8} style={styles.iconBtn}
+            onPress={() => router.push('/notifications')}>
+            <Icon name={unread ? 'notifications-active' : 'notifications-none'} color={colors.primaryDeep} />
+            {unread > 0 && <View style={styles.badge}><AppText variant="labelSm" color={colors.white}>{unread > 9 ? '9+' : unread}</AppText></View>}
           </Pressable>
         </View>
         <View style={{ alignSelf: 'flex-start' }}><LanguagePills /></View>
@@ -170,7 +169,8 @@ const styles = StyleSheet.create({
   content: { padding: space.md, gap: space.md, paddingBottom: space.xl },
   header: { flexDirection: 'row', alignItems: 'center', gap: 12 },
   avatar: { width: 48, height: 48, borderRadius: 24 },
-  iconBtn: { width: 44, height: 44, borderRadius: 22, alignItems: 'center', justifyContent: 'center' },
+  iconBtn: { width: 44, height: 44, borderRadius: 22, alignItems: 'center', justifyContent: 'center', backgroundColor: colors.surfaceContainer },
+  badge: { position: 'absolute', top: 2, right: 2, minWidth: 18, height: 18, borderRadius: 9, paddingHorizontal: 4, backgroundColor: colors.error, alignItems: 'center', justifyContent: 'center' },
   row: { flexDirection: 'row', alignItems: 'center', gap: 10 },
   action: { width: 88, minHeight: 100, padding: 8, borderRadius: radius.lg, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.border, alignItems: 'center', gap: 8 },
   actionIcon: { width: 48, height: 48, borderRadius: 24, backgroundColor: colors.surfaceContainer, alignItems: 'center', justifyContent: 'center' },

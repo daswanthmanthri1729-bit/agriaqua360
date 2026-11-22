@@ -38,10 +38,14 @@ export async function pickImages(source: 'camera' | 'library', opts: { multiple?
 }
 
 // Path layout `<folder>/<userId>/<file>` is what the storage RLS policies key on.
-export async function uploadImage(bucket: 'avatars' | 'media', folder: MediaFolder, userId: string, img: PickedImage): Promise<string> {
-  const path = `${userId}/${folder}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.jpg`;
-  const body = await (await fetch(img.uri)).arrayBuffer();
-  const { error } = await supabase.storage.from(bucket).upload(path, body, { contentType: 'image/jpeg', upsert: false });
+export function uploadImage(bucket: 'avatars' | 'media', folder: MediaFolder, userId: string, img: PickedImage): Promise<string> {
+  return uploadFile(bucket, folder, userId, img.uri, 'image/jpeg', 'jpg');
+}
+
+export async function uploadFile(bucket: 'avatars' | 'media', folder: MediaFolder, userId: string, uri: string, contentType: string, ext: string): Promise<string> {
+  const path = `${userId}/${folder}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+  const body = await (await fetch(uri)).arrayBuffer();
+  const { error } = await supabase.storage.from(bucket).upload(path, body, { contentType, upsert: false });
   if (error) throw error;
   return path;
 }
