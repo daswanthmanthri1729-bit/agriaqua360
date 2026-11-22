@@ -8,4 +8,4 @@
 | Text-to-speech | `expo-speech` via `services/speech.ts` (checks the phone has a voice for te/hi/en, warns if not) | ✅ language screen + every AI answer |
 | Weather | Edge Function `weather`: OpenWeather 2.5 `/weather` + `/forecast` + geocoding, aggregated to daily (pure, tested `_shared/weather.ts`); advisories are app-derived thresholds | 🟡 code done; live call untested |
 | Location | `expo-location` foreground only, reverse geocode | ✅ |
-| Push | `expo-notifications` + FCM (`google-services.json`), channel `default`; local 7 AM crop/treatment reminders with deep links | 🟡 local reminders + in-app centre done; FCM token saved to `profiles.push_token`; server-sent push needs an FCM service account |
+| Push | `expo-notifications` + FCM (`google-services.json`), channel `default`; local 7 AM crop/treatment/vaccination reminders with deep links; weather warnings scheduled as phone notifications when the app opens (`services/weatherAlerts.ts`) | 🟡 local reminders + in-app centre done; FCM token saved to `profiles.push_token`; server-sent push needs an FCM service account |
