@@ -1,6 +1,6 @@
 # Database Schema
 
-Migration: `supabase/migrations/20261122000001_initial_schema.sql`
+Migrations: `supabase/migrations/20261122000001_initial_schema.sql`, `20261122000002_reminders_and_prevention.sql` (adds `crop_records.notification_id`, `treatment_type = 'prevention'`)
 
 | Group | Tables |
 |---|---|

@@ -8,7 +8,7 @@ import { analyseScan, createScan, useCrops, useScans } from '@/features/agricult
 import { SCAN_TYPES } from '@/features/agriculture/schemas';
 import { toErrorKey } from '@/features/auth/api';
 import { useLanguage } from '@/hooks/useLanguage';
-import { formatDate } from '@/lib/dates';
+import { formatDate, isoDate } from '@/lib/dates';
 import type { PickedImage } from '@/services/media';
 import type { ScanType } from '@/types/database';
 import { colors, radius } from '@/theme';
@@ -72,7 +72,7 @@ export default function CropScanner() {
               <StorageImage path={s.image_paths[0]} style={{ width: 56, height: 56, borderRadius: radius.md }} />
               <View style={{ flex: 1 }}>
                 <AppText variant="labelLg" numberOfLines={1}>{s.report[0]?.condition_name ?? t(s.status === 'failed' ? 'scan.failed' : 'scan.pending')}</AppText>
-                <AppText variant="bodySm" color={colors.textMuted}>{formatDate(s.created_at.slice(0, 10), i18n.language)}</AppText>
+                <AppText variant="bodySm" color={colors.textMuted}>{formatDate(isoDate(new Date(s.created_at)), i18n.language)}</AppText>
               </View>
               {s.report[0]?.severity && <Chip tone={s.report[0].severity === 'severe' ? 'error' : 'normal'} label={t(`result.severity.${s.report[0].severity}`)} />}
             </Card>

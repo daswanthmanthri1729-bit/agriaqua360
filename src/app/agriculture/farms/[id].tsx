@@ -21,7 +21,9 @@ export default function FarmDetails() {
   const confirmDelete = () =>
     Alert.alert(t('farms.deleteTitle'), t('farms.deleteText'), [
       { text: t('common.cancel'), style: 'cancel' },
-      { text: t('common.delete'), style: 'destructive', onPress: async () => { await del.mutateAsync(f.id); router.back(); } },
+      { text: t('common.delete'), style: 'destructive', onPress: async () => {
+        try { await del.mutateAsync(f.id); router.back(); } catch { Alert.alert(t('errors.generic')); }
+      } },
     ]);
 
   return (

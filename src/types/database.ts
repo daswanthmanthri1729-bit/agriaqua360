@@ -40,7 +40,7 @@ export type Crop = {
 export type Activity = 'sowing' | 'irrigation' | 'fertilizer' | 'pesticide' | 'weeding' | 'harvest' | 'observation' | 'other';
 export type CropRecord = {
   id: string; crop_id: string; activity: Activity; scheduled_for: string | null; completed_at: string | null;
-  quantity: number | null; unit: string | null; notes: string | null; created_at: string;
+  quantity: number | null; unit: string | null; notes: string | null; notification_id: string | null; created_at: string;
 };
 
 export type ScanType = 'disease' | 'pest' | 'condition';
@@ -61,4 +61,4 @@ export type DiseaseReport = {
   id: string; scan_id: string; condition_name: string | null; confidence: Confidence | null; severity: Severity | null;
   summary: string | null; symptoms: string[] | null; recommend_expert: boolean; raw_response: CropReport | null; created_at: string;
 };
-export type TreatmentType = 'organic' | 'chemical' | 'cultural' | 'biological';
+export type TreatmentType = 'organic' | 'chemical' | 'cultural' | 'biological' | 'prevention';
