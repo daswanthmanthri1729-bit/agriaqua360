@@ -2,6 +2,7 @@ import type { Session } from '@supabase/supabase-js';
 import { create } from 'zustand';
 import { supabase } from '@/lib/supabase';
 import { isSupabaseConfigured } from '@/lib/env';
+import { queryClient } from '@/lib/query';
 import type { Profile } from '@/types/database';
 
 type State = {
@@ -28,7 +29,8 @@ export const useSession = create<State>()((set, get) => ({
     });
     const { data } = supabase.auth.onAuthStateChange((_event, session) => {
       set({ session });
-      if (!session) set({ profile: null });
+      // Next farmer on a shared phone must not see the previous farmer's cached data.
+      if (!session) { set({ profile: null }); queryClient.clear(); }
       // Defer DB calls out of the auth callback (supabase-js deadlock guidance).
       else setTimeout(() => get().refreshProfile(), 0);
     });

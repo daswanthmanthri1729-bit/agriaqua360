@@ -11,7 +11,7 @@ import { colors } from '@/theme';
 import type { TreatmentType } from '@/types/database';
 
 const GROUPS = ['cultural', 'organic', 'chemical', 'prevention'] as const;
-const TYPE: Record<(typeof GROUPS)[number], TreatmentType> = { cultural: 'cultural', organic: 'organic', chemical: 'chemical', prevention: 'cultural' };
+const TYPE: Record<(typeof GROUPS)[number], TreatmentType> = { cultural: 'cultural', organic: 'organic', chemical: 'chemical', prevention: 'prevention' };
 
 export default function Treatment() {
   const { t } = useTranslation();
@@ -20,6 +20,7 @@ export default function Treatment() {
   const add = useAddTreatments();
   const [picked, setPicked] = useState<Set<string>>(new Set());
   const [days, setDays] = useState('7');
+  const [saved, setSaved] = useState(false);
   const [msg, setMsg] = useState<{ tone: 'success' | 'error' | 'warning'; key: string } | null>(null);
 
   if (scan.isLoading) return <Screen><Header /><LoadingList /></Screen>;
@@ -37,12 +38,12 @@ export default function Treatment() {
         reminder: { title: t('treatment.reminderTitle'), body: t('treatment.reminderBody', { name: report.condition_name }) },
       });
       setMsg({ tone: 'success', key: 'treatment.added' });
-      setPicked(new Set());
+      setSaved(true);
     } catch (e) { setMsg({ tone: 'error', key: toErrorKey(e) }); }
   };
 
   return (
-    <Screen footer={<Button testID="save-treatment" label={t('treatment.add', { count: picked.size })} iconLeft="playlist-add-check" loading={add.isPending} onPress={saveSteps} />}>
+    <Screen footer={<Button testID="save-treatment" label={t('treatment.add', { count: picked.size })} iconLeft="playlist-add-check" loading={add.isPending} disabled={saved} onPress={saveSteps} />}>
       <Header title={t('treatment.title')} />
       <AppText variant="headlineMd">{report.condition_name}</AppText>
       <AppText variant="bodyMd" color={colors.textMuted}>{t('treatment.intro')}</AppText>

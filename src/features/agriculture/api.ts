@@ -2,7 +2,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { supabase } from '@/lib/supabase';
 import { invoke, must, queryClient, userId } from '@/lib/query';
 import { PickedImage, uploadImage } from '@/services/media';
-import { scheduleReminder } from '@/services/notifications';
+import { cancelReminders, scheduleReminder } from '@/services/notifications';
 import { addDays, today } from '@/lib/dates';
 import type { Activity, Crop, CropRecord, CropScan, DiseaseReport, Farm, ScanType, TreatmentType } from '@/types/database';
 import { ActivityInput, blankToNull, CropInput, FarmInput } from './schemas';
@@ -29,7 +29,11 @@ export const useCreateFarm = () =>
 
 export const useDeleteFarm = () =>
   useMutation({
-    mutationFn: (id: string) => must(supabase.from('farms').delete().eq('id', id)),
+    mutationFn: async (id: string) => {
+      const recs = await must<{ notification_id: string | null }[]>(supabase.from('crop_records').select('notification_id, crop:crops!inner(farm_id)').eq('crop.farm_id', id).not('notification_id', 'is', null));
+      await must(supabase.from('farms').delete().eq('id', id));
+      await cancelReminders(recs.map((r) => r.notification_id));
+    },
     onSuccess: () => invalidate('farms', 'crops', 'records', 'dashboard'),
   });
 
@@ -54,7 +58,7 @@ export const useCreateCrop = () =>
       const photo_path = photo ? await uploadImage('media', 'crops', uid, photo) : null;
       const crop = await must<Crop>(supabase.from('crops').insert({ ...blankToNull(input, ['area_acres']), photo_path }).select().single());
       // A sowing date doubles as the first calendar entry.
-      if (crop.sowing_date) await supabase.from('crop_records').insert({ crop_id: crop.id, activity: 'sowing', scheduled_for: crop.sowing_date, completed_at: crop.sowing_date <= today() ? new Date().toISOString() : null });
+      if (crop.sowing_date) await must(supabase.from('crop_records').insert({ crop_id: crop.id, activity: 'sowing', scheduled_for: crop.sowing_date, completed_at: crop.sowing_date <= today() ? new Date().toISOString() : null }));
       return crop;
     },
     onSuccess: () => invalidate('crops', 'records', 'dashboard'),
@@ -67,7 +71,14 @@ export const useUpdateCrop = () =>
   });
 
 export const useDeleteCrop = () =>
-  useMutation({ mutationFn: (id: string) => must(supabase.from('crops').delete().eq('id', id)), onSuccess: () => invalidate('crops', 'records', 'scans', 'dashboard') });
+  useMutation({
+    mutationFn: async (id: string) => {
+      const recs = await must<{ notification_id: string | null }[]>(supabase.from('crop_records').select('notification_id').eq('crop_id', id).not('notification_id', 'is', null));
+      await must(supabase.from('crops').delete().eq('id', id));
+      await cancelReminders(recs.map((r) => r.notification_id));
+    },
+    onSuccess: () => invalidate('crops', 'records', 'scans', 'dashboard'),
+  });
 
 // ---------- calendar (crop_records) ----------
 export type RecordWithCrop = CropRecord & { crop: { id: string; name: string } | null };
@@ -87,17 +98,24 @@ export const useCreateRecord = () =>
   useMutation({
     mutationFn: async ({ input, cropName, title, body }: { input: ActivityInput; cropName: string; title: string; body: string }) => {
       const { remind, ...row } = input;
-      const rec = await must<CropRecord>(supabase.from('crop_records').insert({ ...row, notes: row.notes || null }).select().single());
-      if (remind) await scheduleReminder({ date: rec.scheduled_for!, title, body: `${cropName}: ${body}`, route: `/agriculture/crops/${rec.crop_id}`, category: 'crop' });
-      return rec;
+      const notification_id = remind ? await scheduleReminder({ date: row.scheduled_for, title, body: `${cropName}: ${body}`, route: `/agriculture/crops/${row.crop_id}`, category: 'crop' }) : null;
+      try {
+        return await must<CropRecord>(supabase.from('crop_records').insert({ ...row, notes: row.notes || null, notification_id }).select().single());
+      } catch (e) {
+        await cancelReminders([notification_id]);
+        throw e;
+      }
     },
     onSuccess: () => invalidate('records', 'dashboard'),
   });
 
 export const useToggleRecord = () =>
   useMutation({
-    mutationFn: ({ id, done }: { id: string; done: boolean }) =>
-      must(supabase.from('crop_records').update({ completed_at: done ? new Date().toISOString() : null }).eq('id', id)),
+    mutationFn: async ({ id, done, notificationId }: { id: string; done: boolean; notificationId?: string | null }) => {
+      await must(supabase.from('crop_records').update({ completed_at: done ? new Date().toISOString() : null }).eq('id', id));
+      // shortcut: un-ticking a task does not re-create its reminder; add if farmers ask.
+      if (done) await cancelReminders([notificationId]);
+    },
     onSuccess: () => invalidate('records', 'dashboard'),
   });
 
@@ -156,10 +174,10 @@ export const useAddTreatments = () =>
       await must(supabase.from('treatment_records').insert(a.items.map((i) => ({
         disease_report_id: a.reportId, crop_id: a.cropId, treatment_type: i.type, description: i.text, applied_on: today(), follow_up_on: a.followUp,
       }))));
+      const notification_id = await scheduleReminder({ date: a.followUp, title: a.reminder.title, body: a.reminder.body, route: a.cropId ? `/agriculture/crops/${a.cropId}` : '/agriculture/calendar', category: 'crop' });
       if (a.cropId) {
-        await must(supabase.from('crop_records').insert({ crop_id: a.cropId, activity: 'observation', scheduled_for: a.followUp, notes: a.reminder.body }));
+        await must(supabase.from('crop_records').insert({ crop_id: a.cropId, activity: 'observation', scheduled_for: a.followUp, notes: a.reminder.body, notification_id }));
       }
-      await scheduleReminder({ date: a.followUp, title: a.reminder.title, body: a.reminder.body, route: a.cropId ? `/agriculture/crops/${a.cropId}` : '/agriculture/calendar', category: 'crop' });
     },
     onSuccess: () => invalidate('records', 'treatments', 'dashboard'),
   });

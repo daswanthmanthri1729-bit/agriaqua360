@@ -8,7 +8,7 @@ import { useCrop, useDeleteCrop, useRecords, useScans, useTreatments, useUpdateC
 import { AddTaskSheet } from '@/features/agriculture/AddTaskSheet';
 import { TaskRow } from '@/features/agriculture/TaskRow';
 import { CROP_STATUS } from '@/features/agriculture/schemas';
-import { daysBetween, formatDate, today } from '@/lib/dates';
+import { daysBetween, formatDate, isoDate, today } from '@/lib/dates';
 import { colors, radius } from '@/theme';
 import type { CropStatus } from '@/types/database';
 
@@ -33,7 +33,9 @@ export default function CropDetails() {
   const confirmDelete = () =>
     Alert.alert(t('crops.deleteTitle'), t('crops.deleteText'), [
       { text: t('common.cancel'), style: 'cancel' },
-      { text: t('common.delete'), style: 'destructive', onPress: async () => { await del.mutateAsync(c.id); router.back(); } },
+      { text: t('common.delete'), style: 'destructive', onPress: async () => {
+        try { await del.mutateAsync(c.id); router.back(); } catch { Alert.alert(t('errors.generic')); }
+      } },
     ]);
 
   return (
@@ -55,7 +57,7 @@ export default function CropDetails() {
         <InfoTile icon="grass" label={t('crops.sown')} value={fmt(c.sowing_date)} />
         <InfoTile icon="event-available" label={t('crops.harvest')} value={fmt(c.expected_harvest_date)} />
       </View>
-      <ChoiceChips scroll label={t('crops.status')} value={c.status} onChange={(status: CropStatus) => update.mutate({ id: c.id, patch: { status } })}
+      <ChoiceChips scroll label={t('crops.status')} value={c.status} onChange={(status: CropStatus) => update.mutate({ id: c.id, patch: { status } }, { onError: () => Alert.alert(t('errors.generic')) })}
         options={CROP_STATUS.map((s) => ({ value: s, label: t(`crops.statuses.${s}`) }))} />
 
       <SectionHeader title={t('crops.activities')} action={t('crops.addActivity')} onAction={() => setTaskOpen(true)} />
@@ -85,7 +87,7 @@ export default function CropDetails() {
           <StorageImage path={s.image_paths[0]} style={styles.scanThumb} />
           <View style={{ flex: 1 }}>
             <AppText variant="labelLg" numberOfLines={1}>{s.report[0]?.condition_name ?? t(s.status === 'failed' ? 'scan.failed' : 'scan.pending')}</AppText>
-            <AppText variant="bodySm" color={colors.textMuted}>{formatDate(s.created_at.slice(0, 10), i18n.language)}</AppText>
+            <AppText variant="bodySm" color={colors.textMuted}>{formatDate(isoDate(new Date(s.created_at)), i18n.language)}</AppText>
           </View>
           {s.report[0]?.severity && <Chip tone={s.report[0].severity === 'severe' ? 'error' : s.report[0].severity === 'none' ? 'normal' : 'warning'} label={t(`result.severity.${s.report[0].severity}`)} />}
         </Card>

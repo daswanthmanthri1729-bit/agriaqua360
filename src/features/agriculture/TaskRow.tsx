@@ -24,7 +24,7 @@ export function TaskRow({ r, showCrop, showDate }: { r: RecordWithCrop; showCrop
         )}
       </View>
       <Pressable accessibilityRole="checkbox" accessibilityState={{ checked: done, busy: toggle.isPending }} accessibilityLabel={`${t('calendar.markDone')}: ${label}`}
-        hitSlop={8} disabled={toggle.isPending} onPress={() => toggle.mutate({ id: r.id, done: !done })} style={[styles.check, done && styles.checked]}>
+        hitSlop={8} disabled={toggle.isPending} onPress={() => toggle.mutate({ id: r.id, done: !done, notificationId: r.notification_id })} style={[styles.check, done && styles.checked]}>
         {done && <Icon name="check" size={18} color={colors.white} />}
       </Pressable>
     </View>

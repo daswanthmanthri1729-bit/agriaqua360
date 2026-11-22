@@ -32,6 +32,7 @@ export function useWeatherTarget(): WeatherQuery | null {
   const profile = useSession((s) => s.profile);
   if (manual) return manual;
   if (profile?.latitude != null && profile.longitude != null) return { lat: profile.latitude, lon: profile.longitude };
-  if (profile?.village) return { city: [profile.village, profile.district, 'IN'].filter(Boolean).join(',') };
+  // OpenWeather reads a middle part as a US state code, so send only village + country.
+  if (profile?.village) return { city: `${profile.village},IN` };
   return null;
 }

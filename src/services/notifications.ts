@@ -37,3 +37,8 @@ export function listenForNotificationTaps(open: (route: string) => void) {
   const sub = Notifications.addNotificationResponseReceivedListener(go);
   return () => sub.remove();
 }
+
+export async function cancelReminders(ids: (string | null | undefined)[]) {
+  if (Platform.OS === 'web') return;
+  await Promise.all(ids.filter((id): id is string => !!id).map((id) => Notifications.cancelScheduledNotificationAsync(id).catch(() => {})));
+}

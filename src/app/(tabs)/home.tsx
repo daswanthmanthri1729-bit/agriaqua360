@@ -1,5 +1,5 @@
 // 09 · Main Dashboard — Stitch: 06_home_dashboard_screen
-import { Pressable, RefreshControl, ScrollView, StyleSheet, View } from 'react-native';
+import { Alert, Pressable, RefreshControl, ScrollView, StyleSheet, View } from 'react-native';
 import { router } from 'expo-router';
 import { Image } from 'expo-image';
 import { useTranslation } from 'react-i18next';
@@ -8,6 +8,7 @@ import {
   AppText, Banner, Button, Card, Chip, EmptyState, ErrorState, Icon, IconName, LanguagePills, SectionHeader, Skeleton, StorageImage, WeatherCard,
 } from '@/components';
 import { ACTIVITY_ICON, useDashboard } from '@/features/agriculture/api';
+import { signOut } from '@/features/auth/api';
 import { useWeather, useWeatherTarget } from '@/features/weather/api';
 import { formatDate, today } from '@/lib/dates';
 import { useSession } from '@/store/session';
@@ -44,8 +45,15 @@ export default function Dashboard() {
             <AppText variant="labelMd" color={colors.textSubtle}>{t(greetingKey()).toUpperCase()}</AppText>
             <AppText variant="headlineMd" numberOfLines={1}>{profile?.full_name ?? t('dashboard.farmer')}</AppText>
           </View>
-          <LanguagePills />
+          <Pressable accessibilityRole="button" accessibilityLabel={t('home.signOut')} hitSlop={8} style={styles.iconBtn}
+            onPress={() => Alert.alert(t('home.signOut'), undefined, [
+              { text: t('common.cancel'), style: 'cancel' },
+              { text: t('home.signOut'), style: 'destructive', onPress: async () => { await signOut(); router.replace('/auth/login'); } },
+            ])}>
+            <Icon name="logout" color={colors.textMuted} />
+          </Pressable>
         </View>
+        <View style={{ alignSelf: 'flex-start' }}><LanguagePills /></View>
 
         <WeatherCard />
 
@@ -123,6 +131,7 @@ const styles = StyleSheet.create({
   content: { padding: space.md, gap: space.md, paddingBottom: space.xl },
   header: { flexDirection: 'row', alignItems: 'center', gap: 12 },
   avatar: { width: 48, height: 48, borderRadius: 24 },
+  iconBtn: { width: 44, height: 44, borderRadius: 22, alignItems: 'center', justifyContent: 'center' },
   row: { flexDirection: 'row', alignItems: 'center', gap: 10 },
   action: { width: 88, minHeight: 100, padding: 8, borderRadius: radius.lg, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.border, alignItems: 'center', gap: 8 },
   actionIcon: { width: 48, height: 48, borderRadius: 24, backgroundColor: colors.surfaceContainer, alignItems: 'center', justifyContent: 'center' },

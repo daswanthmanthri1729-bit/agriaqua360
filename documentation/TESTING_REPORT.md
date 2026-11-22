@@ -29,9 +29,15 @@ Only what was actually run is listed.
 
 Not tested: real Supabase (URL missing), OpenWeather (host blocked here + key activating), native date picker / camera / notifications on device.
 
+## Review fixes — 22 Nov 2026
+Sign-out button + cache cleared on sign-out; weather by village name sends `village,IN`; task reminders store their id and are cancelled when the task is done or its crop/farm is deleted; delete and status-change failures now show an error; scan dates use local time; prevention steps stored as `prevention`; treatment plan can't be saved twice.
+- Migration `20261122000002` applied on Postgres 16 after the initial schema; RLS tests still pass; `prevention` insert accepted.
+- `npm test` 41/41 (new: Edge Function error-code mapping in `invoke`). Android bundle builds. Mocked E2E passes with no console errors.
+- Not tested: reminder cancellation (needs a device), weather village lookup (OpenWeather blocked here).
+
 ### Reproduce the DB test
 ```bash
 initdb -D /tmp/pg -A trust && pg_ctl -D /tmp/pg -o "-p 54329" start
 psql -p 54329 -c "create database t"
-psql -p 54329 -d t -v ON_ERROR_STOP=1 -f supabase/tests/stubs.sql -f supabase/migrations/20261122000001_initial_schema.sql -f supabase/tests/rls_test.sql
+psql -p 54329 -d t -v ON_ERROR_STOP=1 -f supabase/tests/stubs.sql -f supabase/migrations/20261122000001_initial_schema.sql -f supabase/migrations/20261122000002_reminders_and_prevention.sql -f supabase/tests/rls_test.sql
 ```
