@@ -1,4 +1,4 @@
-# AgriAqua 360 — notes for Claude
+# AgriAqua 360 — developer notes
 
 Read `AGENTS.md` (Expo rules) and `documentation/DEVELOPMENT_PROGRESS.md` (where we are) first.
 
