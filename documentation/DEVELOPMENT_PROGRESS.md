@@ -9,7 +9,7 @@ Deadline: **24 Nov 2026, 23:59 IST** (Level 1 APK).
 | 2 | 09–20 Dashboard & agriculture | ✅ Implemented & checked against mocked backend; Gemini prompt tested live |
 | 3 | 21–25 Aquaculture | ✅ Implemented & checked against mocked backend; fish prompt tested live |
 | 4 | 26–30 Livestock | ✅ Implemented & checked against mocked backend |
-| 5 | 31–40 AI, voice, records, settings | ⏳ Next |
+| 5 | 31–40 AI, voice, records, settings | ✅ Implemented & checked against mocked backend; Gemini chat + transcription tested live |
 | Build | Android APK | ⏳ Needs Expo account token or Android SDK host access (see APK_BUILD_GUIDE) |
 
 ## Batch 1 log (22 Nov 2026)
@@ -48,11 +48,25 @@ Deadline: **24 Nov 2026, 23:59 IST** (Level 1 APK).
 - 30 Health & vaccination records: inline add forms (avoid nested modals with the photo picker); health photos (≤3); follow-up and vaccination reminders that are cancelled when given or the animal is deleted.
 - Migration `20261122000003`: `notification_id` on vaccination_records and animal_health_records.
 
+## Batch 5 log (22 Nov 2026)
+- Tabs now match Stitch: Home, Agri, Aqua, AI Advisor, Profile. Home header has a notifications bell with unread count; sign-out moved to Profile.
+- 31 AI assistant chat (suggestions, follow-up chips, listen/save/share, expert banner, retry). Edge Function `ai-assistant` stores conversations and adds the farmer's own crops/ponds/animals as context.
+- 32 Voice: expo-audio records m4a (max 2 min) → Edge Function `transcribe` (Gemini audio, deletes the clip after) → editable text → answer → TTS in app language (warns if the phone has no voice for it).
+- 33 Photo questions (≤3 photos), 34 chat history (open/delete).
+- 35/36 Notifications centre + alert details. Every scheduled reminder is also stored in `notifications`, so the centre works even when phone notifications are off; due items only.
+- 37 Saved records (crop scans, fish reports, AI answers) open their source. 38 Reports: real 7/30/90-day aggregates (pure, tested), shareable as text.
+- 39 Profile & settings: edit, photo, language, notification permission, weather location reset, links, sign out. 40 Help: Kisan Call Centre 1800-180-1551, animal helpline 1962, FAQ, AI disclaimer.
+- FCM: device token saved to `profiles.push_token` after login. Server-sent pushes need an FCM service-account key (not provided) — local reminders cover all reminder types today.
+- Live Gemini: Hindi fertilizer answer tied to the farmer's paddy; pond follow-up used recorded DO/ammonia; refused an off-topic override; Telugu photo → blast (preliminary). Telugu m4a transcribed verbatim in ~2 s.
+
 ## Blockers / needs from owner
 1. **Supabase project URL** (`https://<ref>.supabase.co`) — only the publishable key was provided. Login/registration show "server not configured" until set.
 2. Apply the migration to the Supabase project (needs your approval — it's your database).
-3. Deploy Edge Functions (`npx supabase functions deploy weather crop-scan fish-scan`) and set secrets — see ENVIRONMENT_SETUP. Weather can't be tested from this sandbox (OpenWeather host blocked here).
+3. Deploy Edge Functions (`npx supabase functions deploy weather crop-scan fish-scan ai-assistant transcribe`) and set secrets — see ENVIRONMENT_SETUP. Weather can't be tested from this sandbox (OpenWeather host blocked here).
 4. APK build path — see APK_BUILD_GUIDE.
 
 ## Next up
-Batch 5: AI assistant (31), voice (32), image questions (33), chat history (34), notifications (35–36), saved records (37), reports (38), profile & settings (39), help (40); AI and Profile tabs; FCM push.
+All 40 screens are implemented. Remaining for Level 1:
+1. Connect the real Supabase project (URL), apply migrations, deploy functions, set secrets.
+2. Build the APK (EAS with an Expo token, or locally with the Android SDK) and smoke-test on a phone: camera, mic, notifications, Telugu/Hindi TTS voices.
+3. Optional: server push (FCM service account) for weather alerts.

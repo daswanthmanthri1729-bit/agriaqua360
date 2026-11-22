@@ -18,6 +18,7 @@ const db = {
   farms: [], crops: [], crop_records: [], crop_scans: [], disease_reports: [], treatment_records: [], saved_records: [], uploaded_media: [], activity_logs: [],
   ponds: [], water_quality_records: [], fish_records: [], fish_health_reports: [],
   livestock: [], animal_health_records: [], vaccination_records: [],
+  ai_conversations: [], ai_messages: [], notifications: [],
 };
 const log = [];
 const embed = (table, row) => {
@@ -51,7 +52,7 @@ const weather = { location: { name: 'Kovur', lat: 14.5, lon: 79.98 }, observed_a
   advisories: [{ kind: 'heavy_rain', date: addDays(1), value: 34.5 }, { kind: 'heat', date: addDays(2), value: 41 }] };
 
 (async () => {
-  const b = await chromium.launch(); const ctx = await b.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 1 }); const pg = await ctx.newPage(); global.pg = pg;
+  const b = await chromium.launch({ args: ['--use-fake-ui-for-media-stream', '--use-fake-device-for-media-stream'] }); const ctx = await b.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 1, permissions: ['microphone'] }); const pg = await ctx.newPage(); global.pg = pg;
   const errs = []; pg.on('pageerror', (e) => errs.push(e.message)); pg.on('console', (m) => m.type() === 'error' && !/Failed to load resource/.test(m.text()) && errs.push(m.text()));
   await pg.route('https://mock.supabase.co/**', async (route) => {
     const req = route.request(); const url = new URL(req.url()); const p = url.pathname; const method = req.method();
@@ -75,6 +76,16 @@ const weather = { location: { name: 'Kovur', lat: 14.5, lon: 79.98 }, observed_a
         water_management: ['Exchange 10-15% water'], prevention: ['Test oxygen every early morning'], recommend_expert: true, expert_reason: 'Ammonia is high.' };
       const rep = { id: id(), owner_id: UID, pond_id: b.pond_id, image_paths: b.image_paths, observations: b.observations, condition_name: raw.condition_name, confidence: 'medium', severity: 'moderate', summary: raw.summary, recommend_expert: true, raw_response: raw, created_at: new Date().toISOString() };
       db.fish_health_reports.push(rep); return json(rep);
+    }
+    if (p === '/functions/v1/transcribe') { log.push('fn:transcribe ' + JSON.parse(req.postData()).language); return json({ text: 'My paddy leaves are turning yellow. What should I do?', language: 'en', unclear: false }); }
+    if (p === '/functions/v1/ai-assistant') {
+      const b = JSON.parse(req.postData()); log.push('fn:ai-assistant ' + JSON.stringify({ mode: b.input_mode, imgs: b.image_paths.length, conv: !!b.conversation_id, lang: b.language }));
+      let cid = b.conversation_id;
+      if (!cid) { cid = id(); db.ai_conversations.push({ id: cid, owner_id: UID, title: (b.message || 'Photo question').slice(0, 60), topic: 'crop', language: b.language, created_at: new Date().toISOString(), updated_at: new Date().toISOString() }); }
+      db.ai_messages.push({ id: id(), conversation_id: cid, role: 'user', content: b.message || '(photo)', input_mode: b.input_mode, image_paths: b.image_paths, created_at: new Date().toISOString() });
+      const msg = { id: id(), conversation_id: cid, role: 'assistant', content: 'Yellowing in paddy at 40 days is often nitrogen deficiency. Apply 25 kg urea per acre in two splits and keep 2-3 cm water. Get a soil test to confirm.', input_mode: 'text', image_paths: [], created_at: new Date(Date.now() + 1).toISOString() };
+      db.ai_messages.push(msg);
+      return json({ conversation_id: cid, message: msg, follow_ups: ['Should I add zinc?', 'When to apply potash?'], recommend_expert: b.input_mode === 'image' });
     }
     if (p.startsWith('/storage/v1/object/media/')) { log.push('upload ' + p.split('/media/')[1]); return json({ Key: p }); }
     if (p.startsWith('/storage/v1/object/sign/')) return json({ error: 'not found' }, 400);
@@ -176,6 +187,41 @@ const weather = { location: { name: 'Kovur', lat: 14.5, lon: 79.98 }, observed_a
   await pg.goto(base + '/livestock'); await shot('26-livestock-dashboard');
   await pg.getByRole('button', { name: 'Mark given' }).first().click(); await pg.waitForTimeout(800);
   await pg.goto(base + '/livestock/animals'); await shot('27-animals');
+
+  // ---- Batch 5: AI, voice, records, settings ----
+  db.notifications.push({ id: id(), owner_id: UID, category: 'vaccination', title: 'Vaccination due today', body: 'Lakshmi #AP-1024: HS', route: '/livestock/animals/' + db.livestock[0].id, priority: 'normal', scheduled_for: new Date().toISOString(), read_at: null, data: {}, created_at: new Date().toISOString() });
+  await pg.goto(base + '/home'); await pg.waitForTimeout(1500); await pg.getByTestId('bell').click(); await pg.waitForURL(/notifications$/); await shot('35-notifications');
+  await pg.getByRole('button', { name: /Vaccination due today/ }).first().click(); await pg.waitForURL(/notifications\/0000/); await shot('36-alert-details');
+  await pg.getByTestId('alert-open').click(); await pg.waitForURL(/livestock\/animals\/0000/, { timeout: 8000 });
+
+  await pg.goto(base + '/assistant'); await shot('31-assistant-empty');
+  await pg.getByTestId('chat-input').fill('My paddy leaves are yellow'); await pg.getByTestId('chat-send').click();
+  await pg.getByText('Yellowing in paddy').first().waitFor({ timeout: 8000 }); await pg.waitForTimeout(600);
+  await pg.getByRole('button', { name: 'Save' }).first().click(); await pg.waitForTimeout(500); await shot('31-assistant-chat');
+  await pg.getByRole('radio', { name: 'Should I add zinc?' }).click(); await pg.waitForTimeout(1200);
+  await pg.goto(base + '/assistant/history'); await shot('34-history');
+  await pg.getByRole('button', { name: /My paddy leaves/ }).first().click(); await pg.waitForURL(/assistant/); await pg.waitForTimeout(1200);
+
+  await pg.goto(base + '/assistant/image'); await pg.waitForTimeout(1200);
+  await pg.getByTestId('image-send').click(); await pg.waitForTimeout(300);
+  await pg.getByRole('button', { name: 'Add photo' }).click(); await pg.waitForTimeout(400);
+  const [fc3] = await Promise.all([pg.waitForEvent('filechooser', { timeout: 5000 }), pg.getByRole('button', { name: 'Gallery' }).click()]);
+  await fc3.setFiles(leaf); await pg.waitForTimeout(1200); await pg.getByRole('radio', { name: 'What disease is this?' }).click();
+  await shot('33-image-ask'); await pg.getByTestId('image-send').click(); await pg.getByText('Continue in chat').waitFor({ timeout: 10000 }); await shot('33-image-answer');
+
+  await pg.goto(base + '/assistant/voice'); await pg.waitForTimeout(1200); await shot('32-voice-idle');
+  await pg.getByTestId('voice-mic').click(); await pg.waitForTimeout(2500); await shot('32-voice-recording');
+  await pg.getByTestId('voice-mic').click(); await pg.getByTestId('voice-text').waitFor({ timeout: 10000 }); await shot('32-voice-review');
+  await pg.getByTestId('voice-submit').click(); await pg.getByText('Continue in chat').waitFor({ timeout: 10000 }); await shot('32-voice-answer');
+
+  await pg.goto(base + '/records/saved'); await shot('37-saved');
+  await pg.goto(base + '/reports'); await shot('38-reports');
+  await pg.goto(base + '/profile'); await pg.waitForTimeout(1200); await pg.getByTestId('profile-edit').click();
+  await pg.getByLabel('Full name').fill('Ramesh Kumar Reddy'); await pg.getByTestId('profile-save').click(); await pg.waitForTimeout(800); await shot('39-profile');
+  await pg.getByRole('radio', { name: 'Telugu' }).first().click(); await pg.waitForTimeout(600); await shot('39-profile-te');
+  await pg.goto(base + '/help'); await pg.getByRole('button', { name: /ఎలా తనిఖీ/ }).click(); await shot('40-help-te');
+  await pg.getByRole('radio', { name: 'English' }).first().click().catch(() => {});
+  await pg.goto(base + '/profile'); await pg.waitForTimeout(800); await pg.getByRole('radio', { name: 'English' }).first().click();
 
   await pg.goto(base + '/home'); await shot('09-dashboard');
   console.log('TABBAR', JSON.stringify(await pg.evaluate(() => [...document.querySelectorAll('[role=tab]')].map((t) => { const r = t.getBoundingClientRect(); const l = [...t.querySelectorAll('div')].find((d) => d.textContent === 'Home' || d.textContent === 'Agri'); const lr = l?.getBoundingClientRect(); return { tab: [r.top, r.bottom], label: lr && [lr.top, lr.bottom], vh: innerHeight }; }))));

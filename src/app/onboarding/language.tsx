@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { router } from 'expo-router';
-import * as Speech from 'expo-speech';
+import { speak, stopSpeaking } from '@/services/speech';
 import { useTranslation } from 'react-i18next';
 import { AppText, Banner, Button, Header, Icon, Screen } from '@/components';
 import { LANGUAGES, Language } from '@/locales';
@@ -19,27 +19,15 @@ export default function LanguageSelection() {
   const [voiceError, setVoiceError] = useState(false);
 
   // Devices differ in installed TTS voices; check before speaking and tell the farmer if missing.
-  const listen = async (code: Language, speechTag: string) => {
+  const listen = async (code: Language) => {
     setVoiceError(false);
-    Speech.stop();
-    const voices = await Speech.getAvailableVoicesAsync().catch(() => []);
-    const prefix = speechTag.slice(0, 2);
-    if (voices.length > 0 && !voices.some((v) => v.language?.toLowerCase().startsWith(prefix))) {
-      setVoiceError(true);
-      return;
-    }
     setSpeaking(code);
-    Speech.speak(i18n.getFixedT(code)('language.sample'), {
-      language: speechTag,
-      rate: 0.9,
-      onDone: () => setSpeaking(null),
-      onStopped: () => setSpeaking(null),
-      onError: () => { setSpeaking(null); setVoiceError(true); },
-    });
+    const ok = await speak(i18n.getFixedT(code)('language.sample'), code, { onDone: () => setSpeaking(null) });
+    if (!ok) { setSpeaking(null); setVoiceError(true); }
   };
 
   const next = () => {
-    Speech.stop();
+    stopSpeaking();
     setLanguage(language);
     router.push('/onboarding/permissions');
   };
@@ -75,7 +63,7 @@ export default function LanguageSelection() {
                   accessibilityRole="button"
                   accessibilityLabel={`${ft('language.listen')} ${l.english}`}
                   hitSlop={8}
-                  onPress={() => listen(l.code, l.speech)}
+                  onPress={() => listen(l.code)}
                   style={styles.listen}
                 >
                   <Icon name={speaking === l.code ? 'graphic-eq' : 'volume-up'} size={18} color={colors.ai} />

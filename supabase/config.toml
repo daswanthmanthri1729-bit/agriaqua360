@@ -9,3 +9,9 @@ verify_jwt = true
 
 [functions.fish-scan]
 verify_jwt = true
+
+[functions.ai-assistant]
+verify_jwt = true
+
+[functions.transcribe]
+verify_jwt = true

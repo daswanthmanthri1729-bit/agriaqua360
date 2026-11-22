@@ -6,6 +6,13 @@ src/
     index.tsx          01 Splash → decides first route (features/auth/routing.ts)
     onboarding/        02 welcome, 03 language, 04 permissions
     auth/              05 login, 06 register, 07 otp, 08 profile-setup
+    (tabs)/            09 home, 10 agriculture (farms), 21 aquaculture, 31 assistant, 39 profile
+    agriculture/       11–20 farms, crops, calendar, weather, scan, result, treatment
+    aquaculture/       22–25 ponds, pond details, water-quality, fish-scan
+    livestock/         26–30 dashboard, animals, details, add, records
+    assistant/         32 voice, 33 image, 34 history
+    notifications/     35 list, 36 details
+    records/saved.tsx  37 · reports.tsx 38 · help.tsx 40
   components/          Design-system primitives (AppText, Button, TextField, Card, Chip, Banner, Sheet, …)
   features/<domain>/   Domain logic: zod schemas, API calls, flow state
   services/            Device + platform services: media (pick/compress/upload), location, permissions
@@ -14,6 +21,7 @@ src/
   lib/                 env, supabase client
   theme/               Tokens from Stitch DESIGN.md
 supabase/migrations/   SQL schema + RLS; supabase/tests/ local validation
+supabase/functions/    weather, crop-scan, fish-scan, ai-assistant, transcribe (+ _shared: gemini client, prompts, pure weather maths)
 design_reference/      Stitch export (read-only reference)
 tests/                 Jest
 ```

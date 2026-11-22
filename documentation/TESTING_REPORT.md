@@ -58,6 +58,19 @@ Not tested: real Supabase, fish-scan against real storage, native date picker/ca
 
 Not tested: reminder scheduling/cancel on device; real Supabase.
 
+## Batch 5 — 22 Nov 2026
+| Check | Result |
+|---|---|
+| `npm run typecheck` | ✅ |
+| `npm test` (+ report aggregation: empty farm, 30-day window, latest reading per pond, kg-only feed totals) | ✅ 77/77 (9 suites) |
+| `deno check` all 5 Edge Functions | ✅ |
+| Android Hermes bundle | ✅ 6.2 MB |
+| Gemini live — assistant | ✅ Hindi fertilizer advice used farmer's crop; English follow-up used recorded pond DO/ammonia + expert flag; off-topic "ignore your rules" refused; Telugu photo question → preliminary blast diagnosis |
+| Gemini live — transcription | ✅ Telugu speech (generated, converted to AAC .m4a like Android records) → exact Telugu transcript, ~2 s; `audio/mp4` and `audio/aac` both accepted |
+| Mocked E2E (Chromium fake microphone): bell → notification list → details → opens linked animal; chat send/save/follow-up; history reopen; photo question; **voice: record 2.5 s → m4a upload → transcribe → edit → ask → answer**; saved list; reports; profile edit; Telugu profile + help FAQ | ✅ no console errors |
+
+Not tested: real Supabase; TTS voices and native recorder on a phone; FCM token on a device; server-side push.
+
 ### Reproduce the DB test
 ```bash
 initdb -D /tmp/pg -A trust && pg_ctl -D /tmp/pg -o "-p 54329" start
