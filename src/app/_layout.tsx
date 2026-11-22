@@ -1,11 +1,13 @@
 import '@/locales';
 import { useEffect, useState } from 'react';
-import { Stack } from 'expo-router';
+import { router, Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import * as SplashScreen from 'expo-splash-screen';
 import { useFonts, Manrope_600SemiBold, Manrope_700Bold, Manrope_800ExtraBold } from '@expo-google-fonts/manrope';
 import { Inter_400Regular, Inter_500Medium, Inter_600SemiBold, Inter_700Bold } from '@expo-google-fonts/inter';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { listenForNotificationTaps } from '@/services/notifications';
+import { queryClient } from '@/lib/query';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import i18n from '@/locales';
 import { usePreferences } from '@/store/preferences';
@@ -15,7 +17,6 @@ import { colors } from '@/theme';
 export { ErrorBoundary } from 'expo-router';
 
 SplashScreen.preventAutoHideAsync().catch(() => {});
-const queryClient = new QueryClient({ defaultOptions: { queries: { retry: 1, staleTime: 30_000 } } });
 
 export default function RootLayout() {
   const [fontsLoaded, fontError] = useFonts({
@@ -26,6 +27,8 @@ export default function RootLayout() {
   const init = useSession((s) => s.init);
 
   useEffect(() => init(), [init]);
+
+  useEffect(() => listenForNotificationTaps((route) => useSession.getState().session && router.push(route as never)), []);
   useEffect(() => {
     const apply = () => {
       const l = usePreferences.getState().language;

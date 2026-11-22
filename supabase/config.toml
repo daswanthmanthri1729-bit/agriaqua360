@@ -1,0 +1,8 @@
+# Minimal config so `supabase functions deploy` / `supabase db push` work after `supabase link`.
+project_id = "agriaqua360"
+
+[functions.weather]
+verify_jwt = true
+
+[functions.crop-scan]
+verify_jwt = true

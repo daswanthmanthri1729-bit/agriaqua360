@@ -17,6 +17,18 @@ Only what was actually run is listed.
 - Live sign-up / login / OTP / recovery / profile save / avatar upload — blocked on Supabase project URL.
 - Native permission dialogs, camera, gallery, GPS, TTS voices — need an Android device/emulator (no Android SDK in the build sandbox).
 
+## Batch 2 — 22 Nov 2026
+| Check | Result |
+|---|---|
+| `npm run typecheck` | ✅ |
+| `npm test` (+ weather aggregation/advisories, agriculture schemas, dates, every enum has a label) | ✅ 38/38 |
+| `deno check` Edge Functions `weather`, `crop-scan` | ✅ |
+| Android Hermes bundle | ✅ 6 MB |
+| **Gemini live** (`_shared/gemini.ts` + crop prompt, real API, rice-blast leaf photo) | ✅ Correct diagnosis in Telugu, Hindi, English; 5–8 s; fallback on 503 verified |
+| **E2E vs mocked Supabase** (`tests/e2e/agriculture.mock.e2e.js`, Playwright 390×844): login → empty dashboard → farm validation → create farm → farm details → create crop (auto sowing record) → calendar add task + mark done → crops list → farms list → weather → scanner (needs-photo error, gallery upload) → AI result → treatment steps saved → dashboard → switch to Telugu (profile synced) | ✅ no console errors; caught & fixed a web crash in notification deep-link hook, clipped tab labels, stretched calendar strip |
+
+Not tested: real Supabase (URL missing), OpenWeather (host blocked here + key activating), native date picker / camera / notifications on device.
+
 ### Reproduce the DB test
 ```bash
 initdb -D /tmp/pg -A trust && pg_ctl -D /tmp/pg -o "-p 54329" start

@@ -1,0 +1,23 @@
+// Usage: node tests/e2e/onboarding.screens.e2e.js <web-export-dir> <screenshot-dir>
+const http=require('http'),fs=require('fs'),path=require('path');const {chromium}=require('playwright');
+const root=process.argv[2], out=process.argv[3];
+const types={'.js':'text/javascript','.html':'text/html','.png':'image/png','.jpg':'image/jpeg','.ttf':'font/ttf','.css':'text/css','.json':'application/json'};
+const srv=http.createServer((q,r)=>{let p=path.join(root,decodeURIComponent(q.url.split('?')[0]));if(!fs.existsSync(p)||fs.statSync(p).isDirectory())p=path.join(root,'index.html');r.writeHead(200,{'content-type':types[path.extname(p)]||'application/octet-stream'});fs.createReadStream(p).pipe(r)}).listen(8099);
+(async()=>{const b=await chromium.launch();const ctx=await b.newContext({viewport:{width:390,height:844},deviceScaleFactor:1});const pg=await ctx.newPage();
+const errs=[];pg.on('pageerror',e=>errs.push(e.message));pg.on('console',m=>m.type()==='error'&&errs.push(m.text()));
+const go=async(u,n,full=true)=>{await pg.goto('http://localhost:8099'+u);await pg.waitForTimeout(1800);await pg.screenshot({path:`${out}/${n}.png`,fullPage:full});};
+await go('/','01-splash',false);
+await pg.waitForTimeout(2500); console.log('splash redirected to', pg.url());
+await go('/onboarding/welcome','02-welcome');
+await go('/onboarding/language','03-language');
+await pg.getByTestId('lang-te').click(); await pg.waitForTimeout(500); await pg.screenshot({path:`${out}/03-language-te.png`,fullPage:true});
+await go('/onboarding/permissions','04-permissions-te');
+await go('/auth/login','05-login-te');
+await pg.getByRole('radio',{name:'Hindi'}).first().click(); await pg.waitForTimeout(400);
+await pg.getByTestId('login-submit').click(); await pg.waitForTimeout(500); await pg.screenshot({path:`${out}/05-login-hi-validation.png`,fullPage:true});
+await pg.getByRole('radio',{name:'English'}).first().click(); await pg.waitForTimeout(300);
+await go('/auth/register','06-register');
+await pg.getByTestId('reg-submit').click(); await pg.waitForTimeout(500); await pg.screenshot({path:`${out}/06-register-validation.png`,fullPage:true});
+await pg.reload(); await pg.waitForTimeout(1500); console.log('lang after reload:', await pg.evaluate(()=>localStorage.getItem('agriaqua-preferences')));
+console.log('errors:', JSON.stringify([...new Set(errs)].slice(0,10)));
+await b.close();srv.close();})();
