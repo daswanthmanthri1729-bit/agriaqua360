@@ -73,3 +73,31 @@ Deadline: **24 Nov 2026, 23:59 IST** (Level 1 APK).
 ## Next up
 1. Install the new APK on an Android phone and smoke-test: register → profile → farm/crop → scan → pond → animal → AI (text, voice, photo) → language switch.
 2. Optional: custom SMTP for email verification + password reset codes; FCM service account for server push.
+
+## Level 1 acceptance checklist (22 Nov 2026)
+✅ done and verified · 🟡 done, verified only partly (reason given) · ❌ not done
+
+| Criterion | Status | Evidence / gap |
+|---|---|---|
+| Exactly 40 primary screens | ✅ | 40 route files tagged `// 01`–`// 40`; SCREEN_IMPLEMENTATION_STATUS.md |
+| Stitch designs inspected and followed | ✅ | design_reference/stitch; tokens from DESIGN.md; screenshots compared per batch |
+| Navigation works | ✅ | Mocked E2E covers every batch; tab bar per Stitch |
+| Authentication works | ✅ | Live: sign-up, login, profile trigger; owner signed up on a real phone |
+| Supabase integration works | ✅ | Live project; owner's phone stored 10 AI messages |
+| Database migrations prepared | ✅ | 4 migrations, applied live, recorded in schema_migrations |
+| RLS policies implemented | ✅ | 21/21 tables, storage per-user; local + live cross-user tests |
+| English / Telugu / Hindi | ✅ | Key-parity + untranslated-string tests; Telugu/Hindi screenshots |
+| Instant language switch + persists | ✅ | E2E switch + reload; synced to profile and auth metadata |
+| Camera / gallery / image uploads | 🟡 | Gallery + upload tested (web E2E, live upload); camera needs a device test |
+| Gemini integration + image questions | ✅ | Live: chat te/hi/en, crop scan, fish scan, photo question |
+| Voice recording + transcription | 🟡 | Live Telugu m4a transcription; recorder tested with fake mic; device test pending |
+| Text-to-speech | 🟡 | Implemented with voice-availability check; depends on phone's installed voices |
+| Agriculture / aquaculture / livestock features | 🟡 | Mocked E2E for all; live farm+crop+scan via API; owner hasn't used them on the phone yet |
+| Firebase notifications configured | 🟡 | FCM config in APK, token stored; local reminders + weather warnings; server push needs service-account key |
+| Weather integration | ✅ | Live OpenWeather via Edge Function (Eluru 31 °C) |
+| Password recovery (6-digit OTP) | 🟡 | Live code flow verified; real email to the owner's inbox not yet confirmed; test sender reaches only the Resend owner |
+| Error handling | ✅ | Error/empty/loading states on every list; AI/network error mapping tested |
+| TypeScript checks pass | ✅ | `npm run typecheck` |
+| Application testing completed | 🟡 | 88 unit tests, E2E, live API tests; full on-device run pending |
+| Android APK generated | ✅ | EAS preview build (latest: weather notifications) |
+| Setup documentation complete | ✅ | 10 documents in README + documentation/ |
