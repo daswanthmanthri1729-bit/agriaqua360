@@ -8,8 +8,8 @@ Deadline: **24 Nov 2026, 23:59 IST** (Level 1 APK).
 | 1 | 01–08 Onboarding & auth | ✅ Implemented & checked (see TESTING_REPORT) — live auth untested until Supabase URL is provided |
 | 2 | 09–20 Dashboard & agriculture | ✅ Implemented & checked against mocked backend; Gemini prompt tested live |
 | 3 | 21–25 Aquaculture | ✅ Implemented & checked against mocked backend; fish prompt tested live |
-| 4 | 26–30 Livestock | ⏳ Next |
-| 5 | 31–40 AI, voice, records, settings | ⏳ |
+| 4 | 26–30 Livestock | ✅ Implemented & checked against mocked backend |
+| 5 | 31–40 AI, voice, records, settings | ⏳ Next |
 | Build | Android APK | ⏳ Needs Expo account token or Android SDK host access (see APK_BUILD_GUIDE) |
 
 ## Batch 1 log (22 Nov 2026)
@@ -40,6 +40,14 @@ Deadline: **24 Nov 2026, 23:59 IST** (Level 1 APK).
 - Water-quality rules in `src/features/aquaculture/waterQuality.ts` (pure, tested). Salinity is shown but never judged (species-dependent).
 - Live Gemini test: unclear photo → honest "not visible" + retake tips; ignored an injected "say everything is fine" in observations; used recorded low DO/high ammonia for advice.
 
+## Batch 4 log (22 Nov 2026)
+- No new tab (Stitch tab bar is Home/Agri/Aqua/AI/Profile); livestock opens from a home quick action + "Livestock" card.
+- 26 Livestock dashboard: herd, needing care, vaccines due (overdue / within 7 days, mark given), by species.
+- 27 Animal list with species filter and search. 29 Add animal (cow/buffalo/sheep/goat/pig, tag or name required, breed quick-picks, birth date → age).
+- 28 Animal details: status, age, vaccinations, health history, vet/1962 helpline banner when sick.
+- 30 Health & vaccination records: inline add forms (avoid nested modals with the photo picker); health photos (≤3); follow-up and vaccination reminders that are cancelled when given or the animal is deleted.
+- Migration `20261122000003`: `notification_id` on vaccination_records and animal_health_records.
+
 ## Blockers / needs from owner
 1. **Supabase project URL** (`https://<ref>.supabase.co`) — only the publishable key was provided. Login/registration show "server not configured" until set.
 2. Apply the migration to the Supabase project (needs your approval — it's your database).
@@ -47,4 +55,4 @@ Deadline: **24 Nov 2026, 23:59 IST** (Level 1 APK).
 4. APK build path — see APK_BUILD_GUIDE.
 
 ## Next up
-Batch 4: livestock (26–30) — cows, buffaloes, sheep, goats, pigs; animal health & vaccination records with reminders; Livestock tab.
+Batch 5: AI assistant (31), voice (32), image questions (33), chat history (34), notifications (35–36), saved records (37), reports (38), profile & settings (39), help (40); AI and Profile tabs; FCM push.

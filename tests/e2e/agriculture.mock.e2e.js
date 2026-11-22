@@ -17,12 +17,14 @@ const db = {
   profiles: [{ id: UID, full_name: 'Ramesh Kumar', preferred_language: 'en', sectors: ['agriculture'], village: 'Kovur', district: 'Nellore', state: 'Andhra Pradesh', latitude: 14.5, longitude: 79.98, onboarding_completed: true, avatar_path: null }],
   farms: [], crops: [], crop_records: [], crop_scans: [], disease_reports: [], treatment_records: [], saved_records: [], uploaded_media: [], activity_logs: [],
   ponds: [], water_quality_records: [], fish_records: [], fish_health_reports: [],
+  livestock: [], animal_health_records: [], vaccination_records: [],
 };
 const log = [];
 const embed = (table, row) => {
   const r = { ...row };
   if (table === 'crops') r.farm = db.farms.find((f) => f.id === row.farm_id) ? { name: db.farms.find((f) => f.id === row.farm_id).name } : null;
   if (table === 'crop_records') { const c = db.crops.find((c) => c.id === row.crop_id); r.crop = c ? { id: c.id, name: c.name } : null; }
+  if (['animal_health_records', 'vaccination_records'].includes(table)) { const a = db.livestock.find((x) => x.id === row.animal_id); r.animal = a ? { id: a.id, name: a.name, tag_id: a.tag_id, species: a.species } : null; }
   if (table === 'crop_scans') { r.report = db.disease_reports.filter((d) => d.scan_id === row.id); const c = db.crops.find((c) => c.id === row.crop_id); r.crop = c ? { id: c.id, name: c.name } : null; }
   return r;
 };
@@ -154,6 +156,26 @@ const weather = { location: { name: 'Kovur', lat: 14.5, lon: 79.98 }, observed_a
   await fc2.setFiles(leaf); await pg.waitForTimeout(1200);
   await pg.getByLabel('What did you notice?').fill('Shrimp at the surface in the morning');
   await pg.getByTestId('fish-analyse').click(); await pg.getByTestId('fish-new').waitFor({ timeout: 10000 }); await shot('25-fish-result');
+
+  // ---- Batch 4: livestock ----
+  await pg.goto(base + '/livestock'); await shot('26-livestock-empty');
+  await pg.goto(base + '/livestock/animals/new'); await pg.waitForTimeout(1200);
+  await pg.getByTestId('animal-save').click(); await pg.waitForTimeout(300); await shot('29-animal-validation');
+  await pg.getByRole('radio', { name: /Buffalo/ }).click(); await pg.getByTestId('animal-tag').fill('AP-1024'); await pg.getByTestId('animal-name').fill('Lakshmi');
+  await pg.getByRole('radio', { name: 'Murrah' }).click(); await pg.getByRole('radio', { name: 'Female' }).click();
+  await pg.getByPlaceholder('YYYY-MM-DD').first().fill('2023-06-10'); await pg.getByRole('radio', { name: 'Sick' }).click();
+  await shot('29-animal-filled'); await pg.getByTestId('animal-save').click(); await pg.waitForURL(/animals\/0000/, { timeout: 8000 }); await shot('28-animal-details-empty');
+  await pg.getByRole('button', { name: 'Add Vaccination' }).click(); await pg.waitForURL(/records/); await pg.waitForTimeout(1200);
+  await pg.getByRole('radio', { name: 'HS' }).click(); await pg.getByPlaceholder('YYYY-MM-DD').first().fill(addDays(3));
+  await pg.getByTestId('vacc-save').click(); await pg.waitForTimeout(800);
+  await pg.getByRole('radio', { name: 'Health' }).click(); await pg.getByTestId('records-add').click(); await pg.waitForTimeout(400);
+  await pg.getByTestId('health-save').click(); await pg.waitForTimeout(300);
+  await pg.getByTestId('health-desc').fill('Fever and not eating. Vet gave injection.'); await pg.getByPlaceholder('YYYY-MM-DD').nth(1).fill(addDays(2));
+  await shot('30-health-form'); await pg.getByTestId('health-save').click(); await pg.waitForTimeout(800); await shot('30-records');
+  await pg.goto(base + '/livestock/animals/' + db.livestock[0].id); await shot('28-animal-details');
+  await pg.goto(base + '/livestock'); await shot('26-livestock-dashboard');
+  await pg.getByRole('button', { name: 'Mark given' }).first().click(); await pg.waitForTimeout(800);
+  await pg.goto(base + '/livestock/animals'); await shot('27-animals');
 
   await pg.goto(base + '/home'); await shot('09-dashboard');
   console.log('TABBAR', JSON.stringify(await pg.evaluate(() => [...document.querySelectorAll('[role=tab]')].map((t) => { const r = t.getBoundingClientRect(); const l = [...t.querySelectorAll('div')].find((d) => d.textContent === 'Home' || d.textContent === 'Agri'); const lr = l?.getBoundingClientRect(); return { tab: [r.top, r.bottom], label: lr && [lr.top, lr.bottom], vh: innerHeight }; }))));

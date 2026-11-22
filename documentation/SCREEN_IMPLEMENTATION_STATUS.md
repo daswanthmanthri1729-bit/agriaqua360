@@ -29,7 +29,11 @@
 | 23 | Pond Details (+ fish record sheet) | `/aquaculture/ponds/[id]` | 28_pond_details, 31/35/37/38/39 records | 🟡 |
 | 24 | Water Quality Records (+ reading sheet) | `/aquaculture/water-quality` | 32, 33, 34 | 🟡 |
 | 25 | Fish Health Scanner (result inline) | `/aquaculture/fish-scan` | visual_search, 49_health_history | 🟡 |
-| 26–30 | Livestock | | — | ⏳ |
+| 26 | Livestock Dashboard | `/livestock` | 06_home_dashboard (Livestock Hub card) | 🟡 |
+| 27 | Animal Management | `/livestock/animals` | — | 🟡 |
+| 28 | Animal Details | `/livestock/animals/[id]` | — | 🟡 |
+| 29 | Add New Animal | `/livestock/animals/new` | — | 🟡 |
+| 30 | Health & Vaccination Records | `/livestock/records` | — | 🟡 |
 | 31–40 | AI / voice / records / settings | | 40, ask_anything, voice_search, visual_search, ai_follow_up, 41, 47 | ⏳ |
 
 Stitch extras not in the 40 (sensors, GPS mapping, market prices, expenses, backup) are out of Level 1 scope.

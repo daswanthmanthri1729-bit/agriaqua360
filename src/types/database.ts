@@ -83,3 +83,19 @@ export type FishHealthReport = {
   id: string; pond_id: string | null; image_paths: string[]; observations: string | null; condition_name: string | null;
   confidence: Confidence | null; severity: Severity | null; summary: string | null; recommend_expert: boolean; raw_response: FishReport | null; created_at: string;
 };
+
+export type Species = 'cow' | 'buffalo' | 'sheep' | 'goat' | 'pig';
+export type AnimalStatus = 'healthy' | 'sick' | 'under_treatment' | 'pregnant' | 'sold' | 'deceased';
+export type Animal = {
+  id: string; farm_id: string | null; species: Species; tag_id: string | null; name: string | null; breed: string | null; sex: 'male' | 'female' | null;
+  birth_date: string | null; weight_kg: number | null; status: AnimalStatus; photo_path: string | null; notes: string | null; created_at: string;
+};
+export type HealthRecordType = 'checkup' | 'illness' | 'treatment' | 'deworming' | 'injury' | 'ai_assessment';
+export type HealthRecord = {
+  id: string; animal_id: string; record_type: HealthRecordType; recorded_on: string; description: string | null; vet_name: string | null;
+  image_paths: string[]; follow_up_on: string | null; notification_id: string | null; created_at: string;
+};
+export type Vaccination = {
+  id: string; animal_id: string; vaccine_name: string; dose: string | null; given_on: string | null; due_on: string | null;
+  status: 'scheduled' | 'completed' | 'missed'; notes: string | null; notification_id: string | null; created_at: string;
+};

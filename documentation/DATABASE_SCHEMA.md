@@ -1,6 +1,6 @@
 # Database Schema
 
-Migrations: `supabase/migrations/20261122000001_initial_schema.sql`, `20261122000002_reminders_and_prevention.sql` (adds `crop_records.notification_id`, `treatment_type = 'prevention'`)
+Migrations: `supabase/migrations/20261122000001_initial_schema.sql`, `20261122000002_reminders_and_prevention.sql` (adds `crop_records.notification_id`, `treatment_type = 'prevention'`), `20261122000003_livestock_reminders.sql` (`notification_id` on vaccination and animal health records)
 
 | Group | Tables |
 |---|---|

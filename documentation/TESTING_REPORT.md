@@ -47,9 +47,20 @@ Sign-out button + cache cleared on sign-out; weather by village name sends `vill
 
 Not tested: real Supabase, fish-scan against real storage, native date picker/camera.
 
+## Batch 4 — 22 Nov 2026
+| Check | Result |
+|---|---|
+| `npm run typecheck` | ✅ |
+| `npm test` (+ vaccination due states, age in months, animal/health/vaccination rules, livestock labels) | ✅ 75/75 |
+| Migration 0003 on Postgres 16 after 0001+0002; RLS tests | ✅ |
+| Android Hermes bundle | ✅ |
+| Mocked E2E: empty state → add-animal validation → create buffalo → schedule HS vaccine → health record with follow-up → records list → animal details → dashboard → mark vaccine given → animal list | ✅ no console errors |
+
+Not tested: reminder scheduling/cancel on device; real Supabase.
+
 ### Reproduce the DB test
 ```bash
 initdb -D /tmp/pg -A trust && pg_ctl -D /tmp/pg -o "-p 54329" start
 psql -p 54329 -c "create database t"
-psql -p 54329 -d t -v ON_ERROR_STOP=1 -f supabase/tests/stubs.sql -f supabase/migrations/20261122000001_initial_schema.sql -f supabase/migrations/20261122000002_reminders_and_prevention.sql -f supabase/tests/rls_test.sql
+psql -p 54329 -d t -v ON_ERROR_STOP=1 -f supabase/tests/stubs.sql -f supabase/migrations/20261122000001_initial_schema.sql -f supabase/migrations/20261122000002_reminders_and_prevention.sql -f supabase/migrations/20261122000003_livestock_reminders.sql -f supabase/tests/rls_test.sql
 ```
