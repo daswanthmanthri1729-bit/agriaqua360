@@ -95,6 +95,19 @@ const weather = { location: { name: 'Kovur', lat: 14.5, lon: 79.98 }, observed_a
     }
     if (p.startsWith('/storage/v1/object/media/')) { log.push('upload ' + p.split('/media/')[1]); return json({ Key: p }); }
     if (p.startsWith('/storage/v1/object/sign/')) return json({ error: 'not found' }, 400);
+    if (p === '/rest/v1/rpc/report_summary') {
+      const c = (t, f = () => true) => db[t].filter(f).length;
+      log.push('rpc:report_summary');
+      return json({ days: JSON.parse(req.postData() || '{}').days ?? 30,
+        agriculture: { farms: c('farms'), acres: db.farms.reduce((s, f) => s + (Number(f.area_acres) || 0), 0), cropsByStatus: { growing: c('crops', (x) => x.status === 'growing') }, tasksDone: c('crop_records', (x) => x.completed_at), tasksOverdue: 0, scans: c('disease_reports'), scansBySeverity: {} },
+        aquaculture: { ponds: c('ponds'), activePonds: c('ponds', (x) => x.status === 'active'), readings: c('water_quality_records'), pondsByLevel: {}, feedKg: 25, harvestKg: 0, mortality: 0 },
+        livestock: { animals: c('livestock'), bySpecies: {}, sick: c('livestock', (x) => x.status === 'sick'), vaccinesGiven: c('vaccination_records', (x) => x.status === 'completed'), vaccinesOverdue: 0 } });
+    }
+    if (p === '/rest/v1/latest_water_readings') {
+      const latest = Object.values(db.water_quality_records.reduce((m, r) => (!m[r.pond_id] || m[r.pond_id].recorded_at < r.recorded_at ? { ...m, [r.pond_id]: r } : m), {}));
+      log.push('view:latest_water_readings ' + latest.length);
+      return json(latest);
+    }
     const m = p.match(/^\/rest\/v1\/(\w+)$/);
     if (m) {
       const table = m[1]; const params = [...url.searchParams.entries()]; const single = (req.headers()['accept'] || '').includes('vnd.pgrst.object');

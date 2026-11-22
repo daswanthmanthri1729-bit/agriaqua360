@@ -109,5 +109,5 @@ Pending: real inbox test with the owner's Resend login email (needs the owner).
 ```bash
 initdb -D /tmp/pg -A trust && pg_ctl -D /tmp/pg -o "-p 54329" start
 psql -p 54329 -c "create database t"
-psql -p 54329 -d t -v ON_ERROR_STOP=1 -f supabase/tests/stubs.sql -f supabase/migrations/20261122000001_initial_schema.sql -f supabase/migrations/20261122000002_reminders_and_prevention.sql -f supabase/migrations/20261122000003_livestock_reminders.sql -f supabase/migrations/20261122000004_fix_farm_read_policy.sql -f supabase/tests/rls_test.sql
+psql -p 54329 -d t -v ON_ERROR_STOP=1 -f supabase/tests/stubs.sql -f supabase/migrations/20261122000001_initial_schema.sql -f supabase/migrations/20261122000002_reminders_and_prevention.sql -f supabase/migrations/20261122000003_livestock_reminders.sql -f supabase/migrations/2026112200000{4,5,6,7}_*.sql -f supabase/tests/rls_test.sql -f supabase/tests/report_test.sql
 ```

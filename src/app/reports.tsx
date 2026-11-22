@@ -1,10 +1,10 @@
-// 38 · Farming Reports — real aggregates of the farmer's own records (features/reports/summary.ts)
+// 38 · Farming Reports — totals computed in the database (report_summary), RLS-scoped
 import { useState } from 'react';
 import { Share, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { AppText, Button, Card, ChoiceChips, ErrorState, Header, LoadingList, Screen, SectionHeader } from '@/components';
 import { useReport } from '@/features/reports/api';
-import type { Report } from '@/features/reports/summary';
+import type { Report } from '@/features/reports/api';
 import { formatDate, today } from '@/lib/dates';
 import { colors } from '@/theme';
 

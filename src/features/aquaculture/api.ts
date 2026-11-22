@@ -12,14 +12,14 @@ const invalidate = (...keys: string[]) => Promise.all(keys.map((k) => queryClien
 
 export type PondWithLatest = Pond & { latest: WaterReading | null };
 
-// Ponds + their newest reading. shortcut: one query for up to 500 readings, fine for a family farm's ponds; paginate if a user logs thousands.
+// Ponds + their newest reading (latest_water_readings view: one row per pond, RLS-scoped).
 export const usePonds = () =>
   useQuery({
     queryKey: ['ponds'],
     queryFn: async () => {
       const [ponds, readings] = await Promise.all([
         must<Pond[]>(supabase.from('ponds').select('*').order('created_at', { ascending: false })),
-        must<WaterReading[]>(supabase.from('water_quality_records').select('*').order('recorded_at', { ascending: false }).limit(500)),
+        must<WaterReading[]>(supabase.from('latest_water_readings').select('*')),
       ]);
       return ponds.map((p) => ({ ...p, latest: readings.find((r) => r.pond_id === p.id) ?? null })) as PondWithLatest[];
     },
