@@ -6,7 +6,8 @@ export type PickedImage = { uri: string; width: number; height: number };
 export type MediaFolder = 'profiles' | 'farms' | 'crops' | 'ponds' | 'livestock' | 'scans' | 'assistant';
 export class PermissionDeniedError extends Error {}
 
-const MAX_EDGE = 1600;
+// 1280 px / q0.6 keeps leaf lesions and fish spots clear for AI while halving upload size on 2G/3G.
+const MAX_EDGE = 1280;
 
 // Resize + JPEG-compress before upload: farm networks are slow and phone photos are 4–12 MB.
 export async function compress(img: PickedImage): Promise<PickedImage> {
@@ -15,7 +16,7 @@ export async function compress(img: PickedImage): Promise<PickedImage> {
     ctx.resize(img.width >= img.height ? { width: MAX_EDGE } : { height: MAX_EDGE });
   }
   const ref = await ctx.renderAsync();
-  const out = await ref.saveAsync({ compress: 0.7, format: SaveFormat.JPEG });
+  const out = await ref.saveAsync({ compress: 0.6, format: SaveFormat.JPEG });
   return { uri: out.uri, width: out.width, height: out.height };
 }
 
