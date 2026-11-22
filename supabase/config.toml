@@ -16,6 +16,18 @@ verify_jwt = true
 [functions.transcribe]
 verify_jwt = true
 
+[functions.environment]
+verify_jwt = true
+
+[functions.market]
+verify_jwt = true
+
+[functions.devices]
+verify_jwt = true
+
+[functions.ingest]
+verify_jwt = false
+
 # ---- Auth email (proposed production values; applied only with owner approval) ----
 [auth.email]
 enable_confirmations = false   # owner's choice for the demo; can be turned on now that codes work
