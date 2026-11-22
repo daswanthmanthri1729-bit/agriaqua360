@@ -4,7 +4,7 @@ import { FlatList, KeyboardAvoidingView, Platform, Pressable, StyleSheet, TextIn
 import { router, useLocalSearchParams } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { AppText, Banner, Button, ChoiceChips, Icon, IconName, Skeleton, StorageImage } from '@/components';
+import { AppText, Banner, Button, ChoiceChips, Icon, IconName, LogoMark, Skeleton, StorageImage } from '@/components';
 import { ask, AskResult, Message, useMessages } from '@/features/assistant/api';
 import { AnswerCard } from '@/features/assistant/AnswerCard';
 import { useLanguage } from '@/hooks/useLanguage';
@@ -49,6 +49,7 @@ export default function Assistant() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }} edges={['top']}>
       <View style={styles.header}>
+        <LogoMark size={36} />
         <View style={{ flex: 1 }}>
           <AppText variant="headlineMd" accessibilityRole="header">{t('assistant.title')}</AppText>
         </View>

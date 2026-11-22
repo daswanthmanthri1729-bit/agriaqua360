@@ -4,7 +4,7 @@ import { RefreshControl, ScrollView, StyleSheet, View } from 'react-native';
 import { router } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { AppText, Banner, Button, Card, Chip, EmptyState, ErrorState, Icon, IconName, LoadingList, SectionHeader } from '@/components';
+import { AppText, Banner, Button, Card, Chip, EmptyState, ErrorState, Icon, IconName, LoadingList, LogoMark, SectionHeader } from '@/components';
 import { usePonds } from '@/features/aquaculture/api';
 import { AddReadingSheet } from '@/features/aquaculture/AddReadingSheet';
 import { adviceKey, overall, PARAMS } from '@/features/aquaculture/waterQuality';
@@ -34,7 +34,10 @@ export default function AquacultureDashboard() {
       <ScrollView contentContainerStyle={{ padding: space.md, gap: space.md, paddingBottom: space.xl }}
         refreshControl={<RefreshControl refreshing={ponds.isRefetching} onRefresh={() => { ponds.refetch(); }} colors={[colors.primary]} />}>
         <View style={{ gap: 4 }}>
-          <AppText variant="display" accessibilityRole="header">{t('aqua.title')}</AppText>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+            <LogoMark size={40} />
+            <AppText variant="display" accessibilityRole="header" style={{ flex: 1 }}>{t('aqua.title')}</AppText>
+          </View>
           <AppText variant="bodyLg" color={colors.textMuted}>{t('aqua.subtitle')}</AppText>
         </View>
 

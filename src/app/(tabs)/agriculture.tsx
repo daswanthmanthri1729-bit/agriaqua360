@@ -4,7 +4,7 @@ import { FlatList, RefreshControl, StyleSheet, View } from 'react-native';
 import { router } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { AppText, Button, Card, Chip, EmptyState, ErrorState, Icon, InfoTile, LoadingList, StorageImage, TextField } from '@/components';
+import { AppText, Button, Card, Chip, EmptyState, ErrorState, Icon, InfoTile, LoadingList, LogoMark, StorageImage, TextField } from '@/components';
 import { useCrops, useFarms } from '@/features/agriculture/api';
 import { colors, radius, space } from '@/theme';
 import type { Farm } from '@/types/database';
@@ -25,6 +25,7 @@ export default function FarmManagement() {
   const header = (
     <View style={{ gap: space.md }}>
       <View style={styles.titleRow}>
+        <LogoMark size={40} />
         <AppText variant="display" accessibilityRole="header" style={{ flex: 1 }}>{t('farms.title')}</AppText>
         <Button compact iconLeft="eco" variant="tonal" label={t('crops.title')} onPress={() => router.push('/agriculture/crops')} />
       </View>
