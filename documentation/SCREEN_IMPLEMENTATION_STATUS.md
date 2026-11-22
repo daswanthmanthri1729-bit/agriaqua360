@@ -24,7 +24,11 @@
 | 18 | Crop Disease Scanner | `/agriculture/scan` | visual_search_agriaqua_360 | 🟡 |
 | 19 | Disease Detection Results | `/agriculture/scan/[id]` | visual_search_agriaqua_360 | 🟡 |
 | 20 | Treatment Recommendations | `/agriculture/scan/[id]/treatment` | visual_search_agriaqua_360 | 🟡 |
-| 21–25 | Aquaculture | | 26–39 | ⏳ |
+| 21 | Aquaculture Dashboard | `/aquaculture` (tab) | 32_water_quality_dashboard, 26_my_ponds | 🟡 |
+| 22 | Pond Management (+ add-pond sheet) | `/aquaculture/ponds` | 26_my_ponds, 27_add_pond | 🟡 |
+| 23 | Pond Details (+ fish record sheet) | `/aquaculture/ponds/[id]` | 28_pond_details, 31/35/37/38/39 records | 🟡 |
+| 24 | Water Quality Records (+ reading sheet) | `/aquaculture/water-quality` | 32, 33, 34 | 🟡 |
+| 25 | Fish Health Scanner (result inline) | `/aquaculture/fish-scan` | visual_search, 49_health_history | 🟡 |
 | 26–30 | Livestock | | — | ⏳ |
 | 31–40 | AI / voice / records / settings | | 40, ask_anything, voice_search, visual_search, ai_follow_up, 41, 47 | ⏳ |
 

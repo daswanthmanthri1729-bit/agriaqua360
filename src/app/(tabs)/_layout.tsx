@@ -31,6 +31,7 @@ export default function TabsLayout() {
     >
       <Tabs.Screen name="home" options={{ title: t('nav.home'), tabBarIcon: icon('home') }} />
       <Tabs.Screen name="agriculture" options={{ title: t('nav.agriculture'), tabBarIcon: icon('agriculture') }} />
+      <Tabs.Screen name="aquaculture" options={{ title: t('nav.aquaculture'), tabBarIcon: icon('water') }} />
     </Tabs>
   );
 }

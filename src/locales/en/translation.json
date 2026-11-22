@@ -199,7 +199,8 @@
     "tooLong": "Text is too long",
     "selectFarm": "Select a farm",
     "selectCrop": "Select a crop",
-    "harvestAfterSowing": "Harvest must be after sowing"
+    "harvestAfterSowing": "Harvest must be after sowing",
+    "selectPond": "Select a pond"
   },
   "errors": {
     "generic": "Something went wrong. Please try again.",
@@ -229,7 +230,8 @@
   },
   "nav": {
     "home": "Home",
-    "agriculture": "Agri"
+    "agriculture": "Agri",
+    "aquaculture": "Aqua"
   },
   "dashboard": {
     "morning": "Good morning",
@@ -533,5 +535,142 @@
     "none": "No steps suggested.",
     "reminderTitle": "Check your crop",
     "reminderBody": "Follow-up check after treatment: {{name}}"
+  },
+  "aqua": {
+    "title": "Aquaculture",
+    "subtitle": "Ponds, water quality and fish health",
+    "ponds": "Ponds",
+    "active": "Active",
+    "alerts": "Water Alerts",
+    "allGood": "All latest readings are within the guide range.",
+    "noReadings": "No water readings yet. Record today's test.",
+    "latest": "Latest Readings",
+    "addPond": "Add Pond",
+    "addReading": "Record Water",
+    "scanFish": "Fish Health Scan",
+    "viewPonds": "All Ponds",
+    "emptyTitle": "No ponds yet",
+    "emptyText": "Add your pond to record water quality and check fish health.",
+    "doc": "Day {{count}} of culture",
+    "readingAge": "Tested {{date}}",
+    "aquaTitle": "Aquaculture",
+    "pondsCount": "{{count}} ponds",
+    "exploreAqua": "Explore Aquaculture"
+  },
+  "ponds": {
+    "title": "My Ponds",
+    "add": "Add Pond",
+    "name": "Pond name",
+    "namePlaceholder": "e.g. Pond 1 (east)",
+    "species": "Species",
+    "speciesPlaceholder": "e.g. Vannamei",
+    "area": "Water area (acres)",
+    "depth": "Depth (m)",
+    "stockingDate": "Stocking date",
+    "stockingCount": "Seed stocked (number)",
+    "status": "Status",
+    "notes": "Notes",
+    "photo": "Pond photo",
+    "save": "Save Pond",
+    "details": "Pond Details",
+    "deleteTitle": "Delete this pond?",
+    "deleteText": "All water readings, fish records and health reports of this pond will be deleted.",
+    "records": "Pond Records",
+    "addRecord": "Add Record",
+    "noRecords": "No records yet. Add stocking, feeding, sampling or harvest.",
+    "recordType": "Record type",
+    "quantity": "Quantity",
+    "unit": "Unit",
+    "avgWeight": "Average weight (g)",
+    "date": "Date",
+    "health": "Health Reports",
+    "noHealth": "No health scans yet.",
+    "waterHistory": "Water History",
+    "statuses": {
+      "preparing": "Preparing",
+      "active": "Active",
+      "harvested": "Harvested",
+      "idle": "Idle"
+    },
+    "speciesList": {
+      "vannamei": "Vannamei shrimp",
+      "tiger": "Tiger shrimp",
+      "rohu": "Rohu",
+      "catla": "Catla",
+      "tilapia": "Tilapia",
+      "pangasius": "Pangasius",
+      "murrel": "Murrel"
+    },
+    "types": {
+      "stocking": "Stocking",
+      "feeding": "Feeding",
+      "sampling": "Sampling",
+      "mortality": "Mortality",
+      "harvest": "Harvest",
+      "treatment": "Treatment"
+    },
+    "units": {
+      "kg": "kg",
+      "pcs": "pieces"
+    }
+  },
+  "water": {
+    "title": "Water Quality Records",
+    "add": "Record Water Test",
+    "pond": "Pond",
+    "meterNote": "Enter values from your test kit or meter. The app never guesses water quality from photos.",
+    "guideNote": "Guide ranges for common fish and shrimp ponds. Your species may differ — ask your fisheries officer.",
+    "safe": "Guide: {{range}}",
+    "history": "History",
+    "empty": "No readings yet.",
+    "needOne": "Enter at least one value",
+    "save": "Save Reading",
+    "notes": "Notes",
+    "status": {
+      "ok": "Good",
+      "warn": "Watch",
+      "bad": "Act now"
+    },
+    "params": {
+      "ph": "pH",
+      "dissolved_oxygen_mgl": "Dissolved Oxygen",
+      "temperature_c": "Temperature",
+      "ammonia_mgl": "Ammonia (TAN)",
+      "salinity_ppt": "Salinity",
+      "turbidity_cm": "Transparency (Secchi)"
+    },
+    "advice": {
+      "ph_low": "pH is low. Apply agricultural lime as advised and check alkalinity.",
+      "ph_high": "pH is high. Exchange some water and reduce fertilizer.",
+      "dissolved_oxygen_mgl_low": "Oxygen is low. Run aerators now and stop feeding until it improves.",
+      "dissolved_oxygen_mgl_high": "Oxygen is very high. Check for heavy algae bloom.",
+      "temperature_c_low": "Water is cold. Reduce feeding.",
+      "temperature_c_high": "Water is hot. Increase depth or water exchange and feed in cooler hours.",
+      "ammonia_mgl_low": "Ammonia is fine.",
+      "ammonia_mgl_high": "Ammonia is high. Reduce feed, exchange water and run aerators.",
+      "turbidity_cm_low": "Water is too green or muddy. Reduce feed/fertilizer and exchange water.",
+      "turbidity_cm_high": "Water is too clear. Plankton is low; fertilise as advised."
+    }
+  },
+  "fishScan": {
+    "title": "Fish Health Scanner",
+    "subtitle": "Photograph sick fish or shrimp close-up. Add what you noticed in the pond.",
+    "pond": "Which pond?",
+    "noPond": "Not listed",
+    "observations": "What did you notice?",
+    "observationsPlaceholder": "e.g. fish gasping at surface in the morning, red spots on body",
+    "tip1": "Place the fish or shrimp on a plain surface in daylight.",
+    "tip2": "Take close-ups of the body, gills and any spots or wounds.",
+    "tip3": "Add the latest water test so AI can use it.",
+    "analyse": "Check Fish Health",
+    "signs": "Signs seen",
+    "causes": "Possible causes",
+    "actions": "Do now",
+    "water": "Water management",
+    "prevention": "Prevention",
+    "notFish": "We could not see fish or shrimp clearly in these photos.",
+    "history": "Recent Health Reports",
+    "newScan": "New Scan",
+    "species": "Species"
   }
 }

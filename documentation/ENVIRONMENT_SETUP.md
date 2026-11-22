@@ -30,4 +30,4 @@ Templates: `.env.example`, `supabase/functions/.env.example`.
 2. Auth → Providers → Email: enabled, "Confirm email" on. Auth → Email Templates → *Confirm signup* and *Reset password*: include `{{ .Token }}` so users receive a 6-digit code (the app verifies codes, not links).
 3. Optional SMS OTP: Auth → Providers → Phone → configure Twilio/MessageBird. Without it, register with an email (the app tells users this if SMS fails).
 4. Secrets: `npx supabase secrets set --env-file supabase/functions/.env`
-5. Deploy functions: `npx supabase functions deploy weather crop-scan`
+5. Deploy functions: `npx supabase functions deploy weather crop-scan fish-scan`

@@ -6,3 +6,6 @@ verify_jwt = true
 
 [functions.crop-scan]
 verify_jwt = true
+
+[functions.fish-scan]
+verify_jwt = true
