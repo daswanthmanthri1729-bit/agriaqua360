@@ -37,3 +37,25 @@ Not applicable: Level 1 has no sensors (no sensor code to optimise).
 
 Decisions needed: which stages; whether crop/fish **image diagnosis** may use the lite model when stronger models are overloaded (faster/always available, slightly less accurate) — chat and transcription use it either way.
 Offline **writes** (queue and sync later) are not proposed: it needs conflict handling and is closer to a new feature; saves will clearly say "needs internet".
+
+## 3. Results (S1–S8, measured live on the production project, 22 Nov 2026)
+
+| Feature | Before | After | Main change |
+|---|---|---|---|
+| AI chat success | 0 / 8 (timeouts 49–91 s, "busy") | all succeeded in final runs | S1 free-tier-aware routing, stream recovery |
+| AI chat — first words | full answer only (7–25 s) | **~2.5 s** typical (10–14 s when Google free tier forces a fallback) | S2 streaming, minimal thinking |
+| AI chat — server setup | ~2 s (auth 0.3–0.8 s + 6 queries) | ~0.6–1.6 s (auth 2 ms cached, 1 context call) | S2 getClaims, farm_context() |
+| Crop scan | "busy" ×2 | 6.8–16 s, ✅ | S1 |
+| Fish scan | 46–91 s timeouts | 3.5–19 s, ✅ | S1 |
+| Voice transcription | upload + download + delete | one direct request, nothing stored | S3 |
+| Photo upload size | 1600 px / q0.7 | 1280 px / q0.6 (~36% smaller, ~4 vs 6 AI image tiles) | S4 |
+| Repeat photo views | re-downloaded (new signed URL) | from disk cache | S4 |
+| Weather (repeat in same area) | 2 OpenWeather calls every time | cache hit 0.3–0.9 s, no OpenWeather call | S5 |
+| Offline | errors everywhere | last data shown + offline banner | S6 |
+| Splash minimum | 1.8 s | 0.7 s | S6 |
+| Logo assets | 233 KB + 508 KB | 9 KB + 55 KB | S6 |
+| Home ponds query | up to 500 readings | 1 row per pond (0.4 s) | S7 |
+| Reports | 9 tables × 2000 rows on the phone | 1 SQL call (0.8 s) | S7 |
+
+Tests at the end: 91 Jest, 9 Deno routing, SQL RLS + report tests, mocked E2E (all 40 screens' flows incl. offline), live benchmarks in `tests/live/`.
+Biggest remaining limit: Gemini free tier (20 requests/day on the stronger models). A paid key (credits added) removes it.

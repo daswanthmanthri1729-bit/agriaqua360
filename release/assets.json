@@ -1,0 +1,10 @@
+{
+  "apk_url": "https://expo.dev/artifacts/eas/01lmhuOFOoPrDJqSfy6pOBytezKWb_GAE5aXBMRhb80.apk",
+  "windows_parts": [
+    "https://yrlfpbbbvjfguoratasn.supabase.co/storage/v1/object/public/releases/v1.0.0/AgriAqua360-Windows-x64.zip.part0",
+    "https://yrlfpbbbvjfguoratasn.supabase.co/storage/v1/object/public/releases/v1.0.0/AgriAqua360-Windows-x64.zip.part1",
+    "https://yrlfpbbbvjfguoratasn.supabase.co/storage/v1/object/public/releases/v1.0.0/AgriAqua360-Windows-x64.zip.part2",
+    "https://yrlfpbbbvjfguoratasn.supabase.co/storage/v1/object/public/releases/v1.0.0/AgriAqua360-Windows-x64.zip.part3"
+  ],
+  "windows_sha256": "b0371f9a6ec53b20448933dc5b23ecf44a1613988447706fedff7a0a16512f8b"
+}
