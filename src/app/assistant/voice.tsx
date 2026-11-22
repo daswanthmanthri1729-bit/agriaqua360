@@ -24,6 +24,7 @@ export default function VoiceQuestion() {
   const [stage, setStage] = useState<Stage>('idle');
   const [text, setText] = useState('');
   const [result, setResult] = useState<AskResult | null>(null);
+  const [streamed, setStreamed] = useState('');
   const [notice, setNotice] = useState<{ tone: 'error' | 'warning'; key: string } | null>(null);
   const pulse = useSharedValue(1);
   const ring = useAnimatedStyle(() => ({ transform: [{ scale: pulse.value }], opacity: 2 - pulse.value }));
@@ -68,7 +69,8 @@ export default function VoiceQuestion() {
     if (!text.trim()) return;
     setStage('asking'); setNotice(null);
     try {
-      setResult(await ask({ message: text.trim(), conversationId: params.id ?? null, inputMode: 'voice', language }));
+      setStreamed('');
+      setResult(await ask({ message: text.trim(), conversationId: params.id ?? null, inputMode: 'voice', language, onDelta: setStreamed }));
       setStage('answered');
     } catch (e) {
       setStage('review');
@@ -117,6 +119,8 @@ export default function VoiceQuestion() {
           </View>
         </Card>
       )}
+
+      {stage === 'asking' && !!streamed && <Card><AppText variant="bodyLg" accessibilityLiveRegion="polite">{streamed}</AppText></Card>}
 
       {stage === 'answered' && result && (
         <>

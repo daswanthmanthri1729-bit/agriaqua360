@@ -1,5 +1,7 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
+import { fetch as streamingFetch } from 'expo/fetch';
 import { supabase } from '@/lib/supabase';
+import { env } from '@/lib/env';
 import { invoke, must, queryClient, userId } from '@/lib/query';
 import { PickedImage, uploadFile, uploadImage } from '@/services/media';
 import type { Language } from '@/locales';
@@ -18,11 +20,14 @@ export const useMessages = (conversationId: string | null) =>
     queryFn: () => must<Message[]>(supabase.from('ai_messages').select('*').eq('conversation_id', conversationId!).order('created_at').limit(200)),
   });
 
-export async function ask(a: { message: string; conversationId: string | null; images?: PickedImage[]; inputMode: 'text' | 'voice' | 'image'; language: Language }) {
+type AskArgs = { message: string; conversationId: string | null; images?: PickedImage[]; inputMode: 'text' | 'voice' | 'image'; language: Language; onDelta?: (text: string) => void };
+
+export async function ask(a: AskArgs) {
   const uid = await userId();
   const image_paths = await Promise.all((a.images ?? []).map((img) => uploadImage('media', 'assistant', uid, img)));
+  const body = { message: a.message, conversation_id: a.conversationId, image_paths, input_mode: a.inputMode, language: a.language };
   try {
-    return await invoke<AskResult>('ai-assistant', { message: a.message, conversation_id: a.conversationId, image_paths, input_mode: a.inputMode, language: a.language });
+    return a.onDelta ? await askStreaming(body, a.onDelta) : await invoke<AskResult>('ai-assistant', body);
   } finally {
     // The farmer's message is stored even when the AI fails, so refresh either way.
     queryClient.invalidateQueries({ queryKey: ['messages'] });
@@ -45,3 +50,43 @@ export const useSaveMessage = () =>
       must(supabase.from('saved_records').upsert({ record_type: 'ai_message', record_id: m.id, title: m.content.slice(0, 80) }, { onConflict: 'owner_id,record_type,record_id' })),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['saved'] }),
   });
+
+/** Streams the answer (Server-Sent Events) so the farmer sees words as they are written. */
+async function askStreaming(body: Record<string, unknown>, onDelta: (text: string) => void): Promise<AskResult> {
+  const { data } = await supabase.auth.getSession();
+  if (!data.session) throw new Error('errors.sessionExpired');
+  let res;
+  try {
+    res = await streamingFetch(`${env.supabaseUrl}/functions/v1/ai-assistant`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${data.session.access_token}`, apikey: env.supabaseKey, 'Content-Type': 'application/json', Accept: 'text/event-stream' },
+      body: JSON.stringify({ ...body, stream: true }),
+    });
+  } catch {
+    throw new Error('errors.network');
+  }
+  if (!res.ok || !res.body) {
+    const code = (await res.json().catch(() => null))?.error;
+    throw new Error(code ? `errors.${code}` : 'errors.network');
+  }
+  const reader = res.body.getReader();
+  const decoder = new TextDecoder();
+  let buf = '';
+  for (;;) {
+    const { value, done } = await reader.read();
+    if (done) break;
+    buf += decoder.decode(value, { stream: true });
+    let i;
+    while ((i = buf.indexOf('\n\n')) >= 0) {
+      const block = buf.slice(0, i); buf = buf.slice(i + 2);
+      const event = /^event: (.*)$/m.exec(block)?.[1];
+      const payload = /^data: (.*)$/m.exec(block)?.[1];
+      if (!event || !payload) continue;
+      const d = JSON.parse(payload);
+      if (event === 'delta') onDelta(d.text);
+      else if (event === 'done') return d as AskResult;
+      else if (event === 'error') throw new Error(`errors.${d.error}`);
+    }
+  }
+  throw new Error('errors.network'); // stream ended without "done"
+}

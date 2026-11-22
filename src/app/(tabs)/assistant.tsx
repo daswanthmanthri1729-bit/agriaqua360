@@ -21,6 +21,7 @@ export default function Assistant() {
   const messages = useMessages(conversationId);
   const [text, setText] = useState('');
   const [pending, setPending] = useState<string | null>(null);
+  const [streamed, setStreamed] = useState('');
   const [error, setError] = useState<{ key: string; text: string } | null>(null);
   const [last, setLast] = useState<AskResult | null>(null);
   const list = useRef<FlatList<Message>>(null);
@@ -28,14 +29,14 @@ export default function Assistant() {
   const send = async (q = text) => {
     const message = q.trim();
     if (!message || pending) return;
-    setText(''); setPending(message); setError(null);
+    setText(''); setPending(message); setError(null); setStreamed('');
     try {
-      const r = await ask({ message, conversationId, inputMode: 'text', language });
+      const r = await ask({ message, conversationId, inputMode: 'text', language, onDelta: setStreamed });
       setConversationId(r.conversation_id);
       setLast(r);
     } catch (e) {
       setError({ key: (e as Error).message.startsWith('errors.') ? (e as Error).message : 'errors.generic', text: message });
-    } finally { setPending(null); }
+    } finally { setPending(null); setStreamed(''); }
   };
   const newChat = () => { setConversationId(null); setLast(null); setError(null); router.setParams({ id: undefined }); };
 
@@ -99,7 +100,11 @@ export default function Assistant() {
               {pending && (
                 <>
                   <View style={styles.userBubble}><AppText variant="bodyLg" color={colors.white}>{pending}</AppText></View>
-                  <View style={styles.thinking}><Icon name="auto-awesome" size={18} color={colors.ai} /><AppText variant="bodyMd" color={colors.ai}>{t('assistant.thinking')}</AppText></View>
+                  {streamed ? (
+                    <View style={styles.streaming} accessibilityLiveRegion="polite"><AppText variant="bodyLg">{streamed}</AppText></View>
+                  ) : (
+                    <View style={styles.thinking}><Icon name="auto-awesome" size={18} color={colors.ai} /><AppText variant="bodyMd" color={colors.ai}>{t('assistant.thinking')}</AppText></View>
+                  )}
                 </>
               )}
               {error && (
@@ -151,6 +156,7 @@ const styles = StyleSheet.create({
   heroIcon: { width: 64, height: 64, borderRadius: 32, backgroundColor: colors.ai, alignItems: 'center', justifyContent: 'center' },
   suggestion: { flexDirection: 'row', gap: 10, alignItems: 'center', padding: 14, minHeight: 48, borderRadius: radius.lg, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.border },
   userBubble: { alignSelf: 'flex-end', maxWidth: '85%', gap: 6, padding: 14, borderRadius: radius.lg, borderBottomRightRadius: 4, backgroundColor: colors.primaryDeep },
+  streaming: { padding: 16, borderRadius: radius.card, backgroundColor: colors.surface, borderWidth: 1, borderColor: 'rgba(101,70,199,0.2)' },
   thinking: { flexDirection: 'row', gap: 8, alignItems: 'center', padding: 12, borderRadius: radius.lg, backgroundColor: colors.aiSurface, alignSelf: 'flex-start' },
   composer: { flexDirection: 'row', alignItems: 'flex-end', gap: 8, padding: space.sm, borderTopWidth: 1, borderTopColor: colors.border, backgroundColor: colors.surface },
   input: { flex: 1, minHeight: 44, maxHeight: 120, paddingHorizontal: 14, paddingVertical: 10, borderRadius: radius.lg, backgroundColor: colors.surfaceLow, fontFamily: fonts.body, fontSize: 16, color: colors.text },
