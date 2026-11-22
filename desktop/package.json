@@ -1,0 +1,33 @@
+{
+  "name": "agriaqua360-desktop",
+  "productName": "AgriAqua 360",
+  "version": "1.0.0",
+  "description": "AgriAqua 360 for Windows (Electron shell around the Expo web build)",
+  "main": "main.js",
+  "private": true,
+  "scripts": {
+    "web": "cd .. && npx expo export --platform web --output-dir desktop/app",
+    "start": "electron .",
+    "dist:win": "npm run web && electron-builder --win zip --x64"
+  },
+  "build": {
+    "appId": "com.agriaqua360.desktop",
+    "productName": "AgriAqua 360",
+    "files": [
+      "main.js",
+      "app/**/*"
+    ],
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "win": {
+      "icon": "build/icon.png",
+      "signAndEditExecutable": false
+    }
+  },
+  "devDependencies": {
+    "electron": "^45.4.1",
+    "electron-builder": "^26.18.0"
+  }
+}
