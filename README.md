@@ -21,4 +21,4 @@ npm run typecheck && npm test   # TypeScript + Jest
 | [documentation/TESTING_REPORT.md](documentation/TESTING_REPORT.md) | What was actually tested |
 | [documentation/APK_BUILD_GUIDE.md](documentation/APK_BUILD_GUIDE.md) | Building the APK |
 
-Design source: `design_reference/stitch/` (Google Stitch export, "Intelligent Nature" design system).
+Design source: Google Stitch export, "Intelligent Nature" design system (kept outside this repository).

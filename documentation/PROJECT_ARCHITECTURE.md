@@ -22,7 +22,6 @@ src/
   theme/               Tokens from Stitch DESIGN.md
 supabase/migrations/   SQL schema + RLS; supabase/tests/ local validation
 supabase/functions/    weather, crop-scan, fish-scan, ai-assistant, transcribe (+ _shared: gemini client, prompts, pure weather maths)
-design_reference/      Stitch export (read-only reference)
 tests/                 Jest
 ```
 
