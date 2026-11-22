@@ -5,7 +5,7 @@ import { Image } from 'expo-image';
 import { useTranslation } from 'react-i18next';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {
-  AppText, Banner, Button, Card, Chip, EmptyState, ErrorState, Icon, IconName, LanguagePills, SectionHeader, Skeleton, StorageImage, WeatherCard,
+  AppText, Banner, Button, Card, Chip, EmptyState, ErrorState, Icon, IconName, LanguagePills, LogoMark, SectionHeader, Skeleton, StorageImage, WeatherCard,
 } from '@/components';
 import { ACTIVITY_ICON, useDashboard } from '@/features/agriculture/api';
 import { useNotifications } from '@/features/notifications/api';
@@ -64,6 +64,7 @@ export default function Dashboard() {
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }} edges={['top']}>
       <ScrollView contentContainerStyle={styles.content} refreshControl={<RefreshControl refreshing={dash.isRefetching} onRefresh={refresh} colors={[colors.primary]} />}>
         <View style={styles.header}>
+          <LogoMark size={40} />
           <StorageImage path={profile?.avatar_path} bucket="avatars" fallback="person" style={styles.avatar} />
           <View style={{ flex: 1 }}>
             <AppText variant="labelMd" color={colors.textSubtle}>{t(greetingKey()).toUpperCase()}</AppText>

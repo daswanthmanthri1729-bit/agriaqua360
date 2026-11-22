@@ -4,6 +4,7 @@ import { router } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { Icon } from './Icon';
 import { AppText } from './AppText';
+import { LogoMark } from './LogoMark';
 import { colors, radius } from '@/theme';
 
 export function Header({ title, right, onBack, hideBack }: { title?: string; right?: ReactNode; onBack?: () => void; hideBack?: boolean }) {
@@ -20,6 +21,7 @@ export function Header({ title, right, onBack, hideBack }: { title?: string; rig
           <Icon name="arrow-back" />
         </Pressable>
       )}
+      <LogoMark size={34} />
       {title ? <AppText variant="headlineSm" style={{ flex: 1 }} numberOfLines={1}>{title}</AppText> : <View style={{ flex: 1 }} />}
       {right}
     </View>

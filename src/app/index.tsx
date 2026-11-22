@@ -2,7 +2,6 @@
 import { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { router } from 'expo-router';
-import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
 import { StatusBar } from 'expo-status-bar';
 import { useTranslation } from 'react-i18next';
@@ -49,11 +48,7 @@ export default function Splash() {
           <LanguagePills dark />
         </View>
         <Animated.View entering={FadeIn.duration(600)} style={styles.center}>
-          <Animated.View style={[styles.ring, ring]}>
-            <View style={styles.disc}>
-              <Image source={require('../../assets/images/logo-mark.png')} style={{ width: 150, height: 150 }} contentFit="contain" accessibilityIgnoresInvertColors />
-            </View>
-          </Animated.View>
+          <Animated.View style={[styles.ring, ring]} />
           <BrandLockup dark size="lg" />
           <AppText variant="bodyLg" color="rgba(255,255,255,0.9)" align="center" style={{ maxWidth: 320 }}>{t('brand.slogan')}</AppText>
           <View style={styles.chips}>
@@ -76,8 +71,7 @@ const styles = StyleSheet.create({
   safe: { flex: 1, paddingHorizontal: 20 },
   top: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingTop: 8, gap: 8, flexWrap: 'wrap' },
   center: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: 16 },
-  ring: { width: 240, height: 240, borderRadius: 120, borderWidth: 1, borderColor: 'rgba(136,215,168,0.3)', alignItems: 'center', justifyContent: 'center', marginBottom: 12 },
-  disc: { width: 190, height: 190, borderRadius: 95, backgroundColor: 'rgba(0,0,0,0.25)', alignItems: 'center', justifyContent: 'center' },
+  ring: { position: 'absolute', width: 300, height: 300, borderRadius: 150, borderWidth: 1, borderColor: 'rgba(136,215,168,0.3)', top: '22%' },
   chips: { flexDirection: 'row', gap: 8, flexWrap: 'wrap', justifyContent: 'center' },
   bottom: { gap: 16, paddingBottom: 16 },
   track: { height: 12, borderRadius: radius.full, backgroundColor: 'rgba(0,0,0,0.3)', overflow: 'hidden', padding: 3 },

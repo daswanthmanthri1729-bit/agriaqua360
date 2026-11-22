@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { router } from 'expo-router';
 import { Image } from 'expo-image';
 import { useTranslation } from 'react-i18next';
-import { AppText, Button, Card, Chip, Icon, IconName, LanguagePills, Screen } from '@/components';
+import { AppText, Button, Card, Chip, Icon, IconName, LanguagePills, LogoMark, Screen } from '@/components';
 import { colors, radius } from '@/theme';
 
 const SECTORS: { key: string; icon: IconName; tag: string; sub: string; tint: string }[] = [
@@ -18,7 +18,7 @@ export default function Welcome() {
     <Screen>
       <View style={styles.top}>
         <View style={styles.logoRow}>
-          <Image source={require('../../../assets/images/logo-mark.png')} style={{ width: 36, height: 36 }} />
+          <LogoMark size={40} />
           <AppText variant="headlineSm">AgriAqua 360</AppText>
         </View>
         <LanguagePills />

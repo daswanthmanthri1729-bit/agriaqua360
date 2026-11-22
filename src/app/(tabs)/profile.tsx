@@ -6,7 +6,7 @@ import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
 import { useTranslation } from 'react-i18next';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { AppText, Banner, Button, Card, Icon, IconName, LanguageSegment, SectionHeader, StorageImage, TextField } from '@/components';
+import { AppText, Banner, Button, Card, Icon, IconName, LanguageSegment, LogoMark, SectionHeader, StorageImage, TextField } from '@/components';
 import { signOut, toErrorKey } from '@/features/auth/api';
 import { supabase } from '@/lib/supabase';
 import { PermissionDeniedError, pickImages, uploadImage } from '@/services/media';
@@ -87,7 +87,10 @@ export default function Profile() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }} edges={['top']}>
       <ScrollView contentContainerStyle={{ padding: space.md, gap: space.md, paddingBottom: space.xl }} keyboardShouldPersistTaps="handled">
-        <AppText variant="display" accessibilityRole="header">{t('profile.title')}</AppText>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+          <LogoMark size={40} />
+          <AppText variant="display" accessibilityRole="header" style={{ flex: 1 }}>{t('profile.title')}</AppText>
+        </View>
         <Card style={{ gap: 14 }}>
           <View style={styles.row}>
             <Pressable accessibilityRole="button" accessibilityLabel={t('profile.changePhoto')} onPress={changePhoto}>
