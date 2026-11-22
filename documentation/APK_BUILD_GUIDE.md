@@ -4,7 +4,10 @@ App: **AgriAqua 360** · package `com.agriaqua360.app` · version 1.0.0 (version
 
 `eas.json` profiles: `preview` → installable APK, `production` → APK for final hand-in.
 
-## Option A — EAS cloud build (recommended, free tier)
+## Option A — EAS cloud build (chosen), Android only
+`.easignore` makes EAS upload `google-services.json` and `.env` (public values) but never `supabase/functions/.env` or design files.
+`app.config.js` builds without FCM if `google-services.json` is missing instead of failing.
+
 ```bash
 npx eas-cli@latest login
 npx eas-cli@latest init                       # links project, writes projectId
