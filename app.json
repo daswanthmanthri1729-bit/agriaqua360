@@ -31,7 +31,8 @@
         "android.permission.POST_NOTIFICATIONS"
       ],
       "blockedPermissions": [
-        "android.permission.ACCESS_BACKGROUND_LOCATION"
+        "android.permission.ACCESS_BACKGROUND_LOCATION",
+        "android.permission.SYSTEM_ALERT_WINDOW"
       ]
     },
     "web": {
@@ -68,7 +69,8 @@
       [
         "expo-audio",
         {
-          "microphonePermission": "AgriAqua 360 records your voice so you can ask farming questions by speaking."
+          "microphonePermission": "AgriAqua 360 records your voice so you can ask farming questions by speaking.",
+          "enableBackgroundPlayback": false
         }
       ],
       [
