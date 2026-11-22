@@ -1,4 +1,5 @@
 {
+  "version": "v1.0.0",
   "apk_url": "https://expo.dev/artifacts/eas/01lmhuOFOoPrDJqSfy6pOBytezKWb_GAE5aXBMRhb80.apk",
   "windows_parts": [
     "https://yrlfpbbbvjfguoratasn.supabase.co/storage/v1/object/public/releases/v1.0.0/AgriAqua360-Windows-x64.zip.part0",

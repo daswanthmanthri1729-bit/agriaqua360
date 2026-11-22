@@ -1,9 +1,10 @@
-# Publishes a GitHub Release when a version tag (v*) is pushed.
-# Assets are the already-built and tested files listed in release/assets.json (no secrets needed).
+# Publishes (or updates) the GitHub Release named by release/assets.json "version" whenever that file
+# changes. GitHub creates the tag itself. Assets are the already-built, tested files listed there (no secrets).
 name: Release
 on:
   push:
-    tags: ['v*']
+    paths: ['release/assets.json', 'release/NOTES.md', '.github/workflows/release.yml']
+  workflow_dispatch:
 permissions:
   contents: write
 jobs:
@@ -15,7 +16,8 @@ jobs:
         run: |
           set -euo pipefail
           mkdir out
-          curl -fsSL "$(jq -r .apk_url release/assets.json)" -o "out/AgriAqua360-${GITHUB_REF_NAME}.apk"
+          V=$(jq -r .version release/assets.json); echo "V=$V" >> "$GITHUB_ENV"
+          curl -fsSL "$(jq -r .apk_url release/assets.json)" -o "out/AgriAqua360-$V.apk"
           for u in $(jq -r '.windows_parts[]' release/assets.json); do curl -fsSL "$u" >> out/AgriAqua360-Windows-x64.zip; done
           echo "$(jq -r .windows_sha256 release/assets.json)  out/AgriAqua360-Windows-x64.zip" | sha256sum -c -
           ls -la out
@@ -23,4 +25,9 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create "$GITHUB_REF_NAME" out/* --title "AgriAqua 360 $GITHUB_REF_NAME" --notes-file release/NOTES.md --verify-tag
+          if gh release view "$V" >/dev/null 2>&1; then
+            gh release upload "$V" out/* --clobber
+            gh release edit "$V" --notes-file release/NOTES.md
+          else
+            gh release create "$V" out/* --target "$GITHUB_SHA" --title "AgriAqua 360 $V" --notes-file release/NOTES.md
+          fi
