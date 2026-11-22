@@ -71,9 +71,26 @@ Not tested: reminder scheduling/cancel on device; real Supabase.
 
 Not tested: real Supabase; TTS voices and native recorder on a phone; FCM token on a device; server-side push.
 
+## Live Supabase project — 22 Nov 2026 (yrlfpbbbvjfguoratasn)
+Setup applied via Management API: migrations 0001–0004 (recorded in `supabase_migrations.schema_migrations`), 21/21 tables with RLS, 78 policies, private buckets `avatars`/`media` with 4 storage policies, `on_auth_user_created` trigger, secrets GEMINI_API_KEY + OPENWEATHER_API_KEY, 5 Edge Functions deployed, OTP length 6, password min 8.
+
+Live test with a temporary confirmed user (deleted afterwards with its photos):
+| Check | Result |
+|---|---|
+| Password login, profile trigger (te, sectors, phone) | ✅ |
+| RLS: own profile only; storage upload into another user's folder | ✅ blocked |
+| Farm + crop insert with `.select()` | ❌ → **bug found**: farms SELECT policy used `can_access_farm()`, which can't see the row being inserted, so INSERT…RETURNING failed. Fixed in migration 0004; local RLS test now uses RETURNING and reproduces it. ✅ after fix |
+| weather (Eluru) | ✅ 200, 0.2 s |
+| ai-assistant, Telugu | ✅ 200, ~22 s |
+| crop-scan, real upload | ✅ Rice Blast / high / moderate / expert, ~20 s |
+| fish-scan with a leaf photo, Hindi | ✅ is_fish_image=false, ~25 s |
+| transcribe with missing clip | ✅ 404 audio_missing |
+
+Known limits: AI calls take 20–25 s from the Singapore project (vs 5–8 s direct); free-tier email templates can't be edited (see DEVELOPMENT_PROGRESS).
+
 ### Reproduce the DB test
 ```bash
 initdb -D /tmp/pg -A trust && pg_ctl -D /tmp/pg -o "-p 54329" start
 psql -p 54329 -c "create database t"
-psql -p 54329 -d t -v ON_ERROR_STOP=1 -f supabase/tests/stubs.sql -f supabase/migrations/20261122000001_initial_schema.sql -f supabase/migrations/20261122000002_reminders_and_prevention.sql -f supabase/migrations/20261122000003_livestock_reminders.sql -f supabase/tests/rls_test.sql
+psql -p 54329 -d t -v ON_ERROR_STOP=1 -f supabase/tests/stubs.sql -f supabase/migrations/20261122000001_initial_schema.sql -f supabase/migrations/20261122000002_reminders_and_prevention.sql -f supabase/migrations/20261122000003_livestock_reminders.sql -f supabase/migrations/20261122000004_fix_farm_read_policy.sql -f supabase/tests/rls_test.sql
 ```

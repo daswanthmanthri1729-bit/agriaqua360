@@ -12,7 +12,8 @@ end $$;
 
 set role authenticated;
 select set_config('request.jwt.claim.sub','11111111-1111-1111-1111-111111111111',false);
-insert into farms(name) values ('A farm');
+-- RETURNING mirrors supabase-js .insert().select(); it must pass the SELECT policy for the new row.
+insert into farms(name) values ('A farm') returning id;
 insert into crops(farm_id, name) select id, 'Paddy' from farms;
 insert into ponds(name) values ('Pond 1');
 insert into livestock(species, tag_id) values ('cow','C-1');
