@@ -11,19 +11,33 @@ Deno.serve(async (req) => {
   const sb = userClient(req);
   const { data: auth } = await sb.auth.getUser();
   if (!auth.user) return fail('unauthorized', 401);
-  let body: { audio_path?: unknown; language?: unknown };
-  try { body = await req.json(); } catch { return fail('bad_request'); }
-  const path = body.audio_path;
-  if (typeof path !== 'string' || !path.startsWith(`${auth.user.id}/`)) return fail('bad_request');
-  const language = ['en', 'te', 'hi'].includes(body.language as string) ? (body.language as string) : 'en';
+  // Fast path: raw audio in the request body (no Storage round trips). Legacy path: { audio_path } JSON.
+  let audio: Uint8Array;
+  let language: string;
+  let path: string | null = null;
+  if ((req.headers.get('Content-Type') ?? '').startsWith('audio/')) {
+    language = req.headers.get('x-language') ?? 'en';
+    if (Number(req.headers.get('Content-Length') ?? 0) > MAX_BYTES) return fail('audio_too_long');
+    audio = new Uint8Array(await req.arrayBuffer());
+    if (!audio.length) return fail('bad_request');
+    if (audio.length > MAX_BYTES) return fail('audio_too_long');
+  } else {
+    let body: { audio_path?: unknown; language?: unknown };
+    try { body = await req.json(); } catch { return fail('bad_request'); }
+    if (typeof body.audio_path !== 'string' || !body.audio_path.startsWith(`${auth.user.id}/`)) return fail('bad_request');
+    path = body.audio_path;
+    language = String(body.language ?? 'en');
+    const { data: file, error } = await sb.storage.from('media').download(path);
+    if (error || !file) return fail('audio_missing', 404);
+    if (file.size > MAX_BYTES) return fail('audio_too_long');
+    audio = new Uint8Array(await file.arrayBuffer());
+  }
+  if (!['en', 'te', 'hi'].includes(language)) language = 'en';
 
-  const { data: file, error } = await sb.storage.from('media').download(path);
-  if (error || !file) return fail('audio_missing', 404);
-  if (file.size > MAX_BYTES) return fail('audio_too_long');
   try {
     const r = await generateJson<Transcript>({
       system: transcribePrompt(language),
-      parts: [{ inline_data: { mime_type: 'audio/mp4', data: toBase64(new Uint8Array(await file.arrayBuffer())) } }, { text: 'Transcribe.' }],
+      parts: [{ inline_data: { mime_type: 'audio/mp4', data: toBase64(audio) } }, { text: 'Transcribe.' }],
       schema: transcribeSchema,
       temperature: 0,
       maxOutputTokens: 512,
@@ -35,7 +49,7 @@ Deno.serve(async (req) => {
     const code = e instanceof Error && ['ai_busy', 'ai_timeout', 'ai_not_configured'].includes(e.message) ? e.message : 'ai_failed';
     return fail(code, code === 'ai_busy' ? 429 : 502);
   } finally {
-    // Voice clips are only needed for transcription; don't keep farmers' recordings.
-    await sb.storage.from('media').remove([path]);
+    // Legacy uploads: voice clips are only needed for transcription; don't keep farmers' recordings.
+    if (path) await sb.storage.from('media').remove([path]);
   }
 });
