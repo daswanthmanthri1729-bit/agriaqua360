@@ -8,11 +8,13 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "backgroundColor": "#F2FBF5",
-    "ios": { "supportsTablet": true, "bundleIdentifier": "com.agriaqua360.app" },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.agriaqua360.app"
+    },
     "android": {
       "package": "com.agriaqua360.app",
       "versionCode": 1,
-      "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "backgroundColor": "#0E4B2F",
         "foregroundImage": "./assets/android-icon-foreground.png",
@@ -28,21 +30,64 @@
         "android.permission.ACCESS_FINE_LOCATION",
         "android.permission.POST_NOTIFICATIONS"
       ],
-      "blockedPermissions": ["android.permission.ACCESS_BACKGROUND_LOCATION"]
+      "blockedPermissions": [
+        "android.permission.ACCESS_BACKGROUND_LOCATION"
+      ]
     },
-    "web": { "favicon": "./assets/favicon.png", "output": "single" },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "output": "single"
+    },
     "plugins": [
       "expo-router",
       "expo-font",
       "expo-localization",
       "expo-image",
-      ["expo-splash-screen", { "image": "./assets/splash-icon.png", "imageWidth": 180, "backgroundColor": "#0E5A38" }],
-      ["expo-camera", { "cameraPermission": "AgriAqua 360 uses the camera to photograph crops, fish and animals for AI health checks.", "recordAudioAndroid": false }],
-      ["expo-image-picker", { "photosPermission": "AgriAqua 360 lets you attach photos of your crops, ponds and animals.", "cameraPermission": "AgriAqua 360 uses the camera to photograph crops, fish and animals for AI health checks." }],
-      ["expo-audio", { "microphonePermission": "AgriAqua 360 records your voice so you can ask farming questions by speaking." }],
-      ["expo-location", { "locationWhenInUsePermission": "AgriAqua 360 uses your location for local weather and to save farm locations." }],
-      ["expo-notifications", { "icon": "./assets/android-icon-monochrome.png", "color": "#176B45", "defaultChannel": "default" }]
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash-icon.png",
+          "imageWidth": 180,
+          "backgroundColor": "#0E5A38"
+        }
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "AgriAqua 360 uses the camera to photograph crops, fish and animals for AI health checks.",
+          "recordAudioAndroid": false
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "AgriAqua 360 lets you attach photos of your crops, ponds and animals.",
+          "cameraPermission": "AgriAqua 360 uses the camera to photograph crops, fish and animals for AI health checks."
+        }
+      ],
+      [
+        "expo-audio",
+        {
+          "microphonePermission": "AgriAqua 360 records your voice so you can ask farming questions by speaking."
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "AgriAqua 360 uses your location for local weather and to save farm locations."
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/android-icon-monochrome.png",
+          "color": "#176B45",
+          "defaultChannel": "default"
+        }
+      ]
     ],
-    "experiments": { "typedRoutes": true }
+    "experiments": {
+      "typedRoutes": true
+    }
   }
 }

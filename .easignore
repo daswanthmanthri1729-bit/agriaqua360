@@ -1,0 +1,23 @@
+# EAS uploads with this file instead of .gitignore.
+# It DOES upload google-services.json (FCM) and .env (public EXPO_PUBLIC_* values only),
+# and never uploads server secrets or design/test material.
+node_modules/
+.expo/
+dist/
+web-build/
+/ios
+/android
+*.jks
+*.p8
+*.p12
+*.key
+*.pem
+*.apk
+*.aab
+.env.local
+supabase/functions/.env
+supabase/.temp/
+design_reference/
+tests/
+documentation/
+.claude/
