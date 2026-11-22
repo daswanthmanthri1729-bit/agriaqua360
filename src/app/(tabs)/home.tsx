@@ -11,6 +11,8 @@ import { ACTIVITY_ICON, useDashboard } from '@/features/agriculture/api';
 import { signOut } from '@/features/auth/api';
 import { usePonds } from '@/features/aquaculture/api';
 import { overall } from '@/features/aquaculture/waterQuality';
+import { useAnimals, useVaccinations } from '@/features/livestock/api';
+import { vaccState } from '@/features/livestock/vaccination';
 import { useWeather, useWeatherTarget } from '@/features/weather/api';
 import { formatDate, today } from '@/lib/dates';
 import { useSession } from '@/store/session';
@@ -23,6 +25,7 @@ const ACTIONS: { key: string; icon: IconName; href: string }[] = [
   { key: 'scanCrop', icon: 'document-scanner', href: '/agriculture/scan' },
   { key: 'calendar', icon: 'event-note', href: '/agriculture/calendar' },
   { key: 'weather', icon: 'wb-cloudy', href: '/agriculture/weather' },
+  { key: 'livestock', icon: 'pets', href: '/livestock' },
 ];
 
 function greetingKey() {
@@ -36,6 +39,11 @@ export default function Dashboard() {
   const dash = useDashboard();
   const ponds = usePonds();
   const showAqua = !!ponds.data?.length || !!profile?.sectors?.includes('aquaculture');
+  const animals = useAnimals();
+  const vaccs = useVaccinations();
+  const showLive = !!animals.data?.length || !!profile?.sectors?.includes('livestock');
+  const herd = (animals.data ?? []).filter((a) => a.status !== 'sold' && a.status !== 'deceased').length;
+  const vaccDue = (vaccs.data ?? []).filter((v) => ['overdue', 'due_soon'].includes(vaccState(v, today()))).length;
   const pondAlerts = (ponds.data ?? []).filter((p) => p.latest && overall(p.latest) === 'bad').length;
   const weather = useWeather(useWeatherTarget());
   const advisory = weather.data?.advisories[0];
@@ -138,6 +146,19 @@ export default function Dashboard() {
               {pondAlerts > 0 && <Chip tone="error" icon="warning-amber" label={`${pondAlerts}`} />}
             </View>
             <Button variant="secondary" label={t('aqua.exploreAqua')} icon="arrow-forward" onPress={() => router.push('/aquaculture')} />
+          </Card>
+        )}
+        {showLive && (
+          <Card style={{ gap: 12 }}>
+            <View style={styles.row}>
+              <View style={styles.actionIcon}><Icon name="pets" size={26} color={colors.primaryDeep} /></View>
+              <View style={{ flex: 1 }}>
+                <AppText variant="labelMd" color={colors.textSubtle}>{t('livestock.livestockTitle').toUpperCase()}</AppText>
+                <AppText variant="headlineSm">{t('livestock.animalsCount', { count: herd })}</AppText>
+              </View>
+              {vaccDue > 0 && <Chip tone="warning" icon="vaccines" label={`${vaccDue}`} />}
+            </View>
+            <Button variant="secondary" label={t('livestock.exploreLivestock')} icon="arrow-forward" onPress={() => router.push('/livestock')} />
           </Card>
         )}
       </ScrollView>
