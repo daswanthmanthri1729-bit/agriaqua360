@@ -65,7 +65,7 @@ Deadline: **24 Nov 2026, 23:59 IST** (Level 1 APK).
 - EAS project `@daswanth-m/agriaqua360`; Android signing key managed by Expo.
 
 ## Known limits
-- Password reset by email: free-tier emails contain a link, not the 6-digit code the app expects. Add a custom SMTP sender in Supabase, then put `{{ .Token }}` in the "Reset password" template to make it work.
+- Password reset: 6-digit code emails in te/hi/en via Resend SMTP. With the test sender `onboarding@resend.dev`, emails only reach the Resend account owner — verify a domain in Resend and change the sender to reach all farmers.
 - Phone/SMS sign-up is off in Supabase; farmers register with email.
 - AI responses take ~20–25 s from the deployed functions.
 - Server-sent push (weather alerts) needs an FCM service-account key; reminders are local notifications.
