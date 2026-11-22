@@ -101,3 +101,29 @@ Deadline: **24 Nov 2026, 23:59 IST** (Level 1 APK).
 | Application testing completed | 🟡 | 88 unit tests, E2E, live API tests; full on-device run pending |
 | Android APK generated | ✅ | EAS preview build (latest: weather notifications) |
 | Setup documentation complete | ✅ | 10 documents in README + documentation/ |
+
+## Level 2 — paused 2026-11-22 (resume here)
+
+**Done and live**
+- Database: migrations 0008–0013 applied to production; RLS tests (`supabase/tests/level2_test.sql`) pass.
+- Edge Functions deployed and tested live (`tests/live/level2.live.mjs`): weather (Open-Meteo), environment (NASA POWER + SoilGrids), market, devices, ingest, insights, satellite, cron. A sweep runs every 5 min.
+- ESP32 firmware and its setup guide (`firmware/esp32`).
+
+**App work in progress (typecheck clean, not yet translated)**
+- **Tabs** are now Home / Monitor / Sahayak / Insights / Profile. The Agriculture and Aquaculture screens moved to `/agriculture` and `/aquaculture`.
+- **Built:**
+  - Monitor (tab, add, device detail, history, alerts, automation)
+  - Insights (tab, market, outlook, finance, schemes)
+  - agriculture/soil, agriculture/irrigation
+  - shared Chart / TileMap / SourceBadge / Freshness / InsightCard
+
+**Next steps**
+1. `agriculture/field.tsx`: draw the boundary on TileMap, show NDVI history and image.
+2. Upgrade the weather screen: hourly forecast, ET0, NASA rainfall vs last year.
+3. Upgrade the pond detail screen: live sensors, charts, AI water insight, feeding/growth/mortality.
+4. Upgrade the animal detail screen: milk/weight/breeding records, collar data, geofence map (`livestock/geofence.tsx`), AI insight.
+5. Add `settings/notifications.tsx` (user_preferences), switch push to Expo tokens, and add a Home intelligence section.
+6. Translate all new keys to en/te/hi, adding a test that every `t('…')` key exists.
+7. Offline write queue; run lint, tsc, jest and E2E; EAS APK; README and docs; release.
+
+**Keys you still need to add** (screens show "not configured" until then): DATA_GOV_IN_API_KEY, CDSE_CLIENT_ID/SECRET, EMQX account, and the FCM V1 key upload to EAS for push notifications.

@@ -7,20 +7,24 @@ import { AppText } from './AppText';
 import { LogoMark } from './LogoMark';
 import { colors, radius } from '@/theme';
 
-export function Header({ title, right, onBack, hideBack }: { title?: string; right?: ReactNode; onBack?: () => void; hideBack?: boolean }) {
+export function BackButton({ onBack }: { onBack?: () => void }) {
   const { t } = useTranslation();
   return (
+    <Pressable
+      accessibilityRole="button"
+      accessibilityLabel={t('common.back')}
+      onPress={onBack ?? (() => (router.canGoBack() ? router.back() : router.replace('/')))}
+      style={({ pressed }) => [styles.back, pressed && { backgroundColor: colors.surfaceHigh }]}
+    >
+      <Icon name="arrow-back" />
+    </Pressable>
+  );
+}
+
+export function Header({ title, right, onBack, hideBack }: { title?: string; right?: ReactNode; onBack?: () => void; hideBack?: boolean }) {
+  return (
     <View style={styles.row}>
-      {!hideBack && (
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel={t('common.back')}
-          onPress={onBack ?? (() => (router.canGoBack() ? router.back() : router.replace('/')))}
-          style={({ pressed }) => [styles.back, pressed && { backgroundColor: colors.surfaceHigh }]}
-        >
-          <Icon name="arrow-back" />
-        </Pressable>
-      )}
+      {!hideBack && <BackButton onBack={onBack} />}
       <LogoMark size={34} />
       {title ? <AppText variant="headlineSm" style={{ flex: 1 }} numberOfLines={1}>{title}</AppText> : <View style={{ flex: 1 }} />}
       {right}

@@ -3,13 +3,19 @@ import { useSession } from '@/store/session';
 import { useQuery } from '@tanstack/react-query';
 import { invoke } from '@/lib/query';
 
-export type WeatherQuery = { lat: number; lon: number } | { city: string };
+export type WeatherQuery = { lat: number; lon: number; name?: string } | { city: string };
 export type Weather = {
   location: { name: string; lat: number; lon: number };
   observed_at: string;
   current: { temp: number; feels_like: number; humidity: number; wind_kmh: number; rain_1h_mm: number; condition: string; icon: string; pop_today: number };
-  daily: { date: string; min: number; max: number; pop: number; rain_mm: number; condition: string; icon: string; wind_kmh: number }[];
+  daily: { date: string; min: number; max: number; pop: number; rain_mm: number; condition: string; icon: string; wind_kmh: number; et0_mm?: number; solar_mj?: number; uv?: number }[];
   advisories: { kind: 'heavy_rain' | 'heat' | 'strong_wind' | 'cold'; date: string; value: number }[];
+  // Level 2 (Open-Meteo); absent when the OpenWeather fallback answered.
+  source?: 'open-meteo' | 'openweather';
+  hourly?: { time: string; temp: number; humidity: number; pop: number; rain_mm: number; wind_kmh: number; condition: string; icon: string }[];
+  soil_moisture_estimate?: { top_1cm_pct: number; cm_3_9_pct: number | null } | null;
+  fetched_at?: string;
+  cached?: boolean;
 };
 
 export const useWeather = (q: WeatherQuery | null) =>

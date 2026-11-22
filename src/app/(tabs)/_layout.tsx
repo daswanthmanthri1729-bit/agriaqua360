@@ -30,9 +30,9 @@ export default function TabsLayout() {
       }}
     >
       <Tabs.Screen name="home" options={{ title: t('nav.home'), tabBarIcon: icon('home') }} />
-      <Tabs.Screen name="agriculture" options={{ title: t('nav.agriculture'), tabBarIcon: icon('agriculture') }} />
-      <Tabs.Screen name="aquaculture" options={{ title: t('nav.aquaculture'), tabBarIcon: icon('water') }} />
-      <Tabs.Screen name="assistant" options={{ title: t('nav.assistant'), tabBarIcon: icon('auto-awesome') }} />
+      <Tabs.Screen name="monitor" options={{ title: t('nav.monitor'), tabBarIcon: icon('sensors') }} />
+      <Tabs.Screen name="assistant" options={{ title: t('nav.sahayak'), tabBarIcon: icon('auto-awesome') }} />
+      <Tabs.Screen name="insights" options={{ title: t('nav.insights'), tabBarIcon: icon('insights') }} />
       <Tabs.Screen name="profile" options={{ title: t('nav.profile'), tabBarIcon: icon('account-circle') }} />
     </Tabs>
   );

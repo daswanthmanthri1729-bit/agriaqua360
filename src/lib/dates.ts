@@ -9,3 +9,9 @@ export const daysBetween = (a: string, b: string) => Math.round((parseDate(b).ge
 const LOCALE = { en: 'en-IN', te: 'te-IN', hi: 'hi-IN' } as const;
 export const formatDate = (s: string, lang: string, opts: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'short', year: 'numeric' }) =>
   parseDate(s).toLocaleDateString(LOCALE[lang as keyof typeof LOCALE] ?? 'en-IN', opts);
+/** Timestamp (ms or ISO) in the app language, e.g. chart axes: formatStamp(x, 'te', { hour: 'numeric' }). */
+export const formatStamp = (t: number | string, lang: string, opts: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit' }) =>
+  new Date(t).toLocaleString(LOCALE[lang as keyof typeof LOCALE] ?? 'en-IN', opts);
+/** Axis label for a chart spanning `hours`: time of day for ≤ 1 day, date otherwise. */
+export const axisFormat = (hours: number, lang: string) => (x: number) =>
+  formatStamp(x, lang, hours <= 24 ? { hour: 'numeric', minute: '2-digit' } : { day: 'numeric', month: 'short' });

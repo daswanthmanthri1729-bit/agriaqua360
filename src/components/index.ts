@@ -25,3 +25,7 @@ export * from './InfoRow';
 export * from './WeatherCard';
 export * from './LogoMark';
 export * from './OfflineBanner';
+export * from './Chart';
+export * from './SourceBadge';
+export * from './Freshness';
+export * from './TileMap';
