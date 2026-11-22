@@ -18,7 +18,7 @@ export default function ChatHistory() {
   return (
     <Screen>
       <Header title={t('history.title')} />
-      {convs.isLoading ? <LoadingList height={72} /> : convs.error ? <ErrorState onRetry={() => convs.refetch()} /> : !convs.data?.length ? (
+      {convs.isLoading ? <LoadingList height={72} /> : convs.error && !convs.data ? <ErrorState onRetry={() => convs.refetch()} /> : !convs.data?.length ? (
         <EmptyState icon="forum" title={t('history.empty')} action={t('history.start')} onAction={() => router.replace('/assistant')} />
       ) : convs.data.map((c) => (
         <Card key={c.id} onPress={() => router.navigate({ pathname: '/assistant', params: { id: c.id } })} accessibilityLabel={c.title ?? ''} style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>

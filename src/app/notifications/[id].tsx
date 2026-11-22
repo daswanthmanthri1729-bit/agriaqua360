@@ -16,7 +16,7 @@ export default function AlertDetails() {
   useEffect(() => { if (n.data && !n.data.read_at) mark.mutate([n.data.id]); }, [n.data?.id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (n.isLoading) return <Screen><Header /><LoadingList count={2} /></Screen>;
-  if (n.error || !n.data) return <Screen><Header /><ErrorState onRetry={() => n.refetch()} /></Screen>;
+  if (!n.data) return <Screen><Header /><ErrorState onRetry={() => n.refetch()} /></Screen>;
   const a = n.data;
   const known = ['weather', 'crop', 'irrigation', 'farm', 'pond', 'vaccination', 'animal_health', 'ai', 'system'].includes(a.category);
   const remove = () => Alert.alert(t('notifications.deleteTitle'), undefined, [

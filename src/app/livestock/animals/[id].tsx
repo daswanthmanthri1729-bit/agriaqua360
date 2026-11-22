@@ -22,7 +22,7 @@ export default function AnimalDetails() {
   const ageLabel = useAgeLabel();
 
   if (animal.isLoading) return <Screen><Header /><LoadingList height={140} /></Screen>;
-  if (animal.error || !animal.data) return <Screen><Header /><ErrorState onRetry={() => animal.refetch()} /></Screen>;
+  if (!animal.data) return <Screen><Header /><ErrorState onRetry={() => animal.refetch()} /></Screen>;
   const a = animal.data;
   const records = (tab: 'health' | 'vacc', add?: boolean) => router.push({ pathname: '/livestock/records', params: { animalId: a.id, tab, ...(add ? { add: '1' } : {}) } });
 

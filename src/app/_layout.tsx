@@ -5,9 +5,11 @@ import { StatusBar } from 'expo-status-bar';
 import * as SplashScreen from 'expo-splash-screen';
 import { useFonts, Manrope_600SemiBold, Manrope_700Bold, Manrope_800ExtraBold } from '@expo-google-fonts/manrope';
 import { Inter_400Regular, Inter_500Medium, Inter_600SemiBold, Inter_700Bold } from '@expo-google-fonts/inter';
-import { QueryClientProvider } from '@tanstack/react-query';
+import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
+import { View } from 'react-native';
+import { OfflineBanner } from '@/components';
 import { listenForNotificationTaps } from '@/services/notifications';
-import { queryClient } from '@/lib/query';
+import { persistOptions, queryClient } from '@/lib/query';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import i18n from '@/locales';
 import { usePreferences } from '@/store/preferences';
@@ -46,13 +48,16 @@ export default function RootLayout() {
   if (!ready) return null;
 
   return (
-    <QueryClientProvider client={queryClient}>
+    <PersistQueryClientProvider client={queryClient} persistOptions={persistOptions}>
       <SafeAreaProvider>
         <StatusBar style="dark" />
-        <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: colors.background }, animation: 'slide_from_right' }}>
-          <Stack.Screen name="index" options={{ animation: 'fade' }} />
-        </Stack>
+        <View style={{ flex: 1 }}>
+          <OfflineBanner />
+          <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: colors.background }, animation: 'slide_from_right' }}>
+            <Stack.Screen name="index" options={{ animation: 'fade' }} />
+          </Stack>
+        </View>
       </SafeAreaProvider>
-    </QueryClientProvider>
+    </PersistQueryClientProvider>
   );
 }

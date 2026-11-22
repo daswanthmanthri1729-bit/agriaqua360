@@ -44,7 +44,7 @@ export default function Records() {
         ? <HealthForm animal={animal} onDone={() => setAdding(false)} />
         : <VaccForm animal={animal} onDone={() => setAdding(false)} />)}
 
-      {animals.isLoading || q.isLoading ? <LoadingList height={80} /> : q.error ? <ErrorState onRetry={() => q.refetch()} /> : !animals.data?.length ? (
+      {animals.isLoading || q.isLoading ? <LoadingList height={80} /> : q.error && !q.data ? <ErrorState onRetry={() => q.refetch()} /> : !animals.data?.length ? (
         <EmptyState icon="pets" title={t('livestock.emptyTitle')} text={t('livestock.emptyText')} />
       ) : tab === 'vacc' ? (
         <Card style={{ paddingVertical: 4 }}>

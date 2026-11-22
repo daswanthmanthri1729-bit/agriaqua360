@@ -1,7 +1,32 @@
-import { QueryClient } from '@tanstack/react-query';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { onlineManager, QueryClient } from '@tanstack/react-query';
+import { createAsyncStoragePersister } from '@tanstack/query-async-storage-persister';
+import type { PersistQueryClientOptions } from '@tanstack/react-query-persist-client';
+import { addNetworkStateListener } from 'expo-network';
+import Constants from 'expo-constants';
 import { supabase } from './supabase';
 
-export const queryClient = new QueryClient({ defaultOptions: { queries: { retry: 1, staleTime: 30_000 } } });
+const DAY = 24 * 3600_000;
+// gcTime ≥ persist maxAge, otherwise persisted data is dropped before it can be restored.
+export const queryClient = new QueryClient({ defaultOptions: { queries: { retry: 1, staleTime: 30_000, gcTime: DAY } } });
+
+// Last-loaded data survives restarts, so screens show something without signal (read-only offline).
+export const persister = createAsyncStoragePersister({ storage: AsyncStorage, key: 'agriaqua-query-cache', throttleTime: 2000 });
+export const persistOptions: Omit<PersistQueryClientOptions, 'queryClient'> = {
+  persister,
+  maxAge: DAY,
+  buster: Constants.expoConfig?.version ?? '1', // new app version → drop old cache shapes
+  dehydrateOptions: {
+    // Signed photo URLs expire; never persist them.
+    shouldDehydrateQuery: (q) => q.state.status === 'success' && q.queryKey[0] !== 'signed',
+  },
+};
+
+// Pause queries while offline and refetch automatically when the connection returns.
+onlineManager.setEventListener((setOnline) => {
+  const sub = addNetworkStateListener((s) => setOnline(s.isConnected !== false && s.isInternetReachable !== false));
+  return () => sub.remove();
+});
 
 // Unwraps a supabase-js result so TanStack Query sees errors as rejections.
 export async function must<T>(p: PromiseLike<{ data: T | null; error: unknown }>): Promise<T> {

@@ -15,7 +15,7 @@ export default function FarmDetails() {
   const del = useDeleteFarm();
 
   if (farm.isLoading) return <Screen><Header /><LoadingList count={3} height={140} /></Screen>;
-  if (farm.error || !farm.data) return <Screen><Header /><ErrorState onRetry={() => farm.refetch()} /></Screen>;
+  if (!farm.data) return <Screen><Header /><ErrorState onRetry={() => farm.refetch()} /></Screen>;
   const f = farm.data;
 
   const confirmDelete = () =>

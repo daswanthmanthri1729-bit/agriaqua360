@@ -27,7 +27,7 @@ export default function PondManagement() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }} edges={['top', 'bottom']}>
       <FlatList
-        data={ponds.isLoading || ponds.error ? [] : list}
+        data={ponds.isLoading || (ponds.error && !ponds.data) ? [] : list}
         keyExtractor={(p) => p.id}
         contentContainerStyle={{ padding: space.md, gap: 12, paddingBottom: 100 }}
         ListHeaderComponent={
@@ -58,7 +58,7 @@ export default function PondManagement() {
           );
         }}
         ListEmptyComponent={
-          ponds.isLoading ? <LoadingList height={96} /> : ponds.error ? <ErrorState onRetry={() => ponds.refetch()} /> : (
+          ponds.isLoading ? <LoadingList height={96} /> : ponds.error && !ponds.data ? <ErrorState onRetry={() => ponds.refetch()} /> : (
             <EmptyState icon="water" title={t('aqua.emptyTitle')} text={t('aqua.emptyText')} action={t('ponds.add')} onAction={() => setOpen(true)} />
           )
         }

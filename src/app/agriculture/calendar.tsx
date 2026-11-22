@@ -44,7 +44,7 @@ export default function CropCalendar() {
         })}
       </ScrollView>
 
-      {records.isLoading ? <LoadingList count={3} height={56} /> : records.error ? <ErrorState onRetry={() => records.refetch()} /> : !cropList.length && !all.length ? (
+      {records.isLoading ? <LoadingList count={3} height={56} /> : records.error && !records.data ? <ErrorState onRetry={() => records.refetch()} /> : !cropList.length && !all.length ? (
         <EmptyState icon="event-note" title={t('calendar.noCrops')} />
       ) : (
         <>

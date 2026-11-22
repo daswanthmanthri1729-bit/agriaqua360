@@ -28,7 +28,8 @@
     "selectDate": "Select date",
     "none": "None",
     "updated": "Updated {{time}}",
-    "remove": "Remove"
+    "remove": "Remove",
+    "offline": "You're offline. Showing saved data — saving changes needs internet."
   },
   "sectors": {
     "agriculture": "Agriculture",

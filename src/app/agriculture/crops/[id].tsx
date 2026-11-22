@@ -24,7 +24,7 @@ export default function CropDetails() {
   const [taskOpen, setTaskOpen] = useState(false);
 
   if (crop.isLoading) return <Screen><Header /><LoadingList height={140} /></Screen>;
-  if (crop.error || !crop.data) return <Screen><Header /><ErrorState onRetry={() => crop.refetch()} /></Screen>;
+  if (!crop.data) return <Screen><Header /><ErrorState onRetry={() => crop.refetch()} /></Screen>;
   const c = crop.data;
   const day = c.sowing_date ? daysBetween(c.sowing_date, today()) : null;
   const left = c.expected_harvest_date ? daysBetween(today(), c.expected_harvest_date) : null;

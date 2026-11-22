@@ -13,7 +13,8 @@ import { useSession } from '@/store/session';
 import { nextRoute } from '@/features/auth/routing';
 import { colors, radius } from '@/theme';
 
-const MIN_SPLASH_MS = 1800;
+// Short brand moment only; data/session readiness is awaited separately.
+const MIN_SPLASH_MS = 700;
 
 export default function Splash() {
   const { t } = useTranslation();

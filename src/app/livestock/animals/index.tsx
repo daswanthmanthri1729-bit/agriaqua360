@@ -23,7 +23,7 @@ export default function AnimalManagement() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }} edges={['top', 'bottom']}>
       <FlatList
-        data={animals.isLoading || animals.error ? [] : list}
+        data={animals.isLoading || (animals.error && !animals.data) ? [] : list}
         keyExtractor={(a) => a.id}
         contentContainerStyle={{ padding: space.md, gap: 12, paddingBottom: 100 }}
         ListHeaderComponent={
@@ -36,7 +36,7 @@ export default function AnimalManagement() {
         }
         renderItem={({ item }) => <AnimalRow a={item} onPress={() => router.push(`/livestock/animals/${item.id}`)} />}
         ListEmptyComponent={
-          animals.isLoading ? <LoadingList height={88} /> : animals.error ? <ErrorState onRetry={() => animals.refetch()} /> : animals.data?.length ? (
+          animals.isLoading ? <LoadingList height={88} /> : animals.error && !animals.data ? <ErrorState onRetry={() => animals.refetch()} /> : animals.data?.length ? (
             <AppText variant="bodyMd" color={colors.textMuted} align="center">{t('livestock.noMatch')}</AppText>
           ) : <EmptyState icon="pets" title={t('livestock.emptyTitle')} text={t('livestock.emptyText')} action={t('livestock.addAnimal')} onAction={() => router.push('/livestock/animals/new')} />
         }

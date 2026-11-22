@@ -13,7 +13,7 @@ export function WeatherCard() {
   const target = useWeatherTarget();
   const { data, isLoading, error } = useWeather(target);
   if (isLoading) return <Skeleton height={180} />;
-  if (!target || error || !data) {
+  if (!target || !data) { // keep showing the last forecast if a refresh fails
     return (
       <Card onPress={() => router.push('/agriculture/weather')} style={styles.row} accessibilityLabel={t('dashboard.weather')}>
         <Icon name={target ? 'cloud-off' : 'location-searching'} color={colors.textMuted} />

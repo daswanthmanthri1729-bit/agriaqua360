@@ -76,14 +76,14 @@ export default function FarmManagement() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }} edges={['top']}>
       <FlatList
-        data={farms.isLoading || farms.error ? [] : list}
+        data={farms.isLoading || (farms.error && !farms.data) ? [] : list}
         keyExtractor={(f) => f.id}
         renderItem={renderFarm}
         contentContainerStyle={styles.content}
         ListHeaderComponent={header}
         refreshControl={<RefreshControl refreshing={farms.isRefetching} onRefresh={() => { farms.refetch(); crops.refetch(); }} colors={[colors.primary]} />}
         ListEmptyComponent={
-          farms.isLoading ? <LoadingList height={260} /> : farms.error ? <ErrorState onRetry={() => farms.refetch()} /> : q ? (
+          farms.isLoading ? <LoadingList height={260} /> : farms.error && !farms.data ? <ErrorState onRetry={() => farms.refetch()} /> : q ? (
             <AppText variant="bodyMd" color={colors.textMuted} align="center">{t('farms.noMatch')}</AppText>
           ) : (
             <EmptyState icon="landscape" title={t('farms.emptyTitle')} text={t('farms.emptyText')} action={t('farms.add')} onAction={() => router.push('/agriculture/farms/new')} />

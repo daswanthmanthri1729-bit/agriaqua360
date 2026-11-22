@@ -41,7 +41,7 @@ export default function AquacultureDashboard() {
           <AppText variant="bodyLg" color={colors.textMuted}>{t('aqua.subtitle')}</AppText>
         </View>
 
-        {ponds.isLoading ? <LoadingList count={3} height={110} /> : ponds.error ? <ErrorState onRetry={() => ponds.refetch()} /> : !list.length ? (
+        {ponds.isLoading ? <LoadingList count={3} height={110} /> : ponds.error && !ponds.data ? <ErrorState onRetry={() => ponds.refetch()} /> : !list.length ? (
           <EmptyState icon="water" title={t('aqua.emptyTitle')} text={t('aqua.emptyText')} action={t('aqua.addPond')}
             onAction={() => router.push({ pathname: '/aquaculture/ponds', params: { add: '1' } })} />
         ) : (

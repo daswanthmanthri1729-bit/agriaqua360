@@ -106,7 +106,7 @@ export default function Dashboard() {
         {!advisory && dash.data && !dash.data.overdue && <Banner tone="success" message={t('dashboard.noUpdates')} />}
 
         <SectionHeader title={t('dashboard.upcoming')} action={t('common.seeAll')} onAction={() => router.push('/agriculture/calendar')} />
-        {dash.isLoading ? <Skeleton height={120} /> : dash.error ? <ErrorState onRetry={() => dash.refetch()} /> : dash.data!.upcoming.length === 0 ? (
+        {dash.isLoading ? <Skeleton height={120} /> : dash.error && !dash.data ? <ErrorState onRetry={() => dash.refetch()} /> : dash.data!.upcoming.length === 0 ? (
           <AppText variant="bodyMd" color={colors.textMuted}>{t('dashboard.noUpcoming')}</AppText>
         ) : (
           <Card style={{ gap: 4, paddingVertical: 8 }}>

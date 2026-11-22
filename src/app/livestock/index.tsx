@@ -33,7 +33,7 @@ export default function LivestockDashboard() {
         refreshControl={<RefreshControl refreshing={animals.isRefetching} onRefresh={() => { animals.refetch(); vaccs.refetch(); }} colors={[colors.primary]} />}>
         <Header title={t('livestock.title')} />
         <AppText variant="bodyLg" color={colors.textMuted}>{t('livestock.subtitle')}</AppText>
-        {animals.isLoading ? <LoadingList count={3} height={100} /> : animals.error ? <ErrorState onRetry={() => animals.refetch()} /> : !animals.data?.length ? (
+        {animals.isLoading ? <LoadingList count={3} height={100} /> : animals.error && !animals.data ? <ErrorState onRetry={() => animals.refetch()} /> : !animals.data?.length ? (
           <EmptyState icon="pets" title={t('livestock.emptyTitle')} text={t('livestock.emptyText')} action={t('livestock.addAnimal')} onAction={() => router.push('/livestock/animals/new')} />
         ) : (
           <>

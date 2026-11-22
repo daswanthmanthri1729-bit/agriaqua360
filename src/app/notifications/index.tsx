@@ -15,7 +15,7 @@ export default function NotificationsCentre() {
   return (
     <Screen>
       <Header title={t('notifications.title')} right={unread.length ? <Button compact variant="text" iconLeft="done-all" label={t('notifications.markAll')} loading={mark.isPending} onPress={() => mark.mutate(unread.map((n) => n.id))} /> : undefined} />
-      {list.isLoading ? <LoadingList height={72} /> : list.error ? <ErrorState onRetry={() => list.refetch()} /> : !list.data?.length ? (
+      {list.isLoading ? <LoadingList height={72} /> : list.error && !list.data ? <ErrorState onRetry={() => list.refetch()} /> : !list.data?.length ? (
         <EmptyState icon="notifications-none" title={t('notifications.empty')} />
       ) : list.data.map((n) => (
         <Card key={n.id} onPress={() => router.push(`/notifications/${n.id}`)} accessibilityLabel={`${n.read_at ? '' : `${t('notifications.new')}: `}${n.title}`}

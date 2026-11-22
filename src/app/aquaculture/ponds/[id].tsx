@@ -24,7 +24,7 @@ export default function PondDetails() {
   const [recordOpen, setRecordOpen] = useState(false);
 
   if (pond.isLoading) return <Screen><Header /><LoadingList height={140} /></Screen>;
-  if (pond.error || !pond.data) return <Screen><Header /><ErrorState onRetry={() => pond.refetch()} /></Screen>;
+  if (!pond.data) return <Screen><Header /><ErrorState onRetry={() => pond.refetch()} /></Screen>;
   const p = pond.data;
   const latest = readings.data?.[0];
   const doc = p.stocking_date && p.status === 'active' ? daysBetween(p.stocking_date, today()) : null;

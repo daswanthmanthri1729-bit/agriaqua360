@@ -31,7 +31,7 @@ export default function SavedRecords() {
     <Screen>
       <Header title={t('saved.title')} />
       <ChoiceChips scroll value={type} onChange={setType} options={[{ value: 'all', label: t('saved.all') }, ...TYPES.map((x) => ({ value: x, label: t(`saved.types.${x}`) }))]} />
-      {saved.isLoading ? <LoadingList height={72} /> : saved.error ? <ErrorState onRetry={() => saved.refetch()} /> : !list.length ? (
+      {saved.isLoading ? <LoadingList height={72} /> : saved.error && !saved.data ? <ErrorState onRetry={() => saved.refetch()} /> : !list.length ? (
         <EmptyState icon="bookmark-border" title={t('saved.empty')} />
       ) : list.map((r) => (
         <Card key={r.id} onPress={() => open(r)} accessibilityLabel={r.title ?? ''} style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>

@@ -42,7 +42,7 @@ export default function WeatherScreen() {
       <Button variant="tonal" iconLeft="my-location" label={t('weather.useCurrent')} loading={locating} onPress={useGps} />
       {locError && <Banner tone="warning" message={t(locError)} onDismiss={() => setLocError(null)} />}
 
-      {!target ? <Banner message={t('dashboard.setLocation')} /> : w.isLoading ? <LoadingList count={3} height={120} /> : w.error || !d ? (
+      {!target ? <Banner message={t('dashboard.setLocation')} /> : w.isLoading ? <LoadingList count={3} height={120} /> : !d ? (
         <ErrorState message={`${t('weather.errorTitle')}. ${t((w.error as Error | null)?.message ?? 'errors.weather_unavailable')}`} onRetry={() => w.refetch()} />
       ) : (
         <>

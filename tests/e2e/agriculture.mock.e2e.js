@@ -229,6 +229,22 @@ const weather = { location: { name: 'Kovur', lat: 14.5, lon: 79.98 }, observed_a
   await pg.getByRole('radio', { name: 'English' }).first().click().catch(() => {});
   await pg.goto(base + '/profile'); await pg.waitForTimeout(800); await pg.getByRole('radio', { name: 'English' }).first().click();
 
+  // ---- S6: offline — data persisted on the device, and shown with the network off ----
+  await pg.goto(base + '/agriculture'); await pg.getByText('Canal-side field').first().waitFor({ timeout: 8000 }); await pg.waitForTimeout(3000);
+  const stored = await pg.evaluate(() => localStorage.getItem('agriaqua-query-cache') || '');
+  console.log('PERSISTED farm=' + stored.includes('Canal-side field') + ' signedUrls=' + stored.includes('"signed"') + ' kb=' + Math.round(stored.length / 1024));
+  // Web builds load each screen's code on first visit (native/desktop bundles are local), so visit Home once while online.
+  await pg.getByRole('tab', { name: /Home/ }).first().click(); await pg.waitForTimeout(1500);
+  await pg.getByRole('tab', { name: /Agri/ }).first().click(); await pg.waitForTimeout(1000);
+  await ctx.setOffline(true);
+  await pg.getByRole('tab', { name: /Home/ }).first().click(); await pg.waitForTimeout(800);
+  await pg.getByRole('tab', { name: /Agri/ }).first().click(); await pg.waitForTimeout(1500);
+  const offlineBanner = await pg.getByText(/You're offline/).first().isVisible().catch(() => false);
+  const cachedFarm = await pg.getByText('Canal-side field').first().isVisible().catch(() => false);
+  const errorShown = await pg.getByText('Could not load data.').first().isVisible().catch(() => false);
+  console.log('OFFLINE banner=' + offlineBanner + ' cachedFarm=' + cachedFarm + ' errorState=' + errorShown); await shot('S6-offline');
+  await ctx.setOffline(false); await pg.waitForTimeout(1500);
+  console.log('BACK ONLINE banner gone=' + !(await pg.getByText(/You're offline/).first().isVisible().catch(() => false)));
   await pg.goto(base + '/home'); await shot('09-dashboard');
   console.log('TABBAR', JSON.stringify(await pg.evaluate(() => [...document.querySelectorAll('[role=tab]')].map((t) => { const r = t.getBoundingClientRect(); const l = [...t.querySelectorAll('div')].find((d) => d.textContent === 'Home' || d.textContent === 'Agri'); const lr = l?.getBoundingClientRect(); return { tab: [r.top, r.bottom], label: lr && [lr.top, lr.bottom], vh: innerHeight }; }))));
   await pg.getByRole('radio', { name: 'Telugu' }).first().click(); await shot('09-dashboard-te');

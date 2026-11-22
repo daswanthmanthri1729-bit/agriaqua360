@@ -30,7 +30,7 @@ export default function WaterQuality() {
       {pondList.length > 1 && (
         <ChoiceChips scroll value={pondId} onChange={setPondId} options={[{ value: 'all', label: t('crops.all') }, ...pondList.map((p) => ({ value: p.id, label: p.name }))]} />
       )}
-      {readings.isLoading || ponds.isLoading ? <LoadingList height={120} /> : readings.error ? <ErrorState onRetry={() => readings.refetch()} /> : !pondList.length ? (
+      {readings.isLoading || ponds.isLoading ? <LoadingList height={120} /> : readings.error && !readings.data ? <ErrorState onRetry={() => readings.refetch()} /> : !pondList.length ? (
         <EmptyState icon="water" title={t('aqua.emptyTitle')} text={t('aqua.emptyText')} />
       ) : !latest ? <EmptyState icon="science" title={t('water.empty')} text={t('water.meterNote')} action={t('water.add')} onAction={() => setOpen(true)} /> : (
         <>

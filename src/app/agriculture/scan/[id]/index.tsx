@@ -25,7 +25,7 @@ export default function ScanResult() {
   };
 
   if (scan.isLoading) return <Screen><Header /><LoadingList height={160} /></Screen>;
-  if (scan.error || !scan.data) return <Screen><Header /><ErrorState onRetry={() => scan.refetch()} /></Screen>;
+  if (!scan.data) return <Screen><Header /><ErrorState onRetry={() => scan.refetch()} /></Screen>;
   const s = scan.data;
   const r = report?.raw_response;
 

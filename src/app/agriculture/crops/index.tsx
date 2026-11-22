@@ -21,7 +21,7 @@ export default function CropManagement() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }} edges={['top', 'bottom']}>
       <FlatList
-        data={crops.isLoading || crops.error ? [] : list}
+        data={crops.isLoading || (crops.error && !crops.data) ? [] : list}
         keyExtractor={(c) => c.id}
         contentContainerStyle={{ padding: space.md, gap: 12, paddingBottom: 100 }}
         ListHeaderComponent={
@@ -50,7 +50,7 @@ export default function CropManagement() {
           );
         }}
         ListEmptyComponent={
-          crops.isLoading ? <LoadingList height={96} /> : crops.error ? <ErrorState onRetry={() => crops.refetch()} /> : (
+          crops.isLoading ? <LoadingList height={96} /> : crops.error && !crops.data ? <ErrorState onRetry={() => crops.refetch()} /> : (
             <EmptyState icon="eco" title={t('crops.emptyTitle')} text={t('crops.emptyText')} action={t('crops.add')} onAction={() => router.push('/agriculture/crops/new')} />
           )
         }
