@@ -27,3 +27,8 @@ Output: `android/app/build/outputs/apk/release/app-release.apk`.
 
 ## Status
 Not built yet. The cloud sandbox can't reach `dl.google.com` (Android SDK) and has no Expo login, so the APK needs either an `EXPO_TOKEN` or a machine with the Android SDK.
+
+## Android permissions (why Play Protect may warn)
+The APK requests only: location (weather/farm GPS), camera, microphone (voice questions), notifications, internet, vibrate, and legacy storage (Android ≤ 12 gallery).
+Blocked on purpose in `app.json`: background location and SYSTEM_ALERT_WINDOW ("display over other apps", added by the Expo template and a common Play Protect trigger). expo-audio background playback is off (no foreground service).
+Sideloaded APKs from a new developer can still show a Play Protect warning; installing via Google Play (internal testing) removes it.
