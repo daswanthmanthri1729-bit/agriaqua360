@@ -1,6 +1,11 @@
 // GET-style POST { lat, lon } | { city }  →  current conditions, 5-day daily forecast, derived advisories.
 import { cors, fail, json } from '../_shared/http.ts';
-import { shape } from '../_shared/weather.ts';
+import { createClient } from 'npm:@supabase/supabase-js@2';
+import { shape, WEATHER_TTL_MS, weatherCacheKey } from '../_shared/weather.ts';
+
+// Service-role client for the shared cache table (no user can read/write it directly).
+const serviceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
+const cache = serviceKey ? createClient(Deno.env.get('SUPABASE_URL')!, serviceKey, { auth: { persistSession: false } }) : null;
 
 const OW = 'https://api.openweathermap.org';
 
@@ -11,6 +16,12 @@ Deno.serve(async (req) => {
 
   let body: { lat?: number; lon?: number; city?: string };
   try { body = await req.json(); } catch { return fail('bad_request'); }
+
+  const cacheKey = weatherCacheKey(body);
+  if (cache && cacheKey) {
+    const { data: hit } = await cache.from('weather_cache').select('payload, fetched_at').eq('cache_key', cacheKey).maybeSingle();
+    if (hit && Date.now() - Date.parse(hit.fetched_at) < WEATHER_TTL_MS) return json({ ...hit.payload, cached: true });
+  }
 
   let { lat, lon } = body;
   if (typeof body.city === 'string' && body.city.trim()) {
@@ -27,5 +38,8 @@ Deno.serve(async (req) => {
   if (c.status === 401 || f.status === 401) return fail('weather_key_invalid', 502);
   if (!c.ok || !f.ok) return fail('weather_unavailable', 502);
   const [current, forecast] = await Promise.all([c.json(), f.json()]);
-  return json(shape(current, forecast.list));
+  const result = shape(current, forecast.list);
+  // Best effort: a cache write failure must not fail the farmer's request.
+  if (cache && cacheKey) await cache.from('weather_cache').upsert({ cache_key: cacheKey, payload: result, fetched_at: new Date().toISOString() }).then(() => {}, () => {});
+  return json(result);
 });

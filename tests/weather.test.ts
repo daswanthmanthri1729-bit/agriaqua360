@@ -40,3 +40,17 @@ it('shape() builds current conditions with today rain chance', () => {
   expect(out.current).toMatchObject({ temp: 31, feels_like: 34, humidity: 78, wind_kmh: 12, condition: 'Clear', pop_today: 15, rain_1h_mm: 0 });
   expect(out.location.name).toBe('Eluru');
 });
+
+import { weatherCacheKey } from '../supabase/functions/_shared/weather';
+describe('weatherCacheKey', () => {
+  it('groups nearby coordinates into one ~11 km cell', () => {
+    expect(weatherCacheKey({ lat: 16.7123, lon: 81.0987 })).toBe('g:16.7,81.1');
+    expect(weatherCacheKey({ lat: 16.7499, lon: 81.1049 })).toBe(weatherCacheKey({ lat: 16.7123, lon: 81.0987 }));
+  });
+  it('normalises city names', () => expect(weatherCacheKey({ city: '  Kovur ,  IN ' })).toBe('c:kovur,in'));
+  it('rejects invalid input', () => {
+    expect(weatherCacheKey({ lat: 120, lon: 0 })).toBeNull();
+    expect(weatherCacheKey({ lat: '16', lon: 81 })).toBeNull();
+    expect(weatherCacheKey({})).toBeNull();
+  });
+});
