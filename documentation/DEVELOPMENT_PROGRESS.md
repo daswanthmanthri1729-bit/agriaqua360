@@ -13,7 +13,7 @@ Deadline: **24 Nov 2026, 23:59 IST** (Level 1 APK).
 | Build | Android APK | ⏳ Needs Expo account token or Android SDK host access (see APK_BUILD_GUIDE) |
 
 ## Batch 1 log (22 Nov 2026)
-- Inspected Stitch ZIP (66 screen folders + `DESIGN.md`). Extracted to `design_reference/stitch/` (ZIP kept locally under `design_reference/zips/`, git-ignored).
+- Inspected Stitch ZIP (66 screen folders + `DESIGN.md`). Extracted and used as reference; the Stitch files are not stored in the repository.
 - Stitch covers splash, welcome, login, registration, language selection. Permissions, OTP and Profile Setup had no frame → built from the same system.
 - Scaffolded Expo SDK 58 + TypeScript + Expo Router (`src/app`).
 - Design system: Manrope/Inter, Intelligent Nature palette, 52px controls, 48dp touch targets, +18% line-height for Telugu/Hindi.
@@ -80,7 +80,7 @@ Deadline: **24 Nov 2026, 23:59 IST** (Level 1 APK).
 | Criterion | Status | Evidence / gap |
 |---|---|---|
 | Exactly 40 primary screens | ✅ | 40 route files tagged `// 01`–`// 40`; SCREEN_IMPLEMENTATION_STATUS.md |
-| Stitch designs inspected and followed | ✅ | design_reference/stitch; tokens from DESIGN.md; screenshots compared per batch |
+| Stitch designs inspected and followed | ✅ | the Stitch export; tokens from DESIGN.md; screenshots compared per batch |
 | Navigation works | ✅ | Mocked E2E covers every batch; tab bar per Stitch |
 | Authentication works | ✅ | Live: sign-up, login, profile trigger; owner signed up on a real phone |
 | Supabase integration works | ✅ | Live project; owner's phone stored 10 AI messages |

@@ -1,4 +1,4 @@
-// Tokens from design_reference/.../intelligent_nature/DESIGN.md ("Intelligent Nature").
+// Tokens from the Stitch "Intelligent Nature" design system (DESIGN.md; design files are not stored in this repo).
 export const colors = {
   primary: '#176B45',
   primaryDark: '#0E4B2F',
