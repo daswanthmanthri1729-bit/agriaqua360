@@ -63,3 +63,16 @@ export function shape(current: CurrentOW, forecast: Forecast3h[]) {
     advisories: advisories(daily),
   };
 }
+
+export const WEATHER_TTL_MS = 30 * 60_000;
+
+/** Cache key: ~11 km grid cell for coordinates, normalised name for city searches. null = not cacheable. */
+export function weatherCacheKey(q: { lat?: unknown; lon?: unknown; city?: unknown }): string | null {
+  if (typeof q.city === 'string' && q.city.trim()) {
+    return `c:${q.city.trim().toLowerCase().replace(/\s+/g, ' ').replace(/\s*,\s*/g, ',').slice(0, 100)}`;
+  }
+  if (typeof q.lat === 'number' && typeof q.lon === 'number' && Math.abs(q.lat) <= 90 && Math.abs(q.lon) <= 180) {
+    return `g:${q.lat.toFixed(1)},${q.lon.toFixed(1)}`;
+  }
+  return null;
+}
