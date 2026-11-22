@@ -85,7 +85,13 @@ const weather = { location: { name: 'Kovur', lat: 14.5, lon: 79.98 }, observed_a
       db.ai_messages.push({ id: id(), conversation_id: cid, role: 'user', content: b.message || '(photo)', input_mode: b.input_mode, image_paths: b.image_paths, created_at: new Date().toISOString() });
       const msg = { id: id(), conversation_id: cid, role: 'assistant', content: 'Yellowing in paddy at 40 days is often nitrogen deficiency. Apply 25 kg urea per acre in two splits and keep 2-3 cm water. Get a soil test to confirm.', input_mode: 'text', image_paths: [], created_at: new Date(Date.now() + 1).toISOString() };
       db.ai_messages.push(msg);
-      return json({ conversation_id: cid, message: msg, follow_ups: ['Should I add zinc?', 'When to apply potash?'], recommend_expert: b.input_mode === 'image' });
+      const result = { conversation_id: cid, message: msg, follow_ups: ['Should I add zinc?', 'When to apply potash?'], recommend_expert: b.input_mode === 'image' };
+      if (b.stream) { // Server-Sent Events, as the real function sends them
+        log.push('fn:ai-assistant stream');
+        const ev = (e, d) => `event: ${e}\ndata: ${JSON.stringify(d)}\n\n`;
+        return route.fulfill({ status: 200, contentType: 'text/event-stream', headers: { 'access-control-allow-origin': '*' }, body: ev('delta', { text: 'Yellowing in paddy' }) + ev('delta', { text: msg.content }) + ev('done', result) });
+      }
+      return json(result);
     }
     if (p.startsWith('/storage/v1/object/media/')) { log.push('upload ' + p.split('/media/')[1]); return json({ Key: p }); }
     if (p.startsWith('/storage/v1/object/sign/')) return json({ error: 'not found' }, 400);

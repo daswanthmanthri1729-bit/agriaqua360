@@ -30,6 +30,8 @@ export const assistantSchema = {
     recommend_expert: { type: 'BOOLEAN' },
   },
   required: ['reply', 'topic', 'title', 'follow_ups', 'recommend_expert'],
+  // reply first so streaming can show it while the rest is still being written
+  propertyOrdering: ['reply', 'topic', 'title', 'follow_ups', 'recommend_expert'],
 };
 export type AssistantReply = { reply: string; topic: (typeof TOPICS)[number]; title: string; follow_ups: string[]; recommend_expert: boolean };
 

@@ -28,6 +28,7 @@ Deno.serve(async (req) => {
       temperature: 0,
       maxOutputTokens: 512,
       models: FAST_MODELS,
+      thinking: 'minimal',
     });
     return json(r);
   } catch (e) {

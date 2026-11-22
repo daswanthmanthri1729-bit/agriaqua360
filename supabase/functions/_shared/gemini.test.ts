@@ -59,3 +59,24 @@ Deno.test('a model exhausted for the day is skipped on following requests', asyn
   await generateJson(opts); await generateJson(opts); await generateJson(opts);
   assertEquals(calls, ['big', 'lite', 'lite', 'lite']);
 });
+
+Deno.test('partialJsonString decodes a string field while it is still being streamed', async () => {
+  const { partialJsonString } = await import('./gemini.ts');
+  assertEquals(partialJsonString('{"rep', 'reply'), '');
+  assertEquals(partialJsonString('{"reply": "నా వరి', 'reply'), 'నా వరి');
+  assertEquals(partialJsonString('{"reply":"a\\nb \\"c\\" \\u0C', 'reply'), 'a\nb "c" '); // cut inside \u escape
+  assertEquals(partialJsonString('{"reply":"a\\u0C35b", "topic":"crop"}', 'reply'), 'aవb');
+  assertEquals(partialJsonString('{"reply":"done\\', 'reply'), 'done'); // cut after backslash
+});
+
+Deno.test('streamJson emits growing text and returns the parsed object; fails over before first byte', async () => {
+  _resetCooldowns();
+  const { streamJson } = await import('./gemini.ts');
+  const sse = (pieces: string[]) => new Response(pieces.map((p) => `data: ${JSON.stringify({ candidates: [{ content: { parts: [{ text: p }] } }] })}\n\n`).join(''), { status: 200 });
+  const calls = mockFetch({ big: () => new Response('', { status: 503 }), lite: () => sse(['{"reply":"Hel', 'lo farmer","topic":"crop"}']) });
+  const seen: string[] = [];
+  const out = await streamJson<{ reply: string; topic: string }>({ ...opts, streamField: 'reply' }, (t) => seen.push(t));
+  assertEquals(calls, ['big', 'lite']);
+  assertEquals(seen, ['Hel', 'Hello farmer']);
+  assertEquals(out, { reply: 'Hello farmer', topic: 'crop' });
+});

@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useTranslation } from 'react-i18next';
-import { AppText, Banner, Button, ChoiceChips, Header, PhotoPicker, Screen, TextField } from '@/components';
+import { AppText, Banner, Button, Card, ChoiceChips, Header, PhotoPicker, Screen, TextField } from '@/components';
 import { ask, AskResult } from '@/features/assistant/api';
 import { AnswerCard } from '@/features/assistant/AnswerCard';
 import { useLanguage } from '@/hooks/useLanguage';
@@ -18,12 +18,14 @@ export default function ImageQuestion() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<AskResult | null>(null);
+  const [streamed, setStreamed] = useState('');
 
   const send = async () => {
     if (!photos.length) { setError('imageAsk.needPhoto'); return; }
     setBusy(true); setError(null);
     try {
-      setResult(await ask({ message: question.trim(), images: photos, conversationId: params.id ?? null, inputMode: 'image', language }));
+      setStreamed('');
+      setResult(await ask({ message: question.trim(), images: photos, conversationId: params.id ?? null, inputMode: 'image', language, onDelta: setStreamed }));
     } catch (e) {
       setError((e as Error).message.startsWith('errors.') ? (e as Error).message : 'errors.generic');
     } finally { setBusy(false); }
@@ -50,6 +52,7 @@ export default function ImageQuestion() {
         style={{ minHeight: 72, textAlignVertical: 'top' }} value={question} onChangeText={setQuestion} />
       <ChoiceChips scroll value={null} onChange={(k) => setQuestion(t(`imageAsk.${k}`))}
         options={(['q1', 'q2', 'q3', 'q4'] as const).map((k) => ({ value: k, label: t(`imageAsk.${k}`) }))} />
+      {busy && !!streamed && <Card><AppText variant="bodyLg" accessibilityLiveRegion="polite">{streamed}</AppText></Card>}
       <Banner tone="ai" message={t('help.aiText')} />
       {error && <Banner tone="error" message={t(error)} onDismiss={() => setError(null)} />}
     </Screen>
