@@ -15,3 +15,31 @@ verify_jwt = true
 
 [functions.transcribe]
 verify_jwt = true
+
+# ---- Auth email (proposed production values; applied only with owner approval) ----
+[auth.email]
+enable_confirmations = false   # owner's choice for the demo; can be turned on now that codes work
+otp_length = 6
+otp_expiry = 600               # 10 minutes
+max_frequency = "60s"          # min gap between emails to one user (app resend timer is 60 s)
+
+[auth.email.template.recovery]
+subject = "AgriAqua 360 password reset code / పాస్‌వర్డ్ రీసెట్ కోడ్ / पासवर्ड रीसेट कोड"
+content_path = "./supabase/templates/recovery.html"
+
+[auth.email.template.confirmation]
+subject = "AgriAqua 360 verification code / ధృవీకరణ కోడ్ / सत्यापन कोड"
+content_path = "./supabase/templates/confirmation.html"
+
+[auth.email.smtp]
+enabled = true
+host = "smtp.resend.com"
+port = 465
+user = "resend"
+pass = "env(RESEND_API_KEY)"   # never commit the key; Resend API key with sending access
+admin_email = "env(SMTP_SENDER_EMAIL)"
+sender_name = "AgriAqua 360"
+
+[auth.rate_limit]
+email_sent = 30                # per hour, project-wide (Resend free tier: 100/day)
+token_verifications = 30       # OTP checks per 5 min per IP

@@ -90,6 +90,7 @@ export default function Otp() {
         </AppText>
       </View>
       <OtpInput value={code} onChange={setCode} error={!!fieldErrors.code} label={t('otp.code')} />
+      <AppText variant="bodySm" color={colors.textSubtle}>{t('otp.validFor')}</AppText>
       {fieldErrors.code && <AppText variant="bodySm" color={colors.error}>{t(fieldErrors.code)}</AppText>}
 
       {recovery && (

@@ -1,0 +1,24 @@
+<!-- AgriAqua 360 · confirmation email. Language from user_metadata.preferred_language (set at sign-up, kept in sync by the app). -->
+{{ $lang := printf "%v" (or .Data.preferred_language "en") }}
+<div style="font-family:Arial,'Noto Sans Telugu','Noto Sans Devanagari',sans-serif;max-width:480px;margin:0 auto;padding:24px;color:#17251D;background:#F2FBF5;border-radius:16px">
+<p style="margin:0 0 16px;font-weight:bold;font-size:18px;color:#005131">AgriAqua 360</p>
+{{ if eq $lang "te" }}
+<h2 style="margin:0 0 12px;color:#176B45">మీ ఖాతాను ధృవీకరించండి</h2>
+<p style="margin:0 0 16px">అగ్రిఆక్వా 360 కి స్వాగతం! మీ ఖాతాను ధృవీకరించడానికి యాప్‌లో ఈ కోడ్ నమోదు చేయండి:</p>
+<p style="margin:0 0 16px;font-size:34px;font-weight:bold;letter-spacing:10px;color:#005131">{{ .Token }}</p>
+<p style="margin:0 0 8px;color:#3F4942">ఈ కోడ్ 10 నిమిషాల్లో గడువు ముగుస్తుంది.</p>
+<p style="margin:0;color:#718078;font-size:13px">మీరు ఖాతా సృష్టించకపోతే, ఈ ఈమెయిల్‌ను పట్టించుకోకండి.</p>
+{{ else if eq $lang "hi" }}
+<h2 style="margin:0 0 12px;color:#176B45">अपना खाता सत्यापित करें</h2>
+<p style="margin:0 0 16px">एग्रीएक्वा 360 में आपका स्वागत है! अपना खाता सत्यापित करने के लिए ऐप में यह कोड डालें:</p>
+<p style="margin:0 0 16px;font-size:34px;font-weight:bold;letter-spacing:10px;color:#005131">{{ .Token }}</p>
+<p style="margin:0 0 8px;color:#3F4942">यह कोड 10 मिनट में समाप्त हो जाएगा।</p>
+<p style="margin:0;color:#718078;font-size:13px">अगर आपने खाता नहीं बनाया, तो इस ईमेल को अनदेखा करें।</p>
+{{ else }}
+<h2 style="margin:0 0 12px;color:#176B45">Verify your account</h2>
+<p style="margin:0 0 16px">Welcome to AgriAqua 360! Enter this code in the app to verify your account:</p>
+<p style="margin:0 0 16px;font-size:34px;font-weight:bold;letter-spacing:10px;color:#005131">{{ .Token }}</p>
+<p style="margin:0 0 8px;color:#3F4942">This code expires in 10 minutes.</p>
+<p style="margin:0;color:#718078;font-size:13px">If you didn't create an account, ignore this email.</p>
+{{ end }}
+</div>

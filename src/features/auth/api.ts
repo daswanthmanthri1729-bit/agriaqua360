@@ -23,6 +23,7 @@ export function toErrorKey(e: unknown): string {
   if (code === 'email_not_confirmed' || code === 'phone_not_confirmed') return 'errors.notConfirmed';
   if (code === 'sms_send_failed' || code === 'phone_provider_disabled') return 'errors.smsUnavailable';
   if (code === 'weak_password') return 'validation.passwordMin';
+  if (code === 'same_password') return 'errors.samePassword';
   return 'errors.generic';
 }
 

@@ -14,7 +14,10 @@ export function useLanguage() {
     // Best-effort sync so AI answers and notifications follow the language; ignored when signed out.
     supabase.auth.getSession().then(({ data }) => {
       const id = data.session?.user.id;
-      if (id) supabase.from('profiles').update({ preferred_language: l }).eq('id', id).then(() => {});
+      if (!id) return;
+      supabase.from('profiles').update({ preferred_language: l }).eq('id', id).then(() => {});
+      // Auth emails (password-reset code) pick their language from user_metadata.
+      supabase.auth.updateUser({ data: { preferred_language: l } }).then(() => {});
     });
   };
   return { language, change };

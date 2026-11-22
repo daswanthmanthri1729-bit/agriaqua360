@@ -1,0 +1,24 @@
+<!-- AgriAqua 360 · recovery email. Language from user_metadata.preferred_language (set at sign-up, kept in sync by the app). -->
+{{ $lang := printf "%v" (or .Data.preferred_language "en") }}
+<div style="font-family:Arial,'Noto Sans Telugu','Noto Sans Devanagari',sans-serif;max-width:480px;margin:0 auto;padding:24px;color:#17251D;background:#F2FBF5;border-radius:16px">
+<p style="margin:0 0 16px;font-weight:bold;font-size:18px;color:#005131">AgriAqua 360</p>
+{{ if eq $lang "te" }}
+<h2 style="margin:0 0 12px;color:#176B45">మీ పాస్‌వర్డ్ రీసెట్ చేయండి</h2>
+<p style="margin:0 0 16px">కొత్త పాస్‌వర్డ్ సెట్ చేయడానికి అగ్రిఆక్వా 360 యాప్‌లో ఈ కోడ్ నమోదు చేయండి:</p>
+<p style="margin:0 0 16px;font-size:34px;font-weight:bold;letter-spacing:10px;color:#005131">{{ .Token }}</p>
+<p style="margin:0 0 8px;color:#3F4942">ఈ కోడ్ 10 నిమిషాల్లో గడువు ముగుస్తుంది, ఒక్కసారి మాత్రమే పనిచేస్తుంది.</p>
+<p style="margin:0;color:#718078;font-size:13px">మీరు పాస్‌వర్డ్ రీసెట్ అడగకపోతే, ఈ ఈమెయిల్‌ను పట్టించుకోకండి. మీ పాస్‌వర్డ్ మారదు.</p>
+{{ else if eq $lang "hi" }}
+<h2 style="margin:0 0 12px;color:#176B45">अपना पासवर्ड रीसेट करें</h2>
+<p style="margin:0 0 16px">नया पासवर्ड सेट करने के लिए एग्रीएक्वा 360 ऐप में यह कोड डालें:</p>
+<p style="margin:0 0 16px;font-size:34px;font-weight:bold;letter-spacing:10px;color:#005131">{{ .Token }}</p>
+<p style="margin:0 0 8px;color:#3F4942">यह कोड 10 मिनट में समाप्त हो जाएगा और एक ही बार काम करेगा।</p>
+<p style="margin:0;color:#718078;font-size:13px">अगर आपने पासवर्ड रीसेट नहीं माँगा, तो इस ईमेल को अनदेखा करें। आपका पासवर्ड नहीं बदलेगा।</p>
+{{ else }}
+<h2 style="margin:0 0 12px;color:#176B45">Reset your password</h2>
+<p style="margin:0 0 16px">Use this code in the AgriAqua 360 app to set a new password:</p>
+<p style="margin:0 0 16px;font-size:34px;font-weight:bold;letter-spacing:10px;color:#005131">{{ .Token }}</p>
+<p style="margin:0 0 8px;color:#3F4942">This code expires in 10 minutes and can be used once.</p>
+<p style="margin:0;color:#718078;font-size:13px">If you didn't ask to reset your password, ignore this email. Your password stays the same.</p>
+{{ end }}
+</div>
