@@ -88,6 +88,23 @@ Live test with a temporary confirmed user (deleted afterwards with its photos):
 
 Known limits: AI calls take 20–25 s from the Singapore project (vs 5–8 s direct); free-tier email templates can't be edited (see DEVELOPMENT_PROGRESS).
 
+## Auth audit + password-reset codes — 22 Nov 2026 (live project, owner-approved changes)
+Applied: Resend SMTP (smtp.resend.com:465, sender onboarding@resend.dev — key stored only in Supabase), trilingual code templates (`supabase/templates/*.html`, verified identical after upload), code expiry 3600 s → 600 s, email limit 2 → 30/hour. Unchanged: code length 6, 60 s between emails per user, 30 code checks / 5 min / IP.
+
+| Check | Result |
+|---|---|
+| Templates rendered with Go html/template: te / hi / en / missing language / null metadata / non-string language | ✅ 12/12, code present, correct language, falls back to English |
+| Recovery code (admin-generated, no email) | ✅ 6 digits |
+| Wrong code | ✅ 403 rejected |
+| Correct code → session → new password | ✅ 200 / 200 |
+| Same password again | ✅ 422 `same_password` (app shows a message) |
+| Login new password / old password | ✅ 200 / 400 |
+| Reuse a used code | ✅ 403 |
+| Real email to an `@example.com` address | ⚠️ 500 — expected: Resend's test sender only delivers to the Resend account's own email |
+| Unit: code verified before password change; error mapping | ✅ `tests/recovery.test.ts` |
+
+Pending: real inbox test with the owner's Resend login email (needs the owner).
+
 ### Reproduce the DB test
 ```bash
 initdb -D /tmp/pg -A trust && pg_ctl -D /tmp/pg -o "-p 54329" start
