@@ -59,14 +59,17 @@ Deadline: **24 Nov 2026, 23:59 IST** (Level 1 APK).
 - FCM: device token saved to `profiles.push_token` after login. Server-sent pushes need an FCM service-account key (not provided) — local reminders cover all reminder types today.
 - Live Gemini: Hindi fertilizer answer tied to the farmer's paddy; pond follow-up used recorded DO/ammonia; refused an off-topic override; Telugu photo → blast (preliminary). Telugu m4a transcribed verbatim in ~2 s.
 
-## Blockers / needs from owner
-1. **Supabase project URL** (`https://<ref>.supabase.co`) — only the publishable key was provided. Login/registration show "server not configured" until set.
-2. Apply the migration to the Supabase project (needs your approval — it's your database).
-3. Deploy Edge Functions (`npx supabase functions deploy weather crop-scan fish-scan ai-assistant transcribe`) and set secrets — see ENVIRONMENT_SETUP. Weather can't be tested from this sandbox (OpenWeather host blocked here).
-4. APK build path — see APK_BUILD_GUIDE.
+## Live setup (22 Nov 2026)
+- Supabase project `yrlfpbbbvjfguoratasn` (Singapore): migrations 0001–0004, RLS, storage, secrets, 5 Edge Functions deployed and live-tested (see TESTING_REPORT).
+- Auth: email sign-up with **verification turned off** (owner's choice for the demo) — farmers go straight from Registration to Profile Setup. Free-tier email can't use custom templates and is limited to 2 emails/hour, so the 6-digit OTP screen only applies if verification is turned back on with a custom SMTP sender.
+- EAS project `@daswanth-m/agriaqua360`; Android signing key managed by Expo.
+
+## Known limits
+- Password reset by email: free-tier emails contain a link, not the 6-digit code the app expects. Add a custom SMTP sender in Supabase, then put `{{ .Token }}` in the "Reset password" template to make it work.
+- Phone/SMS sign-up is off in Supabase; farmers register with email.
+- AI responses take ~20–25 s from the deployed functions.
+- Server-sent push (weather alerts) needs an FCM service-account key; reminders are local notifications.
 
 ## Next up
-All 40 screens are implemented. Remaining for Level 1:
-1. Connect the real Supabase project (URL), apply migrations, deploy functions, set secrets.
-2. Build the APK (EAS with an Expo token, or locally with the Android SDK) and smoke-test on a phone: camera, mic, notifications, Telugu/Hindi TTS voices.
-3. Optional: server push (FCM service account) for weather alerts.
+1. Install the new APK on an Android phone and smoke-test: register → profile → farm/crop → scan → pond → animal → AI (text, voice, photo) → language switch.
+2. Optional: custom SMTP for email verification + password reset codes; FCM service account for server push.

@@ -13,21 +13,21 @@ Templates: `.env.example`, `supabase/functions/.env.example`.
 | Credential | Status |
 |---|---|
 | Supabase publishable key | ✅ provided |
-| **Supabase project URL** | ❌ **missing** — Settings → API → Project URL |
+| Supabase project URL | ✅ `https://yrlfpbbbvjfguoratasn.supabase.co` (in `.env`) |
 | Gemini API key | ✅ provided (server-side only) |
 | OpenWeather API key | ✅ provided (activates ~2h after creation) |
 | Firebase `google-services.json` | ✅ provided |
 | FCM server credentials (service account) | ❌ needed in Batch 5 for server-sent pushes |
-| Expo account / `EXPO_TOKEN` | ❌ needed for EAS cloud builds |
+| Expo account / `EXPO_TOKEN` | ✅ project `@daswanth-m/agriaqua360` (token supplied at build time, never stored) |
 
-## Manual Supabase setup
+## Supabase setup (done on 22 Nov 2026 via Management API — steps kept for a new project)
 1. Link and push the schema (approval needed; touches your project):
    ```bash
    npx supabase login
    npx supabase link --project-ref <ref>
    npx supabase db push
    ```
-2. Auth → Providers → Email: enabled, "Confirm email" on. Auth → Email Templates → *Confirm signup* and *Reset password*: include `{{ .Token }}` so users receive a 6-digit code (the app verifies codes, not links).
+2. Auth → Providers → Email: enabled. "Confirm email" is currently **off** (free-tier emails can't carry the code). To turn it on: add custom SMTP, then Auth → Email Templates → *Confirm signup* and *Reset password*: include `{{ .Token }}` so users receive a 6-digit code (the app verifies codes, not links).
 3. Optional SMS OTP: Auth → Providers → Phone → configure Twilio/MessageBird. Without it, register with an email (the app tells users this if SMS fails).
 4. Secrets: `npx supabase secrets set --env-file supabase/functions/.env`
 5. Deploy functions: `npx supabase functions deploy weather crop-scan fish-scan ai-assistant transcribe`
