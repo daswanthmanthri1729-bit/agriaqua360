@@ -1,7 +1,7 @@
 // POST { scan_id }  →  analyses the scan's photos with Gemini, stores a disease_report, returns it.
 import { cors, fail, json } from '../_shared/http.ts';
 import { userClient } from '../_shared/supabase.ts';
-import { generateJson, toBase64 } from '../_shared/gemini.ts';
+import { generateJson, toBase64, VISION_MODELS } from '../_shared/gemini.ts';
 import { cropReportSchema, cropSystemPrompt, CropReport } from '../_shared/crop-prompt.ts';
 
 Deno.serve(async (req) => {
@@ -28,6 +28,8 @@ Deno.serve(async (req) => {
       system: cropSystemPrompt(scan.language, scan.scan_type, scan.crop as never),
       parts: [...images, { text: `Analyse these ${images.length} photo(s) and return the JSON report.` }],
       schema: cropReportSchema,
+      maxOutputTokens: 1500,
+      models: VISION_MODELS,
     });
     const { data: saved, error } = await sb.from('disease_reports').insert({
       owner_id: auth.user.id,

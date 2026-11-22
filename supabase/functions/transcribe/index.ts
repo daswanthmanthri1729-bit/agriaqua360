@@ -1,7 +1,7 @@
 // POST { audio_path, language } → { text, language, unclear }. Recording is the caller's own upload in the media bucket.
 import { cors, fail, json } from '../_shared/http.ts';
 import { userClient } from '../_shared/supabase.ts';
-import { generateJson, toBase64 } from '../_shared/gemini.ts';
+import { FAST_MODELS, generateJson, toBase64 } from '../_shared/gemini.ts';
 import { transcribePrompt, transcribeSchema, Transcript } from '../_shared/assistant.ts';
 
 const MAX_BYTES = 5 * 1024 * 1024; // ~10 min of 64 kbps AAC; the app caps recordings at 2 min
@@ -26,6 +26,8 @@ Deno.serve(async (req) => {
       parts: [{ inline_data: { mime_type: 'audio/mp4', data: toBase64(new Uint8Array(await file.arrayBuffer())) } }, { text: 'Transcribe.' }],
       schema: transcribeSchema,
       temperature: 0,
+      maxOutputTokens: 512,
+      models: FAST_MODELS,
     });
     return json(r);
   } catch (e) {
