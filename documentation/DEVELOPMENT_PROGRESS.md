@@ -68,7 +68,7 @@ Deadline: **24 Nov 2026, 23:59 IST** (Level 1 APK).
 - Password reset: 6-digit code emails in te/hi/en via Resend SMTP. With the test sender `onboarding@resend.dev`, emails only reach the Resend account owner — verify a domain in Resend and change the sender to reach all farmers.
 - Phone/SMS sign-up is off in Supabase; farmers register with email.
 - AI responses take ~20–25 s from the deployed functions.
-- Server-sent push (weather alerts) needs an FCM service-account key; reminders are local notifications.
+- Weather warnings ring as phone notifications (7 AM the day before), refreshed each time the app is opened. Alerts while the app is never opened need server push (FCM service-account key).
 
 ## Next up
 1. Install the new APK on an Android phone and smoke-test: register → profile → farm/crop → scan → pond → animal → AI (text, voice, photo) → language switch.

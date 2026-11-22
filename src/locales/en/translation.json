@@ -464,7 +464,8 @@
       "Thunderstorm": "Thunderstorm",
       "Snow": "Snow",
       "Mist": "Mist / haze"
-    }
+    },
+    "alertTitle": "Weather warning · {{date}}"
   },
   "scan": {
     "title": "Crop Disease Scanner",

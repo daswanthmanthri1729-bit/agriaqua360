@@ -15,6 +15,8 @@ import { useAnimals, useVaccinations } from '@/features/livestock/api';
 import { vaccState } from '@/features/livestock/vaccination';
 import { useWeather, useWeatherTarget } from '@/features/weather/api';
 import { formatDate, today } from '@/lib/dates';
+import { syncWeatherAlerts } from '@/services/weatherAlerts';
+import { useEffect } from 'react';
 import { useSession } from '@/store/session';
 import { queryClient } from '@/lib/query';
 import { colors, radius, space } from '@/theme';
@@ -48,6 +50,14 @@ export default function Dashboard() {
   const pondAlerts = (ponds.data ?? []).filter((p) => p.latest && overall(p.latest) === 'bad').length;
   const weather = useWeather(useWeatherTarget());
   const advisory = weather.data?.advisories[0];
+  // Turn forecast warnings into phone notifications (scheduled once, cancelled if the forecast changes).
+  useEffect(() => {
+    if (!weather.data) return;
+    syncWeatherAlerts(weather.data.advisories, (a) => ({
+      title: t('weather.alertTitle', { date: formatDate(a.date, i18n.language, { weekday: 'long', day: 'numeric', month: 'short' }) }),
+      body: t(`weather.adv.${a.kind}`, { value: a.value }),
+    }));
+  }, [weather.data]); // eslint-disable-line react-hooks/exhaustive-deps
   const refresh = () => queryClient.invalidateQueries();
 
   return (
