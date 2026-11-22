@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "tertiary": "#4c28ad", "on-primary-container": "#99e9b9", "on-tertiary-fixed-variant": "#4d2aae", "surface-bright": "#edfdf3", "on-surface": "#111e19", "surface-tint": "#186c45", "on-primary-fixed-variant": "#005232", "on-tertiary-fixed": "#1f005f", "surface-variant": "#d6e6dd", "inverse-surface": "#26332d", "on-secondary-fixed-variant": "#005230", "secondary-container": "#7ef7b3", "tertiary-fixed": "#e7deff", "primary-fixed-dim": "#88d7a8", "on-primary": "#ffffff", "secondary": "#006d42", "tertiary-container": "#6445c6", "inverse-on-surface": "#e5f5eb", "on-error": "#ffffff", "surface": "#edfdf3", "on-secondary-container": "#007145", "inverse-primary": "#88d7a8", "secondary-fixed": "#81fab6", "on-background": "#111e19", "secondary-fixed-dim": "#64dd9b", "on-secondary-fixed": "#002111", "on-surface-variant": "#3f4942", "surface-container": "#e2f2e8", "surface-container-high": "#dcece2", "on-tertiary": "#ffffff", "on-primary-fixed": "#002111", "surface-container-highest": "#d6e6dd", "primary-fixed": "#a4f4c3", "on-error-container": "#93000a", "surface-dim": "#ceded4", "error-container": "#ffdad6", "primary": "#005131", "surface-container-low": "#e7f7ee", "on-tertiary-container": "#dcd1ff", "tertiary-fixed-dim": "#ccbdff", "error": "#ba1a1a", "primary-container": "#176b45", "background": "#edfdf3", "on-secondary": "#ffffff", "surface-container-lowest": "#ffffff", "outline-variant": "#bfc9c0", "outline": "#6f7a71" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-xs": "0.25rem", "space-xl": "2rem", "gutter": "1rem", "space-sm": "0.5rem", "space-md": "1rem", "margin": "1rem", "space-lg": "1.5rem" }, "fontFamily": { "label-md": ["Inter"], "headline-sm": ["Manrope"], "body-sm": ["Inter"], "headline-lg": ["Manrope"], "display-lg-mobile": ["Manrope"], "body-lg": ["Inter"], "body-md": ["Inter"], "label-sm": ["Inter"], "label-lg": ["Inter"], "headline-md": ["Manrope"], "display-lg": ["Manrope"] }, "fontSize": { "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}], "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}], "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}], "headline-lg": ["26px", {"lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "700"}], "display-lg-mobile": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.015em", "fontWeight": "800"}], "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "500"}], "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}], "label-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.03em", "fontWeight": "500"}], "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}], "headline-md": ["22px", {"lineHeight": "28px", "fontWeight": "700"}], "display-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "800"}] } } } };</script><style>@layer base{html,body{width:100%;margin:0;padding:0;min-height:100vh;}body{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 inset-x-0 z-50 bg-surface/85 backdrop-blur-xl pt-safe shadow-[0_1px_8px_rgba(23,107,69,0.06)]"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-xs min-w-0 flex-1"><button aria-label="Go back" class="min-w-[44px] min-h-[44px] flex items-center justify-center -ml-space-xs rounded-full text-on-surface hover:bg-surface-container active:scale-95 transition-transform" onclick="history.back()"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><h1 class="font-headline-sm text-headline-sm text-on-surface truncate pr-space-xs">48   Farm Expenses &amp; Income Tracker</h1></div><div class="flex items-center gap-space-xs flex-shrink-0"><div aria-label="Language Selector" class="flex items-center p-0.5 rounded-full bg-surface-container-high" role="group"><button class="min-h-[28px] px-2 rounded-full bg-primary-container text-on-primary font-label-sm text-label-sm transition-colors" type="button">EN</button><button class="min-h-[28px] px-2 rounded-full text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm transition-colors" type="button">తె</button><button class="min-h-[28px] px-2 rounded-full text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm transition-colors" type="button">हि</button></div><button aria-label="Live Sync Telemetry" class="w-11 h-11 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full text-on-surface-variant hover:text-primary hover:bg-surface-container active:rotate-180 transition-all duration-300"><span class="material-symbols-outlined text-[22px]">sync</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0 shadow-[0_2px_6px_rgba(0,81,49,0.2)]"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex flex-col relative w-full pt-16 pb-safe bg-surface min-h-screen"><div class="flex flex-col w-full pb-8 space-y-4">
+<!-- 1. MULTILINGUAL CASHFLOW SUMMARY BANNER -->
+<section class="px-margin pt-2">
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm">
+<!-- Title & Trilingual Badge -->
+<div class="flex flex-col gap-1.5 mb-3">
+<div class="flex items-center justify-between">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[15px]">eco</span>
+            Rabi 2024–25 Combined
+          </span>
+<div class="flex items-center gap-1">
+<span class="px-1.5 py-0.5 rounded bg-surface-container font-label-sm text-[10px] text-on-surface-variant">రబీ</span>
+<span class="px-1.5 py-0.5 rounded bg-surface-container font-label-sm text-[10px] text-on-surface-variant">रबी</span>
+</div>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">
+          Rabi 2024-25 Combined Cashflow
+        </h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+          రబీ ఆదాయ-వ్యయాల లెక్కలు • రబీ విత్తీయ ఖాతా
+        </p>
+</div>
+<!-- Realized Net Profit Hero Box -->
+<div class="bg-surface-container-low rounded-lg p-3.5 mb-3">
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wide">
+            Net Profit (Actual to Date)
+          </span>
+<span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-primary font-semibold">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>
+            51.2% Healthy Margin
+          </span>
+</div>
+<div class="flex items-baseline justify-between mb-2">
+<div class="flex items-baseline gap-1">
+<span class="font-display-lg-mobile text-display-lg-mobile text-primary font-extrabold">+ ₹ 4,32,650</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Realized</span>
+</div>
+<!-- Margin bar -->
+<div class="w-full bg-surface-container-highest rounded-full h-2 overflow-hidden flex">
+<div class="bg-primary h-2 rounded-full" style="width: 51.2%"></div>
+</div>
+</div>
+<!-- Income vs Expenses Actuals Tiles -->
+<div class="grid grid-cols-2 gap-2.5 mb-3">
+<!-- Income Box -->
+<div class="bg-surface-container-low rounded-lg p-3 flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-1 text-primary mb-1">
+<span class="material-symbols-outlined text-[16px]">arrow_downward_alt</span>
+<span class="font-label-sm text-label-sm font-semibold">Total Income</span>
+</div>
+<div class="font-headline-sm text-headline-sm text-on-surface font-bold">
+              ₹ 8,45,000
+            </div>
+<div class="font-label-sm text-[10px] text-on-surface-variant">వాస్తవ ఆదాయం</div>
+</div>
+<div class="mt-2 pt-2 bg-surface-container-lowest/60 rounded p-1.5 space-y-0.5">
+<div class="flex justify-between font-label-sm text-[11px] text-on-surface">
+<span>🌾 Paddy</span>
+<span class="font-semibold">₹3.20L</span>
+</div>
+<div class="flex justify-between font-label-sm text-[11px] text-on-surface">
+<span>🦐 Vannamei</span>
+<span class="font-semibold">₹5.25L</span>
+</div>
+</div>
+</div>
+<!-- Expense Box -->
+<div class="bg-surface-container-low rounded-lg p-3 flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-1 text-error mb-1">
+<span class="material-symbols-outlined text-[16px]">arrow_upward_alt</span>
+<span class="font-label-sm text-label-sm font-semibold">Total Expenses</span>
+</div>
+<div class="font-headline-sm text-headline-sm text-error font-bold">
+              ₹ 4,12,350
+            </div>
+<div class="font-label-sm text-[10px] text-on-surface-variant">మొత్తం ఖర్చులు</div>
+</div>
+<div class="mt-2 pt-2 bg-surface-container-lowest/60 rounded p-1.5 space-y-0.5">
+<div class="flex justify-between font-label-sm text-[11px] text-on-surface">
+<span>🌱 Crops</span>
+<span class="font-semibold text-error">₹1.48L</span>
+</div>
+<div class="flex justify-between font-label-sm text-[11px] text-on-surface">
+<span>💧 Aqua</span>
+<span class="font-semibold text-error">₹2.64L</span>
+</div>
+</div>
+</div>
+</div>
+<!-- AI Distinct Estimated Banner -->
+<div class="bg-tertiary-fixed rounded-lg p-3 flex items-start gap-2.5 shadow-sm">
+<div class="w-8 h-8 rounded-full bg-tertiary text-on-tertiary flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[18px]">auto_awesome</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-1.5 flex-wrap">
+<span class="font-label-sm text-[11px] font-bold uppercase tracking-wider text-on-tertiary-fixed">
+              Estimated Projected Profit
+            </span>
+<span class="px-1.5 py-0.2 rounded-full bg-tertiary text-on-tertiary font-label-sm text-[9px] font-semibold">AI MODEL</span>
+</div>
+<div class="font-headline-sm text-headline-sm text-on-tertiary-fixed font-bold leading-tight mt-0.5">
+            ₹ 7,20,000 <span class="font-body-sm text-body-sm font-normal text-on-tertiary-fixed-variant">at full harvest</span>
+</div>
+<p class="font-label-sm text-[11px] text-on-tertiary-fixed-variant mt-0.5">
+            అంచనా వేసిన లాభం • Projected based on current 2.8 FCR &amp; mandal market rate
+          </p>
+</div>
+</div>
+</div>
+</section>
+<!-- 2. QUICK DATA ENTRY WITH VOICE & SCAN -->
+<section class="px-margin space-y-3">
+<!-- Action CTAs: Add Expense / Add Income -->
+<div class="grid grid-cols-2 gap-2.5">
+<button class="min-h-[52px] px-3 py-2 rounded-xl bg-primary text-on-primary font-label-lg text-label-lg flex items-center justify-center gap-2 shadow-sm active:scale-95 transition-transform" type="button">
+<span class="material-symbols-outlined text-[20px]">remove_circle</span>
+<div class="text-left leading-tight">
+<div class="font-semibold">+ Add Expense</div>
+<div class="font-label-sm text-[10px] text-on-primary-container">ఖర్చు జోడించండి</div>
+</div>
+</button>
+<button class="min-h-[52px] px-3 py-2 rounded-xl bg-secondary-container text-on-secondary-container font-label-lg text-label-lg flex items-center justify-center gap-2 shadow-sm active:scale-95 transition-transform" type="button">
+<span class="material-symbols-outlined text-[20px]">add_circle</span>
+<div class="text-left leading-tight">
+<div class="font-semibold">+ Record Income</div>
+<div class="font-label-sm text-[10px] text-on-secondary-fixed-variant">ఆదాయం నమోదు</div>
+</div>
+</button>
+</div>
+<!-- Voice Expense Entry Module -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm">
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[22px]">mic</span>
+<span class="font-label-lg text-label-lg text-on-surface font-bold">Voice Logging</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">
+          Multi-dialect AI
+        </span>
+</div>
+<!-- Spoken Prompt Suggestions -->
+<div class="bg-surface-container-low rounded-lg p-2.5 mb-3 flex items-start gap-2">
+<span class="material-symbols-outlined text-primary text-[18px] mt-0.5">volume_up</span>
+<div class="font-body-sm text-body-sm text-on-surface-variant flex-1 leading-snug">
+<span class="font-semibold text-on-surface">Try saying:</span> "Paid 3000 for labour today" or <span class="text-primary font-medium">"డీజిల్ కోసం 1500 ఖర్చు చేశాను"</span>
+</div>
+</div>
+<!-- Live Interactive Mic & Visualizer -->
+<div class="flex items-center gap-3 p-2 bg-surface-container rounded-lg mb-3">
+<button class="w-12 h-12 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-md active:scale-90 transition-transform flex-shrink-0" id="micBtn" type="button">
+<span class="material-symbols-outlined text-[24px]">mic</span>
+</button>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-sm text-label-sm text-primary font-semibold flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+              Listening in తెలుగు (Telugu)...
+            </span>
+<span class="font-label-sm text-[10px] text-on-surface-variant">00:04</span>
+</div>
+<!-- Animated Voice Waveform Bars -->
+<div class="flex items-center gap-1 h-5">
+<div class="w-1 bg-primary rounded-full h-2 animate-bounce" style="animation-delay: 0.1s"></div>
+<div class="w-1 bg-primary rounded-full h-4 animate-bounce" style="animation-delay: 0.2s"></div>
+<div class="w-1 bg-primary rounded-full h-5 animate-bounce" style="animation-delay: 0.15s"></div>
+<div class="w-1 bg-primary rounded-full h-3 animate-bounce" style="animation-delay: 0.3s"></div>
+<div class="w-1 bg-primary rounded-full h-5 animate-bounce" style="animation-delay: 0.05s"></div>
+<div class="w-1 bg-primary rounded-full h-2 animate-bounce" style="animation-delay: 0.25s"></div>
+<div class="w-1 bg-primary rounded-full h-4 animate-bounce" style="animation-delay: 0.18s"></div>
+<div class="w-1 bg-primary rounded-full h-3 animate-bounce" style="animation-delay: 0.35s"></div>
+</div>
+</div>
+</div>
+<!-- Speech-to-Text Parsed Card -->
+<div class="bg-surface-container-lowest rounded-lg p-3 bg-surface-bright shadow-sm">
+<div class="flex items-center justify-between mb-1.5">
+<span class="font-label-sm text-label-sm text-tertiary font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">smart_toy</span>
+            AI Parsed Voice Transaction
+          </span>
+<span class="px-2 py-0.5 rounded bg-primary-fixed text-on-primary-fixed font-label-sm text-[10px] font-bold">READY TO SAVE</span>
+</div>
+<div class="font-body-sm text-body-sm text-on-surface italic mb-2">
+          "ట్రాక్టర్ దుక్కికి డీజిల్ కోసం 1500 ఖర్చు చేశాను"
+        </div>
+<div class="grid grid-cols-2 gap-2 text-left bg-surface-container-low rounded p-2 mb-2 font-label-sm text-label-sm">
+<div>
+<span class="text-on-surface-variant block text-[10px]">Category</span>
+<span class="font-semibold text-on-surface">Equipment &amp; Fuel</span>
+</div>
+<div>
+<span class="text-on-surface-variant block text-[10px]">Parsed Amount</span>
+<span class="font-bold text-error">₹ 1,500</span>
+</div>
+<div class="col-span-2">
+<span class="text-on-surface-variant block text-[10px]">Extracted Note</span>
+<span class="text-on-surface">Diesel for tractor tilling Plot B-1</span>
+</div>
+</div>
+<div class="flex items-center gap-2 justify-end">
+<button class="min-h-[44px] px-3 py-1.5 rounded-lg text-on-surface-variant font-label-md text-label-md active:bg-surface-container" type="button">
+            Cancel
+          </button>
+<button class="min-h-[44px] px-4 py-1.5 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold flex items-center gap-1 shadow-sm active:scale-95" type="button">
+<span class="material-symbols-outlined text-[16px]">check</span> Confirm Entry
+          </button>
+</div>
+</div>
+</div>
+<!-- Smart Receipt Scanner Module -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm">
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[22px]">document_scanner</span>
+<div>
+<span class="font-label-lg text-label-lg text-on-surface font-bold block">Smart Receipt Scanner</span>
+<span class="font-label-sm text-[10px] text-on-surface-variant">స్మార్ట్ రశీదు స్కానర్ • Instant OCR</span>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-[11px] font-semibold">
+          99.2% OCR
+        </span>
+</div>
+<!-- Upload Actions -->
+<div class="grid grid-cols-2 gap-2 mb-3">
+<button class="min-h-[48px] px-2 py-2 rounded-lg bg-surface-container-high text-on-surface font-label-md text-label-md flex items-center justify-center gap-1.5 active:bg-surface-container-highest" type="button">
+<span class="material-symbols-outlined text-primary text-[20px]">photo_camera</span>
+<span>Take Photo</span>
+</button>
+<button class="min-h-[48px] px-2 py-2 rounded-lg bg-surface-container-high text-on-surface font-label-md text-label-md flex items-center justify-center gap-1.5 active:bg-surface-container-highest" type="button">
+<span class="material-symbols-outlined text-primary text-[20px]">upload_file</span>
+<span>Gallery Upload</span>
+</button>
+</div>
+<!-- Scanned Receipt Preview Card -->
+<div class="bg-surface-container-low rounded-lg p-2.5 flex items-start gap-3">
+<div class="relative w-20 h-24 rounded-lg overflow-hidden bg-surface-container flex-shrink-0 shadow-sm">
+<img class="w-full h-full object-cover" data-alt="A paper agricultural store receipt on an Indian farm table showing stamp and handwritten entries for fertilizer purchase under natural morning sunlight with stamp mark" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAAyu5UZ4KZoUQA6Qj3r8EibWJ9DrHRaulmypgS0oRUD_pWcUFCaNA8n7c_Xa5smqe-xO_V5UiBu1t1qwtBnTCqM5RCHy8SZVVkykpv0Xoim_b1E4qTUcTIpnGXTBGbGAkEb993-wMR6xOcByXKWN-oo5mjhAUQTS8wB6O2L1lvl-Zt0QOW7d4axP__VJWajCsLNiCw84zze96Us_QBBKS25LKHP2iv83YP00VsVPY"/>
+<div class="absolute bottom-0 inset-x-0 bg-inverse-surface/80 text-inverse-on-surface text-center font-label-sm text-[9px] py-0.5">
+            OCR OK
+          </div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md font-bold text-on-surface truncate">
+              Kisan_Fertilizer_Invoice_892.jpg
+            </span>
+</div>
+<div class="flex items-center gap-1 font-label-sm text-[11px] text-primary font-semibold mt-0.5">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+            Verified: IFFCO Nano Urea &amp; Potash
+          </div>
+<div class="font-headline-sm text-headline-sm text-error font-bold mt-1">
+            ₹ 6,200
+          </div>
+<div class="flex items-center gap-3 mt-2 font-label-sm text-[11px]">
+<button class="text-primary font-medium hover:underline flex items-center gap-0.5" type="button">
+<span class="material-symbols-outlined text-[14px]">refresh</span> Retake
+            </button>
+<button class="text-error font-medium hover:underline flex items-center gap-0.5" type="button">
+<span class="material-symbols-outlined text-[14px]">delete</span> Delete
+            </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 3. MONTHLY FINANCIAL CHART & FILTER PILLS -->
+<section class="px-margin">
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm">
+<div class="flex items-center justify-between mb-3">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Monthly Financial Trend</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Jul – Oct 2024</span>
+</div>
+<!-- Filter Pills Carousel -->
+<div class="flex items-center gap-1.5 overflow-x-auto pb-2 mb-3">
+<button class="px-3 py-1.5 rounded-full bg-primary text-on-primary font-label-sm text-label-sm whitespace-nowrap font-medium shadow-sm" type="button">
+          Rabi 2024 (Season)
+        </button>
+<button class="px-3 py-1.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm whitespace-nowrap hover:bg-surface-container-high" type="button">
+          This Month (October)
+        </button>
+<button class="px-3 py-1.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm whitespace-nowrap hover:bg-surface-container-high" type="button">
+          Crops Only
+        </button>
+<button class="px-3 py-1.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm whitespace-nowrap hover:bg-surface-container-high" type="button">
+          Aquaculture Only
+        </button>
+</div>
+<!-- Interactive Bar Chart Display (SVG) -->
+<div class="bg-surface-container-low rounded-lg p-3">
+<!-- Legend -->
+<div class="flex items-center justify-end gap-4 mb-2 font-label-sm text-label-sm">
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded bg-secondary"></span>
+<span class="text-on-surface-variant">Income</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded bg-error"></span>
+<span class="text-on-surface-variant">Expense</span>
+</div>
+</div>
+<!-- Chart Grid SVG -->
+<div class="w-full">
+<svg class="w-full h-36" preserveaspectratio="none" viewbox="0 0 320 140">
+<!-- Background guideline grids -->
+<line stroke="#d6e6dd" stroke-dasharray="3,3" stroke-width="1" x1="25" x2="310" y1="20" y2="20"></line>
+<line stroke="#d6e6dd" stroke-dasharray="3,3" stroke-width="1" x1="25" x2="310" y1="55" y2="55"></line>
+<line stroke="#d6e6dd" stroke-dasharray="3,3" stroke-width="1" x1="25" x2="310" y1="90" y2="90"></line>
+<line stroke="#bfc9c0" stroke-width="1" x1="25" x2="310" y1="115" y2="115"></line>
+<!-- Y Axis Labels -->
+<text fill="#6f7a71" font-family="Inter" font-size="9" x="5" y="23">4L</text>
+<text fill="#6f7a71" font-family="Inter" font-size="9" x="5" y="58">2L</text>
+<text fill="#6f7a71" font-family="Inter" font-size="9" x="5" y="93">1L</text>
+<text fill="#6f7a71" font-family="Inter" font-size="9" x="5" y="118">0</text>
+<!-- July Bars -->
+<!-- Income: 0.85L -->
+<rect fill="#006d42" height="20" rx="3" width="16" x="45" y="95"></rect>
+<!-- Expense: 1.10L -->
+<rect fill="#ba1a1a" height="28" rx="3" width="16" x="64" y="87"></rect>
+<text fill="#3f4942" font-family="Inter" font-size="10" text-anchor="middle" x="62" y="130">Jul</text>
+<!-- August Bars -->
+<!-- Income: 1.20L -->
+<rect fill="#006d42" height="30" rx="3" width="16" x="115" y="85"></rect>
+<!-- Expense: 1.35L (Peak Cost) -->
+<rect fill="#ba1a1a" height="37" rx="3" width="16" x="134" y="78"></rect>
+<text fill="#3f4942" font-family="Inter" font-size="10" text-anchor="middle" x="132" y="130">Aug</text>
+<!-- September Bars -->
+<!-- Income: 2.30L -->
+<rect fill="#006d42" height="62" rx="3" width="16" x="185" y="53"></rect>
+<!-- Expense: 0.88L -->
+<rect fill="#ba1a1a" height="22" rx="3" width="16" x="204" y="93"></rect>
+<text fill="#3f4942" font-family="Inter" font-size="10" text-anchor="middle" x="202" y="130">Sep</text>
+<!-- October Bars (Peak Revenue) -->
+<!-- Income: 4.10L -->
+<rect fill="#006d42" height="97" rx="3" width="16" x="255" y="18"></rect>
+<!-- Expense: 0.79L -->
+<rect fill="#ba1a1a" height="19" rx="3" width="16" x="274" y="96"></rect>
+<text fill="#005131" font-family="Inter" font-size="10" font-weight="bold" text-anchor="middle" x="272" y="130">Oct</text>
+</svg>
+</div>
+<!-- Key Highlighted Stats -->
+<div class="grid grid-cols-2 gap-2 mt-3 pt-2">
+<div class="flex items-center gap-2 p-2 bg-surface-container-lowest rounded">
+<span class="material-symbols-outlined text-primary text-[20px]">workspace_premium</span>
+<div>
+<span class="font-label-sm text-[10px] text-on-surface-variant block">Highest Revenue</span>
+<span class="font-label-md text-label-md font-bold text-on-surface">Oct • ₹ 4.10 L</span>
+</div>
+</div>
+<div class="flex items-center gap-2 p-2 bg-surface-container-lowest rounded">
+<span class="material-symbols-outlined text-error text-[20px]">priority_high</span>
+<div>
+<span class="font-label-sm text-[10px] text-on-surface-variant block">Peak Cost Month</span>
+<span class="font-label-md text-label-md font-bold text-error">Aug • ₹ 1.35 L</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 4. GRANULAR CATEGORIZED EXPENSE BREAKDOWN -->
+<section class="px-margin">
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm">
+<div class="flex items-center justify-between mb-3">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Expense Categories</h3>
+<p class="font-label-sm text-[11px] text-on-surface-variant">ఖర్చుల విభజన • ₹ 4,12,350 Total</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">pie_chart</span>
+</div>
+<div class="space-y-3">
+<!-- 1. Fish & Shrimp Feed -->
+<div>
+<div class="flex items-center justify-between font-label-md text-label-md mb-1">
+<div class="flex items-center gap-1.5 text-on-surface">
+<span class="material-symbols-outlined text-primary text-[18px]">set_meal</span>
+<span>1. Fish &amp; Shrimp Feed</span>
+</div>
+<span class="font-bold text-on-surface">₹ 1,48,000 <span class="text-on-surface-variant font-normal text-body-sm">(35.9%)</span></span>
+</div>
+<div class="w-full bg-surface-container-high rounded-full h-2">
+<div class="bg-primary h-2 rounded-full" style="width: 35.9%"></div>
+</div>
+</div>
+<!-- 2. Labour & Operators -->
+<div>
+<div class="flex items-center justify-between font-label-md text-label-md mb-1">
+<div class="flex items-center gap-1.5 text-on-surface">
+<span class="material-symbols-outlined text-primary text-[18px]">groups</span>
+<span>2. Labour &amp; Operators (కూలీల ఖర్చులు)</span>
+</div>
+<span class="font-bold text-on-surface">₹ 84,500 <span class="text-on-surface-variant font-normal text-body-sm">(20.5%)</span></span>
+</div>
+<div class="w-full bg-surface-container-high rounded-full h-2">
+<div class="bg-secondary h-2 rounded-full" style="width: 20.5%"></div>
+</div>
+</div>
+<!-- 3. Seeds & Post-Larvae -->
+<div>
+<div class="flex items-center justify-between font-label-md text-label-md mb-1">
+<div class="flex items-center gap-1.5 text-on-surface">
+<span class="material-symbols-outlined text-primary text-[18px]">grain</span>
+<span>3. Seeds &amp; Post-Larvae (విత్తనాలు / సీడ్)</span>
+</div>
+<span class="font-bold text-on-surface">₹ 52,000 <span class="text-on-surface-variant font-normal text-body-sm">(12.6%)</span></span>
+</div>
+<div class="w-full bg-surface-container-high rounded-full h-2">
+<div class="bg-secondary-fixed-dim h-2 rounded-full" style="width: 12.6%"></div>
+</div>
+</div>
+<!-- 4. Fertilizers & Bio-Nutrients -->
+<div>
+<div class="flex items-center justify-between font-label-md text-label-md mb-1">
+<div class="flex items-center gap-1.5 text-on-surface">
+<span class="material-symbols-outlined text-primary text-[18px]">compost</span>
+<span>4. Fertilizers &amp; Bio-Nutrients (ఎరువులు)</span>
+</div>
+<span class="font-bold text-on-surface">₹ 44,200 <span class="text-on-surface-variant font-normal text-body-sm">(10.7%)</span></span>
+</div>
+<div class="w-full bg-surface-container-high rounded-full h-2">
+<div class="bg-primary-container h-2 rounded-full" style="width: 10.7%"></div>
+</div>
+</div>
+<!-- 5. Electricity & Aeration Fuel -->
+<div>
+<div class="flex items-center justify-between font-label-md text-label-md mb-1">
+<div class="flex items-center gap-1.5 text-on-surface">
+<span class="material-symbols-outlined text-primary text-[18px]">bolt</span>
+<span>5. Electricity &amp; Aeration Fuel</span>
+</div>
+<span class="font-bold text-on-surface">₹ 38,650 <span class="text-on-surface-variant font-normal text-body-sm">(9.4%)</span></span>
+</div>
+<div class="w-full bg-surface-container-high rounded-full h-2">
+<div class="bg-outline h-2 rounded-full" style="width: 9.4%"></div>
+</div>
+</div>
+<!-- 6. Pesticides & Water Treatment (Lime) -->
+<div>
+<div class="flex items-center justify-between font-label-md text-label-md mb-1">
+<div class="flex items-center gap-1.5 text-on-surface">
+<span class="material-symbols-outlined text-primary text-[18px]">sanitizer</span>
+<span>6. Pesticides &amp; Water Treatment (Lime)</span>
+</div>
+<span class="font-bold text-on-surface">₹ 26,000 <span class="text-on-surface-variant font-normal text-body-sm">(6.3%)</span></span>
+</div>
+<div class="w-full bg-surface-container-high rounded-full h-2">
+<div class="bg-tertiary-container h-2 rounded-full" style="width: 6.3%"></div>
+</div>
+</div>
+<!-- 7. Pond Maintenance & Equipment Repair -->
+<div>
+<div class="flex items-center justify-between font-label-md text-label-md mb-1">
+<div class="flex items-center gap-1.5 text-on-surface">
+<span class="material-symbols-outlined text-primary text-[18px]">build</span>
+<span>7. Pond Maintenance &amp; Repair</span>
+</div>
+<span class="font-bold text-on-surface">₹ 19,000 <span class="text-on-surface-variant font-normal text-body-sm">(4.6%)</span></span>
+</div>
+<div class="w-full bg-surface-container-high rounded-full h-2">
+<div class="bg-outline-variant h-2 rounded-full" style="width: 4.6%"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 5. RECENT TRANSACTION HISTORY & EXPORTS -->
+<section class="px-margin space-y-3">
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm">
+<div class="flex items-center justify-between mb-3">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Recent Transactions</h3>
+<button class="font-label-md text-label-md text-primary font-semibold hover:underline" type="button">
+          View All (42)
+        </button>
+</div>
+<div class="space-y-3">
+<!-- Item 1: Aqua Feed Expense (Receipt Verified) -->
+<div class="p-3 bg-surface-container-low rounded-lg flex items-start gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[22px]">set_meal</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-1">
+<span class="font-label-lg text-label-lg font-bold text-on-surface truncate">
+                Aqua-Tech Broodstock Feed 20 bags
+              </span>
+<span class="font-headline-sm text-headline-sm text-error font-bold whitespace-nowrap">
+                - ₹ 34,000
+              </span>
+</div>
+<div class="flex items-center gap-2 mt-0.5 text-on-surface-variant font-label-sm text-[11px] flex-wrap">
+<span>Oct 18, 2024</span>
+<span>•</span>
+<span class="inline-flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[13px]">credit_card</span> NEFT / Bank
+              </span>
+<span>•</span>
+<span class="inline-flex items-center gap-1 text-primary font-semibold">
+<span class="material-symbols-outlined text-[13px]">receipt_long</span> Receipt Verified
+              </span>
+</div>
+</div>
+</div>
+<!-- Item 2: Custom Hiring (Voice-Logged) -->
+<div class="p-3 bg-surface-container-low rounded-lg flex items-start gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[22px]">agriculture</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-1">
+<span class="font-label-lg text-label-lg font-bold text-on-surface truncate">
+                Paddy Transplanter Custom Hiring
+              </span>
+<span class="font-headline-sm text-headline-sm text-error font-bold whitespace-nowrap">
+                - ₹ 8,500
+              </span>
+</div>
+<div class="flex items-center gap-2 mt-0.5 text-on-surface-variant font-label-sm text-[11px] flex-wrap">
+<span>Oct 15, 2024</span>
+<span>•</span>
+<span class="inline-flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[13px]">payments</span> Kisan Cash
+              </span>
+<span>•</span>
+<span class="inline-flex items-center gap-1 text-tertiary font-semibold">
+<span class="material-symbols-outlined text-[13px]">mic</span> Voice-Logged
+              </span>
+</div>
+</div>
+</div>
+<!-- Item 3: Advance Income Realized -->
+<div class="p-3 bg-surface-container-low rounded-lg flex items-start gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-secondary flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[22px]">account_balance_wallet</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-1">
+<span class="font-label-lg text-label-lg font-bold text-on-surface truncate">
+                Advance from Godavari Exporters
+              </span>
+<span class="font-headline-sm text-headline-sm text-primary font-bold whitespace-nowrap">
+                + ₹ 2,50,000
+              </span>
+</div>
+<div class="flex items-center gap-2 mt-0.5 text-on-surface-variant font-label-sm text-[11px] flex-wrap">
+<span>Oct 12, 2024</span>
+<span>•</span>
+<span class="inline-flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[13px]">qr_code_scanner</span> UPI Transfer
+              </span>
+<span>•</span>
+<span class="inline-flex items-center gap-1 text-primary font-semibold">
+<span class="material-symbols-outlined text-[13px]">check_circle</span> Vannamei Lot A
+              </span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Export & Bank Reporting Actions -->
+<div class="space-y-2 pt-1">
+<button class="w-full min-h-[52px] px-4 py-3 rounded-xl bg-primary text-on-primary font-label-lg text-label-lg flex items-center justify-center gap-2 shadow-sm active:scale-98 transition-transform" type="button">
+<span class="material-symbols-outlined text-[20px]">picture_as_pdf</span>
+<span>Generate P&amp;L Tax &amp; Bank Report (PDF)</span>
+</button>
+<button class="w-full min-h-[50px] px-4 py-3 rounded-xl bg-surface-container-high text-on-surface font-label-lg text-label-lg flex items-center justify-center gap-2 active:bg-surface-container-highest" type="button">
+<span class="material-symbols-outlined text-primary text-[20px]">table_chart</span>
+<span>Export to Excel / Tally Compatible XML</span>
+</button>
+</div>
+</section>
+</div>
+<script>
+  // Simple micro-interaction for mic trigger
+  document.getElementById('micBtn')?.addEventListener('click', function() {
+    this.classList.toggle('bg-tertiary');
+    this.classList.toggle('scale-105');
+  });
+</script></main></body></html>

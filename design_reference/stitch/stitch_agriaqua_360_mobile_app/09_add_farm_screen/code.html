@@ -1,0 +1,461 @@
+<!DOCTYPE html><html class="h-full" lang="en"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"><meta content="mobile_stack" name="shell-type"><title>AgriAqua 360</title><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&amp;family=Noto+Sans+Telugu:wght@400;500;600;700&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{width:100%;min-height:100%;margin:0;padding:0;}body{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"primary":"#005131","surface-bright":"#edfdf3","on-primary":"#ffffff","tertiary":"#4c28ad","on-error-container":"#93000a","secondary-container":"#7ef7b3","secondary-fixed":"#81fab6","outline":"#6f7a71","surface":"#edfdf3","error-container":"#ffdad6","on-error":"#ffffff","primary-container":"#176b45","inverse-primary":"#88d7a8","primary-fixed":"#a4f4c3","on-secondary":"#ffffff","secondary":"#006d42","inverse-on-surface":"#e5f5eb","surface-container":"#e2f2e8","on-tertiary-fixed":"#1f005f","on-secondary-container":"#007145","on-tertiary-container":"#dcd1ff","tertiary-container":"#6445c6","surface-container-highest":"#d6e6dd","outline-variant":"#bfc9c0","inverse-surface":"#26332d","background":"#edfdf3","error":"#ba1a1a","surface-tint":"#186c45","on-secondary-fixed":"#002111","on-primary-container":"#99e9b9","on-primary-fixed":"#002111","tertiary-fixed":"#e7deff","on-tertiary":"#ffffff","secondary-fixed-dim":"#64dd9b","surface-variant":"#d6e6dd","surface-dim":"#ceded4","on-primary-fixed-variant":"#005232","tertiary-fixed-dim":"#ccbdff","on-surface-variant":"#3f4942","surface-container-high":"#dcece2","on-background":"#111e19","primary-fixed-dim":"#88d7a8","surface-container-lowest":"#ffffff","surface-container-low":"#e7f7ee","on-secondary-fixed-variant":"#005230","on-surface":"#111e19","on-tertiary-fixed-variant":"#4d2aae"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"gutter":"1rem","space-sm":"0.5rem","space-md":"1rem","space-xl":"2rem","space-lg":"1.5rem","space-xs":"0.25rem","margin":"1rem"},"fontFamily":{"display-lg":["Manrope"],"headline-sm":["Manrope"],"label-sm":["Inter"],"label-lg":["Inter"],"display-lg-mobile":["Manrope"],"body-md":["Inter"],"body-lg":["Inter"],"body-sm":["Inter"],"label-md":["Inter"],"headline-md":["Manrope"],"headline-lg":["Manrope"]},"fontSize":{"display-lg":["36px",{"lineHeight":"44px","letterSpacing":"-0.02em","fontWeight":"800"}],"headline-sm":["18px",{"lineHeight":"24px","fontWeight":"600"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.03em","fontWeight":"500"}],"label-lg":["14px",{"lineHeight":"20px","letterSpacing":"0.01em","fontWeight":"600"}],"display-lg-mobile":["30px",{"lineHeight":"38px","letterSpacing":"-0.015em","fontWeight":"800"}],"body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}],"body-lg":["16px",{"lineHeight":"24px","fontWeight":"500"}],"body-sm":["13px",{"lineHeight":"18px","fontWeight":"400"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"600"}],"headline-md":["22px",{"lineHeight":"28px","fontWeight":"700"}],"headline-lg":["26px",{"lineHeight":"34px","letterSpacing":"-0.01em","fontWeight":"700"}]}}}};</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface text-on-surface antialiased flex flex-col min-h-screen selection:bg-secondary-container selection:text-on-secondary-container"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(23,107,69,0.04)]"><div class="h-16 px-gutter flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-xs min-w-0 flex-1"><button aria-label="Go Back" class="w-11 h-11 -ml-2 rounded-full flex items-center justify-center text-on-surface active:bg-surface-container transition-colors shrink-0" onclick="history.back()"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><div class="flex flex-col min-w-0 pr-1"><h1 class="font-headline-md text-headline-md text-on-surface truncate leading-tight">09   Add Farm Screen</h1><p class="hidden text-label-sm font-label-sm text-on-surface-variant truncate" id="shell-stack-subtitle"></p></div></div><div class="flex items-center gap-space-xs shrink-0"><button aria-label="Location Selector" class="hidden h-9 px-3 rounded-full bg-surface-container border border-outline-variant/30 text-primary items-center gap-1.5 active:bg-surface-container-high transition-colors font-label-md text-label-md" id="shell-action-location"><span class="material-symbols-outlined text-[18px]">near_me</span><span class="truncate max-w-[110px]">Krishna Delta</span><span class="material-symbols-outlined text-[16px] text-on-surface-variant">arrow_drop_down</span></button><button aria-label="Change Language" class="h-9 px-2.5 rounded-full bg-surface-container border border-outline-variant/30 text-primary flex items-center gap-1.5 active:bg-surface-container-high transition-colors font-label-md text-label-md shrink-0" id="btn-language-selector" onclick="document.getElementById('language-modal').classList.remove('hidden')" type="button"><span class="material-symbols-outlined text-[18px]">translate</span><span id="current-lang-label" class="font-medium">English</span><span class="material-symbols-outlined text-[16px] text-on-surface-variant">arrow_drop_down</span></button><button aria-label="Search" class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface active:bg-surface-container transition-colors" id="shell-action-search"><span class="material-symbols-outlined text-[22px]">search</span></button><button aria-label="More options" class="hidden w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface active:bg-surface-container transition-colors" id="shell-action-overflow"><span class="material-symbols-outlined text-[22px]">more_vert</span></button><button aria-label="Farm Help" class="hidden w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface active:bg-surface-container transition-colors" id="shell-action-help"><span class="material-symbols-outlined text-[22px]">help_outline</span></button><button aria-label="Profile" class="w-11 h-11 flex items-center justify-center rounded-full hover:opacity-90 active:scale-95 transition-all" id="shell-action-profile"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shadow-sm"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></button></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-safe bg-surface"><div class="flex flex-col w-full pb-10">
+<!-- Value Prop Subtitle Banner -->
+<div class="px-gutter pt-2 pb-4">
+<div class="bg-surface-container-low rounded-xl p-4 shadow-sm relative overflow-hidden">
+<div class="relative z-10 flex items-start gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center shrink-0 text-on-secondary-container shadow-sm">
+<span class="material-symbols-outlined text-[22px]">energy_savings_leaf</span>
+</div>
+<div class="flex-1 min-w-0">
+<p class="font-headline-sm text-headline-sm text-on-surface leading-snug">Register Your Holding</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5 leading-relaxed">
+            Register your farm to unlock intelligent farming insights, satellite NDVI, and IoT telemetry.
+          </p>
+</div>
+</div>
+<!-- Subtle Decorative Floral Trace -->
+<div class="absolute -right-4 -bottom-6 w-24 h-24 bg-primary/5 rounded-full blur-xl pointer-events-none"></div>
+</div>
+</div>
+<!-- Stepper / Section Indicator (Progress Ring Micro-visual) -->
+<div class="px-gutter mb-4">
+<div class="flex items-center justify-between bg-surface-container-lowest px-4 py-3 rounded-xl shadow-sm">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-primary ring-4 ring-primary-fixed"></span>
+<span class="font-label-lg text-label-lg text-primary">Farm Setup (Step 1 of 1)</span>
+</div>
+<div class="flex items-center gap-1.5 font-label-md text-label-md text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] text-primary">verified</span>
+<span>Telemetry Ready</span>
+</div>
+</div>
+</div>
+<form class="flex flex-col gap-4 px-gutter" id="add-farm-form" onsubmit="event.preventDefault();">
+<!-- Section 1: Farm Information -->
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-sm flex flex-col gap-4">
+<div class="flex items-center gap-2 pb-2">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">agriculture</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">1. Farm Information</h2>
+</div>
+<!-- Farm Name -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface flex items-center gap-1" for="farm-name">
+          Farm Name <span class="text-error font-bold">*</span>
+</label>
+<div class="h-[52px] bg-surface-container-lowest rounded-xl px-3.5 flex items-center shadow-sm focus-within:ring-2 focus-within:ring-primary transition-all">
+<input class="w-full bg-transparent font-body-md text-body-md text-on-surface placeholder:text-outline outline-none" id="farm-name" placeholder="e.g. Green Valley Farm" required="" type="text" value="Green Valley Farm">
+</div>
+</div>
+<!-- Farm Owner Name -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface flex items-center gap-1" for="owner-name">
+          Farm Owner Name <span class="text-error font-bold">*</span>
+</label>
+<div class="h-[52px] bg-surface-container-lowest rounded-xl px-3.5 flex items-center shadow-sm focus-within:ring-2 focus-within:ring-primary transition-all">
+<input class="w-full bg-transparent font-body-md text-body-md text-on-surface placeholder:text-outline outline-none" id="owner-name" placeholder="Legal owner full name" required="" type="text" value="Daswanth Rao">
+</div>
+</div>
+<!-- Farm Type Dropdown/Selector -->
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface">
+          Farm Operation Type <span class="text-error font-bold">*</span>
+</label>
+<div class="grid grid-cols-2 gap-2" id="farm-type-chips">
+<button class="farm-type-chip h-11 px-3 rounded-lg text-left font-label-md text-label-md flex items-center justify-between bg-primary-container text-on-primary shadow-sm" data-value="commercial" type="button">
+<span>Commercial Crop</span>
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+</button>
+<button class="farm-type-chip h-11 px-3 rounded-lg text-left font-label-md text-label-md flex items-center justify-between bg-surface-container text-on-surface-variant hover:bg-surface-container-high" data-value="family" type="button">
+<span>Family Farm</span>
+</button>
+<button class="farm-type-chip h-11 px-3 rounded-lg text-left font-label-md text-label-md flex items-center justify-between bg-surface-container text-on-surface-variant hover:bg-surface-container-high" data-value="organic" type="button">
+<span>Organic Cultivation</span>
+</button>
+<button class="farm-type-chip h-11 px-3 rounded-lg text-left font-label-md text-label-md flex items-center justify-between bg-surface-container text-on-surface-variant hover:bg-surface-container-high" data-value="contract" type="button">
+<span>Contract Farming</span>
+</button>
+</div>
+</div>
+<!-- Total Farm Area & Units -->
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface flex items-center gap-1" for="farm-area">
+          Total Farm Area <span class="text-error font-bold">*</span>
+</label>
+<div class="flex items-center gap-2">
+<div class="h-[52px] flex-1 bg-surface-container-lowest rounded-xl px-3.5 flex items-center shadow-sm focus-within:ring-2 focus-within:ring-primary transition-all">
+<input class="w-full bg-transparent font-headline-sm text-headline-sm text-on-surface outline-none" id="farm-area" placeholder="0.0" required="" step="0.1" type="number" value="12.5">
+</div>
+<!-- Unit Toggles -->
+<div class="flex bg-surface-container rounded-xl p-1 shrink-0 h-[52px] items-center" id="area-unit-group">
+<button class="unit-btn px-3 h-10 rounded-lg font-label-md text-label-md bg-surface-container-lowest text-primary shadow-sm" data-unit="acres" type="button">Acres</button>
+<button class="unit-btn px-3 h-10 rounded-lg font-label-md text-label-md text-on-surface-variant" data-unit="hectares" type="button">Ha</button>
+<button class="unit-btn px-2.5 h-10 rounded-lg font-label-md text-label-md text-on-surface-variant" data-unit="gunthas" type="button">Gunthas</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Section 2: Farm Location -->
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-sm flex flex-col gap-4">
+<div class="flex items-center justify-between pb-2">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">explore</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">2. Farm Location</h2>
+</div>
+<span class="font-label-sm text-label-sm text-primary px-2.5 py-1 bg-secondary-container/40 rounded-full font-semibold">Krishna Delta</span>
+</div>
+<!-- State & District Pickers -->
+<div class="grid grid-cols-2 gap-3">
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface">State</label>
+<div class="h-[52px] bg-surface-container-low rounded-xl px-3 flex items-center justify-between shadow-sm">
+<span class="font-body-md text-body-md text-on-surface truncate">Andhra Pradesh</span>
+<span class="material-symbols-outlined text-outline text-[20px]">arrow_drop_down</span>
+</div>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface">District</label>
+<div class="h-[52px] bg-surface-container-low rounded-xl px-3 flex items-center justify-between shadow-sm">
+<span class="font-body-md text-body-md text-on-surface truncate">Krishna District</span>
+<span class="material-symbols-outlined text-outline text-[20px]">arrow_drop_down</span>
+</div>
+</div>
+</div>
+<!-- Village & PIN -->
+<div class="grid grid-cols-2 gap-3">
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface">Village / Mandal</label>
+<div class="h-[52px] bg-surface-container-lowest rounded-xl px-3.5 flex items-center shadow-sm focus-within:ring-2 focus-within:ring-primary transition-all">
+<input class="w-full bg-transparent font-body-md text-body-md text-on-surface outline-none" type="text" value="Gudivada">
+</div>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface">PIN Code</label>
+<div class="h-[52px] bg-surface-container-lowest rounded-xl px-3.5 flex items-center shadow-sm focus-within:ring-2 focus-within:ring-primary transition-all">
+<input class="w-full bg-transparent font-body-md text-body-md text-on-surface outline-none" type="text" value="521301">
+</div>
+</div>
+</div>
+<!-- GPS Coordinates Field -->
+<div class="p-3 bg-surface-container-low rounded-xl flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface-variant flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary">my_location</span>
+            Active Telemetry Geopoint
+          </span>
+<span class="font-label-sm text-label-sm text-secondary px-2 py-0.5 bg-secondary-fixed/50 rounded-full font-medium">GPS Locked</span>
+</div>
+<div class="font-headline-sm text-headline-sm text-on-surface font-mono tracking-tight">
+          16.4410° N, 80.9926° E
+        </div>
+<p class="font-label-sm text-label-sm text-outline">Differential positioning accurate to ±3m radius</p>
+</div>
+<!-- Interactive Cadastral Map Visual -->
+<div class="flex flex-col gap-2">
+<div class="relative w-full h-44 rounded-xl overflow-hidden shadow-sm bg-surface-container">
+<!-- Static satellite map preview layer -->
+<div class="w-full h-full bg-cover bg-center" data-alt="Satellite map view of verdant agricultural fields, river canals and paddy parcels in Krishna Delta Andhra Pradesh with neat cadastral plot overlays in golden green light" data-location="Gudivada, Krishna, Andhra Pradesh" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDG30Faf3ae0jKYgtuYUTqlsUp5zKnKdr_-CYEpUgRPC9zI_sd4PcL72jOxtSB_yuLECQiSiEO16rJPXcJeLOCFPePcTqqxXYpxqCjktn04x0NCZZgOvei9V1Ot17Frpqj9lQvQDox7Sli4bq5MZA_FoBJY4w7vb85ZAWeEW26WN6r6ntXRvtsBuwV97vEtkvWUEuzEZ3ArkrExa24YQy2xqnhMaoADqA2mHK_WDxE');"></div>
+<!-- Map Overlay Pins and Visual Geofence -->
+<div class="absolute inset-0 bg-primary/10 pointer-events-none flex items-center justify-center">
+<!-- Simulated Parcel Boundary -->
+<div class="w-36 h-28 border-2 border-dashed border-secondary-container bg-secondary-container/20 rounded-lg flex items-center justify-center relative">
+<span class="absolute -top-3 left-2 font-label-sm text-label-sm bg-primary text-on-primary px-2 py-0.5 rounded-full shadow-sm">Plot #4B</span>
+<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-on-primary shadow-md animate-bounce">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+</div>
+</div>
+</div>
+<div class="absolute bottom-2 left-2 bg-surface-container-lowest/90 backdrop-blur-md px-2.5 py-1 rounded-md text-on-surface font-label-sm text-label-sm shadow-sm flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            Survey Parcel: 148/2A
+          </div>
+</div>
+<!-- Button to trigger GPS refresh -->
+<button class="h-[48px] w-full bg-surface-container hover:bg-surface-container-high active:scale-[0.99] text-primary rounded-xl font-label-lg text-label-lg flex items-center justify-center gap-2 transition-all shadow-sm" id="btn-use-gps" type="button">
+<span class="material-symbols-outlined text-[20px]">share_location</span>
+          Use Current GPS Location
+        </button>
+</div>
+</div>
+<!-- Section 3: Farming Information -->
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-sm flex flex-col gap-4">
+<div class="flex items-center gap-2 pb-2">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">water_drop</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">3. Farming Details</h2>
+</div>
+<!-- Main Farming Category -->
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface">Main Farming Category</label>
+<div class="grid grid-cols-3 gap-2" id="farming-category-group">
+<button class="category-btn h-12 rounded-xl flex flex-col items-center justify-center gap-1 bg-primary text-on-primary shadow-sm" data-category="agri" type="button">
+<span class="material-symbols-outlined text-[18px]">grass</span>
+<span class="font-label-md text-label-md">Agriculture</span>
+</button>
+<button class="category-btn h-12 rounded-xl flex flex-col items-center justify-center gap-1 bg-surface-container text-on-surface-variant hover:bg-surface-container-high" data-category="aqua" type="button">
+<span class="material-symbols-outlined text-[18px]">phishing</span>
+<span class="font-label-md text-label-md">Aquaculture</span>
+</button>
+<button class="category-btn h-12 rounded-xl flex flex-col items-center justify-center gap-1 bg-surface-container text-on-surface-variant hover:bg-surface-container-high" data-category="mixed" type="button">
+<span class="material-symbols-outlined text-[18px]">hub</span>
+<span class="font-label-md text-label-md">Mixed Farm</span>
+</button>
+</div>
+</div>
+<!-- Current Crops Multi-select Tags -->
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<label class="font-label-md text-label-md text-on-surface">Current Crops (Multi-select)</label>
+<span class="font-label-sm text-label-sm text-outline">Tap to toggle</span>
+</div>
+<div class="flex flex-wrap gap-2" id="crops-tag-group">
+<!-- Active Paddy Tag -->
+<button class="crop-tag h-9 px-3.5 rounded-full font-label-md text-label-md flex items-center gap-1.5 bg-primary text-on-primary shadow-sm transition-all" data-crop="paddy" type="button">
+<span class="material-symbols-outlined text-[16px]">check</span>
+<span>Paddy (BPT 5204)</span>
+</button>
+<button class="crop-tag h-9 px-3.5 rounded-full font-label-md text-label-md flex items-center gap-1.5 bg-surface-container text-on-surface-variant hover:bg-surface-container-high transition-all" data-crop="cotton" type="button">
+<span class="material-symbols-outlined text-[16px]">add</span>
+<span>Cotton</span>
+</button>
+<button class="crop-tag h-9 px-3.5 rounded-full font-label-md text-label-md flex items-center gap-1.5 bg-surface-container text-on-surface-variant hover:bg-surface-container-high transition-all" data-crop="sugarcane" type="button">
+<span class="material-symbols-outlined text-[16px]">add</span>
+<span>Sugarcane</span>
+</button>
+<button class="crop-tag h-9 px-3.5 rounded-full font-label-md text-label-md flex items-center gap-1.5 bg-surface-container text-on-surface-variant hover:bg-surface-container-high transition-all" data-crop="maize" type="button">
+<span class="material-symbols-outlined text-[16px]">add</span>
+<span>Maize</span>
+</button>
+<button class="crop-tag h-9 px-3.5 rounded-full font-label-md text-label-md flex items-center gap-1.5 bg-surface-container text-on-surface-variant hover:bg-surface-container-high transition-all" data-crop="pulses" type="button">
+<span class="material-symbols-outlined text-[16px]">add</span>
+<span>Pulses</span>
+</button>
+</div>
+</div>
+<!-- Irrigation Type -->
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface">Irrigation System</label>
+<div class="grid grid-cols-2 gap-2" id="irrigation-group">
+<button class="irrigation-btn h-11 px-3 rounded-lg font-label-md text-label-md flex items-center justify-between bg-surface-container text-on-surface-variant hover:bg-surface-container-high" data-irr="gravity" type="button">
+<span>Canal / Gravity</span>
+</button>
+<button class="irrigation-btn h-11 px-3 rounded-lg font-label-md text-label-md flex items-center justify-between bg-primary-container text-on-primary shadow-sm" data-irr="drip" type="button">
+<span>Borewell Drip</span>
+<span class="material-symbols-outlined text-[18px]">done</span>
+</button>
+<button class="irrigation-btn h-11 px-3 rounded-lg font-label-md text-label-md flex items-center justify-between bg-surface-container text-on-surface-variant hover:bg-surface-container-high" data-irr="sprinkler" type="button">
+<span>Sprinkler</span>
+</button>
+<button class="irrigation-btn h-11 px-3 rounded-lg font-label-md text-label-md flex items-center justify-between bg-surface-container text-on-surface-variant hover:bg-surface-container-high" data-irr="rainfed" type="button">
+<span>Rainfed</span>
+</button>
+</div>
+</div>
+<!-- Water Source -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface" for="water-source">Water Source Primary Setup</label>
+<div class="h-[52px] bg-surface-container-lowest rounded-xl px-3.5 flex items-center shadow-sm focus-within:ring-2 focus-within:ring-primary transition-all">
+<input class="w-full bg-transparent font-body-md text-body-md text-on-surface outline-none" id="water-source" placeholder="e.g. Canal + Borewell" type="text" value="Krishna Delta Canal + Borewell #2">
+</div>
+</div>
+<!-- Soil Type Dropdown -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface" for="soil-type">Soil Type (Optional)</label>
+<div class="h-[52px] bg-surface-container-low rounded-xl px-3.5 flex items-center justify-between shadow-sm cursor-pointer">
+<span class="font-body-md text-body-md text-on-surface">Clay Loam / Black Cotton Soil</span>
+<span class="material-symbols-outlined text-outline text-[20px]">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Section 4: Farm Photograph -->
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-sm flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">photo_camera</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">4. Farm Photograph</h2>
+</div>
+<span class="font-label-sm text-label-sm text-secondary font-medium">1 photo attached</span>
+</div>
+<!-- Upload and Preview Container -->
+<div class="relative w-full rounded-xl overflow-hidden bg-surface-container group">
+<div class="w-full h-44 bg-cover bg-center rounded-xl" data-alt="Lush green paddy crop field with clear blue sky, healthy deep emerald foliage during morning golden hour in Andhra Pradesh, captured in professional photography style with crisp detail" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBmK_lsgdP3TWldSTVD1sKziye5T2jQWigf5nKWnZrfL9yNAVgbdtd4SYWf2PAnKBhEW2tJsnGDKgUIYM8VuG3v4c94KSFkDiNpJckzIrc4kwtMavei5KtWr3UGAZJuNJM1HslCC_C4r0NlPyFDZ0iyybCSAVI0PbR9rkXGPy2Q5Qgym677z0K8ynoiOaNEcjkgAT2GktKqGzj5sRZT8srVKUZqy4XmnVXHjWxec2E');"></div>
+<!-- File Meta Badge Overlay -->
+<div class="absolute bottom-2.5 left-2.5 bg-inverse-surface/85 backdrop-blur-md px-3 py-1.5 rounded-lg text-inverse-on-surface flex items-center gap-2 shadow-md">
+<span class="material-symbols-outlined text-[18px] text-secondary-fixed">image</span>
+<span class="font-label-sm text-label-sm font-mono truncate max-w-[190px]">IMG_FARM_09.jpg (3.2 MB)</span>
+<button aria-label="Remove image" class="text-error hover:text-error-container ml-1" type="button">
+<span class="material-symbols-outlined text-[16px]">close</span>
+</button>
+</div>
+</div>
+<!-- Action Buttons for Photos -->
+<div class="grid grid-cols-2 gap-2.5 pt-1">
+<button class="h-[48px] bg-surface-container hover:bg-surface-container-high active:scale-[0.98] text-primary rounded-xl font-label-md text-label-md flex items-center justify-center gap-2 transition-all shadow-sm" type="button">
+<span class="material-symbols-outlined text-[20px]">add_a_photo</span>
+          Take Photo
+        </button>
+<button class="h-[48px] bg-surface-container hover:bg-surface-container-high active:scale-[0.98] text-primary rounded-xl font-label-md text-label-md flex items-center justify-center gap-2 transition-all shadow-sm" type="button">
+<span class="material-symbols-outlined text-[20px]">photo_library</span>
+          Choose from Gallery
+        </button>
+</div>
+</div>
+<!-- Section 5: Additional Information -->
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-sm flex flex-col gap-3">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">notes</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">5. Additional Notes</h2>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface-variant" for="farm-notes">
+          Field remarks &amp; operational schedule
+        </label>
+<div class="p-3 bg-surface-container-low rounded-xl shadow-sm focus-within:ring-2 focus-within:ring-primary transition-all">
+<textarea class="w-full bg-transparent font-body-md text-body-md text-on-surface placeholder:text-outline outline-none resize-none leading-relaxed" id="farm-notes" placeholder="Add specific irrigation schedules, soil amendments, or history..." rows="3">Borewell tested 280 TDS. Canal rotation schedule active every Tuesday.</textarea>
+</div>
+</div>
+</div>
+<!-- AI Telemetry Activation Notice Box -->
+<div class="bg-tertiary-fixed/30 rounded-xl p-3.5 flex items-center gap-3 shadow-sm">
+<div class="w-9 h-9 rounded-full bg-tertiary-container flex items-center justify-center text-on-tertiary-container shrink-0">
+<span class="material-symbols-outlined text-[20px]">auto_awesome</span>
+</div>
+<div class="flex-1 min-w-0">
+<p class="font-label-lg text-label-lg text-tertiary font-semibold">AI Automated Sync</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">NDVI multi-spectral layer will initialize within 5 mins of saving.</p>
+</div>
+</div>
+<!-- Sticky / Bottom Action Section -->
+<div class="pt-2 flex flex-col gap-2.5">
+<!-- Primary Save Action Button (52px ergonomic height) -->
+<button class="h-[52px] w-full bg-primary-container hover:bg-primary active:scale-[0.98] text-on-primary rounded-xl font-headline-sm text-headline-sm flex items-center justify-center gap-2.5 transition-all shadow-md" id="btn-save-farm" type="submit">
+<span>Save Farm</span>
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+<!-- Secondary Cancel Button -->
+<button class="h-[48px] w-full bg-transparent hover:bg-surface-container active:scale-[0.98] text-on-surface-variant rounded-xl font-label-lg text-label-lg flex items-center justify-center transition-all" onclick="history.back()" type="button">
+        Cancel
+      </button>
+</div>
+</form>
+</div>
+<!-- Light Interactive Script for Toggles & Feedback -->
+<script>
+  (function() {
+    // Farm Type Selection
+    const typeChips = document.querySelectorAll('.farm-type-chip');
+    typeChips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        typeChips.forEach(c => {
+          c.className = 'farm-type-chip h-11 px-3 rounded-lg text-left font-label-md text-label-md flex items-center justify-between bg-surface-container text-on-surface-variant hover:bg-surface-container-high transition-colors';
+          const icon = c.querySelector('.material-symbols-outlined');
+          if (icon) icon.remove();
+        });
+        chip.className = 'farm-type-chip h-11 px-3 rounded-lg text-left font-label-md text-label-md flex items-center justify-between bg-primary-container text-on-primary shadow-sm transition-colors';
+        const span = document.createElement('span');
+        span.className = 'material-symbols-outlined text-[18px]';
+        span.innerText = 'check_circle';
+        chip.appendChild(span);
+      });
+    });
+
+    // Unit Toggles
+    const unitBtns = document.querySelectorAll('.unit-btn');
+    unitBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        unitBtns.forEach(b => {
+          b.className = 'unit-btn px-3 h-10 rounded-lg font-label-md text-label-md text-on-surface-variant transition-colors';
+        });
+        btn.className = 'unit-btn px-3 h-10 rounded-lg font-label-md text-label-md bg-surface-container-lowest text-primary shadow-sm transition-colors';
+      });
+    });
+
+    // Multi-crop Tag Selectors
+    const cropTags = document.querySelectorAll('.crop-tag');
+    cropTags.forEach(tag => {
+      tag.addEventListener('click', () => {
+        const isSelected = tag.classList.contains('bg-primary');
+        const icon = tag.querySelector('.material-symbols-outlined');
+        if (isSelected) {
+          tag.classList.remove('bg-primary', 'text-on-primary', 'shadow-sm');
+          tag.classList.add('bg-surface-container', 'text-on-surface-variant');
+          if (icon) icon.innerText = 'add';
+        } else {
+          tag.classList.remove('bg-surface-container', 'text-on-surface-variant');
+          tag.classList.add('bg-primary', 'text-on-primary', 'shadow-sm');
+          if (icon) icon.innerText = 'check';
+        }
+      });
+    });
+
+    // Irrigation Type Selection
+    const irrBtns = document.querySelectorAll('.irrigation-btn');
+    irrBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        irrBtns.forEach(b => {
+          b.className = 'irrigation-btn h-11 px-3 rounded-lg font-label-md text-label-md flex items-center justify-between bg-surface-container text-on-surface-variant hover:bg-surface-container-high transition-colors';
+          const icon = b.querySelector('.material-symbols-outlined');
+          if (icon) icon.remove();
+        });
+        btn.className = 'irrigation-btn h-11 px-3 rounded-lg font-label-md text-label-md flex items-center justify-between bg-primary-container text-on-primary shadow-sm transition-colors';
+        const span = document.createElement('span');
+        span.className = 'material-symbols-outlined text-[18px]';
+        span.innerText = 'done';
+        btn.appendChild(span);
+      });
+    });
+
+    // GPS Trigger Feedback
+    const gpsBtn = document.getElementById('btn-use-gps');
+    if (gpsBtn) {
+      gpsBtn.addEventListener('click', () => {
+        const originalText = gpsBtn.innerHTML;
+        gpsBtn.innerHTML = '<span class="material-symbols-outlined text-[20px] animate-spin">refresh</span> Capturing Telemetry...';
+        gpsBtn.disabled = true;
+        setTimeout(() => {
+          gpsBtn.innerHTML = '<span class="material-symbols-outlined text-[20px] text-secondary">check_circle</span> Coordinates Updated';
+          setTimeout(() => {
+            gpsBtn.innerHTML = originalText;
+            gpsBtn.disabled = false;
+          }, 1800);
+        }, 800);
+      });
+    }
+
+    // Save Farm Micro-interaction
+    const saveBtn = document.getElementById('btn-save-farm');
+    if (saveBtn) {
+      saveBtn.addEventListener('click', () => {
+        saveBtn.innerHTML = '<span class="material-symbols-outlined text-[20px] animate-spin">sync</span> Registering Farm...';
+        setTimeout(() => {
+          saveBtn.innerHTML = '<span class="material-symbols-outlined text-[20px]">task_alt</span> Farm Saved!';
+          saveBtn.classList.remove('bg-primary-container');
+          saveBtn.classList.add('bg-secondary');
+          setTimeout(() => {
+            history.back();
+          }, 600);
+        }, 900);
+      });
+    }
+  })();
+</script><div id="language-modal" class="hidden fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-inverse-surface/85 backdrop-blur-md p-4 transition-all"><div class="bg-surface-container-lowest w-full max-w-sm rounded-xl p-4 shadow-xl flex flex-col gap-3 relative animate-in fade-in zoom-in-95"><div class="flex items-center justify-between pb-2 border-b border-outline-variant/30"><div class="flex flex-col"><h3 class="font-headline-sm text-headline-sm text-on-surface">Choose Language</h3><p class="font-label-sm text-label-sm text-on-surface-variant">భాషను ఎంచుకోండి / भाषा चुनें</p></div><button aria-label="Close modal" class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface active:bg-surface-container" onclick="document.getElementById('language-modal').classList.add('hidden')"><span class="material-symbols-outlined text-[20px]">close</span></button></div><div class="flex flex-col gap-2 pt-1"><button type="button" onclick="window.setScreenLanguage('en')" class="lang-option flex items-center justify-between p-3 rounded-lg border border-primary bg-primary/5 active:bg-primary/10 transition-colors text-left" data-lang="en"><div class="flex flex-col"><span class="font-label-lg text-label-lg font-bold text-primary">English</span><span class="font-body-sm text-body-sm text-on-surface-variant">Default (English)</span></div><span class="lang-check material-symbols-outlined text-primary text-[20px]">radio_button_checked</span></button><button type="button" onclick="window.setScreenLanguage('te')" class="lang-option flex items-center justify-between p-3 rounded-lg border border-outline-variant/30 hover:bg-surface-container active:bg-surface-container-high transition-colors text-left" data-lang="te"><div class="flex flex-col"><span class="font-label-lg text-label-lg font-bold text-on-surface">తెలుగు</span><span class="font-body-sm text-body-sm text-on-surface-variant">Telugu (ఆంధ్రప్రదేశ్ &amp; తెలంగాణ)</span></div><span class="lang-check material-symbols-outlined text-outline text-[20px]">radio_button_unchecked</span></button><button type="button" onclick="window.setScreenLanguage('hi')" class="lang-option flex items-center justify-between p-3 rounded-lg border border-outline-variant/30 hover:bg-surface-container active:bg-surface-container-high transition-colors text-left" data-lang="hi"><div class="flex flex-col"><span class="font-label-lg text-label-lg font-bold text-on-surface">हिन्दी</span><span class="font-body-sm text-body-sm text-on-surface-variant">Hindi (राष्ट्रीय भाषा)</span></div><span class="lang-check material-symbols-outlined text-outline text-[20px]">radio_button_unchecked</span></button></div></div></div><script>window.LANG_DATA = { en: { langLabel: 'English', headerTitle: '09   Add Farm Screen', bannerTitle: 'Register Your Holding', bannerDesc: 'Register your farm to unlock intelligent farming insights, satellite NDVI, and IoT telemetry.', setupStep: 'Farm Setup (Step 1 of 1)', telemetryReady: 'Telemetry Ready', sec1Title: '1. Farm Information', farmNameLbl: 'Farm Name *', farmOwnerLbl: 'Farm Owner Name *', farmOpTypeLbl: 'Farm Operation Type *', optCommercial: 'Commercial Crop', optFamily: 'Family Farm', optOrganic: 'Organic Cultivation', optContract: 'Contract Farming', totalAreaLbl: 'Total Farm Area *', sec2Title: '2. Farm Location', stateLbl: 'State', districtLbl: 'District', villageLbl: 'Village / Mandal', pinLbl: 'PIN Code', activeGeopoint: 'Active Telemetry Geopoint', gpsLocked: 'GPS Locked', gpsAcc: 'Differential positioning accurate to ±3m radius', btnGps: 'Use Current GPS Location', sec3Title: '3. Farming Details', mainCategoryLbl: 'Main Farming Category', catAgri: 'Agriculture', catAqua: 'Aquaculture', catMixed: 'Mixed Farm', currentCropsLbl: 'Current Crops (Multi-select)', tapToToggle: 'Tap to toggle', irrigationLbl: 'Irrigation System', irrCanal: 'Canal / Gravity', irrDrip: 'Borewell Drip', irrSprinkler: 'Sprinkler', irrRainfed: 'Rainfed', waterSourceLbl: 'Water Source Primary Setup', soilTypeLbl: 'Soil Type (Optional)', sec4Title: '4. Farm Photograph', photoAttached: '1 photo attached', btnTakePhoto: 'Take Photo', btnGallery: 'Choose from Gallery', sec5Title: '5. Additional Notes', notesDesc: 'Field remarks & operational schedule', aiSyncTitle: 'AI Automated Sync', aiSyncDesc: 'NDVI multi-spectral layer will initialize within 5 mins of saving.', btnSave: 'Save Farm', btnCancel: 'Cancel' }, te: { langLabel: 'తెలుగు', headerTitle: 'పొలం జోడించండి (09)', bannerTitle: 'మీ వ్యవసాయ క్షేత్రాన్ని నమోదు చేయండి', bannerDesc: 'తెలివైన వ్యవసాయ పరిశీలనలు, ఉపగ్రహ ఎన్‌డివిఐ మరియు ఐఓటి టెలిమెట్రీని ప్రారంభించండి.', setupStep: 'పొలం అమరిక (దశ 1/1)', telemetryReady: 'టెలిమెట్రీ సిద్ధం', sec1Title: '1. వ్యవసాయ వివరాలు', farmNameLbl: 'పొలం పేరు *', farmOwnerLbl: 'రైతు / యజమాని పేరు *', farmOpTypeLbl: 'సాగు రకం *', optCommercial: 'వాణిజ్య పంట', optFamily: 'కుటుంబ క్షేత్రం', optOrganic: 'సేంద్రీయ సాగు', optContract: 'ఒప్పంద వ్యవసాయం', totalAreaLbl: 'మొత్తం పొలం విస్తీర్ణం *', sec2Title: '2. వ్యవసాయ ప్రాంతం', stateLbl: 'రాష్ట్రం', districtLbl: 'జిల్లా', villageLbl: 'గ్రామం / మండలం', pinLbl: 'పిన్ కోడ్', activeGeopoint: 'చురుకైన టెలిమెట్రీ జియోపాయింట్', gpsLocked: 'జిపిఎస్ లాక్ చేయబడింది', gpsAcc: '±3మీ ఖచ్చితత్వంతో డిఫరెన్షియల్ పొజిషనింగ్', btnGps: 'ప్రస్తుత జిపిఎస్ స్థానాన్ని తీసుకోండి', sec3Title: '3. సాగు వివరాలు', mainCategoryLbl: 'ప్రధాన వ్యవసాయ విభాగం', catAgri: 'వ్యవసాయం', catAqua: 'ఆక్వాకల్చర్', catMixed: 'మిశ్రమ క్షేత్రం', currentCropsLbl: 'ప్రస్తుత పంటలు (బహుళ ఎంపిక)', tapToToggle: 'మార్చడానికి నొక్కండి', irrigationLbl: 'నీటిపారుదల వ్యవస్థ', irrCanal: 'కాలువ / గ్రావిటీ', irrDrip: 'బోరుబావి డ్రిప్', irrSprinkler: 'స్ప్రింక్లర్', irrRainfed: 'వర్షాధారం', waterSourceLbl: 'ప్రాథమిక నీటి వనరు', soilTypeLbl: 'నేల రకం (ఐచ్ఛికం)', sec4Title: '4. పొలం ఛాయాచిత్రం', photoAttached: '1 ఫోటో జోడించబడింది', btnTakePhoto: 'ఫోటో తీయండి', btnGallery: 'గ్యాలరీ నుండి ఎంచుకోండి', sec5Title: '5. అదనపు గమనికలు', notesDesc: 'పొలం సూచనలు & కార్యాచరణ సమయాలు', aiSyncTitle: 'కృత్రిమ మేధ (AI) సింక్', aiSyncDesc: 'సేవ్ చేసిన 5 నిమిషాల్లో ఎన్‌డివిఐ లేయర్ ప్రారంభమవుతుంది.', btnSave: 'పొలాన్ని భద్రపరచండి', btnCancel: 'రద్దు చేయండి' }, hi: { langLabel: 'हिन्दी', headerTitle: 'खेत जोड़ें (09)', bannerTitle: 'अपनी जोत दर्ज करें', bannerDesc: 'स्मार्ट कृषि अंतर्दृष्टि, उपग्रह एनडीवीआई और आईओटी टेलीमेट्री अनलॉक करने के लिए खेत पंजीकृत करें।', setupStep: 'खेत सेटअप (चरण 1 का 1)', telemetryReady: 'टेलीमेट्री तैयार', sec1Title: '1. खेत की जानकारी', farmNameLbl: 'खेत का नाम *', farmOwnerLbl: 'मालिक का नाम *', farmOpTypeLbl: 'खेती का प्रकार *', optCommercial: 'व्यावसायिक फसल', optFamily: 'पारिवारिक खेत', optOrganic: 'जैविक खेती', optContract: 'अनुबंध खेती', totalAreaLbl: 'कुल खेत का क्षेत्रफल *', sec2Title: '2. खेत का स्थान', stateLbl: 'राज्य', districtLbl: 'जिला', villageLbl: 'गाँव / मंडल', pinLbl: 'पिन कोड', activeGeopoint: 'सक्रिय टेलीमेट्री जियोपॉइंट', gpsLocked: 'जीपीएस लॉक', gpsAcc: '±3 मीटर तक सटीक स्थिति', btnGps: 'वर्तमान जीपीएस स्थान का उपयोग करें', sec3Title: '3. खेती का विवरण', mainCategoryLbl: 'मुख्य कृषि श्रेणी', catAgri: 'कृषि', catAqua: 'मत्स्य पालन', catMixed: 'मिश्रित खेत', currentCropsLbl: 'वर्तमान फसलें (बहु-चयन)', tapToToggle: 'टॉगल करने के लिए टैप करें', irrigationLbl: 'सिंचाई प्रणाली', irrCanal: 'नहर / गुरुत्वाकर्षण', irrDrip: 'बोरवेल ड्रिप', irrSprinkler: 'स्प्रिंकलर', irrRainfed: 'वर्षा आधारित', waterSourceLbl: 'प्राथमिक जल स्रोत सेटअप', soilTypeLbl: 'मिट्टी का प्रकार (वैकल्पिक)', sec4Title: '4. खेत का फोटो', photoAttached: '1 फोटो संलग्न', btnTakePhoto: 'फोटो लें', btnGallery: 'गैलरी से चुनें', sec5Title: '5. अतिरिक्त टिप्पणियाँ', notesDesc: 'खेत संबंधी टिप्पणी व परिचालन कार्यक्रम', aiSyncTitle: 'एआई स्वचालित सिंक', aiSyncDesc: 'सहेजने के 5 मिनट के भीतर एनडीवीआई मल्टी-स्पेक्ट्रल लेयर शुरू होगी।', btnSave: 'खेत सहेजें', btnCancel: 'रद्द करें' } }; window.setScreenLanguage = function(lang) { const d = window.LANG_DATA[lang]; if (!d) return; const lbl = document.getElementById('current-lang-label'); if (lbl) lbl.innerText = d.langLabel; const hTitle = document.querySelector('header h1'); if (hTitle) hTitle.innerText = d.headerTitle; const bTitle = document.querySelector('main .bg-surface-container-low p.font-headline-sm'); if (bTitle) bTitle.innerText = d.bannerTitle; const bDesc = document.querySelector('main .bg-surface-container-low p.font-body-sm'); if (bDesc) bDesc.innerText = d.bannerDesc; const sStep = document.querySelector('.font-label-lg.text-primary'); if (sStep) sStep.innerText = d.setupStep; const sTel = document.querySelector('.bg-surface-container-lowest .font-label-md span:last-child'); if (sTel) sTel.innerText = d.telemetryReady; const h2List = document.querySelectorAll('main h2'); if (h2List[0]) h2List[0].innerText = d.sec1Title; if (h2List[1]) h2List[1].innerText = d.sec2Title; if (h2List[2]) h2List[2].innerText = d.sec3Title; if (h2List[3]) h2List[3].innerText = d.sec4Title; if (h2List[4]) h2List[4].innerText = d.sec5Title; const fnLbl = document.querySelector('label[for="farm-name"]'); if (fnLbl) fnLbl.innerHTML = d.farmNameLbl.replace('*', '<span class="text-error font-bold">*</span>'); const onLbl = document.querySelector('label[for="owner-name"]'); if (onLbl) onLbl.innerHTML = d.farmOwnerLbl.replace('*', '<span class="text-error font-bold">*</span>'); const chips = document.querySelectorAll('.farm-type-chip'); if (chips.length >= 4) { chips[0].querySelector('span').innerText = d.optCommercial; chips[1].querySelector('span').innerText = d.optFamily; chips[2].querySelector('span').innerText = d.optOrganic; chips[3].querySelector('span').innerText = d.optContract; } const gpsBtn = document.getElementById('btn-use-gps'); if (gpsBtn) { const ic = gpsBtn.querySelector('.material-symbols-outlined'); gpsBtn.innerHTML = ''; if (ic) gpsBtn.appendChild(ic); gpsBtn.append(' ' + d.btnGps); } const catBtns = document.querySelectorAll('.category-btn'); if (catBtns.length >= 3) { catBtns[0].querySelector('span.font-label-md').innerText = d.catAgri; catBtns[1].querySelector('span.font-label-md').innerText = d.catAqua; catBtns[2].querySelector('span.font-label-md').innerText = d.catMixed; } const saveBtn = document.getElementById('btn-save-farm'); if (saveBtn) { const sp = saveBtn.querySelector('span'); if (sp) sp.innerText = d.btnSave; } const cancelBtn = document.querySelector('button[onclick="history.back()"]'); if (cancelBtn) cancelBtn.innerText = d.btnCancel; document.querySelectorAll('.lang-option').forEach(opt => { const isCur = opt.getAttribute('data-lang') === lang; const chk = opt.querySelector('.lang-check'); if (isCur) { opt.className = 'lang-option flex items-center justify-between p-3 rounded-lg border border-primary bg-primary/5 active:bg-primary/10 transition-colors text-left'; chk.innerText = 'radio_button_checked'; chk.className = 'lang-check material-symbols-outlined text-primary text-[20px]'; } else { opt.className = 'lang-option flex items-center justify-between p-3 rounded-lg border border-outline-variant/30 hover:bg-surface-container active:bg-surface-container-high transition-colors text-left'; chk.innerText = 'radio_button_unchecked'; chk.className = 'lang-check material-symbols-outlined text-outline text-[20px]'; } }); document.getElementById('language-modal').classList.add('hidden'); };</script></main>
+
+</body></html>

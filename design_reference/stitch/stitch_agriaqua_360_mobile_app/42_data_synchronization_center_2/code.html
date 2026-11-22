@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Manrope:wght@100..900&display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "secondary-fixed-dim": "#64dd9b", "on-primary-fixed-variant": "#005232", "on-background": "#111e19", "on-secondary-container": "#007145", "on-error": "#ffffff", "on-error-container": "#93000a", "tertiary-fixed-dim": "#ccbdff", "error-container": "#ffdad6", "surface-container-highest": "#d6e6dd", "outline": "#6f7a71", "surface-bright": "#edfdf3", "on-primary-container": "#99e9b9", "tertiary-fixed": "#e7deff", "surface": "#edfdf3", "surface-container-high": "#dcece2", "on-primary": "#ffffff", "on-primary-fixed": "#002111", "on-tertiary-container": "#dcd1ff", "primary-container": "#176b45", "on-tertiary-fixed": "#1f005f", "on-tertiary-fixed-variant": "#4d2aae", "secondary-container": "#7ef7b3", "inverse-surface": "#26332d", "surface-variant": "#d6e6dd", "tertiary-container": "#6445c6", "background": "#edfdf3", "on-secondary-fixed": "#002111", "error": "#ba1a1a", "on-secondary": "#ffffff", "secondary-fixed": "#81fab6", "on-secondary-fixed-variant": "#005230", "outline-variant": "#bfc9c0", "tertiary": "#4c28ad", "surface-container": "#e2f2e8", "surface-dim": "#ceded4", "on-surface-variant": "#3f4942", "on-surface": "#111e19", "surface-tint": "#186c45", "inverse-primary": "#88d7a8", "primary-fixed-dim": "#88d7a8", "surface-container-low": "#e7f7ee", "surface-container-lowest": "#ffffff", "primary-fixed": "a4f4c3", "primary": "#005131", "secondary": "#006d42", "inverse-on-surface": "#e5f5eb", "on-tertiary": "#ffffff" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-lg": "1.5rem", "margin": "1rem", "space-xl": "2rem", "space-sm": "0.5rem", "gutter": "1rem", "space-md": "1rem", "space-xs": "0.25rem" }, fontFamily: { "display-lg": ["Manrope"], "label-md": ["Inter"], "headline-lg": ["Manrope"], "display-lg-mobile": ["Manrope"], "label-lg": ["Inter"], "label-sm": ["Inter"], "body-sm": ["Inter"], "body-md": ["Inter"], "headline-sm": ["Manrope"], "body-lg": ["Inter"], "headline-md": ["Manrope"] }, fontSize: { "display-lg": ["36px", { lineHeight: "44px", letterSpacing: "-0.02em", fontWeight: "800" }], "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.02em", fontWeight: "600" }], "headline-lg": ["26px", { lineHeight: "34px", letterSpacing: "-0.01em", fontWeight: "700" }], "display-lg-mobile": ["30px", { lineHeight: "38px", letterSpacing: "-0.015em", fontWeight: "800" }], "label-lg": ["14px", { lineHeight: "20px", letterSpacing: "0.01em", fontWeight: "600" }], "label-sm": ["11px", { lineHeight: "14px", letterSpacing: "0.03em", fontWeight: "500" }], "body-sm": ["13px", { lineHeight: "18px", fontWeight: "400" }], "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }], "headline-sm": ["18px", { lineHeight: "24px", fontWeight: "600" }], "body-lg": ["16px", { lineHeight: "24px", fontWeight: "500" }], "headline-md": ["22px", { lineHeight: "28px", fontWeight: "700" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-on-surface antialiased flex flex-col min-h-screen selection:bg-secondary-container selection:text-on-secondary-container"><header class="fixed top-0 w-full z-50 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(23,107,69,0.04)] pt-safe"><div class="h-6 px-margin flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm select-none"><span class="font-semibold">9:41</span><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-[14px]">signal_cellular_alt</span><span class="material-symbols-outlined text-[14px]">wifi</span><span class="material-symbols-outlined text-[16px]">battery_full</span></div></div><div class="h-16 px-space-sm flex items-center justify-between gap-space-xs"><div class="flex items-center gap-space-xs min-w-0 flex-1"><button aria-label="Go back" class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface hover:bg-surface-container active:scale-95 transition-all shrink-0" onclick="history.back()" type="button"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><h1 class="font-headline-sm text-headline-sm text-on-surface truncate">Data Synchronization Center</h1></div><div class="flex items-center gap-space-xs shrink-0"><div class="flex items-center bg-surface-container-high p-0.5 rounded-full"><button class="px-2 py-1 rounded-full text-label-sm font-label-sm bg-primary text-on-primary min-w-[32px] min-h-[30px] flex items-center justify-center transition-colors" type="button">EN</button><button class="px-2 py-1 rounded-full text-label-sm font-label-sm text-on-surface-variant hover:text-on-surface min-w-[32px] min-h-[30px] flex items-center justify-center transition-colors" type="button">తె</button><button class="px-2 py-1 rounded-full text-label-sm font-label-sm text-on-surface-variant hover:text-on-surface min-w-[32px] min-h-[30px] flex items-center justify-center transition-colors" type="button">हि</button></div><button aria-label="Sync status" class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">sync</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-22 pb-safe bg-surface min-h-screen"><div class="flex flex-col w-full pb-24">
+<!-- Top Ambient Sync State & Context Bar -->
+<div class="px-margin pt-space-xs pb-space-sm flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="inline-flex w-2.5 h-2.5 rounded-full bg-secondary-fixed-dim animate-pulse"></span>
+<span class="font-label-sm text-label-sm text-primary font-semibold tracking-wide">
+          4G LTE (-76 dBm) Jio Farm Mast #4
+        </span>
+</div>
+<div class="bg-surface-container-high px-2 py-0.5 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-primary text-[14px]">cell_tower</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Telemetry Online</span>
+</div>
+</div>
+<div class="flex items-baseline justify-between">
+<p class="font-headline-sm text-headline-sm text-on-surface font-bold">
+        Data Sync Center
+      </p>
+<span class="font-label-sm text-label-sm text-on-surface-variant">
+        సమకాలీకరణ • सिंक
+      </span>
+</div>
+</div>
+<!-- Primary Sync Engine Active Pulse Card -->
+<section class="px-margin mb-space-md">
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm relative overflow-hidden">
+<!-- Background subtle atmospheric aura -->
+<div class="absolute -right-12 -top-12 w-44 h-44 rounded-full bg-secondary-container/20 blur-2xl pointer-events-none"></div>
+<div class="flex items-start justify-between gap-space-sm relative z-10">
+<div class="flex items-center gap-space-sm">
+<div class="w-12 h-12 rounded-xl bg-primary-container/10 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-[28px] animate-spin" style="animation-duration: 4s;">sync</span>
+</div>
+<div>
+<div class="flex items-center gap-1.5">
+<span class="font-label-md text-label-md font-bold text-primary">Active Engine Sync</span>
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Batch 2 of 3</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+              18 of 26 telemetry items processed
+            </p>
+</div>
+</div>
+<button class="bg-primary text-on-primary font-label-md text-label-md px-3.5 py-2.5 rounded-lg active:scale-95 transition-all shadow-sm flex items-center gap-1 shrink-0" type="button">
+<span class="material-symbols-outlined text-[16px]">bolt</span>
+<span>Sync Now</span>
+</button>
+</div>
+<!-- Animated Progress Tracker -->
+<div class="mt-space-md">
+<div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant mb-1.5">
+<span class="font-medium">Push & Pull Pipeline</span>
+<span class="font-bold text-primary">68%</span>
+</div>
+<div class="w-full h-2.5 rounded-full bg-surface-container-highest overflow-hidden p-0.5">
+<div class="h-full rounded-full bg-primary transition-all duration-700" style="width: 68%;"></div>
+</div>
+</div>
+<!-- Sync Status Sub-data -->
+<div class="mt-space-sm pt-space-xs flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-secondary">check_circle</span>
+<span>Last full sync: <strong>Today 08:42 AM IST</strong></span>
+</div>
+<span class="text-tertiary font-medium">Smart Retry Active</span>
+</div>
+</div>
+</section>
+<!-- 3-Column Sync Metrics Overview -->
+<section class="px-margin mb-space-md">
+<div class="grid grid-cols-3 gap-2.5">
+<!-- Pending Uploads -->
+<div class="bg-surface-container-lowest p-3 rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Uploads</span>
+<span class="material-symbols-outlined text-[18px] text-primary">cloud_upload</span>
+</div>
+<span class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-on-surface">14</span>
+<div class="flex items-center gap-1 mt-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed-dim"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant leading-none">Queued</span>
+</div>
+</div>
+<!-- Pending Downloads -->
+<div class="bg-surface-container-lowest p-3 rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Firmware</span>
+<span class="material-symbols-outlined text-[18px] text-tertiary">cloud_download</span>
+</div>
+<span class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-on-surface">3</span>
+<div class="flex items-center gap-1 mt-1">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed-dim"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant leading-none">Advisory</span>
+</div>
+</div>
+<!-- Failed Records -->
+<div class="bg-error-container/40 p-3 rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-sm text-label-sm text-on-error-container font-semibold">Failed</span>
+<span class="material-symbols-outlined text-[18px] text-error">error</span>
+</div>
+<span class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-error">2</span>
+<div class="flex items-center gap-1 mt-1">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+<span class="font-label-sm text-label-sm text-on-error-container leading-none font-medium">Needs Action</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Interactive Conflict Resolution Studio with Voice Note -->
+<section class="px-margin mb-space-md">
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm relative overflow-hidden">
+<!-- Section Banner & Multilingual Badge -->
+<div class="flex items-start justify-between gap-space-sm mb-3">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-error-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-error text-[20px]">difference</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-bold leading-tight">
+              Feed Log Conflict #AQ-418
+            </h2>
+<p class="font-label-sm text-label-sm text-error font-medium">
+              తేడా గుర్తించబడింది • विसंगతి నివారణ
+            </p>
+</div>
+</div>
+<span class="bg-error-container text-on-error-container font-label-sm text-label-sm px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">
+          Urgent
+        </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-sm">
+        Two operators submitted differing evening feeder weights for <strong>Pond #03 (Vannamei Block)</strong> while offline.
+      </p>
+<!-- Side-by-side Comparative Cards -->
+<div class="grid grid-cols-2 gap-2 mb-space-md">
+<!-- Device Offline Record -->
+<div class="bg-surface-container p-3 rounded-xl flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-1.5">
+<span class="font-label-sm text-label-sm font-semibold text-primary">Device (Local)</span>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">phone_android</span>
+</div>
+<div class="font-headline-sm text-headline-sm font-bold text-on-surface">45 kg</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1">
+              High-Protein Pellets
+            </p>
+</div>
+<div class="mt-3 pt-2 bg-surface-container-high/60 -mx-3 -mb-3 px-3 py-2 rounded-b-xl">
+<p class="font-label-sm text-label-sm text-on-surface font-medium truncate">Ravi (Field Tech)</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant text-[10px]">Logged 08:00 AM</p>
+</div>
+</div>
+<!-- Cloud Central Record -->
+<div class="bg-tertiary-fixed/40 p-3 rounded-xl flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-1.5">
+<span class="font-label-sm text-label-sm font-semibold text-tertiary">Cloud Portal</span>
+<span class="material-symbols-outlined text-[16px] text-tertiary">cloud_done</span>
+</div>
+<div class="font-headline-sm text-headline-sm font-bold text-on-surface">50 kg</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1">
+              Supervisor Overwrite
+            </p>
+</div>
+<div class="mt-3 pt-2 bg-tertiary-fixed/70 -mx-3 -mb-3 px-3 py-2 rounded-b-xl">
+<p class="font-label-sm text-label-sm text-on-surface font-medium truncate">Sitaram (Manager)</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant text-[10px]">Logged 08:15 AM</p>
+</div>
+</div>
+</div>
+<!-- Voice Resolution Feature with Audio Waveform -->
+<div class="bg-surface-container-low rounded-xl p-space-sm mb-space-sm">
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-tertiary">mic</span>
+<span class="font-label-md text-label-md font-bold text-on-surface">Voice Audit Reason</span>
+</div>
+<div class="flex items-center gap-1 bg-surface-container-high rounded-full px-1.5 py-0.5">
+<button class="font-label-sm text-label-sm text-primary font-bold px-1" type="button">EN</button>
+<span class="text-outline-variant text-[10px]">|</span>
+<button class="font-label-sm text-label-sm text-on-surface-variant px-1" type="button">తె</button>
+<span class="text-outline-variant text-[10px]">|</span>
+<button class="font-label-sm text-label-sm text-on-surface-variant px-1" type="button">हि</button>
+</div>
+</div>
+<!-- Simulated live transcript -->
+<div class="bg-surface-container-lowest rounded-lg p-2.5 mb-2 shadow-sm">
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-tertiary mt-0.5 shrink-0">record_voice_over</span>
+<div>
+<p class="font-body-sm text-body-sm text-on-surface italic leading-snug">
+                "రవి ధృవీకరించారు: 5 కేజీల మేత బస్తా వర్షంలో తడిసింది. వాస్తవానికి వేసినది 45 కేజీలు మాత్రమే."
+              </p>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1">
+                Transcript: "Ravi verified 5 kg feed bag was damaged by rain, net feed given was 45 kg."
+              </p>
+</div>
+</div>
+</div>
+<!-- Simulated Waveform visualizer -->
+<div class="flex items-center justify-between px-2 py-1 bg-surface-container rounded-lg">
+<div class="flex items-center gap-1 w-full mr-3">
+<span class="w-1 h-3 bg-tertiary rounded-full animate-pulse"></span>
+<span class="w-1 h-5 bg-tertiary rounded-full animate-pulse" style="animation-delay: 100ms;"></span>
+<span class="w-1 h-2 bg-tertiary/60 rounded-full"></span>
+<span class="w-1 h-6 bg-tertiary rounded-full animate-pulse" style="animation-delay: 200ms;"></span>
+<span class="w-1 h-4 bg-tertiary rounded-full animate-pulse" style="animation-delay: 300ms;"></span>
+<span class="w-1 h-2 bg-tertiary/40 rounded-full"></span>
+<span class="w-1 h-5 bg-tertiary rounded-full animate-pulse" style="animation-delay: 150ms;"></span>
+<span class="w-1 h-3 bg-tertiary rounded-full"></span>
+<span class="w-1 h-6 bg-tertiary rounded-full animate-pulse" style="animation-delay: 250ms;"></span>
+<span class="w-1 h-4 bg-tertiary rounded-full"></span>
+<span class="w-1 h-2 bg-tertiary/40 rounded-full"></span>
+<span class="w-1 h-5 bg-tertiary rounded-full animate-pulse" style="animation-delay: 180ms;"></span>
+</div>
+<span class="font-label-sm text-label-sm text-tertiary font-semibold shrink-0">0:06 / Rec</span>
+</div>
+</div>
+<!-- Resolution Decisional Actions -->
+<div class="flex flex-col gap-2">
+<div class="grid grid-cols-2 gap-2">
+<button class="w-full py-2.5 px-2 bg-surface-container text-primary font-label-md text-label-md rounded-lg active:scale-95 transition-all text-center font-bold" type="button">
+            Keep Device (45 kg)
+          </button>
+<button class="w-full py-2.5 px-2 bg-surface-container text-tertiary font-label-md text-label-md rounded-lg active:scale-95 transition-all text-center font-bold" type="button">
+            Accept Cloud (50 kg)
+          </button>
+</div>
+<button class="w-full py-3 px-4 bg-tertiary-container text-on-tertiary font-label-md text-label-md rounded-xl active:scale-95 transition-all flex items-center justify-center gap-2 shadow-sm font-bold" type="button">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+<span>Merge with Voice Audit Note (45 kg Net)</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Detailed Sync Queue & Diagnostics List -->
+<section class="px-margin mb-space-md">
+<div class="flex items-center justify-between mb-space-sm">
+<div class="flex items-center gap-1.5">
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">Sync Queue & Log</h2>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">(4 Active)</span>
+</div>
+<button class="font-label-sm text-label-sm text-primary font-bold" type="button">Diagnostics</button>
+</div>
+<div class="flex flex-col gap-2.5">
+<!-- Item 1: Soil Test Diagnostic Failure -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col gap-2">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-start gap-2.5 min-w-0">
+<div class="w-9 h-9 rounded-lg bg-error-container text-on-error-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px]">science</span>
+</div>
+<div class="min-w-0">
+<p class="font-label-lg text-label-lg font-bold text-on-surface truncate">
+                Plot B-1 Soil Nitrogen Sample
+              </p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">
+                Ref: #SHC-9021 • 1.2 KB
+              </p>
+</div>
+</div>
+<span class="bg-error-container text-on-error-container font-label-sm text-label-sm px-2 py-0.5 rounded-full shrink-0 font-medium">
+            HTTP 422
+          </span>
+</div>
+<div class="bg-error-container/30 px-3 py-2 rounded-lg flex items-center justify-between">
+<p class="font-label-sm text-label-sm text-error font-medium truncate">
+            Lab ID syntax mismatch: Required `AP-KR-XXXX`
+          </p>
+<button class="font-label-sm text-label-sm text-error font-bold underline shrink-0 ml-2" type="button">
+            Fix & Retry
+          </button>
+</div>
+</div>
+<!-- Item 2: Heavy Field Photo Upload Failed / Timed Out -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col gap-2">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-start gap-2.5 min-w-0">
+<img class="w-12 h-12 rounded-lg object-cover shrink-0" data-alt="Close up photograph of aquaculture pond sluice gate valve with water level indicator sensor in Krishna coastal farm under bright sunny day" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSiI0xMLE4yvjOcjV_LMwOYV_hS9v6Ajo7toCgYXY2SeQMQFkgZ5p2rWlHKcYL7tZ9mSC0Ze3tPmqa8WI-ZDQPUWEGovZQWjib6X-jWaPJeqpU8EN0mt9EDVxyDezsaC3SLMq5BUQMqg9Z9xedw6MW5cCDsechZgHIFDROxKCQ32f6SPvR3j09MyPLVVvB3MRI8G7Qsrqcz53xX2uR5DOo6vEYN9pcfbCXjUY8IOU"/>
+<div class="min-w-0">
+<p class="font-label-lg text-label-lg font-bold text-on-surface truncate">
+                Pond #02 Sluice Gate Camera Photo
+              </p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">
+                Visual Inspection • 8.4 MB RAW
+              </p>
+</div>
+</div>
+<span class="bg-error-container text-on-error-container font-label-sm text-label-sm px-2 py-0.5 rounded-full shrink-0 font-medium">
+            Timeout
+          </span>
+</div>
+<!-- Transfer Progress Bar -->
+<div class="w-full">
+<div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant mb-1">
+<span>Transfer stalled at 7.1 / 8.4 MB</span>
+<span class="text-error font-medium">84%</span>
+</div>
+<div class="w-full h-1.5 rounded-full bg-surface-container-highest overflow-hidden">
+<div class="h-full rounded-full bg-error" style="width: 84%;"></div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-2 mt-1">
+<button class="bg-surface-container text-on-surface font-label-sm text-label-sm py-2 rounded-lg active:scale-95 transition-all text-center font-semibold flex items-center justify-center gap-1" type="button">
+<span class="material-symbols-outlined text-[15px]">refresh</span>
+<span>Resume (8.4MB)</span>
+</button>
+<button class="bg-primary-container text-on-primary font-label-sm text-label-sm py-2 rounded-lg active:scale-95 transition-all text-center font-semibold flex items-center justify-center gap-1 shadow-sm" type="button">
+<span class="material-symbols-outlined text-[15px]">compress</span>
+<span>Compress (2.1MB)</span>
+</button>
+</div>
+</div>
+<!-- Item 3: Queued Optical Dissolved Oxygen -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex items-center justify-between">
+<div class="flex items-center gap-2.5 min-w-0">
+<div class="w-9 h-9 rounded-lg bg-surface-container-high text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px]">water_drop</span>
+</div>
+<div class="min-w-0">
+<p class="font-label-lg text-label-lg font-bold text-on-surface truncate">
+              Pond #01 Optical Dissolved Oxygen
+            </p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">
+              Telemetry Readout: 6.8 mg/L • pH 7.8
+            </p>
+</div>
+</div>
+<span class="bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm px-2.5 py-1 rounded-full shrink-0 font-semibold">
+          Queued #1
+        </span>
+</div>
+<!-- Item 4: Successfully Synced Weather Cache -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex items-center justify-between">
+<div class="flex items-center gap-2.5 min-w-0">
+<div class="w-9 h-9 rounded-lg bg-secondary-container/40 text-on-secondary-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px]">cloudy_snowing</span>
+</div>
+<div class="min-w-0">
+<p class="font-label-lg text-label-lg font-bold text-on-surface truncate">
+              Weather Microclimate Cache
+            </p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">
+              Krishna Coastal Coastal Grid Station
+            </p>
+</div>
+</div>
+<div class="flex items-center gap-1 text-secondary font-label-sm text-label-sm font-semibold shrink-0">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+<span>08:42 AM</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Cellular & Sync Policy Preferences -->
+<section class="px-margin mb-space-lg">
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm">
+<h3 class="font-label-lg text-label-lg font-bold text-on-surface mb- space-sm">
+        Network & Battery Policies
+      </h3>
+<div class="flex flex-col gap-space-sm">
+<!-- Wi-Fi Only Preference -->
+<label class="flex items-center justify-between cursor-pointer py-1">
+<div class="flex flex-col pr-2">
+<span class="font-body-md text-body-md text-on-surface font-semibold">Auto-sync on Wi-Fi Only</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Prevent high cellular data usage in remote farms</span>
+</div>
+<input class="w-5 h-5 rounded accent-primary shrink-0 cursor-pointer" type="checkbox"/>
+</label>
+<!-- Cellular 4G sync -->
+<label class="flex items-center justify-between cursor-pointer py-1">
+<div class="flex flex-col pr-2">
+<span class="font-body-md text-body-md text-on-surface font-semibold">Auto-sync on 4G Cellular</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Continuous vital sensor updates when away from hub</span>
+</div>
+<input checked="" class="w-5 h-5 rounded accent-primary shrink-0 cursor-pointer" type="checkbox"/>
+</label>
+<!-- Heavy Image Compression -->
+<label class="flex items-center justify-between cursor-pointer py-1">
+<div class="flex flex-col pr-2">
+<span class="font-body-md text-body-md text-on-surface font-semibold">Compress Field Photos by 70%</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Accelerates upload speed in fringe signal zones</span>
+</div>
+<input checked="" class="w-5 h-5 rounded accent-primary shrink-0 cursor-pointer" type="checkbox"/>
+</label>
+</div>
+</div>
+</section>
+<!-- Sticky Fixed Bottom Action Deck -->
+<div class="fixed bottom-0 left-0 right-0 p-margin bg-surface/90 backdrop-blur-md z-40">
+<div class="max-w-md mx-auto flex items-center gap-space-sm">
+<button class="flex-1 min-h-[52px] bg-primary text-on-primary font-label-lg text-label-lg rounded-xl flex items-center justify-center gap-2 active:scale-95 transition-all shadow-md font-bold" type="button">
+<span class="material-symbols-outlined text-[20px]">restart_alt</span>
+<span>Retry All Failed (2)</span>
+</button>
+<button class="min-h-[52px] px-4 bg-surface-container-high text-on-surface font-label-lg text-label-lg rounded-xl flex items-center justify-center gap-1.5 active:scale-95 transition-all font-semibold" type="button">
+<span class="material-symbols-outlined text-[18px]">done_all</span>
+<span class="whitespace-nowrap">Clear Resolved</span>
+</button>
+</div>
+</div>
+</div>
+<script>
+  // Simple micro-interaction for tactile feedback on resolution buttons
+  document.addEventListener('DOMContentLoaded', () => {
+    const actionBtns = document.querySelectorAll('button');
+    actionBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        if (!this.classList.contains('active:scale-95')) {
+          this.classList.add('opacity-80');
+          setTimeout(() => this.classList.remove('opacity-80'), 150);
+        }
+      });
+    });
+  });
+</script></main></body></html>

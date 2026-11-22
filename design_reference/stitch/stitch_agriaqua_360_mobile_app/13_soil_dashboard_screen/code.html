@@ -1,0 +1,486 @@
+<!DOCTYPE html><html class="h-full" lang="en"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"><meta content="mobile_stack" name="shell-type"><title>AgriAqua 360</title><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&amp;family=Noto+Sans+Telugu:wght@400;500;600;700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{width:100%;min-height:100%;margin:0;padding:0;}body{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"primary":"#005131","surface-bright":"#edfdf3","on-primary":"#ffffff","tertiary":"#4c28ad","on-error-container":"#93000a","secondary-container":"#7ef7b3","secondary-fixed":"#81fab6","outline":"#6f7a71","surface":"#edfdf3","error-container":"#ffdad6","on-error":"#ffffff","primary-container":"#176b45","inverse-primary":"#88d7a8","primary-fixed":"#a4f4c3","on-secondary":"#ffffff","secondary":"#006d42","inverse-on-surface":"#e5f5eb","surface-container":"#e2f2e8","on-tertiary-fixed":"#1f005f","on-secondary-container":"#007145","on-tertiary-container":"#dcd1ff","tertiary-container":"#6445c6","surface-container-highest":"#d6e6dd","outline-variant":"#bfc9c0","inverse-surface":"#26332d","background":"#edfdf3","error":"#ba1a1a","surface-tint":"#186c45","on-secondary-fixed":"#002111","on-primary-container":"#99e9b9","on-primary-fixed":"#002111","tertiary-fixed":"#e7deff","on-tertiary":"#ffffff","secondary-fixed-dim":"#64dd9b","surface-variant":"#d6e6dd","surface-dim":"#ceded4","on-primary-fixed-variant":"#005232","tertiary-fixed-dim":"#ccbdff","on-surface-variant":"#3f4942","surface-container-high":"#dcece2","on-background":"#111e19","primary-fixed-dim":"#88d7a8","surface-container-lowest":"#ffffff","surface-container-low":"#e7f7ee","on-secondary-fixed-variant":"#005230","on-surface":"#111e19","on-tertiary-fixed-variant":"#4d2aae"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"gutter":"1rem","space-sm":"0.5rem","space-md":"1rem","space-xl":"2rem","space-lg":"1.5rem","space-xs":"0.25rem","margin":"1rem"},"fontFamily":{"display-lg":["Manrope"],"headline-sm":["Manrope"],"label-sm":["Inter"],"label-lg":["Inter"],"display-lg-mobile":["Manrope"],"body-md":["Inter"],"body-lg":["Inter"],"body-sm":["Inter"],"label-md":["Inter"],"headline-md":["Manrope"],"headline-lg":["Manrope"]},"fontSize":{"display-lg":["36px",{"lineHeight":"44px","letterSpacing":"-0.02em","fontWeight":"800"}],"headline-sm":["18px",{"lineHeight":"24px","fontWeight":"600"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.03em","fontWeight":"500"}],"label-lg":["14px",{"lineHeight":"20px","letterSpacing":"0.01em","fontWeight":"600"}],"display-lg-mobile":["30px",{"lineHeight":"38px","letterSpacing":"-0.015em","fontWeight":"800"}],"body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}],"body-lg":["16px",{"lineHeight":"24px","fontWeight":"500"}],"body-sm":["13px",{"lineHeight":"18px","fontWeight":"400"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"600"}],"headline-md":["22px",{"lineHeight":"28px","fontWeight":"700"}],"headline-lg":["26px",{"lineHeight":"34px","letterSpacing":"-0.01em","fontWeight":"700"}]}}}};</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface text-on-surface antialiased flex flex-col min-h-screen selection:bg-secondary-container selection:text-on-secondary-container"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(23,107,69,0.04)]"><div class="h-16 px-gutter flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-xs min-w-0 flex-1"><button aria-label="Go Back" class="w-11 h-11 -ml-2 rounded-full flex items-center justify-center text-on-surface active:bg-surface-container transition-colors shrink-0" onclick="history.back()"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><div class="flex flex-col min-w-0"><h1 class="font-headline-md text-headline-md text-on-surface truncate">13   Soil Dashboard Screen</h1></div></div><div class="flex items-center gap-space-xs shrink-0"><button aria-label="Search" class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface active:bg-surface-container transition-colors"><span class="material-symbols-outlined text-[22px]">search</span></button><button aria-label="Filter" class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface active:bg-surface-container transition-colors"><span class="material-symbols-outlined text-[22px]">tune</span></button><button aria-label="More options" class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface active:bg-surface-container transition-colors"><span class="material-symbols-outlined text-[22px]">more_vert</span></button></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-safe bg-surface"><div class="flex flex-col w-full pb-32">
+<!-- Multilingual & Demo Notification -->
+<div class="px-gutter pt-space-sm pb-space-xs">
+<div class="bg-surface-container-high text-on-surface-variant px-space-md py-space-sm rounded-xl flex items-center justify-between shadow-sm"><div class="flex items-center gap-space-xs min-w-0"><span class="material-symbols-outlined text-[18px] text-primary shrink-0" style="font-variation-settings: 'FILL' 1;">science</span><p id="sub-demo-note" class="font-label-sm text-label-sm truncate">Demo Telemetry &amp; Lab Data • Calibrated for Paddy (BPT 5204)</p></div><button type="button" onclick="openLangModal()" class="flex items-center gap-1.5 shrink-0 bg-surface hover:bg-surface-container-lowest px-2.5 py-1 rounded-full border border-outline-variant/40 shadow-xs cursor-pointer transition-all active:scale-95"><span class="material-symbols-outlined text-[15px] text-primary">language</span><span id="active-lang-label" class="font-label-sm text-label-sm text-primary font-bold">🌐 English ▼</span></button></div>
+</div>
+<!-- Plot Context Banner -->
+<div class="px-gutter py-space-sm">
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm relative overflow-hidden">
+<div class="flex items-start justify-between gap-space-sm mb-space-sm">
+<div class="min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary shrink-0 animate-pulse"></span>
+<span class="font-label-md text-label-md text-secondary uppercase tracking-wider">Live Soil Telemetry</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface mt-0.5 truncate">Plot A-2 (North Canal)</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[16px] text-outline">nature_people</span>
+            Green Valley Farm • Alluvial Clay Loam (Delta Basin)
+          </p>
+</div>
+<div class="flex flex-col items-end shrink-0">
+<span class="bg-secondary-container text-on-secondary-container px-2.5 py-1 rounded-full font-label-md text-label-md flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[15px]" style="font-variation-settings: 'FILL' 1;">eco</span>
+            84/100
+          </span>
+<span class="font-label-sm text-label-sm text-secondary font-medium mt-1">Good Agronomic</span>
+</div>
+</div>
+<div class="bg-surface-container-low rounded-lg p-space-sm flex items-center justify-between gap-space-sm">
+<div class="flex items-center gap-2 min-w-0">
+<span class="material-symbols-outlined text-[18px] text-primary shrink-0">history_toggle_off</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Last Verified Lab Test: 14 Oct 2024 (10d ago)</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary font-semibold shrink-0 cursor-pointer">Re-test due 15d</span>
+</div>
+</div>
+</div>
+<!-- Key Soil Visual Anchor / Field Section -->
+<div class="px-gutter py-space-xs">
+<div class="relative w-full h-32 rounded-xl overflow-hidden shadow-sm flex items-end p-space-md" data-alt="Expansive lush green paddy rice terrace fields flooded under warm sun with fertile dark alluvial soil mud bunds and gentle irrigation canal waters in tropical delta Krishna basin. High dynamic range, cinematic agronomy photography." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAgCdksJSph8E_WydnEy1dNE9_mbUGFqJIg5PTiZtdhTuwKErtdHPpRZzMRggJOpPQNe9SptqbXlMMO21eeyJjYyEbJXFupM3mwQNsfjtaO9G2icW1FogEnwgqI8Mnh9asRRylCuUfHIapsU2T3kC_L1ZIjYcZW1LtbnY_uyowsRP3Qwrr-Z8Ksd8sLvIT61hCzBR30tANVCPcvmST75xiqpJ2DM1f83TaGQcajKfY')">
+<div class="absolute inset-0 bg-gradient-to-t from-on-background/90 via-on-background/40 to-transparent"></div>
+<div class="relative z-10 w-full flex items-center justify-between text-on-primary">
+<div>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary-fixed">Sub-surface Probes Active</span>
+<p class="font-headline-sm text-headline-sm text-surface-bright leading-tight">Root Zone Layer: 0–30 cm</p>
+</div>
+<div class="flex items-center gap-1 bg-surface-container-lowest/20 backdrop-blur-md px-2.5 py-1 rounded-full text-surface-bright">
+<span class="material-symbols-outlined text-[16px] text-secondary-fixed">sensors</span>
+<span class="font-label-md text-label-md">3 Telemetry Nodes</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Quick Parameter Filter / View Pills -->
+<div class="px-gutter pt-space-md pb-space-xs">
+<div class="flex items-center justify-between mb-space-xs">
+<h3 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-2">
+<span>Soil Parameters</span>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-medium">7 Parameters</span>
+</h3>
+<span class="font-label-md text-label-md text-primary font-semibold cursor-pointer">Calibrate Probes</span>
+</div>
+</div>
+<!-- Parameters Grid -->
+<div class="px-gutter space-y-3">
+<!-- Card 1: Soil pH -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm">
+<div class="flex items-start justify-between">
+<div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-primary">opacity</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Soil pH Level</span>
+</div>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="font-headline-lg text-headline-lg text-on-surface">6.8</span>
+<span class="font-body-sm text-body-sm text-outline">pH Scale (0–14)</span>
+</div>
+</div>
+<span class="bg-secondary-container text-on-secondary-container px-2.5 py-0.5 rounded-full font-label-sm text-label-sm font-semibold">
+          Optimal
+        </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Neutral • Optimal nutrient bioavailability for rice paddy</p>
+<!-- Horizontal Spectrum Bar Indicator -->
+<div class="mt-3">
+<div class="w-full bg-surface-container-high h-2 rounded-full relative overflow-hidden flex">
+<div class="w-1/3 bg-error-container"></div>
+<div class="w-1/3 bg-secondary-fixed"></div>
+<div class="w-1/3 bg-tertiary-fixed"></div>
+</div>
+<div class="relative w-full mt-1 flex justify-between font-label-sm text-label-sm text-outline">
+<span>4.5 (Acidic)</span>
+<span class="font-semibold text-secondary">6.5–7.2 (Ideal)</span>
+<span>8.5 (Alkaline)</span>
+</div>
+</div>
+</div>
+<!-- 2 Column Split: N & P -->
+<div class="grid grid-cols-2 gap-3">
+<!-- Card 2: Nitrogen -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Available N</span>
+<span class="bg-amber-100 text-amber-900 px-2 py-0.5 rounded-full font-label-sm text-label-sm font-semibold">Low-Med</span>
+</div>
+<div class="mt-2">
+<span class="font-headline-md text-headline-md text-on-surface">215</span>
+<span class="font-label-sm text-label-sm text-outline ml-1">kg/ha</span>
+</div>
+<p class="font-label-sm text-label-sm text-outline mt-0.5">Target: 250–320</p>
+</div>
+<div class="mt-3 pt-2 bg-surface-container-low rounded-lg p-2">
+<div class="flex justify-between font-label-sm text-label-sm mb-1">
+<span class="text-on-surface-variant">Capacity</span>
+<span class="text-amber-800 font-semibold">68%</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+<div class="bg-amber-600 h-full rounded-full" style="width: 68%;"></div>
+</div>
+</div>
+</div>
+<!-- Card 3: Phosphorus -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Available P</span>
+<span class="bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded-full font-label-sm text-label-sm font-semibold">Adequate</span>
+</div>
+<div class="mt-2">
+<span class="font-headline-md text-headline-md text-on-surface">24</span>
+<span class="font-label-sm text-label-sm text-outline ml-1">kg/ha</span>
+</div>
+<p class="font-label-sm text-label-sm text-outline mt-0.5">Target: 20–35</p>
+</div>
+<div class="mt-3 pt-2 bg-surface-container-low rounded-lg p-2">
+<div class="flex justify-between font-label-sm text-label-sm mb-1">
+<span class="text-on-surface-variant">Capacity</span>
+<span class="text-secondary font-semibold">85%</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 85%;"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- 2 Column Split: K & EC -->
+<div class="grid grid-cols-2 gap-3">
+<!-- Card 4: Potassium -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Available K</span>
+<span class="bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded-full font-label-sm text-label-sm font-semibold">Optimal</span>
+</div>
+<div class="mt-2">
+<span class="font-headline-md text-headline-md text-on-surface">315</span>
+<span class="font-label-sm text-label-sm text-outline ml-1">kg/ha</span>
+</div>
+<p class="font-label-sm text-label-sm text-outline mt-0.5">Target: 280–350</p>
+</div>
+<div class="mt-3 pt-2 bg-surface-container-low rounded-lg p-2">
+<div class="flex justify-between font-label-sm text-label-sm mb-1">
+<span class="text-on-surface-variant">Capacity</span>
+<span class="text-secondary font-semibold">94%</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 94%;"></div>
+</div>
+</div>
+</div>
+<!-- Card 5: EC -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">EC (Salinity)</span>
+<span class="bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded-full font-label-sm text-label-sm font-semibold">Safe</span>
+</div>
+<div class="mt-2">
+<span class="font-headline-md text-headline-md text-on-surface">0.72</span>
+<span class="font-label-sm text-label-sm text-outline ml-1">dS/m</span>
+</div>
+<p class="font-label-sm text-label-sm text-outline mt-0.5">Threshold &lt; 1.5</p>
+</div>
+<div class="mt-3 pt-2 bg-surface-container-low rounded-lg p-2">
+<div class="flex justify-between font-label-sm text-label-sm mb-1">
+<span class="text-on-surface-variant">Salinity Index</span>
+<span class="text-secondary font-semibold">Non-saline</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+<div class="bg-secondary-container h-full rounded-full" style="width: 36%;"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 6: Organic Carbon & Soil Moisture Split -->
+<div class="grid grid-cols-2 gap-3">
+<!-- Organic Carbon -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Organic Carbon</span>
+<span class="bg-amber-100 text-amber-900 px-2 py-0.5 rounded-full font-label-sm text-label-sm font-semibold">Low-Med</span>
+</div>
+<div class="mt-2">
+<span class="font-headline-md text-headline-md text-on-surface">0.58%</span>
+</div>
+<p class="font-label-sm text-label-sm text-outline mt-0.5">Target &gt; 0.75%</p>
+</div>
+<div class="mt-3 pt-2 bg-surface-container-low rounded-lg p-2">
+<div class="flex justify-between font-label-sm text-label-sm mb-1">
+<span class="text-on-surface-variant">Target Reach</span>
+<span class="text-amber-800 font-semibold">65%</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+<div class="bg-amber-600 h-full rounded-full" style="width: 65%;"></div>
+</div>
+</div>
+</div>
+<!-- Soil Moisture -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Moisture</span>
+<span class="bg-primary-fixed text-on-primary-fixed px-2 py-0.5 rounded-full font-label-sm text-label-sm font-semibold">Calibrated</span>
+</div>
+<div class="mt-2">
+<span class="font-headline-md text-headline-md text-on-surface">28%</span>
+<span class="font-label-sm text-label-sm text-outline ml-1">VWC</span>
+</div>
+<p class="font-label-sm text-label-sm text-outline mt-0.5">Probe #04 • Optimum</p>
+</div>
+<div class="mt-3 pt-2 bg-surface-container-low rounded-lg p-2">
+<div class="flex justify-between font-label-sm text-label-sm mb-1">
+<span class="text-on-surface-variant">Field Capacity</span>
+<span class="text-primary font-semibold">Ideal</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 82%;"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Soil Health Overview & Nutrient Balance Visualization -->
+<div class="px-gutter pt-space-lg">
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm">
+<div class="flex items-center justify-between mb-space-sm">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Nutrient Balance Profile</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Macro-nutrient benchmarks vs Paddy demand</p>
+</div>
+<span class="material-symbols-outlined text-secondary text-[24px]">donut_large</span>
+</div>
+<!-- Macro-nutrient Bar Chart Visualization -->
+<div class="space-y-3 mt-space-md">
+<!-- Nitrogen -->
+<div>
+<div class="flex justify-between items-center text-label-sm font-label-sm mb-1">
+<span class="text-on-surface font-semibold flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-sm bg-amber-600"></span> Nitrogen (N)
+            </span>
+<div class="flex items-center gap-2">
+<span class="text-on-surface-variant">215 / 320 kg/ha</span>
+<span class="text-amber-800 font-bold">68%</span>
+</div>
+</div>
+<div class="w-full bg-surface-container-high h-2.5 rounded-full overflow-hidden">
+<div class="bg-amber-600 h-full rounded-full" style="width: 68%;"></div>
+</div>
+</div>
+<!-- Phosphorus -->
+<div>
+<div class="flex justify-between items-center text-label-sm font-label-sm mb-1">
+<span class="text-on-surface font-semibold flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-sm bg-primary"></span> Phosphorus (P)
+            </span>
+<div class="flex items-center gap-2">
+<span class="text-on-surface-variant">24 / 28 kg/ha</span>
+<span class="text-primary font-bold">85%</span>
+</div>
+</div>
+<div class="w-full bg-surface-container-high h-2.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 85%;"></div>
+</div>
+</div>
+<!-- Potassium -->
+<div>
+<div class="flex justify-between items-center text-label-sm font-label-sm mb-1">
+<span class="text-on-surface font-semibold flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-sm bg-secondary"></span> Potassium (K)
+            </span>
+<div class="flex items-center gap-2">
+<span class="text-on-surface-variant">315 / 335 kg/ha</span>
+<span class="text-secondary font-bold">94%</span>
+</div>
+</div>
+<div class="w-full bg-surface-container-high h-2.5 rounded-full overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 94%;"></div>
+</div>
+</div>
+<!-- Organic Carbon -->
+<div>
+<div class="flex justify-between items-center text-label-sm font-label-sm mb-1">
+<span class="text-on-surface font-semibold flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-sm bg-amber-500"></span> Organic Carbon (OC)
+            </span>
+<div class="flex items-center gap-2">
+<span class="text-on-surface-variant">0.58 / 0.85 %</span>
+<span class="text-amber-800 font-bold">65%</span>
+</div>
+</div>
+<div class="w-full bg-surface-container-high h-2.5 rounded-full overflow-hidden">
+<div class="bg-amber-500 h-full rounded-full" style="width: 65%;"></div>
+</div>
+</div>
+</div>
+<!-- Comparative Shift (July vs Oct 2024) -->
+<div class="mt-space-md pt-space-sm bg-surface-container-low rounded-xl p-space-sm">
+<div class="flex items-center justify-between mb-2">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Seasonal Variance</span>
+<span class="font-label-sm text-label-sm text-outline">July 2024 vs Oct 2024</span>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<div class="bg-surface-container-lowest rounded-lg p-2 flex items-center justify-between">
+<div>
+<p class="font-label-sm text-label-sm text-outline">Nitrogen (N)</p>
+<p class="font-headline-sm text-headline-sm text-error flex items-center">
+                -8%
+                <span class="material-symbols-outlined text-[16px] text-error">trending_down</span>
+</p>
+</div>
+<span class="material-symbols-outlined text-outline text-[20px]">water_loss</span>
+</div>
+<div class="bg-surface-container-lowest rounded-lg p-2 flex items-center justify-between">
+<div>
+<p class="font-label-sm text-label-sm text-outline">Organic Carbon</p>
+<p class="font-headline-sm text-headline-sm text-secondary flex items-center">
+                +0.06%
+                <span class="material-symbols-outlined text-[16px] text-secondary">trending_up</span>
+</p>
+</div>
+<span class="material-symbols-outlined text-secondary text-[20px]">compost</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- AI Agronomist Recommendations (Special Purple #6546C7 Accent) -->
+<div class="px-gutter pt-space-md">
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm relative overflow-hidden">
+<!-- Purple Accent Header Strip -->
+<div class="flex items-center justify-between mb-space-sm">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-tertiary-fixed flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">psychology</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-tertiary">AI Agronomist Advisory</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Telemetry Model: Rice-Delta-V4.2</p>
+</div>
+</div>
+<span class="bg-tertiary-fixed text-on-tertiary-fixed px-2.5 py-1 rounded-full font-label-sm text-label-sm font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">auto_awesome</span>
+          High Impact
+        </span>
+</div>
+<div class="space-y-3">
+<!-- Advisory 1 -->
+<div class="bg-surface-container-low rounded-xl p-space-sm">
+<div class="flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-tertiary text-[20px] mt-0.5 shrink-0">crisis_alert</span>
+<div>
+<h4 class="font-label-lg text-label-lg text-tertiary font-bold">Targeted Top-Dress Advisory</h4>
+<p class="font-body-sm text-body-sm text-on-surface mt-1 leading-snug">
+                Soil N shows mild dip prior to panicle initiation. Apply split dose of <span class="font-semibold text-tertiary">25 kg/ha Urea + Neem cake blend</span> before scheduled canal recharge.
+              </p>
+<div class="mt-2 flex items-center gap-2">
+<span class="font-label-sm text-label-sm bg-surface-container-lowest text-tertiary px-2 py-0.5 rounded-full font-medium shadow-xs">Timing: Next 48 hrs</span>
+<span class="font-label-sm text-label-sm bg-surface-container-lowest text-on-surface-variant px-2 py-0.5 rounded-full font-medium shadow-xs">Paddy Stage: Tillering</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Advisory 2 -->
+<div class="bg-surface-container-low rounded-xl p-space-sm">
+<div class="flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[20px] mt-0.5 shrink-0">yard</span>
+<div>
+<h4 class="font-label-lg text-label-lg text-secondary font-bold">Green Manure Recommendation</h4>
+<p class="font-body-sm text-body-sm text-on-surface mt-1 leading-snug">
+                Post-harvest <span class="font-semibold text-secondary">Sesbania (Dhaincha)</span> green manuring recommended to lift Organic Carbon towards the 0.75% benchmark and improve clay aeration.
+              </p>
+<div class="mt-2 flex items-center gap-2">
+<span class="font-label-sm text-label-sm bg-surface-container-lowest text-secondary px-2 py-0.5 rounded-full font-medium shadow-xs">Target OC: 0.75%</span>
+<span class="font-label-sm text-label-sm bg-surface-container-lowest text-on-surface-variant px-2 py-0.5 rounded-full font-medium shadow-xs">Post-Rabi Cycle</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Soil Lab Report Records Card -->
+<div class="px-gutter pt-space-md">
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-start gap-3 min-w-0">
+<div class="w-10 h-10 rounded-xl bg-surface-container-high flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined text-[24px]">verified</span>
+</div>
+<div class="min-w-0">
+<span class="font-label-sm text-label-sm text-secondary font-semibold uppercase tracking-wider">Govt Accredited Diagnostic</span>
+<h4 class="font-headline-sm text-headline-sm text-on-surface truncate">Lab Report #KD-9942</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5 truncate">Krishna District Agromet Diagnostic Lab</p>
+<p class="font-label-sm text-label-sm text-outline mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">calendar_today</span>
+              Sample Collected: 12 Oct • Verified: 14 Oct 2024
+            </p>
+</div>
+</div>
+</div>
+<div class="mt-space-md flex gap-2">
+<button class="flex-1 h-11 bg-surface-container-high hover:bg-surface-container-highest text-primary rounded-xl font-label-lg text-label-lg flex items-center justify-center gap-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[20px]">visibility</span>
+<span>View Soil History</span>
+</button>
+<button aria-label="Download PDF" class="w-11 h-11 bg-surface-container-high hover:bg-surface-container-highest text-primary rounded-xl flex items-center justify-center shrink-0 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[20px]">download</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Soil Depth Stratum Micro-Card -->
+<div class="px-gutter pt-space-md">
+<div class="bg-surface-container rounded-xl p-space-md flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-[28px]">layers</span>
+<div>
+<p class="font-label-lg text-label-lg text-on-surface font-bold">Soil Compaction Index: Normal</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Bulk density 1.32 g/cm³ • Hardpan clear</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline text-[20px]">chevron_right</span>
+</div>
+</div>
+<!-- Sticky Bottom Actions Bar (Floating Dock) -->
+<div class="fixed bottom-0 left-0 right-0 z-40 bg-surface/90 backdrop-blur-xl p-space-md pb-safe">
+<div class="max-w-md mx-auto flex flex-col gap-2">
+<div class="flex items-center gap-2">
+<!-- Secondary / Outline action -->
+<button class="flex-1 h-12 bg-surface-container-high hover:bg-surface-container-highest text-primary font-label-lg text-label-lg rounded-xl flex items-center justify-center gap-1.5 active:scale-98 transition-all shadow-sm">
+<span class="material-symbols-outlined text-[20px]">upload_file</span>
+<span class="truncate">Upload Lab Report</span>
+</button>
+<!-- Primary Action -->
+<button class="flex-1 h-12 bg-primary-container text-on-primary font-label-lg text-label-lg rounded-xl flex items-center justify-center gap-1.5 active:scale-98 transition-all shadow-md">
+<span class="material-symbols-outlined text-[20px]">add</span>
+<span class="truncate">Add Soil Test</span>
+</button>
+</div>
+<!-- Quick Text Link Action -->
+<div class="flex justify-center items-center gap-2 pt-0.5">
+<button class="text-secondary font-label-md text-label-md flex items-center gap-1 hover:underline active:opacity-75">
+<span class="material-symbols-outlined text-[16px]">compare_arrows</span>
+<span>Compare Previous Cycles (Rabi 2023 vs Kharif 2024)</span>
+</button>
+</div>
+</div>
+</div>
+</div></main>
+
+<div id="lang-modal" class="fixed inset-0 z-50 flex items-end justify-center bg-black/50 backdrop-blur-xs transition-opacity duration-200 hidden" onclick="if(event.target===this)closeLangModal()"><div class="w-full max-w-md bg-surface rounded-t-2xl p-space-md shadow-xl border-t border-outline-variant/30 flex flex-col gap-3 max-h-[85vh] overflow-y-auto animate-in slide-in-from-bottom duration-200"><div class="flex items-center justify-between pb-1 border-b border-outline-variant/20"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[22px]">translate</span><h3 class="font-headline-sm text-[16px] text-on-surface font-bold">Choose Your Language / భాష / भाषा</h3></div><button type="button" onclick="closeLangModal()" class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container"><span class="material-symbols-outlined text-[20px]">close</span></button></div><div class="flex flex-col gap-2 pt-1"><button type="button" onclick="selectLanguage('en')" id="lang-opt-en" class="flex items-center justify-between p-3 rounded-xl bg-surface-container-lowest border-2 border-primary transition-all text-left"><div class="flex flex-col"><span class="font-headline-sm text-[15px] font-bold text-on-surface">English (Default)</span><span class="font-body-sm text-body-sm text-outline">English UI &amp; Agronomic units</span></div><span id="check-en" class="material-symbols-outlined text-primary font-bold text-[22px]">check_circle</span></button><button type="button" onclick="selectLanguage('te')" id="lang-opt-te" class="flex items-center justify-between p-3 rounded-xl bg-surface-container-lowest border-2 border-transparent hover:border-outline-variant/60 transition-all text-left"><div class="flex flex-col"><span class="font-headline-sm text-[15px] font-bold text-on-surface">తెలుగు (Telugu)</span><span class="font-body-sm text-body-sm text-outline">ఆంధ్రప్రదేశ్ &amp; తెలంగాణ స్థానిక భాష</span></div><span id="check-te" class="material-symbols-outlined text-outline-variant font-bold text-[22px] hidden">check_circle</span></button><button type="button" onclick="selectLanguage('hi')" id="lang-opt-hi" class="flex items-center justify-between p-3 rounded-xl bg-surface-container-lowest border-2 border-transparent hover:border-outline-variant/60 transition-all text-left"><div class="flex flex-col"><span class="font-headline-sm text-[15px] font-bold text-on-surface">हिन्दी (Hindi)</span><span class="font-body-sm text-body-sm text-outline">राष्ट्रीय कृषि शब्दावली</span></div><span id="check-hi" class="material-symbols-outlined text-outline-variant font-bold text-[22px] hidden">check_circle</span></button></div><div class="pt-2"><button type="button" onclick="closeLangModal()" class="w-full h-11 bg-primary text-on-primary rounded-xl font-label-lg font-semibold flex items-center justify-center active:scale-98 transition-transform">Confirm / నిర్ధారించండి / पुष्टि करें</button></div></div></div><script>const translations={en:{activeLabel:'🌐 English ▼',fontFamily:'"Inter", "Manrope", sans-serif',title:'13 Soil Dashboard',plotTitle:'Plot A-2 (North Canal)',plotSub:'Green Valley Farm • Alluvial Clay Loam (Delta Basin)',liveTelemetry:'Live Soil Telemetry',statusAgronomic:'Good Agronomic',lastLabTest:'Last Verified Lab Test: 14 Oct 2024 (10d ago)',retestDue:'Re-test due 15d',probesActive:'Sub-surface Probes Active',rootZone:'Root Zone Layer: 0–30 cm',telemetryNodes:'3 Telemetry Nodes',soilParamsTitle:'Soil Parameters',sevenParams:'7 Parameters',calibrateProbes:'Calibrate Probes',soilPhTitle:'Soil pH Level',phStatus:'Optimal',phDesc:'Neutral • Optimal nutrient bioavailability for rice paddy',phAcidic:'4.5 (Acidic)',phIdeal:'6.5–7.2 (Ideal)',phAlkaline:'8.5 (Alkaline)',availN:'Available N',statusLowMed:'Low-Med',targetN:'Target: 250–320',capacityLabel:'Capacity',availP:'Available P',statusAdequate:'Adequate',targetP:'Target: 20–35',availK:'Available K',targetK:'Target: 280–350',ecSalinity:'EC (Salinity)',statusSafe:'Safe',thresholdEc:'Threshold < 1.5',salinityIndex:'Salinity Index',nonSaline:'Non-saline',orgCarbon:'Organic Carbon',targetReach:'Target Reach',moisture:'Moisture',calibrated:'Calibrated',fieldCapacity:'Field Capacity',ideal:'Ideal',nutrientBalanceTitle:'Nutrient Balance Profile',nutrientSub:'Macro-nutrient benchmarks vs Paddy demand',nitrogenName:'Nitrogen (N)',phosphorusName:'Phosphorus (P)',potassiumName:'Potassium (K)',carbonName:'Organic Carbon (OC)',seasonalVariance:'Seasonal Variance',seasonComparison:'July 2024 vs Oct 2024',aiTitle:'AI Agronomist Advisory',highImpact:'High Impact',topDressTitle:'Targeted Top-Dress Advisory',topDressDesc:'Soil N shows mild dip prior to panicle initiation. Apply split dose of <span class="font-semibold text-tertiary">25 kg/ha Urea + Neem cake blend</span> before scheduled canal recharge.',timingNext48:'Timing: Next 48 hrs',paddyStage:'Paddy Stage: Tillering',greenManureTitle:'Green Manure Recommendation',greenManureDesc:'Post-harvest <span class="font-semibold text-secondary">Sesbania (Dhaincha)</span> green manuring recommended to lift Organic Carbon towards the 0.75% benchmark and improve clay aeration.',targetOc:'Target OC: 0.75%',postRabi:'Post-Rabi Cycle',govtDiagnostic:'Govt Accredited Diagnostic',labReportNo:'Lab Report #KD-9942',labStation:'Krishna District Agromet Diagnostic Lab',sampleDate:'Sample Collected: 12 Oct • Verified: 14 Oct 2024',viewHistory:'View Soil History',compactionTitle:'Soil Compaction Index: Normal',compactionSub:'Bulk density 1.32 g/cm³ • Hardpan clear',uploadLab:'Upload Lab Report',addSoilTest:'Add Soil Test',compareCycles:'Compare Previous Cycles (Rabi 2023 vs Kharif 2024)',demoNote:'Demo Telemetry & Lab Data • Calibrated for Paddy (BPT 5204)'},te:{activeLabel:'🌐 తెలుగు ▼',fontFamily:'"Noto Sans Telugu", "Inter", sans-serif',title:'13 సాయిల్ డ్యాష్‌బోర్డ్',plotTitle:'ప్లాట్ A-2 (ఉత్తర కాలువ)',plotSub:'గ్రీన్ వ్యాలీ ఫార్మ్ • ఒండ్రు బంకమట్టి (డెల్టా బేసిన్)',liveTelemetry:'ప్రత్యక్ష మట్టి టెలిమెట్రీ',statusAgronomic:'మంచి వ్యవసాయ పరిస్థితి',lastLabTest:'చివరి ల్యాబ్ పరీక్ష: 14 అక్టో 2024 (10 రోజుల క్రితం)',retestDue:'15 రోజుల్లో తిరిగి పరీక్ష',probesActive:'సబ్-సర్ఫేస్ ప్రోబ్స్ సక్రియంగా ఉన్నాయి',rootZone:'వేరు మండల శ్రేణి: 0–30 సెం.మీ',telemetryNodes:'3 టెలిమెట్రీ నోడ్స్',soilParamsTitle:'మట్టి పారామితులు',sevenParams:'7 పారామితులు',calibrateProbes:'ప్రోబ్స్ క్రమాంకనం',soilPhTitle:'మట్టి pH స్థాయి',phStatus:'అనుకూలమైనది',phDesc:'తటస్థం • వరి పంటకు పోషక లభ్యతకు సరైన సమతుల్యత',phAcidic:'4.5 (ఆమ్ల)',phIdeal:'6.5–7.2 (ఆదర్శం)',phAlkaline:'8.5 (క్షార)',availN:'లభ్య నత్రజని (N)',statusLowMed:'తక్కువ-మధ్యస్థం',targetN:'లక్ష్యం: 250–320',capacityLabel:'సామర్థ్యం',availP:'లభ్య భాస్వరం (P)',statusAdequate:'సరిపడా',targetP:'లక్ష్యం: 20–35',availK:'లభ్య పొటాష్ (K)',targetK:'లక్ష్యం: 280–350',ecSalinity:'లవణీయత (EC)',statusSafe:'సురక్షితం',thresholdEc:'పరిమితి < 1.5',salinityIndex:'లవణీయత సూచిక',nonSaline:'ఉప్పులేని నేల',orgCarbon:'సేంద్రియ కర్బనం (OC)',targetReach:'చేరుకున్న లక్ష్యం',moisture:'తేమ శాతం',calibrated:'క్యాలిబ్రేట్ చేయబడింది',fieldCapacity:'ఫీల్డ్ కెపాసిటీ',ideal:'ఆదర్శం',nutrientBalanceTitle:'పోషక సమతుల్యత ప్రొఫైల్',nutrientSub:'వరి పంట డిమాండ్‌తో పోలిస్తే స్థూల పోషకాల స్థాయులు',nitrogenName:'నత్రజని (N)',phosphorusName:'భాస్వరం (P)',potassiumName:'పొటాషియం (K)',carbonName:'సేంద్రియ కర్బనం (OC)',seasonalVariance:'సీజనల్ వ్యత్యాసం',seasonComparison:'జూలై 2024 వర్సెస్ అక్టోబర్ 2024',aiTitle:'AI వ్యవసాయ శాస్త్రవేత్త సలహా',highImpact:'అధిక ప్రభావం',topDressTitle:'యూరియా టాప్-డ్రెస్సింగ్ సలహా',topDressDesc:'చిరుపొట్ట దశకు ముందు నేలలో నత్రజని లోపం కనబడుతోంది. కాలువ నీరు రాకముందు <span class="font-semibold text-tertiary">25 కేజీ/హెక్టారు యూరియా + వేపపిండి మిశ్రమం</span> వేయండి.',timingNext48:'సమయం: వచ్చే 48 గంటలు',paddyStage:'వరి దశ: పిలకల దశ',greenManureTitle:'పచ్చిరొట్ట ఎరువుల సిఫార్సు',greenManureDesc:'కోత తర్వాత సేంద్రియ కర్బనాన్ని 0.75% కి పెంచడానికి మరియు నేల గాలి ప్రసరణకు <span class="font-semibold text-secondary">జీలుగ (Dhaincha)</span> పచ్చిరొట్ట ఎరువు వాడండి.',targetOc:'లక్ష్యం OC: 0.75%',postRabi:'రబీ తర్వాతి కాలం',govtDiagnostic:'ప్రభుత్వ గుర్తింపు పొందిన ల్యాబ్',labReportNo:'ల్యాబ్ నివేదిక #KD-9942',labStation:'కృష్ణా జిల్లా వ్యవసాయ వాతావరణ నిర్ధారణ కేంద్రం',sampleDate:'నమూనా సేకరణ: 12 అక్టో • పరిశీలన: 14 అక్టో 2024',viewHistory:'మట్టి చరిత్రను చూడండి',compactionTitle:'మట్టి సాంద్రత సూచిక: సాధారణం',compactionSub:'సాంద్రత 1.32 g/cm³ • గట్టిపొర లేదు',uploadLab:'ల్యాబ్ రిపోర్ట్ అప్‌లోడ్',addSoilTest:'మట్టి పరీక్షను జోడించండి',compareCycles:'మునుపటి పంటలతో పోల్చండి (రబీ 2023 vs ఖరీఫ్ 2024)',demoNote:'డెమో టెలిమెట్రీ & ల్యాబ్ డేటా • వరి (BPT 5204) కోసం అమర్చబడింది'},hi:{activeLabel:'🌐 हिन्दी ▼',fontFamily:'"Noto Sans Devanagari", "Inter", sans-serif',title:'13 मृदा डैशबोर्ड',plotTitle:'प्लाट A-2 (उत्तरी नहर)',plotSub:'ग्रीन वैली फार्म • जलोढ़ दोमट मिट्टी (डेल्टा बेसिन)',liveTelemetry:'लाइव मृदा टेलीमेट्री',statusAgronomic:'उत्कृष्ट कृषि स्थिति',lastLabTest:'अंतिम सत्यापित लैब टेस्ट: 14 अक्टू 2024 (10 दिन पूर्व)',retestDue:'15 दिनों में पुनः परीक्षण',probesActive:'उप-सतह जांच सक्रिय',rootZone:'जड़ क्षेत्र परत: 0–30 सेमी',telemetryNodes:'3 टेलीमेट्री नोड्स',soilParamsTitle:'मृदा मापदंड',sevenParams:'7 मापदंड',calibrateProbes:'जांच जांचें',soilPhTitle:'मृदा पीएच स्तर',phStatus:'अनुकूल',phDesc:'तटस्थ • धान की फसल के लिए इष्टतम पोषक तत्व जैवउपलब्धता',phAcidic:'4.5 (अम्लीय)',phIdeal:'6.5–7.2 (आदर्श)',phAlkaline:'8.5 (क्षारीय)',availN:'उपलब्ध नाइट्रोजन (N)',statusLowMed:'कम-मध्यम',targetN:'लक्ष्य: 250–320',capacityLabel:'क्षमता',availP:'उपलब्ध फास्फोरस (P)',statusAdequate:'पर्याप्त',targetP:'लक्ष्य: 20–35',availK:'उपलब्ध पोटाश (K)',targetK:'लक्ष्य: 280–350',ecSalinity:'लवणता (EC)',statusSafe:'सुरक्षित',thresholdEc:'सीमा < 1.5',salinityIndex:'लवणता सूचकांक',nonSaline:'गैर-लवणीय',orgCarbon:'जैविक कार्बन (OC)',targetReach:'लक्ष्य प्राप्ति',moisture:'नमी',calibrated:'कैलिब्रेटेड',fieldCapacity:'खेत क्षमता',ideal:'आदर्श',nutrientBalanceTitle:'पोषक तत्व संतुलन प्रोफाइल',nutrientSub:'धान की मांग के मुकाबले मुख्य पोषक तत्व बेंचमार्क',nitrogenName:'नाइट्रोजन (N)',phosphorusName:'फास्फोरस (P)',potassiumName:'पोटाशियम (K)',carbonName:'जैविक कार्बन (OC)',seasonalVariance:'मौसमी भिन्नता',seasonComparison:'जुलाई 2024 बनाम अक्टूबर 2024',aiTitle:'एआई कृषि सलाहकार',highImpact:'उच्च प्रभाव',topDressTitle:'लक्षित टॉप-ड्रेसिंग सलाह',topDressDesc:'बाली निकलने से पहले मिट्टी में नाइट्रोजन में कमी देखी गई है। नहर रिचार्ज से पहले <span class="font-semibold text-tertiary">25 किग्रा/हेक्टेयर यूरिया + नीम खली</span> डालें।',timingNext48:'समय: अगले 48 घंटे',paddyStage:'धान अवस्था: कल्ले फूटना',greenManureTitle:'हरी खाद अनुशंसा',greenManureDesc:'कटाई के बाद जैविक कार्बन को 0.75% तक बढ़ाने और मिट्टी में वायु संचार सुधारने हेतु <span class="font-semibold text-secondary">ढैंचा (Sesbania)</span> हरी खाद की सिफारिश की जाती है।',targetOc:'लक्ष्य OC: 0.75%',postRabi:'रबी पश्चात चक्र',govtDiagnostic:'सरकारी मान्यता प्राप्त लैब',labReportNo:'लैब रिपोर्ट #KD-9942',labStation:'कृष्णा जिला कृषि मौसम विज्ञान प्रयोगशाला',sampleDate:'नमूना संग्रह: 12 अक्टू • सत्यापन: 14 अक्टू 2024',viewHistory:'मृदा इतिहास देखें',compactionTitle:'मृदा सघनता सूचकांक: सामान्य',compactionSub:'घनत्व 1.32 g/cm³ • कोई कठोर परत नहीं',uploadLab:'लैब रिपोर्ट अपलोड करें',addSoilTest:'मृदा परीक्षण जोड़ें',compareCycles:'पिछले चक्रों से तुलना करें (रबी 2023 बनाम खरीफ 2024)',demoNote:'डेमो टेलीमेट्री व लैब डेटा • धान (BPT 5204) हेतु कैलिब्रेटेड'}};
+function openLangModal(){document.getElementById('lang-modal').classList.remove('hidden');}
+function closeLangModal(){document.getElementById('lang-modal').classList.add('hidden');}
+function selectLanguage(lang){document.documentElement.lang=lang;const t=translations[lang];if(!t)return;document.body.style.fontFamily=t.fontFamily;document.getElementById('active-lang-label').textContent=t.activeLabel;const langs=['en','te','hi'];langs.forEach(l=>{const opt=document.getElementById('lang-opt-'+l);const check=document.getElementById('check-'+l);if(l===lang){opt.className='flex items-center justify-between p-3 rounded-xl bg-surface-container-lowest border-2 border-primary transition-all text-left';check.classList.remove('hidden','text-outline-variant');check.classList.add('text-primary');}else{opt.className='flex items-center justify-between p-3 rounded-xl bg-surface-container-lowest border-2 border-transparent hover:border-outline-variant/60 transition-all text-left';check.classList.add('hidden');}});const h1=document.querySelector('header h1');if(h1)h1.textContent=t.title;const demoNote=document.getElementById('sub-demo-note');if(demoNote)demoNote.textContent=t.demoNote;const plotH2=document.querySelector('h2.font-headline-md');if(plotH2)plotH2.textContent=t.plotTitle;const plotSub=document.querySelector('p.font-body-sm.text-on-surface-variant');if(plotSub)plotSub.innerHTML='<span class="material-symbols-outlined text-[16px] text-outline">nature_people</span> '+t.plotSub;const liveTel=document.querySelector('span.text-secondary.uppercase');if(liveTel)liveTel.textContent=t.liveTelemetry;const goodAgro=document.querySelector('div.flex-col.items-end span.font-medium');if(goodAgro)goodAgro.textContent=t.statusAgronomic;const lastLab=document.querySelector('span.truncate.text-on-surface-variant');if(lastLab)lastLab.textContent=t.lastLabTest;const retestSpan=document.querySelector('span.cursor-pointer.text-primary.font-semibold');if(retestSpan)retestSpan.textContent=t.retestDue;const probeActive=document.querySelector('span.uppercase.text-secondary-fixed');if(probeActive)probeActive.textContent=t.probesActive;const rootZone=document.querySelector('p.font-headline-sm.text-surface-bright');if(rootZone)rootZone.textContent=t.rootZone;const nodesCount=document.querySelector('div.backdrop-blur-md span.font-label-md');if(nodesCount)nodesCount.textContent=t.telemetryNodes;const soilParamTitle=document.querySelector('h3.font-headline-sm > span:first-child');if(soilParamTitle)soilParamTitle.textContent=t.soilParamsTitle;const countPill=document.querySelector('h3.font-headline-sm > span.bg-surface-container-high');if(countPill)countPill.textContent=t.sevenParams;const calibProbes=document.querySelector('span.cursor-pointer.text-primary.font-semibold.font-label-md');if(calibProbes)calibProbes.textContent=t.calibrateProbes;const uploadBtnText=document.querySelector('button span.truncate');if(uploadBtnText)uploadBtnText.textContent=t.uploadLab;const addBtnText=document.querySelectorAll('button span.truncate')[1];if(addBtnText)addBtnText.textContent=t.addSoilTest;const viewHistoryBtn=document.querySelector('button.flex-1.h-11 span:last-child');if(viewHistoryBtn)viewHistoryBtn.textContent=t.viewHistory;const compareText=document.querySelector('button.text-secondary span:last-child');if(compareText)compareText.textContent=t.compareCycles;closeLangModal();}</script></body></html>
