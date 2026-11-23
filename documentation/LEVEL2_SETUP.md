@@ -50,7 +50,7 @@ In the app, go to Monitor → Add device:
 ## 5. Scheduled sweep
 `pg_cron` runs the `cron` Edge Function every 5 minutes. The shared secret is in Supabase Vault (`cron_secret`) and the function secret `CRON_SECRET`.
 
-Each run does the following:
+Each run does the following (the function re-sends itself to the Mumbai region, because data.gov.in only accepts Indian IPs):
 - Raises offline-device alerts.
 - Expires stale equipment commands.
 - Runs the daily market sync and price alerts.

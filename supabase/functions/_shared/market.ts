@@ -108,11 +108,12 @@ export function dailySeries(rows: PriceRow[]) {
 }
 
 // Common farm crop names → AGMARKNET commodity names (the farmer can still search any commodity).
+// shortcut: names match today's AGMARKNET feed; older history rows use earlier spellings (e.g. 'Paddy(Dhan)(Common)'), so the outlook for renamed crops builds up from now.
 export const CROP_TO_COMMODITY: Record<string, string> = {
-  paddy: 'Paddy(Dhan)(Common)', rice: 'Rice', maize: 'Maize', corn: 'Maize', cotton: 'Cotton', chilli: 'Dry Chillies',
+  paddy: 'Paddy(Common)', rice: 'Rice', maize: 'Maize', corn: 'Maize', cotton: 'Cotton', chilli: 'Dry Chillies',
   chillies: 'Dry Chillies', turmeric: 'Turmeric', groundnut: 'Groundnut', tomato: 'Tomato', onion: 'Onion', potato: 'Potato',
-  banana: 'Banana', wheat: 'Wheat', sugarcane: 'Sugarcane', 'red gram': 'Arhar (Tur/Red Gram)(Whole)', tur: 'Arhar (Tur/Red Gram)(Whole)',
-  'black gram': 'Black Gram (Urd Beans)(Whole)', 'green gram': 'Green Gram (Moong)(Whole)', 'bengal gram': 'Bengal Gram(Gram)(Whole)',
+  banana: 'Banana', wheat: 'Wheat', sugarcane: 'Sugarcane', 'red gram': 'Red gram/Arhar/Tur(whole)', tur: 'Red gram/Arhar/Tur(whole)',
+  'black gram': 'Black Gram(Urd Beans)(Whole)', 'green gram': 'Green Gram(Moong)(Whole)', 'bengal gram': 'Bengal Gram(Gram)(Whole)',
   jowar: 'Jowar(Sorghum)', bajra: 'Bajra(Pearl Millet/Cumbu)', ragi: 'Ragi (Finger Millet)', soybean: 'Soyabean', sunflower: 'Sunflower',
   mango: 'Mango', brinjal: 'Brinjal', okra: 'Bhindi(Ladies Finger)', bhindi: 'Bhindi(Ladies Finger)', cabbage: 'Cabbage', cauliflower: 'Cauliflower',
   coconut: 'Coconut', cashew: 'Cashewnuts', mustard: 'Mustard', sesame: 'Sesamum(Sesame,Gingelly,Til)', coriander: 'Coriander(Leaves)',

@@ -48,3 +48,14 @@ export async function sha256(s: string) {
 }
 /** Server-only secret the simulator uses to call `ingest` for simulated devices. Never leaves the server. */
 export const simSecret = async () => (serviceKey ? await sha256('sim:' + serviceKey) : '');
+
+// data.gov.in refuses connections from outside India, and this project runs in ap-southeast-1.
+// Re-send the request once to the Mumbai edge region; the x-region header stops it looping.
+export async function viaIndia(req: Request, name: string): Promise<Response | null> {
+  if (req.headers.get('x-region')) return null;
+  const headers = new Headers(req.headers);
+  headers.set('x-region', 'ap-south-1');
+  for (const h of ['host', 'content-length', 'connection']) headers.delete(h);
+  const r = await fetch(`${Deno.env.get('SUPABASE_URL')}/functions/v1/${name}`, { method: req.method, headers, body: req.method === 'POST' ? await req.arrayBuffer() : undefined });
+  return new Response(r.body, { status: r.status, headers: r.headers });
+}

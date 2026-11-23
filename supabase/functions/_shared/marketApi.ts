@@ -16,7 +16,7 @@ async function pull(resource: string, filters: Record<string, string>, pages: nu
     for (const [k, v] of Object.entries(filters)) p.set(`filters[${k}]`, v);
     const r = await timedFetch(`${API}/${resource}?${p}`, {}, 20_000);
     if (r.status === 401 || r.status === 403) throw new Upstream('market_key_invalid');
-    if (!r.ok) throw new Upstream(`data.gov.in ${r.status}`);
+    if (!r.ok) throw new Upstream(`data.gov.in ${r.status} ${(await r.text()).slice(0, 200)}`);
     const body = await r.json();
     const recs: Record<string, unknown>[] = body.records ?? [];
     recs.forEach((x) => { const row = parseRecord(x); if (row) out.push(row); });

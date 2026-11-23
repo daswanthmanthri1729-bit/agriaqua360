@@ -20,7 +20,7 @@ try {
   const tok = await (await fetch(`${U}/auth/v1/token?grant_type=password`, { method: 'POST', headers: { apikey: PUB, 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password }) })).json();
   const H = { apikey: PUB, Authorization: `Bearer ${tok.access_token}`, 'Content-Type': 'application/json' };
   const rest = async (p, init = {}) => { const r = await fetch(`${U}/rest/v1/${p}`, { headers: { ...H, Prefer: 'return=representation', ...(init.headers || {}) }, ...init }); return [r.status, await r.json().catch(() => null)]; };
-  const fn = async (name, body, headers = H) => { const t = Date.now(); const r = await fetch(`${U}/functions/v1/${name}`, { method: 'POST', headers, body: JSON.stringify(body) }); return [r.status, Date.now() - t, await r.json().catch(() => null)]; };
+  const fn = async (name, body, headers = { ...H, ...(process.env.REGION ? { 'x-region': process.env.REGION } : {}) }) => { const t = Date.now(); const r = await fetch(`${U}/functions/v1/${name}`, { method: 'POST', headers, body: JSON.stringify(body) }); return [r.status, Date.now() - t, await r.json().catch(() => null)]; };
   globalThis.ctx = { rest, fn, H, uid, PUB };
 
   if (want('weather')) {

@@ -4,7 +4,7 @@
 // - once a day: market prices for commodities farmers grow or watch, then price alerts
 // - simulated readings older than 30 days are deleted (real readings are kept)
 import { fail, json } from '../_shared/http.ts';
-import { admin } from '../_shared/server.ts';
+import { admin, viaIndia } from '../_shared/server.ts';
 import { languageOf, notifyUser } from '../_shared/notify.ts';
 import { alertText } from '../_shared/iot.ts';
 import { commodityFor } from '../_shared/market.ts';
@@ -13,6 +13,8 @@ import { refresh } from '../_shared/marketApi.ts';
 Deno.serve(async (req) => {
   const secret = Deno.env.get('CRON_SECRET');
   if (!admin || !secret || req.headers.get('x-cron-secret') !== secret) return fail('unauthorized', 401);
+  const fwd = await viaIndia(req, 'cron');   // the daily market sync needs an Indian IP
+  if (fwd) return fwd;
   const now = Date.now();
   const report: Record<string, unknown> = {};
 

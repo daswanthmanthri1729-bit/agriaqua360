@@ -4,7 +4,7 @@
 // POST { action: 'outlook', commodity, state?, harvest_month, quantity_qtl?, crop_id?, language? }
 //                                                            → harvest-time price range from past seasons + AI-listed factors
 import { cors, fail, json } from '../_shared/http.ts';
-import { caller } from '../_shared/server.ts';
+import { caller, viaIndia } from '../_shared/server.ts';
 import { CROP_TO_COMMODITY, dailySeries, harvestOutlook, marketSummary, PriceRow } from '../_shared/market.ts';
 import { refresh, SOURCE } from '../_shared/marketApi.ts';
 import { FAST_MODELS, generateJson, languageName } from '../_shared/gemini.ts';
@@ -23,6 +23,8 @@ const factorsSchema = {
 
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: cors });
+  const fwd = await viaIndia(req, 'market');
+  if (fwd) return fwd;
   const who = await caller(req);
   if (!who) return fail('unauthorized', 401);
   let b: Record<string, unknown>;
@@ -40,7 +42,8 @@ Deno.serve(async (req) => {
 
     if (!commodity) return fail('bad_request');
     let warning: string | null = null;
-    if (configured) await refresh(commodity, state).catch((e) => { warning = e instanceof Error && e.message === 'market_key_invalid' ? 'market_key_invalid' : 'market_refresh_failed'; console.warn('refresh', String(e)); });
+    let detail: string | null = null;
+    if (configured) await refresh(commodity, state).catch((e) => { warning = e instanceof Error && e.message === 'market_key_invalid' ? 'market_key_invalid' : 'market_refresh_failed'; detail = String(e instanceof Error ? e.message : e).replace(/api-key=[^&\s]+/g, 'api-key=***').slice(0, 300); console.warn('refresh', detail); });
 
     if (b.action === 'prices') {
       const days = Math.min(365, Math.max(7, Number(b.days) || 30));
@@ -52,7 +55,7 @@ Deno.serve(async (req) => {
       if (error) throw error;
       const rows = (data ?? []) as (PriceRow & { fetched_at: string })[];
       return json({
-        configured, warning, source: SOURCE, commodity, state: state || null, unit: '₹/quintal',
+        configured, warning, detail, source: SOURCE, commodity, state: state || null, unit: '₹/quintal',
         last_updated: rows.reduce<string | null>((m, r) => (!m || r.fetched_at > m ? r.fetched_at : m), null),
         markets: marketSummary(rows), series: dailySeries(rows),
       });
