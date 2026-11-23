@@ -37,7 +37,7 @@ export const useDeletePriceAlert = () => useMutation({ mutationFn: (id: string) 
 
 // ---------- AI insights (cached server-side until the data changes) ----------
 export type Insight = { status: 'good' | 'watch' | 'act'; summary: string; findings: string[]; actions: string[]; see_expert: boolean; data_used: string[]; generated_at: string; cached: boolean };
-export const useInsight = (kind: 'water' | 'soil' | 'crop' | 'livestock' | 'finance', id: string | null, extra?: unknown, enabled = false) =>
+export const useInsight = (kind: 'water' | 'soil' | 'crop' | 'livestock' | 'finance' | 'planning', id: string | null, extra?: unknown, enabled = false) =>
   useQuery({
     queryKey: ['insight', kind, id, i18n.language],
     enabled: enabled && (kind === 'finance' || !!id),
@@ -111,3 +111,11 @@ export const useTrackScheme = () =>
 export const useLogIrrigation = () =>
   useOfflineInsert('crop_records', (p: { crop_id: string; date: string; litres: number | null; notes?: string }) =>
     ({ crop_id: p.crop_id, activity: 'irrigation', scheduled_for: p.date, completed_at: new Date().toISOString(), quantity: p.litres, unit: p.litres != null ? 'L' : null, notes: p.notes || null }));
+
+// ---------- harvest history (completed crop_records 'harvest' rows) ----------
+export type HarvestRow = { id: string; crop_id: string; scheduled_for: string | null; completed_at: string | null; quantity: number | null; unit: string | null; crop: { id: string; name: string; area_acres: number | null; season: string | null; sowing_date: string | null } | null };
+export const useHarvests = () =>
+  useQuery({
+    queryKey: ['records', 'harvests'],
+    queryFn: () => must<HarvestRow[]>(supabase.from('crop_records').select('id, crop_id, scheduled_for, completed_at, quantity, unit, crop:crops(id, name, area_acres, season, sowing_date)').eq('activity', 'harvest').not('completed_at', 'is', null).order('scheduled_for', { ascending: false }).limit(300).overrideTypes<HarvestRow[], { merge: false }>()),
+  });

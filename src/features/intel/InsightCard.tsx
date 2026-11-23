@@ -9,7 +9,7 @@ import { useInsight } from './api';
 const TONE = { good: { tone: 'normal', icon: 'check-circle' }, watch: { tone: 'warning', icon: 'visibility' }, act: { tone: 'error', icon: 'priority-high' } } as const;
 
 /** AI analysis of the farmer's own data. Runs only when asked (AI quota), cached until the data changes. */
-export function InsightCard({ kind, id, extra, title }: { kind: 'water' | 'soil' | 'crop' | 'livestock' | 'finance'; id: string | null; extra?: unknown; title?: string }) {
+export function InsightCard({ kind, id, extra, title }: { kind: 'water' | 'soil' | 'crop' | 'livestock' | 'finance' | 'planning'; id: string | null; extra?: unknown; title?: string }) {
   const { t } = useTranslation();
   const [on, setOn] = useState(false);
   const q = useInsight(kind, id, extra, on);

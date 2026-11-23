@@ -91,3 +91,12 @@ describe('weather advice', () => {
     expect(pondImpact([{ date: 'd1', max: 30, rain_mm: 0 }])).toBeNull();
   });
 });
+
+import { calibrationDue, signal } from '@/features/iot/api';
+it('signal quality and calibration due', () => {
+  expect([signal(-60), signal(-75), signal(-90), signal(null)]).toEqual(['good', 'fair', 'weak', null]);
+  const now = Date.parse('2026-11-23T00:00:00Z');
+  expect(calibrationDue({ calibrated_at: null }, now)).toBe(true);
+  expect(calibrationDue({ calibrated_at: '2026-10-01T00:00:00Z' }, now)).toBe(false);
+  expect(calibrationDue({ calibrated_at: '2026-06-01T00:00:00Z' }, now)).toBe(true);
+});

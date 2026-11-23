@@ -194,3 +194,11 @@ export const useSaveRule = () =>
     onSuccess: () => invalidate('rules'),
   });
 export const useDeleteRule = () => useMutation({ mutationFn: (id: string) => must(supabase.from('automation_rules').delete().eq('id', id)), onSuccess: () => invalidate('rules') });
+
+// ---------- fleet-wide views ----------
+export const useAllThresholds = () => useQuery({ queryKey: ['device', 'thresholds'], queryFn: () => must<Threshold[]>(supabase.from('sensor_thresholds').select('*')) });
+export const useAllChannels = () => useQuery({ queryKey: ['device', 'channels'], queryFn: () => must<DeviceChannel[]>(supabase.from('device_channels').select('*').order('channel')) });
+/** RSSI → signal quality (Wi-Fi/LoRa rule of thumb). */
+export const signal = (rssi: number | null | undefined) => (rssi == null ? null : rssi >= -67 ? 'good' : rssi >= -80 ? 'fair' : 'weak');
+/** A sensor channel is due for calibration when never calibrated or calibrated over 90 days ago. */
+export const calibrationDue = (c: Pick<DeviceChannel, 'calibrated_at'>, now = Date.now()) => !c.calibrated_at || now - Date.parse(c.calibrated_at) > 90 * 86_400_000;

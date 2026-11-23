@@ -5,15 +5,18 @@ import { Alert, Pressable, StyleSheet, View } from 'react-native';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import {
-  AppText, Banner, Button, Card, Chip, ChoiceChips, ErrorState, Freshness, Header, Icon, LineChart, LoadingList, Screen, SectionHeader, Sheet, SourceBadge, TextField,
+  AppText, Banner, Button, Card, Chip, ChoiceChips, ErrorState, Freshness, Header, LineChart, LoadingList, Screen, SectionHeader, Sheet, SourceBadge, TextField,
 } from '@/components';
 import { ago } from '@/components/Freshness';
 import {
-  deviceStatus, SENSOR_UNITS, useCancelCommand, useCommands, useDeleteDevice, useDevice, useRealtime, useRotateKey, useSendCommand, useSeries, useSetThreshold, useSimulate, useUpdateChannel, useUpdateDevice,
+  deviceStatus, SENSOR_UNITS, useCommands, useDeleteDevice, useDevice, useRealtime, useRotateKey, useSeries, useSimulate, useUpdateChannel, useUpdateDevice,
 } from '@/features/iot/api';
 import { axisFormat } from '@/lib/dates';
 import { colors, radius } from '@/theme';
-import type { DeviceChannel, Threshold } from '@/types/database';
+import type { DeviceChannel } from '@/types/database';
+
+import { EquipmentCard } from '@/features/iot/EquipmentCard';
+import { ThresholdSheet } from '@/features/iot/ThresholdSheet';
 
 const RANGES = [{ h: 24, k: '24h' }, { h: 168, k: '7d' }, { h: 720, k: '30d' }];
 const SCENARIOS = ['normal', 'low_oxygen', 'dry_soil', 'fever', 'sensor_fault'] as const;
@@ -33,8 +36,6 @@ export default function DeviceDetail() {
   const [calSheet, setCalSheet] = useState<DeviceChannel | null>(null);
   const [scenario, setScenario] = useState<(typeof SCENARIOS)[number]>('normal');
   const simulate = useSimulate();
-  const send = useSendCommand();
-  const cancel = useCancelCommand();
   const rotate = useRotateKey();
   const del = useDeleteDevice();
   const update = useUpdateDevice();
@@ -53,14 +54,6 @@ export default function DeviceDetail() {
   const unit = selected ? SENSOR_UNITS[selected] : '';
   const limit = selected ? th(selected) : undefined;
 
-  const run = (c: DeviceChannel, minutes: number | null) => {
-    const label = c.label ?? c.channel;
-    Alert.alert(minutes ? t('equipment.confirmOn', { name: label, minutes }) : t('equipment.confirmOff', { name: label }), t('equipment.confirmText'), [
-      { text: t('common.cancel'), style: 'cancel' },
-      { text: minutes ? t('equipment.start') : t('equipment.stop'), style: minutes ? 'default' : 'destructive', onPress: () =>
-        send.mutate({ device_id: d.id, channel: c.channel, action: minutes ? 'on' : 'off', duration_s: minutes ? minutes * 60 : null }, { onError: () => Alert.alert(t('errors.generic')) }) },
-    ]);
-  };
   const confirmDelete = () => Alert.alert(t('devices.deleteTitle'), t('devices.deleteText'), [
     { text: t('common.cancel'), style: 'cancel' },
     { text: t('common.delete'), style: 'destructive', onPress: async () => { try { await del.mutateAsync(d.id); router.back(); } catch { Alert.alert(t('errors.generic')); } } },
@@ -139,34 +132,7 @@ export default function DeviceDetail() {
         <>
           <SectionHeader title={t('devices.equipment')} />
           {st !== 'online' && <Banner tone="warning" message={t('equipment.deviceOffline')} />}
-          {actuators.map((c) => {
-            const pending = (commands.data ?? []).find((x) => x.channel === c.channel && (x.status === 'pending' || x.status === 'sent'));
-            const options = [5, 15, 30, 60].filter((m) => m * 60 <= (c.max_run_s ?? 0));
-            return (
-              <Card key={c.id} style={{ gap: 10 }}>
-                <View style={styles.row}>
-                  <View style={[styles.dot, { backgroundColor: c.state === 'on' ? colors.secondary : colors.outline }]} />
-                  <View style={{ flex: 1 }}>
-                    <AppText variant="labelLg">{c.label ?? c.channel}</AppText>
-                    <AppText variant="bodySm" color={colors.textMuted}>{t(`equipment.state.${c.state ?? 'unknown'}`)}{c.state_at ? ` · ${ago(c.state_at, t)}` : ''} · {t('equipment.maxRunShort', { minutes: Math.round((c.max_run_s ?? 0) / 60) })}</AppText>
-                  </View>
-                  {c.manual_override && <Chip tone="warning" icon="pan-tool" label={t('equipment.manual')} />}
-                </View>
-                {c.manual_override ? <Banner tone="warning" message={t('equipment.manualText')} /> : pending ? (
-                  <View style={styles.row}>
-                    <Icon name="hourglass-top" color={colors.warning} />
-                    <AppText variant="bodyMd" style={{ flex: 1 }}>{t(`equipment.cmdStatus.${pending.status}`, { action: t(`equipment.${pending.action === 'on' ? 'start' : 'stop'}`) })}</AppText>
-                    {pending.status === 'pending' && <Button compact variant="text" label={t('common.cancel')} onPress={() => cancel.mutate(pending.id)} />}
-                  </View>
-                ) : (
-                  <View style={[styles.row, { flexWrap: 'wrap' }]}>
-                    {options.map((m) => <Button key={m} compact variant="secondary" iconLeft="play-arrow" label={t('equipment.minutes', { count: m })} onPress={() => run(c, m)} />)}
-                    <Button compact variant="text" iconLeft="stop" label={t('equipment.stop')} onPress={() => run(c, null)} />
-                  </View>
-                )}
-              </Card>
-            );
-          })}
+          {actuators.map((c) => <EquipmentCard key={c.id} channel={c} commands={commands.data ?? []} />)}
           {!!commands.data?.length && (
             <Card style={{ gap: 6 }}>
               <AppText variant="labelLg">{t('equipment.log')}</AppText>
@@ -192,32 +158,6 @@ export default function DeviceDetail() {
       <ThresholdSheet deviceId={d.id} sensorType={thSheet} existing={thSheet ? th(thSheet) : undefined} onClose={() => setThSheet(null)} />
       <CalibrationSheet channel={calSheet} current={calSheet ? q.data.latest.find((l) => l.sensor_type === calSheet.sensor_type)?.value : undefined} onClose={() => setCalSheet(null)} />
     </Screen>
-  );
-}
-
-function ThresholdSheet({ deviceId, sensorType, existing, onClose }: { deviceId: string; sensorType: string | null; existing?: Threshold; onClose: () => void }) {
-  const { t } = useTranslation();
-  const set = useSetThreshold();
-  const [min, setMin] = useState(''); const [max, setMax] = useState('');
-  const [error, setError] = useState<string | null>(null);
-  useEffect(() => { setMin(existing?.min_value != null ? String(existing.min_value) : ''); setMax(existing?.max_value != null ? String(existing.max_value) : ''); setError(null); }, [sensorType, existing]);
-  const save = async () => {
-    const lo = num(min), hi = num(max);
-    if ((lo != null && Number.isNaN(lo)) || (hi != null && Number.isNaN(hi)) || (lo != null && hi != null && lo >= hi)) { setError('thresholds.invalid'); return; }
-    try { await set.mutateAsync({ deviceId, sensorType: sensorType!, min: lo, max: hi, existing }); onClose(); } catch { setError('errors.generic'); }
-  };
-  return (
-    <Sheet visible={!!sensorType} onClose={onClose}>
-      <AppText variant="headlineMd">{t('thresholds.title', { param: sensorType ? t(`sensors.${sensorType}`) : '' })}</AppText>
-      <AppText variant="bodySm" color={colors.textMuted}>{t('thresholds.help')}</AppText>
-      <View style={{ flexDirection: 'row', gap: 12 }}>
-        <View style={{ flex: 1 }}><TextField label={`${t('thresholds.min')} (${sensorType ? SENSOR_UNITS[sensorType] : ''})`} keyboardType="decimal-pad" value={min} onChangeText={setMin} /></View>
-        <View style={{ flex: 1 }}><TextField label={`${t('thresholds.max')} (${sensorType ? SENSOR_UNITS[sensorType] : ''})`} keyboardType="decimal-pad" value={max} onChangeText={setMax} /></View>
-      </View>
-      {error && <Banner tone="error" message={t(error)} />}
-      <Button label={t('common.save')} iconLeft="check" loading={set.isPending} onPress={save} />
-      <Button variant="text" label={t('common.cancel')} onPress={onClose} />
-    </Sheet>
   );
 }
 

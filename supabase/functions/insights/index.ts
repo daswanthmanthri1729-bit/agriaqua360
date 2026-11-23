@@ -23,6 +23,7 @@ const GUIDE: Record<string, string> = {
   soil: 'Explain the soil for the farmer. Lab test results are measurements; SoilGrids values are modelled estimates (say so); sensor values are live measurements. Give fertiliser/lime/organic-matter guidance in general terms and recommend a Soil Health Card test when there is no lab test.',
   crop: 'Assess crop growth stage, harvest readiness and risks from sowing date, stage, weather and satellite NDVI if given. Say clearly when data is missing. Do not promise a yield.',
   livestock: 'Give preliminary health and productivity guidance for this animal from its records (health, vaccinations, weight, milk, collar sensors if present). This does not replace a veterinarian; set see_expert true for any illness sign, fever (> 39.5 °C cattle) or sudden milk drop.',
+  planning: 'Suggest up to 3 crops (or crop + fish/livestock options if the farmer has those sectors) for the coming season on this farm. For each: why it suits the soil, water source, season and location; water need (low/medium/high); main risk. Do not quote prices or yields as numbers. Tell the farmer to confirm varieties with the local KVK or agriculture officer.',
   finance: 'Review income and costs. Point out the largest costs and practical ways to reduce them, and which crop/pond/animal is most and least profitable. Use only the given amounts (₹).',
 };
 
@@ -75,6 +76,15 @@ Deno.serve(async (req) => {
     ]);
     if (!animal) return fail('not_found', 404);
     data = { today: new Date().toISOString().slice(0, 10), animal, health: health ?? [], vaccinations: vacc ?? [], production_records: recs ?? [], collar: live ?? [] };
+  } else if (kind === 'planning') {
+    const [{ data: farm }, { data: tests }, { data: crops }, { data: prof }] = await Promise.all([
+      sb.from('farms').select('name, soil_type, irrigation_source, area_acres, district, state').eq('id', id).maybeSingle(),
+      sb.from('soil_tests').select('tested_on, ph, ec_dsm, organic_carbon_pct, nitrogen_kg_ha, phosphorus_kg_ha, potassium_kg_ha').eq('farm_id', id).order('tested_on', { ascending: false }).limit(1),
+      sb.from('crops').select('name, season, status, sowing_date').eq('farm_id', id).order('created_at', { ascending: false }).limit(10),
+      sb.from('profiles').select('district, state, sectors').eq('id', who.uid).maybeSingle(),
+    ]);
+    if (!farm) return fail('not_found', 404);
+    data = { today: new Date().toISOString().slice(0, 10), farm, latest_soil_test: tests?.[0] ?? null, past_crops: crops ?? [], farmer: prof };
   } else if (kind === 'finance') {
     const from = since(365).slice(0, 10), to = new Date().toISOString().slice(0, 10);
     const [{ data: sum }, { data: tx }] = await Promise.all([

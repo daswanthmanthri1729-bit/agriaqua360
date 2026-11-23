@@ -1,21 +1,21 @@
 // Soil health — designs: soil_health_dashboard, ai_soil_intelligence, soil_testing_lab_analysis, live_soil_sensors.
 // Three clearly separated sources: lab test (measured), live sensors (measured now), SoilGrids (modelled estimate).
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Alert, View } from 'react-native';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useTranslation } from 'react-i18next';
-import { AppText, Banner, Button, Card, Chip, ChoiceChips, DateField, EmptyState, Freshness, Header, LoadingList, Screen, SectionHeader, Sheet, SourceBadge, TextField } from '@/components';
+import { AppText, Banner, Button, Card, Chip, ChoiceChips, EmptyState, Freshness, Header, LoadingList, Screen, SectionHeader, SourceBadge } from '@/components';
 import { useFarms } from '@/features/agriculture/api';
-import { useAddSoilTest, useDeleteSoilTest, useSoilEstimate, useSoilTests } from '@/features/intel/api';
+import { useDeleteSoilTest, useSoilEstimate, useSoilTests } from '@/features/intel/api';
 import { rateEc, rateNutrient, ratePh } from '@/features/intel/agronomy';
 import { InsightCard } from '@/features/intel/InsightCard';
 import { SENSOR_UNITS, useLatestFor } from '@/features/iot/api';
 import { ago } from '@/components/Freshness';
 import { farmPoint } from '@/features/intel/place';
+import { SoilTestSheet } from '@/features/intel/SoilTestSheet';
 import { useSession } from '@/store/session';
-import { formatDate, today } from '@/lib/dates';
+import { formatDate } from '@/lib/dates';
 import { colors, radius } from '@/theme';
-import type { SoilTest } from '@/types/database';
 
 const TONE = { low: colors.warning, medium: colors.primary, high: colors.secondary, acidic: colors.warning, alkaline: colors.warning, neutral: colors.primary, normal: colors.primary, caution: colors.warning, harmful: colors.error } as Record<string, string>;
 
@@ -117,47 +117,3 @@ export default function Soil() {
   );
 }
 
-const FIELDS: { key: keyof SoilTest; label: string; unit: string; max: number }[] = [
-  { key: 'ph', label: 'pH', unit: '', max: 14 }, { key: 'ec_dsm', label: 'EC', unit: 'dS/m', max: 50 }, { key: 'organic_carbon_pct', label: 'soil.oc', unit: '%', max: 100 },
-  { key: 'nitrogen_kg_ha', label: 'soil.n', unit: 'kg/ha', max: 5000 }, { key: 'phosphorus_kg_ha', label: 'soil.p', unit: 'kg/ha', max: 5000 }, { key: 'potassium_kg_ha', label: 'soil.k', unit: 'kg/ha', max: 5000 },
-  { key: 'sulphur_ppm', label: 'soil.s', unit: 'ppm', max: 5000 }, { key: 'zinc_ppm', label: 'soil.zn', unit: 'ppm', max: 500 },
-];
-function SoilTestSheet({ visible, onClose, farmId }: { visible: boolean; onClose: () => void; farmId: string }) {
-  const { t } = useTranslation();
-  const add = useAddSoilTest();
-  const [v, setV] = useState<Record<string, string>>({});
-  const [date, setDate] = useState(today());
-  const [source, setSource] = useState<SoilTest['source']>('soil_health_card');
-  const [error, setError] = useState<string | null>(null);
-  useEffect(() => { if (visible) { setV({}); setDate(today()); setError(null); } }, [visible]);
-  const save = async () => {
-    const row: Partial<SoilTest> = { farm_id: farmId, tested_on: date, source, lab_name: v.lab_name?.trim() || null };
-    for (const f of FIELDS) {
-      const s = (v[f.key] ?? '').trim();
-      if (!s) continue;
-      const n = Number(s.replace(',', '.'));
-      if (!Number.isFinite(n) || n < 0 || n > f.max) { setError(t('soil.invalid', { field: t(f.label) })); return; }
-      (row as Record<string, unknown>)[f.key] = n;
-    }
-    if (FIELDS.every((f) => row[f.key] == null)) { setError(t('soil.enterOne')); return; }
-    try { await add.mutateAsync(row); onClose(); } catch { setError(t('errors.generic')); }
-  };
-  return (
-    <Sheet visible={visible} onClose={onClose}>
-      <AppText variant="headlineMd">{t('soil.addTest')}</AppText>
-      <ChoiceChips value={source} onChange={setSource} options={(['soil_health_card', 'lab', 'field_kit'] as const).map((s) => ({ value: s, label: t(`soil.src.${s}`) }))} />
-      <DateField label={t('soil.testedOn')} value={date} onChange={setDate} />
-      <TextField label={t('soil.labName')} value={v.lab_name ?? ''} onChangeText={(x) => setV({ ...v, lab_name: x })} />
-      <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
-        {FIELDS.map((f) => (
-          <View key={f.key} style={{ flexBasis: '47%', flexGrow: 1 }}>
-            <TextField label={`${t(f.label)}${f.unit ? ` (${f.unit})` : ''}`} keyboardType="decimal-pad" value={v[f.key] ?? ''} onChangeText={(x) => setV({ ...v, [f.key]: x })} />
-          </View>
-        ))}
-      </View>
-      {error && <Banner tone="error" message={error} />}
-      <Button label={t('common.save')} iconLeft="check" loading={add.isPending} onPress={save} />
-      <Button variant="text" label={t('common.cancel')} onPress={onClose} />
-    </Sheet>
-  );
-}
