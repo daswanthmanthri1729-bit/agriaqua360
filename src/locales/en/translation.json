@@ -29,7 +29,7 @@
     "none": "None",
     "updated": "Updated {{time}}",
     "remove": "Remove",
-    "offline": "You're offline. Showing saved data — saving changes needs internet.",
+    "offline": "You're offline. Showing saved data — new records are kept and sync when you're back online.",
     "queued_one": "{{count}} record waiting to sync",
     "queued_other": "{{count}} records waiting to sync"
   },

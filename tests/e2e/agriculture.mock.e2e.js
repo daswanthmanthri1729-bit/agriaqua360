@@ -19,6 +19,10 @@ const db = {
   ponds: [], water_quality_records: [], fish_records: [], fish_health_reports: [],
   livestock: [], animal_health_records: [], vaccination_records: [],
   ai_conversations: [], ai_messages: [], notifications: [],
+  schemes: [
+    { code: 'pm_kisan', level: 'central', state: null, sectors: ['agriculture'], name: { en: 'PM-KISAN', te: 'పీఎం-కిసాన్', hi: 'पीएम-किसान' }, summary: { en: '₹6,000 a year income support.', te: 'సంవత్సరానికి ₹6,000.', hi: 'सालाना ₹6,000।' }, rules: { requires_land: true }, official_url: 'https://pmkisan.gov.in', info_as_of: '2026-06-01', active: true },
+    { code: 'pmmsy', level: 'central', state: null, sectors: ['aquaculture'], name: { en: 'PMMSY', te: 'PMMSY', hi: 'PMMSY' }, summary: { en: 'Fisheries support.', te: 'మత్స్య సహాయం.', hi: 'मत्स्य सहायता।' }, rules: {}, official_url: 'https://pmmsy.dof.gov.in', info_as_of: '2026-06-01', active: true },
+  ],
 };
 const log = [];
 const embed = (table, row) => {
@@ -108,6 +112,11 @@ const weather = { location: { name: 'Kovur', lat: 14.5, lon: 79.98 }, observed_a
       log.push('view:latest_water_readings ' + latest.length);
       return json(latest);
     }
+    if (p.startsWith('/rest/v1/rpc/')) { log.push('rpc:' + p.slice(13)); return json(p.endsWith('farm_context') ? {} : []); }
+    if (p === '/functions/v1/market') { log.push('fn:market ' + req.postData()); return json({ configured: false, warning: null, commodities: [], markets: [], series: [], enough_history: false }); }
+    if (p === '/functions/v1/satellite') { log.push('fn:satellite'); return json({ configured: false }); }
+    if (p === '/functions/v1/environment') { log.push('fn:environment ' + req.postData()); return json({ error: 'data_unavailable' }, 502); }
+    if (p === '/functions/v1/insights') { log.push('fn:insights'); return json({ error: 'ai_busy' }, 503); }
     const m = p.match(/^\/rest\/v1\/(\w+)$/);
     if (m) {
       const table = m[1]; const params = [...url.searchParams.entries()]; const single = (req.headers()['accept'] || '').includes('vnd.pgrst.object');
@@ -118,7 +127,7 @@ const weather = { location: { name: 'Kovur', lat: 14.5, lon: 79.98 }, observed_a
       if (method === 'POST') {
         let body = JSON.parse(req.postData()); const arr = Array.isArray(body) ? body : [body];
         const rows = arr.map((r) => ({ id: id(), owner_id: UID, created_at: new Date().toISOString(), status: table === 'crops' ? 'growing' : table === 'crop_scans' ? 'pending' : undefined, completed_at: null, recorded_at: table === 'water_quality_records' ? new Date().toISOString() : undefined, ...r }));
-        db[table].push(...rows); log.push(`insert ${table} ${JSON.stringify(arr).slice(0, 120)}`);
+        (db[table] ??= []).push(...rows); log.push(`insert ${table} ${JSON.stringify(arr).slice(0, 120)}`);
         return json(single ? embed(table, rows[0]) : rows.map((r) => embed(table, r)), 201);
       }
       if (method === 'PATCH') { const patch = JSON.parse(req.postData()); filterRows(table, params).forEach((r) => Object.assign(r, patch)); log.push(`update ${table} ${JSON.stringify(patch).slice(0, 80)}`); return json([]); }
@@ -246,20 +255,43 @@ const weather = { location: { name: 'Kovur', lat: 14.5, lon: 79.98 }, observed_a
   await pg.goto(base + '/agriculture'); await pg.getByText('Canal-side field').first().waitFor({ timeout: 8000 }); await pg.waitForTimeout(3000);
   const stored = await pg.evaluate(() => localStorage.getItem('agriaqua-query-cache') || '');
   console.log('PERSISTED farm=' + stored.includes('Canal-side field') + ' signedUrls=' + stored.includes('"signed"') + ' kb=' + Math.round(stored.length / 1024));
-  // Web builds load each screen's code on first visit (native/desktop bundles are local), so visit Home once while online.
-  await pg.getByRole('tab', { name: /Home/ }).first().click(); await pg.waitForTimeout(1500);
-  await pg.getByRole('tab', { name: /Agri/ }).first().click(); await pg.waitForTimeout(1000);
+  // Web builds load each screen's code on first visit (native/desktop bundles are local), so open screens once while online.
+  await pg.goto(base + '/home'); await pg.waitForTimeout(1500);
+  await pg.getByRole('button', { name: /Explore Agriculture/i }).filter({ visible: true }).first().click(); await pg.waitForTimeout(1200);
+  await pg.getByRole('button', { name: 'Back' }).filter({ visible: true }).first().click(); await pg.waitForTimeout(800);
+  await pg.getByRole('button', { name: 'Farm money', exact: true }).filter({ visible: true }).first().click(); await pg.waitForTimeout(1500);
   await ctx.setOffline(true);
-  await pg.getByRole('tab', { name: /Home/ }).first().click(); await pg.waitForTimeout(800);
-  await pg.getByRole('tab', { name: /Agri/ }).first().click(); await pg.waitForTimeout(1500);
-  const offlineBanner = await pg.getByText(/You're offline/).first().isVisible().catch(() => false);
+  // Offline save: the entry is queued, the banner counts it, and it syncs when the network returns.
+  await pg.getByTestId('add-tx').click(); await pg.getByTestId('tx-amount').fill('1250'); await pg.getByTestId('tx-save').click(); await pg.waitForTimeout(800);
+  const queued = await pg.getByText(/1 record waiting to sync/).first().isVisible().catch(() => false);
+  await shot('S6-offline-queued');
+  await pg.getByRole('button', { name: 'Back' }).filter({ visible: true }).first().click(); await pg.waitForTimeout(800);
+  await pg.getByRole('button', { name: /Explore Agriculture/i }).filter({ visible: true }).first().click(); await pg.waitForTimeout(1500);
+  const offlineBanner = await pg.getByText(/You.re offline/).first().isVisible().catch(() => false);
   const cachedFarm = await pg.getByText('Canal-side field').first().isVisible().catch(() => false);
   const errorShown = await pg.getByText('Could not load data.').first().isVisible().catch(() => false);
-  console.log('OFFLINE banner=' + offlineBanner + ' cachedFarm=' + cachedFarm + ' errorState=' + errorShown); await shot('S6-offline');
-  await ctx.setOffline(false); await pg.waitForTimeout(1500);
-  console.log('BACK ONLINE banner gone=' + !(await pg.getByText(/You're offline/).first().isVisible().catch(() => false)));
+  console.log('OFFLINE banner=' + offlineBanner + ' cachedFarm=' + cachedFarm + ' errorState=' + errorShown + ' queued=' + queued); await shot('S6-offline');
+  await ctx.setOffline(false); await pg.waitForTimeout(2500);
+  console.log('BACK ONLINE banner gone=' + !(await pg.getByText(/You.re offline/).first().isVisible().catch(() => false)) + ' synced=' + log.some((l) => l.startsWith('insert farm_transactions') && l.includes('1250')));
+
+  // ---- Level 2 smoke tour: every new screen renders (no crash) in English and Telugu ----
+  const L2 = ['/monitor', '/monitor/add', '/monitor/alerts', '/monitor/automation', '/monitor/history', '/insights', '/insights/market?commodity=Maize', '/insights/outlook',
+    '/insights/finance', '/insights/schemes', '/agriculture/soil', '/agriculture/irrigation', '/agriculture/field', '/agriculture/weather', '/livestock/geofence', '/settings/notifications'];
+  const crashed = [];
+  for (const lang of ['en', 'te']) {
+    if (lang === 'te') { await pg.goto(base + '/profile'); await pg.waitForTimeout(800); await pg.getByRole('radio', { name: 'Telugu' }).first().click(); await pg.waitForTimeout(500); }
+    for (const r of L2) {
+      await pg.goto(base + r); await pg.waitForTimeout(1300);
+      const body = await pg.evaluate(() => document.body.innerText);
+      if (/Something went wrong|ఏదో తప్పు జరిగింది|Unmatched Route|This screen doesn't exist/.test(body) || /\b[a-z]+\.[a-z][A-Za-z]+\.[a-z][A-Za-z_]+\b/.test(body.replace(/\S+@\S+|https?:\S+|\S+\.(gov|in|jpg|png)\S*/g, ''))) crashed.push(`${lang}${r}`);
+      if (lang === 'en') await shot('L2' + r.replace(/[/?=]/g, '_'));
+    }
+  }
+  await shot('L2-te-schemes');
+  console.log('L2 SCREENS ok=' + (L2.length * 2 - crashed.length) + '/' + L2.length * 2 + (crashed.length ? ' problems=' + crashed.join(',') : ''));
+  await pg.goto(base + '/profile'); await pg.waitForTimeout(800); await pg.getByRole('radio', { name: 'English' }).first().click(); await pg.waitForTimeout(500);
   await pg.goto(base + '/home'); await shot('09-dashboard');
-  console.log('TABBAR', JSON.stringify(await pg.evaluate(() => [...document.querySelectorAll('[role=tab]')].map((t) => { const r = t.getBoundingClientRect(); const l = [...t.querySelectorAll('div')].find((d) => d.textContent === 'Home' || d.textContent === 'Agri'); const lr = l?.getBoundingClientRect(); return { tab: [r.top, r.bottom], label: lr && [lr.top, lr.bottom], vh: innerHeight }; }))));
+  console.log('TABBAR', JSON.stringify(await pg.evaluate(() => [...document.querySelectorAll('[role=tab]')].map((t) => { const r = t.getBoundingClientRect(); const l = [...t.querySelectorAll('div')].find((d) => d.textContent === 'Home' || d.textContent === 'Monitor'); const lr = l?.getBoundingClientRect(); return { tab: [r.top, r.bottom], label: lr && [lr.top, lr.bottom], vh: innerHeight }; }))));
   await pg.getByRole('radio', { name: 'Telugu' }).first().click(); await shot('09-dashboard-te');
   console.log(log.join('\n')); console.log('ERRORS', JSON.stringify([...new Set(errs)].slice(0, 8)));
   await b.close(); srv.close();
