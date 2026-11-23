@@ -4,7 +4,7 @@ import { FlatList, RefreshControl, StyleSheet, View } from 'react-native';
 import { router } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { AppText, Button, Card, Chip, EmptyState, ErrorState, Icon, InfoTile, LoadingList, BackButton, StorageImage, TextField } from '@/components';
+import { AppText, Button, Card, Chip, EmptyState, ErrorState, Icon, InfoTile, LoadingList, BackButton, HubLinks, StorageImage, TextField } from '@/components';
 import { useCrops, useFarms } from '@/features/agriculture/api';
 import { colors, radius, space } from '@/theme';
 import type { Farm } from '@/types/database';
@@ -81,6 +81,20 @@ export default function FarmManagement() {
         renderItem={renderFarm}
         contentContainerStyle={styles.content}
         ListHeaderComponent={header}
+        ListFooterComponent={<View style={{ gap: 12, paddingTop: 8 }}>
+          <AppText variant="headlineSm">{t('hub.intelligence')}</AppText>
+          <HubLinks links={[
+            { icon: 'eco', label: 'growth.title', href: '/agriculture/growth' }, { icon: 'agriculture', label: 'harvest.readyTitle', href: '/agriculture/harvest-readiness' },
+            { icon: 'event-available', label: 'harvest.plannerTitle', href: '/agriculture/harvest-planner' }, { icon: 'scale', label: 'yield.qtyTitle', href: '/agriculture/harvest-quantity' },
+            { icon: 'water-drop', label: 'irrigation.title', href: '/agriculture/irrigation' }, { icon: 'opacity', label: 'wx.waterTitle', href: '/agriculture/water-forecast' },
+            { icon: 'layers', label: 'soil.title', href: '/agriculture/soil' }, { icon: 'biotech', label: 'soilTests.title', href: '/agriculture/soil-tests' },
+            { icon: 'auto-awesome', label: 'soilAi.title', href: '/agriculture/soil-ai' }, { icon: 'satellite-alt', label: 'field.title', href: '/agriculture/field' },
+            { icon: 'coronavirus', label: 'risk.title', href: '/agriculture/crop-risk' }, { icon: 'bug-report', label: 'pests.title', href: '/agriculture/pests' },
+            { icon: 'shield', label: 'protection.title', href: '/agriculture/protection' }, { icon: 'lightbulb', label: 'planning.title', href: '/agriculture/planning' },
+            { icon: 'history', label: 'seasons.title', href: '/agriculture/seasons' }, { icon: 'thunderstorm', label: 'wx.riskTitle', href: '/agriculture/weather-risk' },
+            { icon: 'public', label: 'wx.climateTitle', href: '/agriculture/climate' }, { icon: 'umbrella', label: 'wx.rainTitle', href: '/agriculture/rainfall' },
+          ]} />
+        </View>}
         refreshControl={<RefreshControl refreshing={farms.isRefetching} onRefresh={() => { farms.refetch(); crops.refetch(); }} colors={[colors.primary]} />}
         ListEmptyComponent={
           farms.isLoading ? <LoadingList height={260} /> : farms.error && !farms.data ? <ErrorState onRetry={() => farms.refetch()} /> : q ? (

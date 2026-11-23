@@ -35,6 +35,9 @@ const ACTIONS: { key: string; icon: IconName; href: string }[] = [
   { key: 'soil', icon: 'layers', href: '/agriculture/soil' },
   { key: 'field', icon: 'satellite-alt', href: '/agriculture/field' },
   { key: 'finance', icon: 'account-balance-wallet', href: '/insights/finance' },
+  { key: 'command', icon: 'dashboard', href: '/command-center' },
+  { key: 'alertsCenter', icon: 'notifications-active', href: '/alerts-center' },
+  { key: 'overview', icon: 'person-pin', href: '/overview' },
 ];
 
 function greetingKey() {

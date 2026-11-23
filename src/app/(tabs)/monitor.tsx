@@ -4,7 +4,7 @@ import { RefreshControl, ScrollView, StyleSheet, View } from 'react-native';
 import { router } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { AppText, Banner, Button, Card, Chip, EmptyState, ErrorState, Icon, LoadingList, LogoMark, SectionHeader, SourceBadge } from '@/components';
+import { AppText, Banner, Button, Card, Chip, EmptyState, ErrorState, Icon, LoadingList, LogoMark, SectionHeader, SourceBadge, HubLinks } from '@/components';
 import { deviceStatus, KIND_ICON, SENSOR_UNITS, useDevices, useEquipment, useRealtime, useUpdateAlert } from '@/features/iot/api';
 import { AlertRow } from '@/features/iot/AlertRow';
 import { ago } from '@/components/Freshness';
@@ -109,6 +109,15 @@ export default function Monitor() {
               <Button compact variant="secondary" iconLeft="notifications" label={t('monitor.alertHistory')} onPress={() => router.push('/monitor/alerts')} />
             </View>
             {devices.some((d) => d.is_simulated) && <Banner message={t('monitor.simulatedNote')} />}
+            <SectionHeader title={t('hub.tools')} />
+            <HubLinks links={[
+              { icon: 'devices', label: 'fleet.devicesTitle', href: '/monitor/devices' }, { icon: 'sensors', label: 'fleet.sensorsTitle', href: '/monitor/sensors' },
+              { icon: 'grass', label: 'fleet.soilTitle', href: '/monitor/soil' }, { icon: 'water', label: 'aquaX.analyticsTitle', href: '/aquaculture/water-analytics' },
+              { icon: 'tune', label: 'thresholds.set', href: '/monitor/thresholds' }, { icon: 'build', label: 'fleet.calTitle', href: '/monitor/calibration' },
+              { icon: 'router', label: 'fleet.networkTitle', href: '/monitor/network' }, { icon: 'settings-remote', label: 'monitor.equipment', href: '/monitor/equipment' },
+              { icon: 'water-drop', label: 'fleet.irrControlTitle', href: '/monitor/irrigation-control' }, { icon: 'grid-view', label: 'fleet.zonesTitle', href: '/monitor/zones' },
+              { icon: 'dashboard', label: 'command.title', href: '/command-center' }, { icon: 'notifications-active', label: 'alertsCenter.title', href: '/alerts-center' },
+            ]} />
           </>
         )}
       </ScrollView>

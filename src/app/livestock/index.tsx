@@ -3,7 +3,7 @@ import { RefreshControl, ScrollView, StyleSheet, View } from 'react-native';
 import { router } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { AppText, Banner, Card, EmptyState, ErrorState, Header, Icon, IconName, LoadingList, SectionHeader } from '@/components';
+import { AppText, Banner, Card, EmptyState, ErrorState, Header, Icon, IconName, LoadingList, SectionHeader , HubLinks } from '@/components';
 import { useAnimals, useVaccinations } from '@/features/livestock/api';
 import { AnimalRow, SPECIES_EMOJI } from '@/features/livestock/AnimalRow';
 import { SPECIES } from '@/features/livestock/schemas';
@@ -77,6 +77,13 @@ export default function LivestockDashboard() {
             {care.length ? care.map((a) => <AnimalRow key={a.id} a={a} onPress={() => router.push(`/livestock/animals/${a.id}`)} />)
               : <Banner tone="success" message={t('livestock.noneSick')} />}
             <Banner tone="info" message={t('livestock.consultVet')} />
+            <SectionHeader title={t('hub.intelligence')} />
+            <HubLinks links={[
+              { icon: 'monitor-heart', label: 'herd.healthTitle', href: '/livestock/health-ai' }, { icon: 'water-drop', label: 'herd.prodTitle', href: '/livestock/productivity' },
+              { icon: 'grass', label: 'herd.nutritionTitle', href: '/livestock/nutrition' }, { icon: 'directions-walk', label: 'herd.activityTitle', href: '/livestock/activity' },
+              { icon: 'thermostat', label: 'herd.sensorsTitle', href: '/livestock/sensors' }, { icon: 'watch', label: 'herd.wearTitle', href: '/livestock/wearables' },
+              { icon: 'fence', label: 'geofence.title', href: '/livestock/geofence' },
+            ]} />
           </>
         )}
       </ScrollView>

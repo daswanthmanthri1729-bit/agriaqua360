@@ -4,7 +4,7 @@ import { RefreshControl, ScrollView, StyleSheet, View } from 'react-native';
 import { router } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { AppText, Banner, Button, Card, Chip, EmptyState, ErrorState, Icon, IconName, LoadingList, BackButton, SectionHeader } from '@/components';
+import { AppText, Banner, Button, Card, Chip, EmptyState, ErrorState, Icon, IconName, LoadingList, BackButton, SectionHeader, HubLinks } from '@/components';
 import { usePonds } from '@/features/aquaculture/api';
 import { AddReadingSheet } from '@/features/aquaculture/AddReadingSheet';
 import { adviceKey, overall, PARAMS } from '@/features/aquaculture/waterQuality';
@@ -93,6 +93,13 @@ export default function AquacultureDashboard() {
               );
             })}
             <Button variant="secondary" iconLeft="history" label={t('water.title')} onPress={() => router.push('/aquaculture/water-quality')} />
+            <SectionHeader title={t('hub.intelligence')} />
+            <HubLinks links={[
+              { icon: 'show-chart', label: 'aquaX.analyticsTitle', href: '/aquaculture/water-analytics' }, { icon: 'map', label: 'aquaX.mapTitle', href: '/aquaculture/map' },
+              { icon: 'set-meal', label: 'aquaX.feedingTitle', href: '/aquaculture/feeding' }, { icon: 'trending-up', label: 'aquaX.growthTitle', href: '/aquaculture/growth' },
+              { icon: 'health-and-safety', label: 'aquaX.healthTitle', href: '/aquaculture/health' }, { icon: 'heart-broken', label: 'aquaX.mortalityTitle', href: '/aquaculture/mortality' },
+              { icon: 'auto-awesome', label: 'aquaX.aiTitle', href: '/aquaculture/ai-health' }, { icon: 'insights', label: 'aquaX.predTitle', href: '/aquaculture/predictions' },
+            ]} />
           </>
         )}
       </ScrollView>

@@ -23,6 +23,18 @@ const TILES: { key: string; icon: IconName; href: string; color?: string }[] = [
   { key: 'weather', icon: 'thunderstorm', href: '/agriculture/weather' },
   { key: 'sensors', icon: 'show-chart', href: '/monitor/history' },
   { key: 'reports', icon: 'summarize', href: '/reports' },
+  { key: 'mandis', icon: 'compare-arrows', href: '/insights/mandis' },
+  { key: 'demand', icon: 'query-stats', href: '/insights/demand' },
+  { key: 'costs', icon: 'receipt-long', href: '/insights/costs' },
+  { key: 'profit', icon: 'calculate', href: '/insights/profitability' },
+  { key: 'costAi', icon: 'savings', href: '/insights/cost-ai' },
+  { key: 'eligibility', icon: 'fact-check', href: '/insights/eligibility' },
+  { key: 'insurance', icon: 'health-and-safety', href: '/insights/insurance' },
+  { key: 'apply', icon: 'description', href: '/insights/apply' },
+  { key: 'ai', icon: 'auto-awesome', href: '/insights/ai' },
+  { key: 'predictions', icon: 'online-prediction', href: '/insights/predictions' },
+  { key: 'performance', icon: 'leaderboard', href: '/insights/performance' },
+  { key: 'documents', icon: 'folder-shared', href: '/reports/documents' },
 ];
 
 export default function Insights() {

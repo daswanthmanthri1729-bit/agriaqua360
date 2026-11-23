@@ -127,6 +127,9 @@ try {
     check('insight cached', s2 === 200 && ins2.cached === true, `${s2} ${t2}ms`);
     const [s3] = await fn('insights', { kind: 'water', id: '00000000-0000-0000-0000-000000000000', language: 'en' });
     check('insight other/missing pond', s3 === 404, s3);
+    const [, farm] = await rest('farms', { method: 'POST', body: JSON.stringify({ name: 'Plan farm', soil_type: 'red', irrigation_source: 'borewell', area_acres: 3 }) });
+    const [ps, pt, plan] = await fn('insights', { kind: 'planning', id: farm[0].id, language: 'hi' });
+    check('crop planning insight (hi)', ps === 200 && plan.findings?.length > 0, `${ps} ${pt}ms ${plan.summary?.slice(0, 140) ?? JSON.stringify(plan)}`);
     const [, ctxr] = await rest('rpc/farm_context', { method: 'POST', body: '{}' });
     check('assistant context sees sensors', ctxr.sensors?.length === 1 && ctxr.sensors[0].simulated === true && ctxr.open_alerts?.length >= 1, JSON.stringify(ctxr.sensors?.[0]).slice(0, 200));
     const [as, at, a] = await fn('ai-assistant', { message: 'How is my pond water right now?', input_mode: 'text', language: 'en' });
