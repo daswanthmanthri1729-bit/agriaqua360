@@ -145,3 +145,10 @@ Deadline: **24 Nov 2026, 23:59 IST** (Level 1 APK).
 2. Translate the new keys (namespaces: fleet, command, alertsCenter, wx, risk, soilAi, soilTests, growth, yield, harvest, seasons, pests, protection, planning, aquaX, herd, mandis, demand, costs, profit, costAi, elig, insure, apply, aiFarm, pred, perf, docs, overview). Find missing with the key script (see tests/i18n.test.ts).
 3. Deploy `insights`; extend E2E tour to all 80 routes; run tsc/lint/jest/E2E.
 4. EAS APK build (all screens), docs, release.
+
+## Level 2 — v2.0.0 (2026-11-23)
+- All 80 designs implemented and reachable from navigation (screen-map test checks existence + links).
+- Full en/te/hi translations (i18n test: identical keys, variables kept, nothing left in English).
+- Checks: tsc clean · lint 0 errors · Jest 131/131 · E2E: Level 1 journey + offline save/sync + all 77 design routes in en & te (154/154) · live backend checks pass.
+- `insights` (crop planning) deployed. Android APK built with EAS (preview profile, versionCode 2).
+- Still for the owner: data.gov.in key, Copernicus keys, FCM V1 key upload, EMQX (optional) — see LEVEL2_SETUP.md.
