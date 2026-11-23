@@ -139,6 +139,7 @@ export default function Profile() {
         <SectionHeader title={t('profile.more')} />
         <Card style={{ paddingVertical: 4 }}>
           {link('notifications', t('notifications.title'), '/notifications')}
+          {link('tune', t('settings.notifications'), '/settings/notifications')}
           {link('bookmark', t('saved.title'), '/records/saved')}
           {link('insert-chart-outlined', t('reports.title'), '/reports')}
           {link('verified-user', t('profile.permissions'), '/onboarding/permissions')}

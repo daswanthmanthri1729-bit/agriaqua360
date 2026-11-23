@@ -8,7 +8,9 @@ import {
   AppText, Banner, Button, Card, Chip, EmptyState, ErrorState, Icon, IconName, LanguagePills, LogoMark, SectionHeader, Skeleton, StorageImage, WeatherCard,
 } from '@/components';
 import { ACTIVITY_ICON, useDashboard } from '@/features/agriculture/api';
-import { useNotifications } from '@/features/notifications/api';
+import { useNotifications, useNotifyPrefs } from '@/features/notifications/api';
+import { deviceStatus, useDevices } from '@/features/iot/api';
+import { alertTitle } from '@/features/iot/AlertRow';
 import { usePonds } from '@/features/aquaculture/api';
 import { overall } from '@/features/aquaculture/waterQuality';
 import { useAnimals, useVaccinations } from '@/features/livestock/api';
@@ -28,6 +30,11 @@ const ACTIONS: { key: string; icon: IconName; href: string }[] = [
   { key: 'calendar', icon: 'event-note', href: '/agriculture/calendar' },
   { key: 'weather', icon: 'wb-cloudy', href: '/agriculture/weather' },
   { key: 'livestock', icon: 'pets', href: '/livestock' },
+  { key: 'market', icon: 'storefront', href: '/insights/market' },
+  { key: 'irrigation', icon: 'water-drop', href: '/agriculture/irrigation' },
+  { key: 'soil', icon: 'layers', href: '/agriculture/soil' },
+  { key: 'field', icon: 'satellite-alt', href: '/agriculture/field' },
+  { key: 'finance', icon: 'account-balance-wallet', href: '/insights/finance' },
 ];
 
 function greetingKey() {
@@ -49,15 +56,20 @@ export default function Dashboard() {
   const vaccDue = (vaccs.data ?? []).filter((v) => ['overdue', 'due_soon'].includes(vaccState(v, today()))).length;
   const pondAlerts = (ponds.data ?? []).filter((p) => p.latest && overall(p.latest) === 'bad').length;
   const weather = useWeather(useWeatherTarget());
+  const prefs = useNotifyPrefs();
+  const iot = useDevices();
+  const openAlerts = iot.data?.alerts ?? [];
+  const onlineDevices = (iot.data?.devices ?? []).filter((d) => deviceStatus(d) === 'online').length;
   const advisory = weather.data?.advisories[0];
   // Turn forecast warnings into phone notifications (scheduled once, cancelled if the forecast changes).
   useEffect(() => {
-    if (!weather.data) return;
-    syncWeatherAlerts(weather.data.advisories, (a) => ({
+    if (!weather.data || !prefs.data) return;
+    // Weather alerts switched off in settings → cancel any scheduled ones.
+    syncWeatherAlerts(prefs.data.weather === false ? [] : weather.data.advisories, (a) => ({
       title: t('weather.alertTitle', { date: formatDate(a.date, i18n.language, { weekday: 'long', day: 'numeric', month: 'short' }) }),
       body: t(`weather.adv.${a.kind}`, { value: a.value }),
     }));
-  }, [weather.data]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [weather.data, prefs.data]); // eslint-disable-line react-hooks/exhaustive-deps
   const refresh = () => queryClient.invalidateQueries();
 
   return (
@@ -79,6 +91,22 @@ export default function Dashboard() {
         <View style={{ alignSelf: 'flex-start' }}><LanguagePills /></View>
 
         <WeatherCard />
+
+        {!!iot.data?.devices.length && (
+          <Card onPress={() => router.push('/monitor')} style={{ gap: 8 }} accessibilityLabel={t('home.liveTitle')}>
+            <View style={styles.row}>
+              <Icon name="sensors" color={colors.primaryDeep} />
+              <AppText variant="labelLg" style={{ flex: 1 }}>{t('home.liveTitle')}</AppText>
+              <Chip icon="wifi" label={t('home.devicesOnline', { online: onlineDevices, total: iot.data.devices.length })} />
+            </View>
+            {openAlerts.length ? openAlerts.slice(0, 2).map((a) => (
+              <View key={a.id} style={styles.row}>
+                <Icon name="warning-amber" size={18} color={colors.error} />
+                <AppText variant="bodyMd" style={{ flex: 1 }} numberOfLines={1}>{alertTitle(a, t as never)}{a.source === 'simulated' ? ` (${t('source.simulated')})` : ''}</AppText>
+              </View>
+            )) : <AppText variant="bodySm" color={colors.textMuted}>{t('home.noAlerts')}</AppText>}
+          </Card>
+        )}
 
         <SectionHeader title={t('dashboard.quickActions')} />
         <ScrollView horizontal style={{ flexGrow: 0 }} showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 10 }}>

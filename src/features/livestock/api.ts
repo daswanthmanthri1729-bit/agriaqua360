@@ -5,7 +5,7 @@ import { PickedImage, uploadImage } from '@/services/media';
 import { cancelReminders, scheduleReminder } from '@/services/notifications';
 import { blankToNull } from '@/features/agriculture/schemas';
 import { today } from '@/lib/dates';
-import type { Animal, HealthRecord, Vaccination } from '@/types/database';
+import type { Animal, AnimalLocation, AnimalRecord, Geofence, HealthRecord, Vaccination } from '@/types/database';
 import { AnimalInput, HealthInput, VaccinationInput } from './schemas';
 
 const invalidate = (...keys: string[]) => Promise.all(keys.map((k) => queryClient.invalidateQueries({ queryKey: [k] })));
@@ -102,3 +102,25 @@ export const useCompleteVaccination = () =>
     },
     onSuccess: () => invalidate('vaccinations', 'livestockSummary'),
   });
+
+// ---------- Level 2: production records, collar location, geofences ----------
+export const useAnimalRecords = (animalId: string) =>
+  useQuery({ queryKey: ['animalRecords', animalId], queryFn: () => must<AnimalRecord[]>(supabase.from('animal_records').select('*').eq('animal_id', animalId).order('recorded_on', { ascending: false }).limit(300)) });
+export const useAddAnimalRecord = () =>
+  useMutation({ mutationFn: (r: Partial<AnimalRecord>) => must(supabase.from('animal_records').insert(r)), onSuccess: () => queryClient.invalidateQueries({ queryKey: ['animalRecords'] }) });
+export const useDeleteAnimalRecord = () =>
+  useMutation({ mutationFn: (id: string) => must(supabase.from('animal_records').delete().eq('id', id)), onSuccess: () => queryClient.invalidateQueries({ queryKey: ['animalRecords'] }) });
+export const useAnimalLocations = (animalId?: string) =>
+  useQuery({
+    queryKey: ['animalLocations', animalId ?? 'all'],
+    queryFn: () => {
+      let q = supabase.from('animal_locations').select('*').order('recorded_at', { ascending: false }).limit(animalId ? 50 : 300);
+      if (animalId) q = q.eq('animal_id', animalId);
+      return must<AnimalLocation[]>(q);
+    },
+  });
+export const useGeofences = () => useQuery({ queryKey: ['geofences'], queryFn: () => must<Geofence[]>(supabase.from('geofences').select('*').order('created_at')) });
+export const useSaveGeofence = () =>
+  useMutation({ mutationFn: (g: { name: string; polygon: [number, number][] }) => must(supabase.from('geofences').insert(g)), onSuccess: () => queryClient.invalidateQueries({ queryKey: ['geofences'] }) });
+export const useDeleteGeofence = () =>
+  useMutation({ mutationFn: (id: string) => must(supabase.from('geofences').delete().eq('id', id)), onSuccess: () => queryClient.invalidateQueries({ queryKey: ['geofences'] }) });

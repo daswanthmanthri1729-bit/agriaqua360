@@ -1,8 +1,11 @@
 // 17 · Weather Information — Stitch: 11_current_weather_screen + 12_weather_forecast_screen (HTML only)
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { AppText, Banner, Button, Card, ErrorState, Header, Icon, IconName, LoadingList, Screen, SectionHeader, TextField } from '@/components';
+import { AppText, Banner, BarChart, Button, Card, ErrorState, Freshness, Header, Icon, IconName, LineChart, LoadingList, Screen, SectionHeader, SourceBadge, TextField } from '@/components';
+import { pondImpact, sprayWindow } from '@/features/intel/agronomy';
+import { useClimateHistory } from '@/features/intel/api';
+import { formatStamp } from '@/lib/dates';
 import { conditionIcon, conditionKey, useWeather, useWeatherTarget } from '@/features/weather/api';
 import { currentPlace, LocationDeniedError } from '@/services/location';
 import { usePreferences } from '@/store/preferences';
@@ -22,7 +25,7 @@ export default function WeatherScreen() {
     setLocating(true); setLocError(null);
     try {
       const p = await currentPlace();
-      setPlace({ lat: p.latitude, lon: p.longitude });
+      setPlace({ lat: p.latitude, lon: p.longitude, name: p.village });
     } catch (e) {
       setLocError(e instanceof LocationDeniedError ? 'profileSetup.locationDenied' : 'profileSetup.locationFailed');
     } finally { setLocating(false); }
@@ -30,6 +33,12 @@ export default function WeatherScreen() {
   const search = () => city.trim() && setPlace({ city: `${city.trim()},IN` });
 
   const d = w.data;
+  const history = useClimateHistory(d?.location.lat, d?.location.lon, 30);
+  const spray = useMemo(() => (d?.hourly ? sprayWindow(d.hourly) : null), [d]);
+  const pond = d ? pondImpact(d.daily) : null;
+  const hourPts = useMemo(() => (d?.hourly ?? []).map((h) => ({ x: Date.parse(h.time), y: h.temp })), [d]);
+  const popPts = useMemo(() => (d?.hourly ?? []).map((h) => ({ x: Date.parse(h.time), y: h.pop })), [d]);
+  const h = history.data;
   return (
     <Screen>
       <Header title={t('weather.title')} />
@@ -73,6 +82,44 @@ export default function WeatherScreen() {
             {d.current.rain_1h_mm > 0 && <AppText variant="bodyMd">{t('weather.rainMm', { value: d.current.rain_1h_mm })}</AppText>}
           </Card>
 
+          <Freshness at={d.fetched_at ?? d.observed_at} staleAfterMin={60} source={d.source === 'openweather' ? 'OpenWeather' : 'Open-Meteo'} />
+
+          {hourPts.length > 0 && (
+            <>
+              <SectionHeader title={t('weather.next48')} />
+              <Card style={{ gap: 8 }}>
+                <LineChart series={[{ points: hourPts, label: t('weather.temp'), color: colors.warning }]} unit="°C" height={150} formatX={(x) => formatStamp(x, i18n.language, { weekday: 'short', hour: 'numeric' })} formatY={(y) => `${Math.round(y)}`} />
+                <LineChart series={[{ points: popPts, label: t('dashboard.rainChance'), color: colors.water }]} unit="%" height={110} yMin={0} yMax={100} formatX={(x) => formatStamp(x, i18n.language, { weekday: 'short', hour: 'numeric' })} formatY={(y) => `${Math.round(y)}`} />
+              </Card>
+            </>
+          )}
+
+          <SectionHeader title={t('weather.farmAdvice')} />
+          <Card style={{ gap: 10 }}>
+            <View style={styles.row}>
+              <Icon name="sanitizer" color={spray ? colors.primary : colors.warning} />
+              <AppText variant="bodyMd" style={{ flex: 1 }}>{spray ? t('weather.sprayWindow', { from: formatStamp(spray.from, i18n.language, { weekday: 'short', hour: 'numeric' }), to: formatStamp(spray.to, i18n.language, { hour: 'numeric' }) }) : t('weather.noSprayWindow')}</AppText>
+            </View>
+            {d.daily[0]?.et0_mm != null && (
+              <View style={styles.row}>
+                <Icon name="water-drop" color={colors.water} />
+                <AppText variant="bodyMd" style={{ flex: 1 }}>{t('weather.et0Today', { value: d.daily[0].et0_mm })}</AppText>
+              </View>
+            )}
+            {pond && (
+              <View style={styles.row}>
+                <Icon name="set-meal" color={colors.warning} />
+                <AppText variant="bodyMd" style={{ flex: 1 }}>{t(`weather.pond.${pond.kind}`, { date: formatDate(pond.date, i18n.language, { weekday: 'long' }) })}</AppText>
+              </View>
+            )}
+            {d.soil_moisture_estimate && (
+              <View style={styles.row}>
+                <Icon name="grass" color={colors.primary} />
+                <AppText variant="bodyMd" style={{ flex: 1 }}>{t('weather.soilModel', { value: d.soil_moisture_estimate.cm_3_9_pct ?? d.soil_moisture_estimate.top_1cm_pct })}</AppText>
+              </View>
+            )}
+          </Card>
+
           <SectionHeader title={t('weather.advisories')} />
           {d.advisories.length ? d.advisories.map((a, i) => (
             <Banner key={i} tone="warning" title={formatDate(a.date, i18n.language, { weekday: 'long', day: 'numeric', month: 'short' })} message={t(`weather.adv.${a.kind}`, { value: a.value })} />
@@ -87,12 +134,32 @@ export default function WeatherScreen() {
                 <Icon name={conditionIcon(day.condition) as IconName} color={colors.primary} />
                 <View style={{ flex: 1 }}>
                   <AppText variant="bodySm" color={colors.textMuted} numberOfLines={1}>{t(conditionKey(day.condition))}</AppText>
-                  <AppText variant="labelSm" color={colors.water}>{day.pop}%{day.rain_mm ? ` · ${t('weather.rainMm', { value: day.rain_mm })}` : ''}</AppText>
+                  <AppText variant="labelSm" color={colors.water}>{day.pop}%{day.rain_mm ? ` · ${t('weather.rainMm', { value: day.rain_mm })}` : ''}{day.et0_mm != null ? ` · ET0 ${day.et0_mm} mm` : ''}</AppText>
                 </View>
                 <AppText variant="labelLg">{day.min}° / {day.max}°</AppText>
               </View>
             ))}
           </Card>
+
+          <SectionHeader title={t('weather.past30')} />
+          {history.isLoading ? <LoadingList count={1} height={150} /> : !h ? <Banner tone="warning" message={t('weather.historyFailed')} /> : (
+            <Card style={{ gap: 10 }}>
+              <BarChart bars={h.days.map((x) => ({ label: formatDate(x.date, i18n.language, { day: 'numeric' }), value: x.rain_mm ?? 0, color: colors.water }))} unit="mm" height={130} formatY={(y) => `${Math.round(y)}`} />
+              <View style={styles.row}>
+                {[[t('weather.rainTotal'), `${h.summary.rain_total_mm ?? '—'} mm`], [t('weather.lastYear'), h.last_year_summary ? `${h.last_year_summary.rain_total_mm ?? '—'} mm` : '—'], [t('weather.rainyDays'), String(h.summary.rainy_days)], [t('weather.avgTemp'), h.summary.temp_avg != null ? `${h.summary.temp_avg}°C` : '—']].map(([l, v]) => (
+                  <View key={l} style={{ flex: 1, alignItems: 'center' }}>
+                    <AppText variant="labelSm" color={colors.textSubtle} align="center">{l}</AppText>
+                    <AppText variant="labelLg">{v}</AppText>
+                  </View>
+                ))}
+              </View>
+              {h.last_year_summary?.rain_total_mm != null && h.summary.rain_total_mm != null && (
+                <AppText variant="bodyMd">{t(h.summary.rain_total_mm >= h.last_year_summary.rain_total_mm ? 'weather.wetterThanLastYear' : 'weather.drierThanLastYear', { diff: Math.abs(Math.round(h.summary.rain_total_mm - h.last_year_summary.rain_total_mm)) })}</AppText>
+              )}
+              <SourceBadge source="api" label="NASA POWER" />
+              <AppText variant="labelSm" color={colors.textSubtle}>{t('weather.nasaNote', { date: h.data_until ? formatDate(h.data_until, i18n.language) : '—' })}</AppText>
+            </Card>
+          )}
           <AppText variant="bodySm" color={colors.textSubtle} align="center">{t('weather.source')}</AppText>
         </>
       )}

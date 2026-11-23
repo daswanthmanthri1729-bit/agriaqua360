@@ -76,3 +76,18 @@ describe('chart + map maths', () => {
     expect(deviceStatus({ last_seen_at: null, reporting_interval_s: 300, is_simulated: false }, now)).toBe('never');
   });
 });
+
+import { pondImpact, sprayWindow } from '@/features/intel/agronomy';
+describe('weather advice', () => {
+  const h = (hr: number, pop = 0, wind = 5) => ({ time: `2026-11-23T${String(hr).padStart(2, '0')}:00`, pop, rain_mm: 0, wind_kmh: wind });
+  it('finds a 3-hour dry calm daytime window', () => {
+    expect(sprayWindow([h(5), h(6), h(7, 40), h(8), h(9), h(10), h(11)])).toEqual({ from: '2026-11-23T08:00', to: '2026-11-23T11:00' });
+    expect(sprayWindow([h(9), h(10, 0, 25), h(11), h(12)])).toBeNull();
+    expect(sprayWindow([h(20), h(21), h(22), h(23)])).toBeNull();
+  });
+  it('flags pond oxygen risks', () => {
+    expect(pondImpact([{ date: 'd1', max: 31, rain_mm: 2 }, { date: 'd2', max: 35, rain_mm: 0 }])).toEqual({ kind: 'heat', date: 'd2' });
+    expect(pondImpact([{ date: 'd1', max: 30, rain_mm: 25 }])?.kind).toBe('cloudy_rain');
+    expect(pondImpact([{ date: 'd1', max: 30, rain_mm: 0 }])).toBeNull();
+  });
+});

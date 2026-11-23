@@ -7,6 +7,8 @@ import { useAnimal, useDeleteAnimal, useHealthRecords, useUpdateAnimal, useVacci
 import { animalLabel, SpeciesAvatar, STATUS_TONE, useAgeLabel } from '@/features/livestock/AnimalRow';
 import { ANIMAL_STATUS } from '@/features/livestock/schemas';
 import { VaccRow } from '@/features/livestock/VaccRow';
+import { AnimalCollar, AnimalProduction } from '@/features/livestock/Production';
+import { InsightCard } from '@/features/intel/InsightCard';
 import { formatDate } from '@/lib/dates';
 import type { AnimalStatus } from '@/types/database';
 import { colors, radius } from '@/theme';
@@ -63,6 +65,10 @@ export default function AnimalDetails() {
         onChange={(status: AnimalStatus) => update.mutate({ id: a.id, patch: { status } }, { onError: () => Alert.alert(t('errors.generic')) })}
         options={ANIMAL_STATUS.map((s) => ({ value: s, label: t(`livestock.statuses.${s}`) }))} />
       {(a.status === 'sick' || a.status === 'under_treatment') && <Banner tone="warning" message={t('livestock.consultVet')} />}
+
+      <AnimalProduction animal={a} />
+      <AnimalCollar animal={a} />
+      <InsightCard kind="livestock" id={a.id} />
 
       <SectionHeader title={t('livestock.vaccinations')} action={t('common.seeAll')} onAction={() => records('vacc')} />
       <Card style={{ paddingVertical: 4 }}>

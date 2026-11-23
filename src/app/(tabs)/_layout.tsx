@@ -7,11 +7,11 @@ import { useSession } from '@/store/session';
 import { colors, fonts } from '@/theme';
 
 // Stitch tab bar: pill behind the active icon, label below.
-const icon = (name: IconName) => ({ color, focused }: { color: unknown; focused: boolean }) => (
+const icon = (name: IconName) => function TabIcon({ color, focused }: { color: unknown; focused: boolean }) { return (
   <View style={{ width: 56, height: 30, borderRadius: 15, alignItems: 'center', justifyContent: 'center', backgroundColor: focused ? colors.surfaceContainer : 'transparent' }}>
     <Icon name={name} color={color as string} size={22} />
   </View>
-);
+); };
 
 export default function TabsLayout() {
   const { t } = useTranslation();

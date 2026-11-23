@@ -1,5 +1,6 @@
 import { Platform } from 'react-native';
 import * as Notifications from 'expo-notifications';
+import Constants from 'expo-constants';
 import { parseDate } from '@/lib/dates';
 import { supabase } from '@/lib/supabase';
 import { ensureNotificationChannel } from './permissions';
@@ -46,14 +47,17 @@ export async function cancelReminders(ids: (string | null | undefined)[]) {
   await Promise.all(ids.filter((id): id is string => !!id).map((id) => Notifications.cancelScheduledNotificationAsync(id).catch(() => {})));
 }
 
-/** Saves this phone's FCM token so the server can push weather/AI alerts. Silent no-op without permission or FCM config. */
+/** Saves this phone's Expo push token so the server can send sensor, device and market alerts.
+ *  Silent no-op without permission, on web, or when push isn't set up for the build. */
 export async function registerPushToken(userId: string) {
   if (Platform.OS !== 'android') return;
   try {
     if (!(await Notifications.getPermissionsAsync()).granted) return;
-    const { data } = await Notifications.getDevicePushTokenAsync();
+    await ensureNotificationChannel();
+    const projectId = Constants.expoConfig?.extra?.eas?.projectId as string | undefined;
+    const { data } = await Notifications.getExpoPushTokenAsync(projectId ? { projectId } : undefined);
     if (typeof data === 'string') await supabase.from('profiles').update({ push_token: data }).eq('id', userId);
   } catch {
-    // Missing google-services.json in a dev build, or no Play Services: push stays off, local reminders still work.
+    // No FCM credentials in this build or no Play Services: push stays off, in-app and local alerts still work.
   }
 }

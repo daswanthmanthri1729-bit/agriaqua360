@@ -1,11 +1,16 @@
 // 23 · Pond Details — Stitch: 28_pond_details (HTML) + 31/35/37/38/39 record screens folded into one records list
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Alert, View } from 'react-native';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useTranslation } from 'react-i18next';
-import { AppText, Banner, Button, Card, Chip, ChoiceChips, DateField, ErrorState, Header, InfoTile, LoadingList, Screen, SectionHeader, Sheet, TextField } from '@/components';
+import { AppText, Banner, Button, Card, Chip, ChoiceChips, DateField, ErrorState, Header, InfoTile, LineChart, LoadingList, Screen, SectionHeader, Sheet, SourceBadge, TextField } from '@/components';
+import { ago } from '@/components/Freshness';
+import { pondPerformance } from '@/features/aquaculture/performance';
+import { RANGES } from '@/features/aquaculture/waterQuality';
+import { InsightCard } from '@/features/intel/InsightCard';
+import { SENSOR_UNITS, useLatestFor, useRealtime } from '@/features/iot/api';
 import { useAddFishRecord, useDeletePond, useFishRecords, useFishReports, usePond, useReadings, useUpdatePond } from '@/features/aquaculture/api';
-import { FISH_RECORD_TYPES, fishRecordSchema, FishRecordInput, POND_STATUS, UNITS } from '@/features/aquaculture/schemas';
+import { FISH_RECORD_TYPES, fishRecordSchema, FishRecordInput, MORTALITY_CAUSES, POND_STATUS, UNITS } from '@/features/aquaculture/schemas';
 import { WaterTiles } from '@/features/aquaculture/WaterTiles';
 import { toErrorKey } from '@/features/auth/api';
 import { daysBetween, formatDate, isoDate, today } from '@/lib/dates';
@@ -22,6 +27,10 @@ export default function PondDetails() {
   const update = useUpdatePond();
   const del = useDeletePond();
   const [recordOpen, setRecordOpen] = useState(false);
+  const live = useLatestFor({ pondId: id });
+  useRealtime('sensor_readings', `pond_id=eq.${id}`, [['latest'], ['readings']]);
+  const [param, setParam] = useState<'dissolved_oxygen_mgl' | 'temperature_c' | 'ph' | 'ammonia_mgl'>('dissolved_oxygen_mgl');
+  const trend = useMemo(() => [...(readings.data ?? [])].reverse().filter((r) => r[param] != null).map((r) => ({ x: Date.parse(r.recorded_at), y: Number(r[param]) })), [readings.data, param]);
 
   if (pond.isLoading) return <Screen><Header /><LoadingList height={140} /></Screen>;
   if (!pond.data) return <Screen><Header /><ErrorState onRetry={() => pond.refetch()} /></Screen>;
@@ -71,13 +80,61 @@ export default function PondDetails() {
         </>
       ) : <Banner message={t('aqua.noReadings')} />}
 
+      <SectionHeader title={t('ponds.liveSensors')} action={live.data?.length ? t('devices.fullHistory') : t('monitor.addDevice')}
+        onAction={() => (live.data?.length ? router.push({ pathname: '/monitor/history', params: { device: live.data[0].device_id } }) : router.push('/monitor/add'))} />
+      {live.data?.length ? (
+        <Card style={{ gap: 8 }}>
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
+            {live.data.filter((v) => v.sensor_type !== 'battery').map((v) => (
+              <View key={`${v.device_id}${v.sensor_type}`} style={{ flexGrow: 1, flexBasis: '30%', padding: 10, borderRadius: 12, backgroundColor: colors.surfaceLow }}>
+                <AppText variant="labelSm" color={colors.textSubtle}>{t(`sensors.${v.sensor_type}`)}</AppText>
+                <AppText variant="labelLg">{v.value} {SENSOR_UNITS[v.sensor_type]}</AppText>
+              </View>
+            ))}
+          </View>
+          <View style={{ flexDirection: 'row', gap: 8, alignItems: 'center' }}>
+            <SourceBadge source={live.data[0].source} />
+            <AppText variant="labelSm" color={colors.textSubtle}>{ago(live.data[0].recorded_at, t)}</AppText>
+          </View>
+        </Card>
+      ) : <AppText variant="bodyMd" color={colors.textMuted}>{t('ponds.noSensors')}</AppText>}
+
+      {trend.length > 1 && (
+        <Card style={{ gap: 8 }}>
+          <AppText variant="labelLg">{t('ponds.trend')}</AppText>
+          <ChoiceChips scroll value={param} onChange={setParam} options={(['dissolved_oxygen_mgl', 'temperature_c', 'ph', 'ammonia_mgl'] as const).map((k) => ({ value: k, label: t(`water.params.${k}`) }))} />
+          <LineChart series={[{ points: trend, color: colors.water, label: t(`water.params.${param}`) }]}
+            limits={RANGES[param] ? [RANGES[param]!.ok[0] > 0 && { y: RANGES[param]!.ok[0], label: t('thresholds.min') }, Number.isFinite(RANGES[param]!.ok[1]) && { y: RANGES[param]!.ok[1], label: t('thresholds.max') }].filter(Boolean) as { y: number; label: string }[] : []}
+            formatX={(x) => formatDate(isoDate(new Date(x)), i18n.language, { day: 'numeric', month: 'short' })} />
+        </Card>
+      )}
+
+      <InsightCard kind="water" id={p.id} />
+
+      {(() => {
+        const perf = pondPerformance(p, records.data ?? []);
+        if (!perf.stocked) return null;
+        return (
+          <>
+            <SectionHeader title={t('ponds.performance')} />
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 10 }}>
+              <InfoTile icon="favorite" label={t('ponds.survival')} value={perf.survivalPct != null ? `${perf.survivalPct}% (${perf.alive.toLocaleString()})` : '—'} />
+              <InfoTile icon="scale" label={t('ponds.biomass')} value={perf.biomassKg != null ? `~${perf.biomassKg.toLocaleString()} kg` : t('ponds.needSample')} />
+              <InfoTile icon="set-meal" label={t('ponds.feedUsed')} value={`${perf.feedKg.toLocaleString()} kg`} />
+              <InfoTile icon="calculate" label="FCR" value={perf.fcr != null ? String(perf.fcr) : '—'} />
+            </View>
+            <AppText variant="labelSm" color={colors.textSubtle}>{t('ponds.perfNote')}</AppText>
+          </>
+        );
+      })()}
+
       <SectionHeader title={t('ponds.records')} action={t('ponds.addRecord')} onAction={() => setRecordOpen(true)} />
       <Card style={{ gap: 10 }}>
         {records.isLoading ? <LoadingList count={2} height={40} /> : records.data?.length ? records.data.map((r) => (
           <View key={r.id} style={{ flexDirection: 'row', gap: 10, alignItems: 'center' }}>
             <Chip label={t(`ponds.types.${r.record_type}`)} tone={r.record_type === 'mortality' ? 'error' : 'normal'} />
             <AppText variant="bodyMd" style={{ flex: 1 }} numberOfLines={2}>
-              {[r.quantity != null && `${r.quantity} ${t(`ponds.units.${r.unit === 'pcs' ? 'pcs' : 'kg'}`)}`, r.avg_weight_g != null && `${r.avg_weight_g} g`, r.notes].filter(Boolean).join(' • ')}
+              {[r.quantity != null && `${r.quantity} ${t(`ponds.units.${r.unit === 'pcs' ? 'pcs' : 'kg'}`)}`, r.avg_weight_g != null && `${r.avg_weight_g} g`, r.feed_type, r.cause && t(`ponds.causes.${r.cause}`), r.notes].filter(Boolean).join(' • ')}
             </AppText>
             <AppText variant="labelSm" color={colors.textSubtle}>{fmt(r.recorded_on)}</AppText>
           </View>
@@ -127,6 +184,12 @@ function FishRecordSheet({ visible, onClose, pondId }: { visible: boolean; onClo
         </View>
         <ChoiceChips value={v.unit} onChange={(unit) => setV({ ...v, unit })} options={UNITS.map((u) => ({ value: u, label: t(`ponds.units.${u}`) }))} />
       </View>
+      {v.record_type === 'mortality' && (
+        <ChoiceChips scroll label={t('ponds.cause')} value={v.cause ?? null} onChange={(cause) => setV({ ...v, cause })} options={MORTALITY_CAUSES.map((c) => ({ value: c, label: t(`ponds.causes.${c}`) }))} />
+      )}
+      {v.record_type === 'feeding' && (
+        <TextField label={t('ponds.feedType')} value={v.feed_type ?? ''} onChangeText={(feed_type) => setV({ ...v, feed_type })} />
+      )}
       {v.record_type === 'sampling' && (
         <TextField label={t('ponds.avgWeight')} keyboardType="decimal-pad" value={v.avg_weight_g} onChangeText={(avg_weight_g) => setV({ ...v, avg_weight_g })} error={errors.avg_weight_g && t(errors.avg_weight_g)} />
       )}

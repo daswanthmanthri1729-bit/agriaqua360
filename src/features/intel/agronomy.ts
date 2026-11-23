@@ -60,3 +60,29 @@ export function irrigationAdvice(p: { crop: string; stage?: GrowthStage | null; 
 
 /** NDVI → plain-language vegetation class. */
 export const ndviClass = (v: number | null | undefined) => (v == null ? null : v < 0.2 ? 'bare' : v < 0.4 ? 'sparse' : v < 0.6 ? 'moderate' : 'dense');
+
+// ---------- weather → farm advice ----------
+type Hour = { time: string; pop: number; rain_mm: number; wind_kmh: number };
+/** First daytime window of ≥ 3 dry, calm hours (rain chance ≤ 20 %, wind ≤ 15 km/h): good for spraying. */
+export function sprayWindow(hourly: Hour[]): { from: string; to: string } | null {
+  let start = -1;
+  for (let i = 0; i < hourly.length; i++) {
+    const h = hourly[i], hr = Number(h.time.slice(11, 13));
+    const ok = hr >= 6 && hr <= 18 && h.pop <= 20 && h.rain_mm === 0 && h.wind_kmh <= 15;
+    if (ok && start < 0) start = i;
+    if ((!ok || i === hourly.length - 1) && start >= 0) {
+      const end = ok ? i : i - 1;
+      if (end - start + 1 >= 3) return { from: hourly[start].time, to: hourly[end].time };
+      start = -1;
+    }
+  }
+  return null;
+}
+/** How the coming days' weather can affect pond oxygen (hot water and cloudy, rainy days lower dissolved oxygen). */
+export function pondImpact(daily: { date: string; max: number; rain_mm: number }[]): { kind: 'heat' | 'cloudy_rain'; date: string } | null {
+  for (const d of daily.slice(0, 3)) {
+    if (d.max >= 34) return { kind: 'heat', date: d.date };
+    if (d.rain_mm >= 20) return { kind: 'cloudy_rain', date: d.date };
+  }
+  return null;
+}

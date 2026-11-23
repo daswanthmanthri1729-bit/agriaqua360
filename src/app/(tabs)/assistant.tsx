@@ -17,13 +17,13 @@ export default function Assistant() {
   const { language } = useLanguage();
   const params = useLocalSearchParams<{ id?: string }>();
   const [conversationId, setConversationId] = useState<string | null>(params.id ?? null);
-  useEffect(() => { setConversationId(params.id ?? null); setLast(null); }, [params.id]);
   const messages = useMessages(conversationId);
   const [text, setText] = useState('');
   const [pending, setPending] = useState<string | null>(null);
   const [streamed, setStreamed] = useState('');
   const [error, setError] = useState<{ key: string; text: string } | null>(null);
   const [last, setLast] = useState<AskResult | null>(null);
+  useEffect(() => { setConversationId(params.id ?? null); setLast(null); }, [params.id]);
   const list = useRef<FlatList<Message>>(null);
 
   const send = async (q = text) => {

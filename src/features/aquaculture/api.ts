@@ -66,7 +66,7 @@ export const useFishRecords = (pondId: string) =>
 export const useAddFishRecord = () =>
   useMutation({
     mutationFn: ({ pondId, input }: { pondId: string; input: FishRecordInput }) =>
-      must(supabase.from('fish_records').insert({ pond_id: pondId, ...blankToNull(input, ['quantity', 'avg_weight_g']) })),
+      must(supabase.from('fish_records').insert({ pond_id: pondId, ...blankToNull({ ...input, feed_type: input.feed_type || null, cause: input.cause ?? null }, ['quantity', 'avg_weight_g']) })),
     onSuccess: () => invalidate('fish'),
   });
 

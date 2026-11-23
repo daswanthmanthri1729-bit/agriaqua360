@@ -16,3 +16,11 @@ export async function currentPlace(): Promise<Place> {
     state: addr?.region ?? undefined,
   };
 }
+
+/** One precise GPS fix (no address lookup) — used to walk a field boundary corner by corner. */
+export async function gpsPoint(): Promise<{ lat: number; lon: number; accuracy: number | null }> {
+  const perm = await Location.requestForegroundPermissionsAsync();
+  if (!perm.granted) throw new LocationDeniedError();
+  const pos = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Highest });
+  return { lat: pos.coords.latitude, lon: pos.coords.longitude, accuracy: pos.coords.accuracy ?? null };
+}

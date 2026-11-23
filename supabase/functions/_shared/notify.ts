@@ -16,7 +16,7 @@ export async function notifyUser(ownerId: string, n: { category: string; title: 
   await fetch('https://exp.host/--/api/v2/push/send', {
     method: 'POST', signal: AbortSignal.timeout(5000),
     headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-    body: JSON.stringify({ to: token, title: n.title, body: n.body, sound: 'default', priority: n.priority === 'high' ? 'high' : 'default', channelId: 'alerts', data: { route: n.route, ...n.data } }),
+    body: JSON.stringify({ to: token, title: n.title, body: n.body, sound: 'default', priority: n.priority === 'high' ? 'high' : 'default', channelId: 'default', data: { route: n.route, ...n.data } }),
   }).then(async (r) => { if (!r.ok) console.warn('expo push', r.status, (await r.text()).slice(0, 200)); }, (e) => console.warn('expo push', String(e)));
 }
 

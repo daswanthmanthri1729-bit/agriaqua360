@@ -33,7 +33,7 @@ export function deviceStatus(d: Pick<SensorDevice, 'last_seen_at' | 'reporting_i
 /** Re-fetch the given queries when rows change in a table (Supabase Realtime, RLS-filtered). Debounced. */
 export function useRealtime(table: string, filter: string | null, keys: unknown[][], enabled = true) {
   const keysRef = useRef(keys);
-  keysRef.current = keys;
+  useEffect(() => { keysRef.current = keys; });
   useEffect(() => {
     if (!enabled) return;
     let timer: ReturnType<typeof setTimeout> | null = null;

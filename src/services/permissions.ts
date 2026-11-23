@@ -17,6 +17,7 @@ export async function ensureNotificationChannel() {
   if (Platform.OS !== 'android') return;
   await Notifications.setNotificationChannelAsync('default', {
     name: 'AgriAqua 360',
+    // eslint-disable-next-line import/namespace -- enum is re-exported by expo-notifications; the import plugin can't see it
     importance: Notifications.AndroidImportance.HIGH,
     vibrationPattern: [0, 250, 250, 250],
     lightColor: '#176B45',

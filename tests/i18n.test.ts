@@ -26,5 +26,5 @@ it('all t() keys used in src exist', () => {
   const used = new Set<string>();
   for (const f of files) for (const m of readFileSync(f, 'utf8').matchAll(/\bt\('([a-zA-Z]+\.[a-zA-Z.]+)'/g)) used.add(m[1]);
   const all = new Set(keys(en));
-  expect([...used].filter((k) => !all.has(k))).toEqual([]);
+  expect([...used].filter((k) => !all.has(k) && !all.has(`${k}_other`))).toEqual([]); // plural keys live as k_one / k_other
 });

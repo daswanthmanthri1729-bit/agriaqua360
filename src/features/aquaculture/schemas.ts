@@ -9,6 +9,7 @@ export const POND_STATUS = ['preparing', 'active', 'harvested', 'idle'] as const
 export const SPECIES = ['vannamei', 'tiger', 'rohu', 'catla', 'tilapia', 'pangasius', 'murrel'] as const;
 export const FISH_RECORD_TYPES = ['stocking', 'feeding', 'sampling', 'mortality', 'harvest', 'treatment'] as const;
 export const UNITS = ['kg', 'pcs'] as const;
+export const MORTALITY_CAUSES = ['disease', 'low_oxygen', 'water_quality', 'predator', 'handling', 'unknown', 'other'] as const;
 
 export const pondSchema = z.object({
   name: z.string().trim().min(1, 'validation.required').max(60, 'validation.nameMax'),
@@ -33,6 +34,8 @@ export const fishRecordSchema = z.object({
   unit: z.enum(UNITS),
   avg_weight_g: optNum(100_000),
   notes: z.string().trim().max(300, 'validation.tooLong'),
+  cause: z.enum(MORTALITY_CAUSES).nullable().optional(),
+  feed_type: z.string().trim().max(60, 'validation.tooLong').optional(),
 });
 
 export type PondInput = z.input<typeof pondSchema>;
