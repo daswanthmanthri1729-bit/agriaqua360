@@ -1,4 +1,5 @@
 // Thin Gemini REST client (structured JSON output). Key never leaves the server.
+import { openRouterJson } from './openrouter.ts';
 const LANGS: Record<string, string> = { en: 'English', te: 'Telugu (తెలుగు script)', hi: 'Hindi (देवनागरी script)' };
 export const languageName = (code: string) => LANGS[code] ?? 'English';
 
@@ -38,9 +39,15 @@ export function cooldownFor(status: number, body: string): number {
 // thinking 'minimal' answers chat in ~1 s (measured) with the same advice; diagnosis keeps 'low'.
 type Opts = { system: string; parts: Part[]; schema: unknown; temperature?: number; maxOutputTokens?: number; models?: string[]; thinking?: 'minimal' | 'low' };
 
+/** Every Gemini model failed: try the free OpenRouter backup (if its key is set), else report Gemini's error. */
+async function backup<T>(opts: Opts, err: string): Promise<T> {
+  if (err === 'ai_blocked' || !Deno.env.get('OPENROUTER_API_KEY')) throw new Error(err);
+  try { return await openRouterJson<T>(opts); } catch { throw new Error(err); }
+}
+
 export async function generateJson<T>(opts: Opts): Promise<T> {
   const key = Deno.env.get('GEMINI_API_KEY');
-  if (!key) throw new Error('ai_not_configured');
+  if (!key) return backup(opts, 'ai_not_configured');
   const configured = Deno.env.get('GEMINI_MODELS')?.split(',').map((m) => m.trim()).filter(Boolean);
   const order = modelOrder(opts.models ?? configured ?? DEFAULT_MODELS);
   let last = 'ai_failed';
@@ -78,7 +85,7 @@ export async function generateJson<T>(opts: Opts): Promise<T> {
         continue;
       }
       console.error('gemini', model, res.status, detail);
-      throw new Error('ai_failed');
+      return backup(opts, 'ai_failed');
     }
     const data = await res.json();
     const text = data?.candidates?.[0]?.content?.parts?.map((p: { text?: string }) => p.text ?? '').join('');
@@ -90,7 +97,7 @@ export async function generateJson<T>(opts: Opts): Promise<T> {
       continue;
     }
   }
-  throw new Error(last);
+  return backup(opts, last);
 }
 
 export function toBase64(bytes: Uint8Array) {
@@ -125,8 +132,14 @@ export function partialJsonString(buf: string, key: string): string {
  * Failover only happens before the first chunk; after that a failure is reported, not retried.
  */
 export async function streamJson<T>(opts: Opts & { streamField: string }, onText: (text: string) => void): Promise<T> {
+  const fallback = async (err: string) => {   // the backup does not stream: the whole answer arrives at once
+    const r = await backup<T>(opts, err);
+    const t = (r as Record<string, unknown>)[opts.streamField];
+    if (typeof t === 'string') onText(t);
+    return r;
+  };
   const key = Deno.env.get('GEMINI_API_KEY');
-  if (!key) throw new Error('ai_not_configured');
+  if (!key) return fallback('ai_not_configured');
   const order = modelOrder(opts.models ?? DEFAULT_MODELS);
   let last = 'ai_failed';
   for (const [i, model] of order.entries()) {
@@ -159,7 +172,7 @@ export async function streamJson<T>(opts: Opts & { streamField: string }, onText
       const raw = await res.text();
       console.log(JSON.stringify({ ai: model, stream: true, ms: Date.now() - t0, status: res.status }));
       if (RETRYABLE.has(res.status)) { coolingUntil.set(model, Date.now() + cooldownFor(res.status, raw)); last = res.status === 503 || res.status === 429 ? 'ai_busy' : 'ai_failed'; continue; }
-      throw new Error('ai_failed');
+      return fallback('ai_failed');
     }
     let json = '', sent = '', pending = '', firstMs = 0;
     const reader = res.body.pipeThrough(new TextDecoderStream()).getReader();
@@ -184,5 +197,5 @@ export async function streamJson<T>(opts: Opts & { streamField: string }, onText
       throw new Error('ai_stream_incomplete');
     }
   }
-  throw new Error(last);
+  return fallback(last);
 }
