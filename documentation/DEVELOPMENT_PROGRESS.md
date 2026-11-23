@@ -127,3 +127,21 @@ Deadline: **24 Nov 2026, 23:59 IST** (Level 1 APK).
 7. Offline write queue; run lint, tsc, jest and E2E; EAS APK; README and docs; release.
 
 **Keys you still need to add** (screens show "not configured" until then): DATA_GOV_IN_API_KEY, CDSE_CLIENT_ID/SECRET, EMQX account, and the FCM V1 key upload to EAS for push notifications.
+
+## Level 2 — paused 2026-11-23 (resume here)
+
+**Done since last pause**
+- All Level 2 screens from the first plan, translated en/te/hi. Offline-first record saving (queue + auto-sync) with E2E proof. Lint config (0 errors). Push via Expo tokens.
+- User asked for **all 80 designs as separate screens + APK containing all of them**: `documentation/screen-map.json` maps every design → route; `tests/screen-map.test.ts` passes (all 80 route files exist).
+- New screens this session (functional, typecheck clean): monitor/{devices,network,sensors,soil,thresholds,calibration,equipment,irrigation-control,zones}, command-center, alerts-center, overview,
+  agriculture/{weather-risk,climate,rainfall,water-forecast,soil-ai,soil-tests,planning,growth,crop-growth,yield,harvest-quantity,harvest-readiness,harvest-planner,seasons,crop-risk,pests,protection},
+  aquaculture/{water-analytics,map,feeding,growth,health,mortality,ai-health,predictions}, livestock/{wearables,sensors,activity,health-ai,productivity,nutrition},
+  insights/{mandis,demand,costs,profitability,cost-ai,eligibility,insurance,apply,ai,predictions,performance}, reports/documents.
+- Tested helpers: features/intel/crop.ts, aquaculture/performance.ts, livestock/insights.ts, intel/schemes.ts (checkEligibility).
+- `insights` function has a new kind `planning` — **not yet deployed** (deploy: functions deploy insights).
+
+**Next steps**
+1. Navigation: `src/components/HubLinks.tsx` exists — add hub grids to Monitor tab (line ~111), agriculture/index (FlatList footer), aquaculture/index & livestock/index (before </ScrollView>), extend Insights TILES, Home quick actions (command-center, alerts-center, overview).
+2. Translate the new keys (namespaces: fleet, command, alertsCenter, wx, risk, soilAi, soilTests, growth, yield, harvest, seasons, pests, protection, planning, aquaX, herd, mandis, demand, costs, profit, costAi, elig, insure, apply, aiFarm, pred, perf, docs, overview). Find missing with the key script (see tests/i18n.test.ts).
+3. Deploy `insights`; extend E2E tour to all 80 routes; run tsc/lint/jest/E2E.
+4. EAS APK build (all screens), docs, release.

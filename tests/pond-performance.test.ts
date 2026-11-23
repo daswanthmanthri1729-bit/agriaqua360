@@ -12,3 +12,15 @@ it('falls back to the pond stocking count and gives no FCR without a sample', ()
   const p = pondPerformance({ stocking_count: 2000 }, [r('feeding', 50, 'kg')]);
   expect(p).toMatchObject({ stocked: 2000, survivalPct: 100, biomassKg: null, fcr: null });
 });
+
+import { feedAdvice, feedRatePct, growthRate, projectLinear } from '@/features/aquaculture/performance';
+it('feed, growth and trend projection', () => {
+  expect([feedRatePct(3), feedRatePct(50), feedRatePct(500)]).toEqual([8, 3, 1.5]);
+  expect(feedAdvice(1000, 50)).toEqual({ pct: 3, kg: 30, perMeal: 10, reduced: false });
+  expect(feedAdvice(1000, 50, 3.5)?.kg).toBe(15);
+  expect(feedAdvice(null, 50)).toBeNull();
+  expect(growthRate([{ recorded_on: '2026-10-01', avg_weight_g: 100 }, { recorded_on: '2026-10-11', avg_weight_g: 130 }], 250)).toEqual({ adg: 3, current: 130, daysToTarget: 40 });
+  const h = 3600_000;
+  expect(projectLinear([{ x: 0, y: 6 }, { x: h, y: 5.5 }, { x: 2 * h, y: 5 }], 2)).toEqual({ value: 4, perHour: -0.5 });
+  expect(projectLinear([{ x: 0, y: 1 }], 1)).toBeNull();
+});

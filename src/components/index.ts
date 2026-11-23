@@ -29,3 +29,4 @@ export * from './Chart';
 export * from './SourceBadge';
 export * from './Freshness';
 export * from './TileMap';
+export * from './HubLinks';

@@ -119,3 +119,6 @@ export const useHarvests = () =>
     queryKey: ['records', 'harvests'],
     queryFn: () => must<HarvestRow[]>(supabase.from('crop_records').select('id, crop_id, scheduled_for, completed_at, quantity, unit, crop:crops(id, name, area_acres, season, sowing_date)').eq('activity', 'harvest').not('completed_at', 'is', null).order('scheduled_for', { ascending: false }).limit(300).overrideTypes<HarvestRow[], { merge: false }>()),
   });
+
+export type SavedForecast = { id: string; commodity: string; crop_id: string | null; price_low: number | null; price_mid: number | null; price_high: number | null; method: string; basis: { harvest_month?: number; uncertainty?: string }; generated_at: string };
+export const useForecasts = () => useQuery({ queryKey: ['forecasts'], queryFn: () => must<SavedForecast[]>(supabase.from('harvest_forecasts').select('*').order('generated_at', { ascending: false }).limit(20)) });

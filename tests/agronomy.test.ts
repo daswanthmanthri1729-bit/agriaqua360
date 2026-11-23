@@ -100,3 +100,14 @@ it('signal quality and calibration due', () => {
   expect(calibrationDue({ calibrated_at: '2026-10-01T00:00:00Z' }, now)).toBe(false);
   expect(calibrationDue({ calibrated_at: '2026-06-01T00:00:00Z' }, now)).toBe(true);
 });
+
+import { checkEligibility } from '@/features/intel/schemes';
+it('scheme questionnaire applies published exclusions', () => {
+  const base = { land: 'own' as const, crop: true, sectors: ['agriculture'], species: [], category: 'general' as const, taxPayer: false, govtEmployee: false };
+  expect(checkEligibility('pm_kisan', base).result).toBe('likely');
+  expect(checkEligibility('pm_kisan', { ...base, taxPayer: true }).result).toBe('no');
+  expect(checkEligibility('pm_kisan', { ...base, land: 'tenant' }).result).toBe('no');
+  expect(checkEligibility('pmfby', { ...base, land: 'tenant' }).result).toBe('likely');
+  expect(checkEligibility('pmmsy', { ...base, sectors: ['aquaculture'], category: 'woman' }).reason).toBe('elig.r.pmmsyHigher');
+  expect(checkEligibility('rgm', { ...base, species: ['goat'] }).result).toBe('check');
+});

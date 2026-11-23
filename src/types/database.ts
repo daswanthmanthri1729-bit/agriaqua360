@@ -70,6 +70,7 @@ export type PondStatus = 'preparing' | 'active' | 'harvested' | 'idle';
 export type Pond = {
   id: string; farm_id: string | null; name: string; species: string | null; area_acres: number | null; depth_m: number | null;
   stocking_date: string | null; stocking_count: number | null; status: PondStatus; photo_path: string | null; notes: string | null; created_at: string;
+  latitude?: number | null; longitude?: number | null;
 };
 export type WaterReading = {
   id: string; pond_id: string; recorded_at: string; ph: number | null; dissolved_oxygen_mgl: number | null; temperature_c: number | null;

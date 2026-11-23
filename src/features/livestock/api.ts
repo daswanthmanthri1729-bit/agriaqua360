@@ -124,3 +124,8 @@ export const useSaveGeofence = () =>
   useMutation({ mutationFn: (g: { name: string; polygon: [number, number][] }) => must(supabase.from('geofences').insert(g)), onSuccess: () => queryClient.invalidateQueries({ queryKey: ['geofences'] }) });
 export const useDeleteGeofence = () =>
   useMutation({ mutationFn: (id: string) => must(supabase.from('geofences').delete().eq('id', id)), onSuccess: () => queryClient.invalidateQueries({ queryKey: ['geofences'] }) });
+export const useHerdRecords = (days = 30) =>
+  useQuery({
+    queryKey: ['animalRecords', 'herd', days],
+    queryFn: () => must<AnimalRecord[]>(supabase.from('animal_records').select('*').gte('recorded_on', new Date(Date.now() - days * 86_400_000).toISOString().slice(0, 10)).order('recorded_on').limit(2000)),
+  });

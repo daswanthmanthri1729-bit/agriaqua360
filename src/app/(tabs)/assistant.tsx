@@ -15,10 +15,11 @@ const SUGGESTIONS = ['s1', 's2', 's3', 's4', 's5', 's6'] as const;
 export default function Assistant() {
   const { t } = useTranslation();
   const { language } = useLanguage();
-  const params = useLocalSearchParams<{ id?: string }>();
+  const params = useLocalSearchParams<{ id?: string; q?: string }>();
   const [conversationId, setConversationId] = useState<string | null>(params.id ?? null);
   const messages = useMessages(conversationId);
-  const [text, setText] = useState('');
+  const [text, setText] = useState(params.q ?? '');   // ?q= prefills a question from other screens
+  useEffect(() => { if (params.q) setText(params.q); }, [params.q]);
   const [pending, setPending] = useState<string | null>(null);
   const [streamed, setStreamed] = useState('');
   const [error, setError] = useState<{ key: string; text: string } | null>(null);
