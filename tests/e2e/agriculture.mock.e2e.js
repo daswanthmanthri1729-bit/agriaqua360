@@ -275,8 +275,8 @@ const weather = { location: { name: 'Kovur', lat: 14.5, lon: 79.98 }, observed_a
   console.log('BACK ONLINE banner gone=' + !(await pg.getByText(/You.re offline/).first().isVisible().catch(() => false)) + ' synced=' + log.some((l) => l.startsWith('insert farm_transactions') && l.includes('1250')));
 
   // ---- Level 2 smoke tour: every new screen renders (no crash) in English and Telugu ----
-  const L2 = ['/monitor', '/monitor/add', '/monitor/alerts', '/monitor/automation', '/monitor/history', '/insights', '/insights/market?commodity=Maize', '/insights/outlook',
-    '/insights/finance', '/insights/schemes', '/agriculture/soil', '/agriculture/irrigation', '/agriculture/field', '/agriculture/weather', '/livestock/geofence', '/settings/notifications'];
+  // Every design route from documentation/screen-map.json (detail routes with [id] are covered by the flows above).
+  const L2 = [...new Set(Object.entries(require('../../documentation/screen-map.json')).filter(([k, r]) => !k.startsWith('_') && !r.includes('[')).map(([, r]) => r))];
   const crashed = [];
   for (const lang of ['en', 'te']) {
     if (lang === 'te') { await pg.goto(base + '/profile'); await pg.waitForTimeout(800); await pg.getByRole('radio', { name: 'Telugu' }).first().click(); await pg.waitForTimeout(500); }
