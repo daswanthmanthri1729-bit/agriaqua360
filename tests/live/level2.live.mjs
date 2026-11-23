@@ -136,8 +136,17 @@ try {
     check('assistant uses sensor data', as === 200 && /oxygen|DO/i.test(a.message?.content ?? ''), `${as} ${at}ms ${a.message?.content?.slice(0, 200)}`);
   }
   if (want('satellite')) {
-    const [s, , sat] = await fn('satellite', { action: 'refresh', farm_id: '00000000-0000-0000-0000-000000000000' });
-    check('satellite not configured yet', s === 200 && sat.configured === false, `${s} ${JSON.stringify(sat)}`);
+    // A ~16 ha square of farmland in Telangana (Sentinel-2 tile 44QKE).
+    const lon = 78.739, lat = 17.534, d = 0.004;
+    const [, f] = await rest('farms', { method: 'POST', body: JSON.stringify({ name: 'Sat farm', soil_type: 'red', irrigation_source: 'borewell', area_acres: 40, boundary: [[lon, lat], [lon + d, lat], [lon + d, lat + d], [lon, lat + d]] }) });
+    const [s, st, sat] = await fn('satellite', { action: 'refresh', farm_id: f[0].id, days: 60 });
+    const o = sat?.observations ?? [];
+    check('satellite NDVI from real scenes', s === 200 && sat.configured && o.length > 0 && o.every((x) => x.ndvi_mean > -1 && x.ndvi_mean < 1 && x.valid_pixel_pct >= 20),
+      `${s} ${st}ms ${sat?.provider} scenes=${o.length} pending=${sat?.pending} ${o.slice(0, 3).map((x) => `${x.acquired_at.slice(0, 10)}:${x.ndvi_mean}`).join(' ')} ${sat?.error ?? ''}`);
+    if (o[0]) {
+      const [is, it, img] = await fn('satellite', { action: 'image', farm_id: f[0].id, date: o[0].acquired_at.slice(0, 10) });
+      check('satellite NDVI image saved', is === 200 && img.path?.endsWith('.png'), `${is} ${it}ms ${JSON.stringify(img)}`);
+    }
     const r = await fetch(`${U}/functions/v1/cron`, { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-cron-secret': 'nope' }, body: '{}' });
     check('cron needs its secret', r.status === 401, r.status);
   }

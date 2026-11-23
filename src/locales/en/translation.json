@@ -1683,7 +1683,7 @@
     "satTitle": "Satellite crop vigour (NDVI)",
     "needBoundary": "Draw the field boundary to see satellite data.",
     "notConfiguredTitle": "Satellite not connected",
-    "notConfigured": "Sentinel-2 data starts once the Copernicus key is added (see setup guide).",
+    "notConfigured": "Satellite data is not available right now. Please try again later.",
     "noScenes": "No cloud-free satellite passes in this period.",
     "ndvi": {
       "bare": "Bare / very weak",

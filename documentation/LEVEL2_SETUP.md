@@ -16,6 +16,7 @@ Level 2 adds the following:
 | Place names | OpenStreetMap Nominatim / Photon | none |
 | Maps | OpenStreetMap tiles | none |
 | AI (assistant, insights, planning, scans) | Gemini | `GEMINI_API_KEY` (already set) |
+| Satellite NDVI (Sentinel-2 L2A, 10 m, cloud-masked) | Element 84 Earth Search + public COGs on AWS | none |
 | Sensor simulator | built in | none |
 
 ## 2. Keys you add (screens show "not connected yet" until then)
@@ -24,13 +25,15 @@ Each key below is a Supabase **Edge Function secret**. Add it in Supabase Dashbo
 | Secret | For | How to get it (free) |
 |---|---|---|
 | `DATA_GOV_IN_API_KEY` | Live mandi prices (AGMARKNET) | Sign up at data.gov.in, then go to My Account and generate an API key |
-| `CDSE_CLIENT_ID`, `CDSE_CLIENT_SECRET` | Satellite NDVI (Sentinel-2) | Create an account at dataspace.copernicus.eu, then Sentinel Hub dashboard → User settings → OAuth clients → Create |
+| *(optional)* `CDSE_CLIENT_ID`, `CDSE_CLIENT_SECRET` | Switches satellite NDVI to Copernicus Sentinel Hub (not needed: the keyless source already works) | Create an account at dataspace.copernicus.eu, then Sentinel Hub dashboard → User settings → OAuth clients → Create |
 | *(optional)* `MARKET_RESOURCE_CURRENT`, `MARKET_RESOURCE_HISTORY` | Only if data.gov.in changes its dataset IDs | — |
 
 **Market prices:**
 - The first time someone opens a commodity, its prices are downloaded and saved.
 - After that, the scheduled sweep refreshes them every day after 06:00 IST.
 - Past prices build up over time. The harvest outlook needs at least 2 past years with prices in both months.
+
+**Satellite NDVI:** each refresh reads up to 6 new scenes for a field and records cloudy ones so they are not read again. The full 120-day history fills in over a few visits.
 
 **After adding the market key**, open Market prices and pick a commodity. If the screen says "key not valid", check the key on data.gov.in.
 

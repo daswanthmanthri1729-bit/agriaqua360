@@ -126,7 +126,7 @@ Deadline: **24 Nov 2026, 23:59 IST** (Level 1 APK).
 6. Translate all new keys to en/te/hi, adding a test that every `t('…')` key exists.
 7. Offline write queue; run lint, tsc, jest and E2E; EAS APK; README and docs; release.
 
-**Keys you still need to add** (screens show "not configured" until then): DATA_GOV_IN_API_KEY, CDSE_CLIENT_ID/SECRET, EMQX account, and the FCM V1 key upload to EAS for push notifications.
+**Keys you still need to add** (screens show "not configured" until then): EMQX account (optional). Done since: DATA_GOV_IN_API_KEY (prices fetched via the Mumbai edge region), FCM V1 key, and keyless satellite NDVI from Earth Search (Copernicus keys now optional).
 
 ## Level 2 — paused 2026-11-23 (resume here)
 
@@ -151,4 +151,4 @@ Deadline: **24 Nov 2026, 23:59 IST** (Level 1 APK).
 - Full en/te/hi translations (i18n test: identical keys, variables kept, nothing left in English).
 - Checks: tsc clean · lint 0 errors · Jest 131/131 · E2E: Level 1 journey + offline save/sync + all 77 design routes in en & te (154/154) · live backend checks pass.
 - `insights` (crop planning) deployed. Android APK built with EAS (preview profile, versionCode 2).
-- Still for the owner: data.gov.in key, Copernicus keys, FCM V1 key upload, EMQX (optional) — see LEVEL2_SETUP.md.
+- Still for the owner: EMQX (optional) — see LEVEL2_SETUP.md.

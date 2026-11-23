@@ -1,9 +1,11 @@
 // Sentinel-2 vegetation monitoring for a farm boundary via Copernicus Data Space Ecosystem (Sentinel Hub APIs).
 // POST { action: 'refresh', farm_id, days? }  → NDVI statistics per cloud-free acquisition, stored in satellite_observations
 // POST { action: 'image', farm_id, date }     → NDVI colour image for that date, saved to the farmer's storage folder
-// Needs CDSE_CLIENT_ID / CDSE_CLIENT_SECRET (free account). Nothing is ever estimated: no data → no row.
+// With CDSE_CLIENT_ID / CDSE_CLIENT_SECRET it uses Copernicus; without them, the keyless Earth Search + AWS COG path.
+// Nothing is ever estimated: no data → no row.
 import { cors, fail, json } from '../_shared/http.ts';
 import { admin, cached, caller, timedFetch, Upstream } from '../_shared/server.ts';
+import { EARTH_SEARCH, fieldNdvi, ndviPng, ndviStats, Scene, searchScenes } from '../_shared/s2.ts';
 
 const TOKEN_URL = 'https://identity.dataspace.copernicus.eu/auth/realms/CDSE/protocol/openid-connect/token';
 const SH = 'https://sh.dataspace.copernicus.eu/api/v1';
@@ -55,7 +57,7 @@ Deno.serve(async (req) => {
   if (!who || !admin) return fail('unauthorized', 401);
   let b: Record<string, unknown>;
   try { b = await req.json(); } catch { return fail('bad_request'); }
-  if (!Deno.env.get('CDSE_CLIENT_ID') || !Deno.env.get('CDSE_CLIENT_SECRET')) return json({ configured: false });
+  const cdse = !!(Deno.env.get('CDSE_CLIENT_ID') && Deno.env.get('CDSE_CLIENT_SECRET'));
 
   const { data: farm } = await who.sb.from('farms').select('id, boundary').eq('id', String(b.farm_id ?? '')).maybeSingle();  // RLS: own/member farm
   if (!farm) return fail('not_found', 404);
@@ -65,6 +67,35 @@ Deno.serve(async (req) => {
   if (ha > MAX_HA) return fail('boundary_too_large');
 
   try {
+    if (b.action === 'refresh' && !cdse) {
+      const days = Math.min(365, Math.max(30, Number(b.days) || 120));
+      const to = new Date(), from = new Date(to.getTime() - days * 86_400_000);
+      const scenes = (await searchScenes(poly, from.toISOString(), to.toISOString(), 60)).filter((x) => x.cloud < 80);
+      // Each scene is read once per boundary; a marker remembers cloudy ones too, so later refreshes only read new scenes.
+      const key = (x: Scene) => `s2:${farm.id}:${JSON.stringify(poly).length}:${x.id}`;
+      const { data: seen } = await admin.from('weather_cache').select('cache_key').in('cache_key', scenes.map(key));
+      const done = new Set((seen ?? []).map((r) => r.cache_key));
+      const todo = scenes.filter((x) => !done.has(key(x)));
+      const batch = todo.slice(0, 6);   // keeps one call inside the edge CPU budget; the rest are read on the next refresh
+      for (const x of batch) {
+        const g = await fieldNdvi(x, poly);
+        const st = g?.clear ? ndviStats(g) : null;
+        if (st && st.valid >= 20) {
+          const date = x.datetime.slice(0, 10);
+          const { error } = await admin.from('satellite_observations').upsert({
+            owner_id: who.uid, farm_id: farm.id, provider: EARTH_SEARCH, scene_id: `S2L2A:${date}`, acquired_at: x.datetime,
+            cloud_pct: Math.round((100 - st.valid) * 100) / 100, valid_pixel_pct: Math.round(st.valid * 100) / 100, resolution_m: 10,
+            ndvi_mean: Math.round(st.mean * 1000) / 1000, ndvi_min: Math.round(st.min * 1000) / 1000, ndvi_max: Math.round(st.max * 1000) / 1000,
+            stress_pct: Math.round(st.stress * 100) / 100,
+          }, { onConflict: 'farm_id,scene_id' });
+          if (error) throw error;
+        }
+        await admin.from('weather_cache').upsert({ cache_key: key(x), payload: { valid: st?.valid ?? 0 }, fetched_at: new Date().toISOString() });
+      }
+      const { data: obs } = await who.sb.from('satellite_observations').select('*').eq('farm_id', farm.id).order('acquired_at', { ascending: false }).limit(60);
+      return json({ configured: true, provider: EARTH_SEARCH, area_ha: Math.round(ha * 100) / 100, observations: obs ?? [], pending: todo.length - batch.length, fetched_at: new Date().toISOString() });
+    }
+
     if (b.action === 'refresh') {
       const days = Math.min(365, Math.max(30, Number(b.days) || 120));
       const to = new Date(), from = new Date(to.getTime() - days * 86_400_000);
@@ -105,7 +136,14 @@ Deno.serve(async (req) => {
       if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return fail('bad_request');
       const path = `${who.uid}/satellite/${farm.id}/${date}.png`;
       const { data: exists } = await admin!.storage.from('media').list(`${who.uid}/satellite/${farm.id}`, { search: `${date}.png` });
-      if (!exists?.length) {
+      if (!exists?.length && !cdse) {
+        const scenes = await searchScenes(poly, `${date}T00:00:00Z`, `${date}T23:59:59Z`, 5);
+        let best: Awaited<ReturnType<typeof fieldNdvi>> = null;
+        for (const x of scenes) { const g = await fieldNdvi(x, poly); if (g && (!best || g.clear > best.clear)) best = g; }
+        if (!best?.clear) return fail('not_found', 404);
+        const { error } = await admin!.storage.from('media').upload(path, await ndviPng(best), { contentType: 'image/png', upsert: true });
+        if (error) throw error;
+      } else if (!exists?.length) {
         const r = await timedFetch(`${SH}/process`, {
           method: 'POST', headers: { Authorization: `Bearer ${await cdseToken()}`, 'Content-Type': 'application/json', Accept: 'image/png' },
           body: JSON.stringify({ input: input(poly, `${date}T00:00:00Z`, `${date}T23:59:59Z`), output: { width: 512, height: 512, responses: [{ identifier: 'default', format: { type: 'image/png' } }] }, evalscript: IMAGE_SCRIPT }),
@@ -114,7 +152,7 @@ Deno.serve(async (req) => {
         const { error } = await admin!.storage.from('media').upload(path, new Uint8Array(await r.arrayBuffer()), { contentType: 'image/png', upsert: true });
         if (error) throw error;
       }
-      return json({ configured: true, path, date, provider: PROVIDER, resolution_m: 10 });
+      return json({ configured: true, path, date, provider: cdse ? PROVIDER : EARTH_SEARCH, resolution_m: 10 });
     }
     return fail('bad_request');
   } catch (e) {
