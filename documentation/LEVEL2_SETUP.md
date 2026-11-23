@@ -16,7 +16,7 @@ Level 2 adds the following:
 | Place names | OpenStreetMap Nominatim / Photon | none |
 | Maps | OpenStreetMap tiles | none |
 | AI (assistant, insights, planning, scans) | Gemini | `GEMINI_API_KEY` (already set) |
-| AI backup when Gemini fails or hits its quota | Free OpenRouter models: Nemotron 3 Ultra / ERNIE 5.5 Flash for text, Nemotron 3.5 Super VL / Nano Omni for photos, then `openrouter/free` (no voice: audio needs paid credit) | `OPENROUTER_API_KEY` (set) |
+| AI backup when Gemini fails or hits its quota | Free OpenRouter models: Nemotron 3 Ultra → ERNIE 5.5 Flash → Ling 3.2 Flash → Gemma 4 31B for text; Nemotron 3.5 Super VL → Gemma 4 31B → Ling 3.2 Flash for photos; then `openrouter/free` (no voice: audio needs paid credit) | `OPENROUTER_API_KEY` (set) |
 | Satellite NDVI (Sentinel-2 L2A, 10 m, cloud-masked) | Element 84 Earth Search + public COGs on AWS | none |
 | Sensor simulator | built in | none |
 

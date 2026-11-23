@@ -3,11 +3,11 @@
 type Part = { text: string } | { inline_data: { mime_type: string; data: string } };
 
 // Owner's model plan (23 Nov 2026). Gemini stays first everywhere: these free models took 10–22 s per answer
-// (Gemini: 1.5–5 s) and share a small daily quota, so they are the backup, in the owner's order per job.
-// Reasoning, recommendations, market insights → Nemotron 3 Ultra, then ERNIE 5.5 Flash; crop photos → Nemotron 3.5
-// Super VL, then Nemotron 3 Nano Omni; last resort → OpenRouter's free-model router.
-export const OR_TEXT = ['nvidia/nemotron-3-ultra-550b-a55b:free', 'baidu/ernie-5.5-flash-preview:free', 'inclusionai/ling-3.2-flash:free', 'openrouter/free'];
-export const OR_VISION = ['nvidia/nemotron-3.5-super-vl:free', 'nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free', 'inclusionai/ling-3.2-flash:free', 'openrouter/free'];
+// (Gemini: 1.5–5 s) and share a small daily quota, so they are the backup, in the owner's order per job:
+// Nemotron 3 Ultra (agricultural reasoning) → ERNIE 5.5 Flash (farming assistant) → Ling 3.2 Flash (multilingual)
+// → Gemma 4 31B (general); crop photos → Nemotron 3.5 Super VL, then Gemma 4 31B. Last resort: the free router.
+export const OR_TEXT = ['nvidia/nemotron-3-ultra-550b-a55b:free', 'baidu/ernie-5.5-flash-preview:free', 'inclusionai/ling-3.2-flash:free', 'google/gemma-4-31b-it:free', 'openrouter/free'];
+export const OR_VISION = ['nvidia/nemotron-3.5-super-vl:free', 'google/gemma-4-31b-it:free', 'inclusionai/ling-3.2-flash:free', 'openrouter/free'];
 
 /** Audio gets no backup: OpenRouter needs paid credit ($0.50 balance) for any audio input, even on free models. */
 export function modelsFor(parts: Part[]): string[] {
