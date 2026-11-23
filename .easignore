@@ -20,3 +20,9 @@ supabase/.temp/
 design_reference/
 tests/
 documentation/
+
+# Not part of the Android app
+desktop/
+firmware/
+tests/
+documentation/
