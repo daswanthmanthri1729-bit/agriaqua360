@@ -16,6 +16,7 @@ module.exports = defineConfig([
       'react-hooks/purity': 'warn',
       'react-hooks/immutability': 'warn',
       'react-hooks/refs': 'warn',
+      'react-hooks/preserve-manual-memoization': 'warn',
     },
   },
   {
