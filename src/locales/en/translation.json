@@ -29,7 +29,9 @@
     "none": "None",
     "updated": "Updated {{time}}",
     "remove": "Remove",
-    "offline": "You're offline. Showing saved data — saving changes needs internet."
+    "offline": "You're offline. Showing saved data — saving changes needs internet.",
+    "queued_one": "{{count}} record waiting to sync",
+    "queued_other": "{{count}} records waiting to sync"
   },
   "sectors": {
     "agriculture": "Agriculture",

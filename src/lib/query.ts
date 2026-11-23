@@ -52,3 +52,21 @@ export async function invoke<T>(name: string, body: Record<string, unknown>): Pr
   }
   return data as T;
 }
+
+// ---------- Offline-first inserts ----------
+// New records (readings, fish/animal records, money entries, soil tests, irrigation logs) are queued while offline,
+// kept across restarts, and sent once the phone is back online. Inserts only, so syncing never overwrites anyone's data.
+export const OFFLINE_INSERT = ['offlineInsert'] as const;
+export type OfflineRow = { table: string; row: Record<string, unknown> };
+queryClient.setMutationDefaults(OFFLINE_INSERT, {
+  mutationFn: ({ table, row }: OfflineRow) => must(supabase.from(table).insert(row)),
+  retry: 2,
+  onSuccess: () => queryClient.invalidateQueries(),
+});
+
+/** Save now when online; when offline, queue it and resolve immediately with 'queued'. */
+export async function saveRow(mutate: (v: OfflineRow) => Promise<unknown>, queue: (v: OfflineRow) => void, v: OfflineRow): Promise<'saved' | 'queued'> {
+  if (!onlineManager.isOnline()) { queue(v); return 'queued'; }
+  await mutate(v);
+  return 'saved';
+}

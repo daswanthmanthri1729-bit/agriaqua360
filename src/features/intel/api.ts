@@ -1,3 +1,4 @@
+import { useOfflineInsert } from '@/hooks/useOfflineInsert';
 // Level 2 intelligence data: market prices, harvest outlook, AI insights, NASA/SoilGrids, satellite, finance, schemes.
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { supabase } from '@/lib/supabase';
@@ -59,8 +60,7 @@ export const useSoilEstimate = (lat: number | null | undefined, lon: number | nu
 // ---------- soil tests ----------
 export const useSoilTests = (farmId: string | null) =>
   useQuery({ queryKey: ['soilTests', farmId], enabled: !!farmId, queryFn: () => must<SoilTest[]>(supabase.from('soil_tests').select('*').eq('farm_id', farmId!).order('tested_on', { ascending: false })) });
-export const useAddSoilTest = () =>
-  useMutation({ mutationFn: (s: Partial<SoilTest>) => must(supabase.from('soil_tests').insert(s)), onSuccess: () => invalidate('soilTests', 'insight') });
+export const useAddSoilTest = () => useOfflineInsert('soil_tests', (s: Partial<SoilTest>) => s);
 export const useDeleteSoilTest = () => useMutation({ mutationFn: (id: string) => must(supabase.from('soil_tests').delete().eq('id', id)), onSuccess: () => invalidate('soilTests') });
 
 // ---------- satellite ----------
@@ -82,8 +82,7 @@ export const useTransactions = (from: string, to: string) =>
   useQuery({ queryKey: ['tx', from, to], queryFn: () => must<FarmTransaction[]>(supabase.from('farm_transactions').select('*').gte('occurred_on', from).lte('occurred_on', to).order('occurred_on', { ascending: false }).limit(500)) });
 export const useFinanceSummary = (from: string, to: string) =>
   useQuery({ queryKey: ['tx', 'summary', from, to], queryFn: () => must<FinanceRow[]>(supabase.rpc('finance_summary', { p_from: from, p_to: to })) });
-export const useAddTransaction = () =>
-  useMutation({ mutationFn: (x: Partial<FarmTransaction>) => must(supabase.from('farm_transactions').insert(x)), onSuccess: () => invalidate('tx') });
+export const useAddTransaction = () => useOfflineInsert('farm_transactions', (x: Partial<FarmTransaction>) => x);
 export const useDeleteTransaction = () => useMutation({ mutationFn: (id: string) => must(supabase.from('farm_transactions').delete().eq('id', id)), onSuccess: () => invalidate('tx') });
 
 // ---------- schemes ----------
@@ -110,8 +109,5 @@ export const useTrackScheme = () =>
 
 // ---------- irrigation log (stored as completed crop_records 'irrigation' entries, litres) ----------
 export const useLogIrrigation = () =>
-  useMutation({
-    mutationFn: (p: { crop_id: string; date: string; litres: number | null; notes?: string }) =>
-      must(supabase.from('crop_records').insert({ crop_id: p.crop_id, activity: 'irrigation', scheduled_for: p.date, completed_at: new Date().toISOString(), quantity: p.litres, unit: p.litres != null ? 'L' : null, notes: p.notes || null })),
-    onSuccess: () => invalidate('records', 'dashboard'),
-  });
+  useOfflineInsert('crop_records', (p: { crop_id: string; date: string; litres: number | null; notes?: string }) =>
+    ({ crop_id: p.crop_id, activity: 'irrigation', scheduled_for: p.date, completed_at: new Date().toISOString(), quantity: p.litres, unit: p.litres != null ? 'L' : null, notes: p.notes || null }));

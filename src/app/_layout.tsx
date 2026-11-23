@@ -48,7 +48,7 @@ export default function RootLayout() {
   if (!ready) return null;
 
   return (
-    <PersistQueryClientProvider client={queryClient} persistOptions={persistOptions}>
+    <PersistQueryClientProvider client={queryClient} persistOptions={persistOptions} onSuccess={() => queryClient.resumePausedMutations()}>
       <SafeAreaProvider>
         <StatusBar style="dark" />
         <View style={{ flex: 1 }}>

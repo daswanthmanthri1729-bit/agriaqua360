@@ -1,3 +1,4 @@
+import { useOfflineInsert } from '@/hooks/useOfflineInsert';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { supabase } from '@/lib/supabase';
 import { must, queryClient, userId } from '@/lib/query';
@@ -106,8 +107,7 @@ export const useCompleteVaccination = () =>
 // ---------- Level 2: production records, collar location, geofences ----------
 export const useAnimalRecords = (animalId: string) =>
   useQuery({ queryKey: ['animalRecords', animalId], queryFn: () => must<AnimalRecord[]>(supabase.from('animal_records').select('*').eq('animal_id', animalId).order('recorded_on', { ascending: false }).limit(300)) });
-export const useAddAnimalRecord = () =>
-  useMutation({ mutationFn: (r: Partial<AnimalRecord>) => must(supabase.from('animal_records').insert(r)), onSuccess: () => queryClient.invalidateQueries({ queryKey: ['animalRecords'] }) });
+export const useAddAnimalRecord = () => useOfflineInsert('animal_records', (r: Partial<AnimalRecord>) => r);
 export const useDeleteAnimalRecord = () =>
   useMutation({ mutationFn: (id: string) => must(supabase.from('animal_records').delete().eq('id', id)), onSuccess: () => queryClient.invalidateQueries({ queryKey: ['animalRecords'] }) });
 export const useAnimalLocations = (animalId?: string) =>

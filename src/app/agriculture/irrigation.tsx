@@ -98,7 +98,7 @@ export default function Irrigation() {
         <View style={{ flexDirection: 'row', gap: 8, alignItems: 'flex-end' }}>
           <View style={{ flex: 1 }}><TextField label={t('irrigation.litresUsed')} keyboardType="number-pad" value={litres} onChangeText={setLitres} placeholder={advice?.litres ? String(advice.litres) : ''} /></View>
           <Button compact iconLeft="add" label={t('irrigation.logNow')} loading={log.isPending}
-            onPress={() => log.mutate({ crop_id: crop!.id, date: today(), litres: Number(litres) > 0 ? Number(litres) : null }, { onSuccess: () => setLitres(''), onError: () => Alert.alert(t('errors.generic')) })} />
+            onPress={() => log.mutateAsync({ crop_id: crop!.id, date: today(), litres: Number(litres) > 0 ? Number(litres) : null }).then(() => setLitres(''), () => Alert.alert(t('errors.generic')))} />
         </View>
         {water.length ? (
           <>

@@ -1,3 +1,4 @@
+import { useOfflineInsert } from '@/hooks/useOfflineInsert';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { supabase } from '@/lib/supabase';
 import { invoke, must, queryClient, userId } from '@/lib/query';
@@ -53,22 +54,15 @@ export const useReadings = (pondId?: string) =>
   });
 
 export const useAddReading = () =>
-  useMutation({
-    mutationFn: (input: ReadingInput) =>
-      must(supabase.from('water_quality_records').insert(blankToNull(input, PARAMS.map((p) => p.key)))),
-    onSuccess: () => invalidate('readings', 'ponds', 'aqua'),
-  });
+  useOfflineInsert('water_quality_records', (input: ReadingInput) => blankToNull(input, PARAMS.map((p) => p.key)));
 
 // ---------- fish records ----------
 export const useFishRecords = (pondId: string) =>
   useQuery({ queryKey: ['fish', pondId], queryFn: () => must<FishRecord[]>(supabase.from('fish_records').select('*').eq('pond_id', pondId).order('recorded_on', { ascending: false }).limit(100)) });
 
 export const useAddFishRecord = () =>
-  useMutation({
-    mutationFn: ({ pondId, input }: { pondId: string; input: FishRecordInput }) =>
-      must(supabase.from('fish_records').insert({ pond_id: pondId, ...blankToNull({ ...input, feed_type: input.feed_type || null, cause: input.cause ?? null }, ['quantity', 'avg_weight_g']) })),
-    onSuccess: () => invalidate('fish'),
-  });
+  useOfflineInsert('fish_records', ({ pondId, input }: { pondId: string; input: FishRecordInput }) =>
+    ({ pond_id: pondId, ...blankToNull({ ...input, feed_type: input.feed_type || null, cause: input.cause ?? null }, ['quantity', 'avg_weight_g']) }));
 
 // ---------- fish health ----------
 export const useFishReports = (pondId?: string) =>
